@@ -1,0 +1,10 @@
+{
+  "appId": "com.duodeka.app",
+  "appName": "App",
+  "bundledWebRuntime": true,
+  "npmClient": "yarn",
+  "webDir": "www",
+  "server": {
+    "url": "http://10.0.2.2:3000"
+  }
+}
