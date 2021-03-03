@@ -5,6 +5,6 @@
   "npmClient": "yarn",
   "webDir": "www",
   "server": {
-    "url": "http://10.0.2.2:3000"
+    "url": "https://app.amigosociety.com"
   }
 }
