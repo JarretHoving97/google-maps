@@ -18,11 +18,19 @@ android {
     }
 }
 
+android.defaultConfig.manifestPlaceholders = [
+  // change to the 'custom_url_scheme' value in your strings.xml. They need to be the same. e.g.
+  "appAuthRedirectScheme": "com.duodeka.app"
+]
+
 repositories {
     flatDir{
         dirs '../capacitor-cordova-android-plugins/src/main/libs', 'libs'
     }
+    mavenCentral()
+//    jcenter()
 }
+
 
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
@@ -34,6 +42,10 @@ dependencies {
     implementation project(':capacitor-cordova-android-plugins')
     implementation 'com.google.firebase:firebase-messaging:20.2.4'
     implementation 'com.google.firebase:firebase-analytics:17.5.0'
+//    implementation 'com.facebook.android:facebook-android-sdk:8.1.0'
+//    implementation 'com.facebook.android:facebook-login:8.1.0'
+    implementation 'com.facebook.android:facebook-login:4.42.0'
+    implementation 'com.google.android.gms:play-services-auth:19.0.0'
 }
 
 apply from: 'capacitor.build.gradle'

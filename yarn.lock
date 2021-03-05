@@ -2,6 +2,11 @@
 # yarn lockfile v1
 
 
+"@byteowls/capacitor-oauth2@^2.1.0":
+  version "2.1.0"
+  resolved "https://registry.yarnpkg.com/@byteowls/capacitor-oauth2/-/capacitor-oauth2-2.1.0.tgz#38dbbb853896a56a1fa49e5957684e69e4721874"
+  integrity sha512-LLdfKJXhOkm9Lu8eR+Dxi27FNdhAp3HsgVxdLOko96pBTBDpdmQ8LyFVTmLYhOWzIF20aKOp9awI3lE3/22KZA==
+
 "@capacitor/android@^2.4.2":
   version "2.4.2"
   resolved "https://registry.yarnpkg.com/@capacitor/android/-/android-2.4.2.tgz#ddc55bf0ea78214a0a760330a439916093792d00"

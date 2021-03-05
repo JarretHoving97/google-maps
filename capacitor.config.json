@@ -6,5 +6,11 @@
   "webDir": "www",
   "server": {
     "url": "https://app.amigosociety.com"
-  }
+  },
+  "plugins": {
+    "PushNotifications": {
+      "presentationOptions": ["badge", "sound", "alert"]
+    }
+  },
+  "linuxAndroidStudioPath": "/snap/bin/android-studio"
 }

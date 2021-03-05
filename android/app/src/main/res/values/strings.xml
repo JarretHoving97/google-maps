@@ -4,4 +4,6 @@
     <string name="title_activity_main">App</string>
     <string name="package_name">com.duodeka.app</string>
     <string name="custom_url_scheme">com.duodeka.app</string>
+    <string name="facebook_app_id">847512656058934</string>
+    <string name="fb_login_protocol_scheme">fb847512656058934</string>
 </resources>
