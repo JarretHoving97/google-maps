@@ -1,0 +1,16 @@
+{
+  "appId": "com.duodeka.app",
+  "appName": "App",
+  "bundledWebRuntime": true,
+  "npmClient": "yarn",
+  "webDir": "www",
+  "server": {
+    "url": "http://192.168.1.17:3000"
+  },
+  "plugins": {
+    "PushNotifications": {
+      "presentationOptions": ["badge", "sound", "alert"]
+    }
+  },
+  "linuxAndroidStudioPath": "/snap/bin/android-studio"
+}
