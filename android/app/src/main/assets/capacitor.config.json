@@ -1,11 +1,11 @@
 {
-  "appId": "com.duodeka.app",
+  "appId": "com.whoisup.app",
   "appName": "App",
   "bundledWebRuntime": true,
   "npmClient": "yarn",
   "webDir": "www",
   "server": {
-    "url": "http://192.168.1.17:3012"
+    "url": "https://app.amigosociety.com/"
   },
   "plugins": {
     "PushNotifications": {
