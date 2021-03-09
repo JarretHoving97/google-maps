@@ -3,7 +3,7 @@ apply plugin: 'com.android.application'
 android {
     compileSdkVersion rootProject.ext.compileSdkVersion
     defaultConfig {
-        applicationId "com.duodeka.app"
+        applicationId "com.whoisup.app"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 1
@@ -20,7 +20,7 @@ android {
 
 android.defaultConfig.manifestPlaceholders = [
   // change to the 'custom_url_scheme' value in your strings.xml. They need to be the same. e.g.
-  "appAuthRedirectScheme": "com.duodeka.app"
+  "appAuthRedirectScheme": "com.whoisup.app"
 ]
 
 repositories {
