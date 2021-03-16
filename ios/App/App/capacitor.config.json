@@ -5,7 +5,7 @@
   "npmClient": "yarn",
   "webDir": "www",
   "server": {
-    "url": "https://app.amigosociety.com/"
+    "url": "https://app.amigoapp.nl/"
   },
   "plugins": {
     "PushNotifications": {
