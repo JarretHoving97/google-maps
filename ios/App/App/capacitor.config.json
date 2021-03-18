@@ -12,5 +12,8 @@
       "presentationOptions": ["badge", "sound", "alert"]
     }
   },
+  "ios": {
+      "contentInset": "automatic"
+  },
   "linuxAndroidStudioPath": "/snap/bin/android-studio"
 }
