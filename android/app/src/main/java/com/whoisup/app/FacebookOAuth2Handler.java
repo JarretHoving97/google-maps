@@ -1,4 +1,4 @@
-package com.duodeka.app;
+package com.whoisup.app;
 
 import android.app.Activity;
 import android.util.Log;
