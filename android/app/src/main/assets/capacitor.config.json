@@ -7,7 +7,8 @@
   "server": {
     "allowNavigation": [
       "amigoapp.nl",
-      "*.amigoapp.nl"
+      "*.amigoapp.nl",
+      "*"
     ]
   },
   "plugins": {
