@@ -4,6 +4,6 @@
     <string name="title_activity_main">Amigo</string>
     <string name="package_name">com.whoisup.app</string>
     <string name="custom_url_scheme">com.whoisup.app</string>
-    <string name="facebook_app_id">847512656058934</string>
-    <string name="fb_login_protocol_scheme">fb847512656058934</string>
+    <string name="facebook_app_id">808769536355021</string>
+    <string name="fb_login_protocol_scheme">fb808769536355021</string>
 </resources>
