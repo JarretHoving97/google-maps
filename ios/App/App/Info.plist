@@ -29,16 +29,16 @@
 			</array>
 		</dict>
 		<dict>
-			<key>CFBundleURLSchemes</key>
+		<key>CFBundleURLSchemes</key>
 			<array>
-				<string>fb847512656058934</string>
+				<string>fb808769536355021</string>
 			</array>
 		</dict>
 	</array>
 	<key>CFBundleVersion</key>
 	<string>$(CURRENT_PROJECT_VERSION)</string>
 	<key>FacebookAppID</key>
-	<string>847512656058934</string>
+	<string>808769536355021</string>
 	<key>FacebookDisplayName</key>
 	<string>Amigo</string>
 	<key>LSApplicationQueriesSchemes</key>
