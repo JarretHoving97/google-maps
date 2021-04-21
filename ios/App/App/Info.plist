@@ -29,11 +29,17 @@
 			</array>
 		</dict>
 		<dict>
-		<key>CFBundleURLSchemes</key>
+			<key>CFBundleURLSchemes</key>
 			<array>
 				<string>fb808769536355021</string>
 			</array>
 		</dict>
+        <dict>
+            <key>CFBundleURLSchemes</key>
+            <array>
+                <string>com.whoisup.app</string>
+            </array>
+        </dict>
 	</array>
 	<key>CFBundleVersion</key>
 	<string>$(CURRENT_PROJECT_VERSION)</string>
