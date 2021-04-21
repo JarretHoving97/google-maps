@@ -1,6 +1,9 @@
 import UIKit
 import Capacitor
 import FBSDKCoreKit
+import FirebaseCore
+import FirebaseInstanceID
+import FirebaseMessaging
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -17,6 +20,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             didFinishLaunchingWithOptions: launchOptions
         )
 
+        FirebaseApp.configure()
+    
         return true
     }
           
@@ -84,6 +89,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
   #if USE_PUSH
 
   func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
+    Messaging.messaging().apnsToken = deviceToken
+    InstanceID.instanceID().instanceID { (result, error) in
+      if let error = error {
+        NotificationCenter.default.post(name: Notification.Name(CAPNotifications.DidFailToRegisterForRemoteNotificationsWithError.name()), object: error)
+      } else if let result = result {
+        NotificationCenter.default.post(name: Notification.Name(CAPNotifications.DidRegisterForRemoteNotificationsWithDeviceToken.name()), object: result.token)
+      }
+    }
     NotificationCenter.default.post(name: Notification.Name(CAPNotifications.DidRegisterForRemoteNotificationsWithDeviceToken.name()), object: deviceToken)
   }
 
