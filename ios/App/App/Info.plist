@@ -29,11 +29,25 @@
 			</array>
 		</dict>
 		<dict>
-		<key>CFBundleURLSchemes</key>
+			<key>CFBundleURLSchemes</key>
 			<array>
 				<string>fb808769536355021</string>
 			</array>
 		</dict>
+		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>com.googleusercontent.apps.362044847639-369lcm8omn4fc6ggc19g98m0ipvds3sl</string>
+			</array>
+		</dict>
+        <dict>
+            <key>CFBundleURLSchemes</key>
+            <array>
+                <string>com.whoisup.app</string>
+            </array>
+        </dict>
 	</array>
 	<key>CFBundleVersion</key>
 	<string>$(CURRENT_PROJECT_VERSION)</string>
