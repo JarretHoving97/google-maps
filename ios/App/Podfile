@@ -20,4 +20,6 @@ target 'App' do
   pod 'FacebookCore'
   pod 'FacebookLogin'
   # Add your Pods here
+  pod 'FirebaseCore'
+  pod 'Firebase/Messaging'
 end
