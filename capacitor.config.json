@@ -6,9 +6,9 @@
   "webDir": "www",
   "server": {
     "allowNavigation": [
-      "amigoapp.nl",
-      "*.amigoapp.nl",
-      "app.amigoapp.nl",
+      "amigosapp.nl",
+      "*.amigosapp.nl",
+      "app.amigosapp.nl",
       "com.whoisup.app"
     ]
   },
