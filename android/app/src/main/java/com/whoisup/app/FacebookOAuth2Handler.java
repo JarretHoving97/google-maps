@@ -24,10 +24,10 @@ public class FacebookOAuth2Handler implements OAuth2CustomHandler {
   public void getAccessToken(Activity activity, PluginCall pluginCall, final AccessTokenCallback callback) {
     AccessToken accessToken = AccessToken.getCurrentAccessToken();
 //    Profile profile = Profile.getCurrentProfile();
-    if (AccessToken.isCurrentAccessTokenActive()) {
-      callback.onSuccess(accessToken.getToken());
-//      Log.e("OK", profile.toString());
-    } else {
+//    if (AccessToken.isCurrentAccessTokenActive()) {
+//      callback.onSuccess(accessToken.getToken());
+//      Log.e("OK", "Current access token active");
+//    } else {
       LoginManager l = LoginManager.getInstance();
       String[] permissions = new String[] { "public_profile", "email" };
       l.logInWithReadPermissions(activity, Arrays.asList(permissions));
@@ -50,7 +50,7 @@ public class FacebookOAuth2Handler implements OAuth2CustomHandler {
           callback.onCancel();
         }
       });
-    }
+//    }
 
   }
 
