@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='utf-8'?>
 <resources>
-    <string name="app_name">Amigo</string>
-    <string name="title_activity_main">Amigo</string>
+    <string name="app_name">Amigos</string>
+    <string name="title_activity_main">Amigos</string>
     <string name="package_name">com.whoisup.app</string>
     <string name="custom_url_scheme">com.whoisup.app</string>
     <string name="facebook_app_id">808769536355021</string>
