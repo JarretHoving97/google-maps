@@ -10,9 +10,9 @@ import ByteowlsCapacitorOauth2
     }
 
     func getAccessToken(viewController: UIViewController, call: CAPPluginCall, success: @escaping (String) -> Void, cancelled: @escaping () -> Void, failure: @escaping (Error) -> Void) {
-        if let accessToken = AccessToken.current {
-            success(accessToken.tokenString)
-        } else {
+        // if let accessToken = AccessToken.current {
+        //     success(accessToken.tokenString)
+        // } else {
             DispatchQueue.main.async {
                 let loginManager = LoginManager()
                 // I only need the most basic permissions but others are available
@@ -27,7 +27,7 @@ import ByteowlsCapacitorOauth2
                     }
                 }
             }
-        }
+        // }
     }
 
     func logout(viewController: UIViewController, call: CAPPluginCall) -> Bool {
