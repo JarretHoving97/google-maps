@@ -16,7 +16,7 @@ import ByteowlsCapacitorOauth2
             DispatchQueue.main.async {
                 let loginManager = LoginManager()
                 // I only need the most basic permissions but others are available
-                loginManager.logIn(permissions: [ .publicProfil ], viewController: viewController) { result in
+                loginManager.logIn(permissions: [ .publicProfile, .email ], viewController: viewController) { result in
                     switch result {
                     case .success(_, _, let accessToken):
                         success(accessToken.tokenString)
