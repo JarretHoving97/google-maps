@@ -1,27 +1,38 @@
-async function connect() {
-  const navigate = () => {
-    window.location.href = 'https://app.amigosapp.nl';
-  };
+function navigate() {
+  window.location.href = 'https://app.amigosapp.nl';
+}
 
-  // if (navigator.onLine) {
-  //   navigate();
-  // }
+async function canConnect() {
+  if (navigator.onLine) {
+    return true;
+  }
 
-  return new Promise((resolve, reject) => {
-    fetch('https://google.com/', { mode: 'no-cors' })
-      .then(navigate)
+  return new Promise((resolve) => {
+    fetch('https://app.amigosapp.nl/', { mode: 'no-cors' })
+      .then(() => {
+        resolve(true);
+      })
       .catch(() => {
-        document.getElementById('status').innerHTML = 'There is no connection to the server';
         resolve(false);
       });
   });
 }
-
-connect();
-
-async function retry() {
+async function connect(init = false) {
   document.getElementById('status').innerHTML = 'Connecting...';
-  if (!(await connect())) {
-    alert("Can't connect to server");
+
+  const _canConnect = await canConnect();
+
+  if (_canConnect) {
+    navigate();
+  } else {
+    if (!init) {
+      alert("Can't connect to server");
+    }
+
+    document.getElementById('status').innerHTML = 'There is no connection to the server';
   }
 }
+
+connect(true);
+
+document.getElementById('retry-button').addEventListener('click', () => connect());
