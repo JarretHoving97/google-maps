@@ -28,6 +28,7 @@
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
                 <data android:scheme="https" android:host="app.amigosapp.nl" />
+                <data android:scheme="https" android:host="qa.app.amigosapp.nl" />
             </intent-filter>
 
             <intent-filter>
