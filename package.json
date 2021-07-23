@@ -4,7 +4,14 @@
   "description": "An Amazing Capacitor App",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+
+    "build-ios": "npx cap sync ios",
+    "build-android": "npx cap sync android",
+    "build-all": "npx cap sync",
+
+    "open-ios": "npx cap sync ios && npx cap open ios",
+    "open-android": "npx cap sync android && npx cap open android"
   },
   "keywords": [
     "capacitor",
