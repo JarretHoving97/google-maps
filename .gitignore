@@ -3,6 +3,15 @@ dist/*
 .cache/
 .vscode/
 
+# Editor directories and files
+.idea
+.vscode
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
 # Generated icons and splash images
 resources/android/icon
 resources/android/splash
