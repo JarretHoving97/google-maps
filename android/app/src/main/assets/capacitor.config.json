@@ -9,6 +9,7 @@
       "*.amigosapp.nl",
       "app.amigosapp.nl",
       "qa.app.amigosapp.nl",
+      "test.app.amigosapp.nl",
       "com.whoisup.app"
     ]
   },
