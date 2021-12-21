@@ -2,6 +2,7 @@ package com.whoisup.app;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.webkit.CookieManager;
 
 import com.byteowls.capacitor.oauth2.OAuth2ClientPlugin;
 import com.facebook.CallbackManager;
@@ -44,6 +45,13 @@ public class MainActivity extends BridgeActivity {
 
   public CallbackManager getCallbackManager() {
     return callbackManager;
+  }
+
+  @Override
+  public void onPause() {
+    super.onPause();
+
+    CookieManager.getInstance().flush();
   }
 
 }
