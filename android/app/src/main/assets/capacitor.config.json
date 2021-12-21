@@ -1,7 +1,7 @@
 {
   "appId": "com.whoisup.app",
   "appName": "App",
-  "bundledWebRuntime": true,
+  "bundledWebRuntime": false,
   "npmClient": "yarn",
   "webDir": "www",
   "server": {
@@ -19,7 +19,7 @@
     }
   },
   "ios": {
-      "contentInset": "automatic"
+    "contentInset": "automatic"
   },
   "linuxAndroidStudioPath": "/snap/bin/android-studio"
 }
