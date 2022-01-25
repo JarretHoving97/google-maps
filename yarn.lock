@@ -2,10 +2,9 @@
 # yarn lockfile v1
 
 
-"@byteowls/capacitor-oauth2@^2.1.0":
+"@byteowls/capacitor-oauth2@git+https://github.com/tafelnl/capacitor-oauth2.git#v2.1.1":
   version "2.1.0"
-  resolved "https://registry.yarnpkg.com/@byteowls/capacitor-oauth2/-/capacitor-oauth2-2.1.0.tgz#38dbbb853896a56a1fa49e5957684e69e4721874"
-  integrity sha512-LLdfKJXhOkm9Lu8eR+Dxi27FNdhAp3HsgVxdLOko96pBTBDpdmQ8LyFVTmLYhOWzIF20aKOp9awI3lE3/22KZA==
+  resolved "git+https://github.com/tafelnl/capacitor-oauth2.git#de078b18500b7888f0fa51b9ed6d2241c3f75b29"
 
 "@capacitor/android@^2.5.0":
   version "2.5.0"
