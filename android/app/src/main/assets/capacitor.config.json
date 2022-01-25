@@ -1,25 +1,26 @@
 {
-  "appId": "com.whoisup.app",
-  "appName": "App",
-  "bundledWebRuntime": false,
-  "npmClient": "yarn",
-  "webDir": "www",
-  "server": {
-    "allowNavigation": [
-      "*.amigosapp.nl",
-      "app.amigosapp.nl",
-      "qa.app.amigosapp.nl",
-      "test.app.amigosapp.nl",
-      "com.whoisup.app"
-    ]
-  },
-  "plugins": {
-    "PushNotifications": {
-      "presentationOptions": ["badge", "sound", "alert"]
-    }
-  },
-  "ios": {
-    "contentInset": "automatic"
-  },
-  "linuxAndroidStudioPath": "/snap/bin/android-studio"
+	"appId": "com.whoisup.app",
+	"appName": "Amigos",
+	"bundledWebRuntime": false,
+	"webDir": "www",
+	"server": {
+		"allowNavigation": [
+			"*.amigosapp.nl",
+			"app.amigosapp.nl",
+			"qa.app.amigosapp.nl",
+			"com.whoisup.app"
+		]
+	},
+	"plugins": {
+		"PushNotifications": {
+			"presentationOptions": [
+				"badge",
+				"sound",
+				"alert"
+			]
+		}
+	},
+	"ios": {
+		"contentInset": "automatic"
+	}
 }

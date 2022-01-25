@@ -10,6 +10,13 @@ android {
 apply from: "../capacitor-cordova-android-plugins/cordova.variables.gradle"
 dependencies {
     implementation project(':byteowls-capacitor-oauth2')
+    implementation project(':capacitor-app')
+    implementation project(':capacitor-device')
+    implementation project(':capacitor-geolocation')
+    implementation project(':capacitor-keyboard')
+    implementation project(':capacitor-push-notifications')
+    implementation project(':capacitor-share')
+    implementation project(':capacitor-splash-screen')
 
 }
 

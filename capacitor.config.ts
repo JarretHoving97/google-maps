@@ -1,0 +1,26 @@
+import { CapacitorConfig } from '@capacitor/cli';
+
+const config: CapacitorConfig = {
+  appId: 'com.whoisup.app',
+  appName: 'Amigos',
+  bundledWebRuntime: false,
+  webDir: 'www',
+  server: {
+    allowNavigation: [
+      '*.amigosapp.nl',
+      'app.amigosapp.nl',
+      'qa.app.amigosapp.nl',
+      'com.whoisup.app',
+    ],
+  },
+  plugins: {
+    PushNotifications: {
+      presentationOptions: ['badge', 'sound', 'alert'],
+    },
+  },
+  ios: {
+    contentInset: 'automatic',
+  },
+};
+
+export default config;
