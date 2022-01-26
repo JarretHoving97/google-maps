@@ -18,6 +18,14 @@ public class MainActivity extends BridgeActivity {
   private CallbackManager callbackManager;
 
   @Override
+  public void onCreate(Bundle savedInstanceState) {
+    super.onCreate(savedInstanceState);
+    // Initialize Facebook SDK
+    FacebookSdk.sdkInitialize(this.getApplicationContext());
+    callbackManager = CallbackManager.Factory.create();
+  }
+
+  @Override
   protected void onActivityResult(int requestCode, int resultCode, Intent data) {
     super.onActivityResult(requestCode, resultCode, data);
     if (callbackManager.onActivityResult(requestCode, resultCode, data)) {

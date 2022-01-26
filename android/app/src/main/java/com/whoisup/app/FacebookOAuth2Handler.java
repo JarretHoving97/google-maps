@@ -23,18 +23,14 @@ public class FacebookOAuth2Handler implements OAuth2CustomHandler {
   @Override
   public void getAccessToken(Activity activity, PluginCall pluginCall, final AccessTokenCallback callback) {
     AccessToken accessToken = AccessToken.getCurrentAccessToken();
-//    Profile profile = Profile.getCurrentProfile();
-//    if (AccessToken.isCurrentAccessTokenActive()) {
-//      callback.onSuccess(accessToken.getToken());
-//      Log.e("OK", "Current access token active");
-//    } else {
+    if (AccessToken.isCurrentAccessTokenActive()) {
+      callback.onSuccess(accessToken.getToken());
+    } else {
       LoginManager l = LoginManager.getInstance();
-      String[] permissions = new String[] { "public_profile", "email" };
-      l.logInWithReadPermissions(activity, Arrays.asList(permissions));
-//      l.logInWithReadPermissions(activity, Collections.singletonList("public_profile"));
+      l.logInWithReadPermissions(activity, Collections.singletonList("public_profile"));
       l.setLoginBehavior(LoginBehavior.WEB_ONLY);
       l.setDefaultAudience(DefaultAudience.NONE);
-      l.registerCallback(((MainActivity) activity).getCallbackManager(), new FacebookCallback<LoginResult>() {
+      LoginManager.getInstance().registerCallback(((MainActivity) activity).getCallbackManager(), new FacebookCallback<LoginResult>() {
         @Override
         public void onSuccess(LoginResult loginResult) {
           callback.onSuccess(loginResult.getAccessToken().getToken());
@@ -50,8 +46,7 @@ public class FacebookOAuth2Handler implements OAuth2CustomHandler {
           callback.onCancel();
         }
       });
-//    }
-
+    }
   }
 
   @Override
