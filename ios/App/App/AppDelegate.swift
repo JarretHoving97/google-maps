@@ -78,6 +78,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
   }
 
+  #if USE_PUSH
+
   func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
     Messaging.messaging().apnsToken = deviceToken
     Messaging.messaging().token(completion: { (token, error) in
