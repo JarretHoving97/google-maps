@@ -7,6 +7,13 @@
   resolved "https://registry.yarnpkg.com/@byteowls/capacitor-oauth2/-/capacitor-oauth2-3.0.1.tgz#7524b73fb6824846927b3e1f9196809179d97fc5"
   integrity sha512-VE5oOeben+AcCvlfYSQGxaXcVzqJMDtNc5/8SntyMPlotOSDIP6DjDO1iI9k7nJ2t27xQL5VQucxg7+LgrZyPA==
 
+"@capacitor-community/google-maps@github:DutchConcepts/capacitor-google-maps#v2.0.0-beta.2":
+  version "2.0.0-beta.1"
+  resolved "https://codeload.github.com/DutchConcepts/capacitor-google-maps/tar.gz/87eb3c1b3f15e54660b0ed55c233752388086a7f"
+  dependencies:
+    "@capacitor/cli" "^3.0.0"
+    "@capacitor/core" "^3.0.0"
+
 "@capacitor/android@^3.4.0":
   version "3.4.0"
   resolved "https://registry.yarnpkg.com/@capacitor/android/-/android-3.4.0.tgz#0331f9f286fdf3f351ef2783c2f1e9c113d423e8"
@@ -16,6 +23,28 @@
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/@capacitor/app/-/app-1.1.0.tgz#33a993a1f78723dad1f75bd949d15ba87de8279f"
   integrity sha512-CjcMLThYfPBGBexb6Xy98MHA9olduS0OL0X8Ot9z9x5RN/Cx5K5OmlZkGMKOncR2R1h2n/whdO5tmDbjeqS6tw==
+
+"@capacitor/cli@^3.0.0":
+  version "3.4.3"
+  resolved "https://registry.yarnpkg.com/@capacitor/cli/-/cli-3.4.3.tgz#15a14cbd9574980da5f9f04b6ce8623455784c6e"
+  integrity sha512-mu2pGoIh/OapMzWwXGXUlOmapXthW9XcHGERpZxNE45aBEYC9eTJWmbcXVlJuyx/9GFnnV+pXjGl3i0grci/Zw==
+  dependencies:
+    "@ionic/cli-framework-output" "^2.2.1"
+    "@ionic/utils-fs" "^3.1.5"
+    "@ionic/utils-subprocess" "^2.1.6"
+    "@ionic/utils-terminal" "^2.3.0"
+    commander "^6.0.0"
+    debug "^4.2.0"
+    env-paths "^2.2.0"
+    kleur "^4.1.1"
+    native-run "^1.5.0"
+    open "^7.4.2"
+    plist "^3.0.2"
+    prompts "^2.3.2"
+    semver "^7.3.2"
+    tar "^6.1.11"
+    tslib "^2.1.0"
+    xml2js "^0.4.23"
 
 "@capacitor/cli@^3.4.0":
   version "3.4.0"
@@ -38,6 +67,13 @@
     tar "^6.1.11"
     tslib "^2.1.0"
     xml2js "^0.4.23"
+
+"@capacitor/core@^3.0.0":
+  version "3.4.3"
+  resolved "https://registry.yarnpkg.com/@capacitor/core/-/core-3.4.3.tgz#3cf343b7035f1f6f9b73854dfb828600cd8a5e07"
+  integrity sha512-drfu0IiDMyeJtL4QALQgNFqdgN19DZJkbKh945eXyK44Sk2YkFXUs7Ewq1ZlVI30QF79mHGuM13oZeki0gv5Tw==
+  dependencies:
+    tslib "^2.1.0"
 
 "@capacitor/core@^3.4.0":
   version "3.4.0"
