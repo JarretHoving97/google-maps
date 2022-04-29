@@ -7,9 +7,9 @@
   resolved "https://registry.yarnpkg.com/@byteowls/capacitor-oauth2/-/capacitor-oauth2-3.0.1.tgz#7524b73fb6824846927b3e1f9196809179d97fc5"
   integrity sha512-VE5oOeben+AcCvlfYSQGxaXcVzqJMDtNc5/8SntyMPlotOSDIP6DjDO1iI9k7nJ2t27xQL5VQucxg7+LgrZyPA==
 
-"@capacitor-community/google-maps@github:DutchConcepts/capacitor-google-maps#v2.0.0-beta.2":
+"@capacitor-community/google-maps@github:DutchConcepts/capacitor-google-maps#v2.0.0-beta.3":
   version "2.0.0-beta.1"
-  resolved "https://codeload.github.com/DutchConcepts/capacitor-google-maps/tar.gz/87eb3c1b3f15e54660b0ed55c233752388086a7f"
+  resolved "https://codeload.github.com/DutchConcepts/capacitor-google-maps/tar.gz/036878c8ceed16b31a5c5b001dd969c335172c5e"
   dependencies:
     "@capacitor/cli" "^3.0.0"
     "@capacitor/core" "^3.0.0"
