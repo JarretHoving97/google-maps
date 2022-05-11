@@ -21,6 +21,6 @@
 		}
 	},
 	"ios": {
-		"contentInset": "automatic"
+		"contentInset": "never"
 	}
 }
