@@ -10,6 +10,7 @@ const config: CapacitorConfig = {
       '*.amigosapp.nl',
       'app.amigosapp.nl',
       'qa.app.amigosapp.nl',
+      'client.qa.app.amigosapp.nl',
       'com.whoisup.app',
     ],
   },
