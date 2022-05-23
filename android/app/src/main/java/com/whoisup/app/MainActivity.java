@@ -16,6 +16,8 @@ public class MainActivity extends BridgeActivity {
   @Override
   public void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
+    // Initialize OfflinePlugin;
+    registerPlugin(OfflinePlugin.class);
     // Initialize Facebook SDK
     FacebookSdk.sdkInitialize(this.getApplicationContext());
     callbackManager = CallbackManager.Factory.create();
