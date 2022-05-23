@@ -6,6 +6,7 @@ const config: CapacitorConfig = {
   bundledWebRuntime: false,
   webDir: 'www',
   server: {
+    url: 'https://app.amigosapp.nl',
     allowNavigation: [
       '*.amigosapp.nl',
       'app.amigosapp.nl',
