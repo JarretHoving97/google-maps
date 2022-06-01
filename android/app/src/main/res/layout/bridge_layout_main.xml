@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@color/colorPrimary"
+    tools:context="com.getcapacitor.BridgeActivity"
+>
+    <View
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:background="@color/colorPrimary"/>
+
+    <RelativeLayout
+        android:id="@+id/offlineview"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:background="@color/colorPrimary"
+        android:visibility="invisible">
+        <TextView
+            android:id="@+id/offlineReloadLoadingLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="25dp"
+            android:layout_centerHorizontal="true"
+            android:text="Loading..."
+            android:visibility="invisible" />
+
+        <Button
+            android:id="@+id/offlineReloadButton"
+            style="?android:attr/borderlessButtonStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="75dp"
+            android:background="@drawable/rounded_button"
+            android:layout_centerHorizontal="true"
+            android:text="Reload" />
+    </RelativeLayout>
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/splash"
+        app:layout_anchor="@+id/offlineview"
+        app:layout_anchorGravity="center" />
+
+    <WebView
+        android:id="@+id/webview"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:background="@drawable/ic_transparent"/>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

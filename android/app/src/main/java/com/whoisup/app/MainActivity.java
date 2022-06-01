@@ -4,14 +4,10 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.webkit.CookieManager;
 
-import com.byteowls.capacitor.oauth2.OAuth2ClientPlugin;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookSdk;
 
 import com.getcapacitor.BridgeActivity;
-import com.getcapacitor.Plugin;
-
-import java.util.ArrayList;
 
 public class MainActivity extends BridgeActivity {
 
@@ -20,19 +16,11 @@ public class MainActivity extends BridgeActivity {
   @Override
   public void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
-
-    // Custom added for facebook
+    // Initialize OfflinePlugin;
+    registerPlugin(OfflinePlugin.class);
+    // Initialize Facebook SDK
     FacebookSdk.sdkInitialize(this.getApplicationContext());
     callbackManager = CallbackManager.Factory.create();
-
-    // Initializes the Bridge
-    this.init(savedInstanceState, new ArrayList<Class<? extends Plugin>>() {{
-      // Additional plugins you've installed go here
-      add(OAuth2ClientPlugin.class);
-      // Ex: add(TotallyAwesomePlugin.class);
-      add(com.byteowls.capacitor.oauth2.OAuth2ClientPlugin.class);
-
-    }});
   }
 
   @Override
