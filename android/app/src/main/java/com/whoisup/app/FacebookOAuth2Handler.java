@@ -8,7 +8,6 @@ import com.byteowls.capacitor.oauth2.handler.OAuth2CustomHandler;
 import com.facebook.AccessToken;
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
-import com.facebook.Profile;
 import com.facebook.login.DefaultAudience;
 import com.facebook.login.LoginBehavior;
 import com.facebook.login.LoginManager;
@@ -16,7 +15,6 @@ import com.facebook.login.LoginResult;
 import com.getcapacitor.PluginCall;
 
 import java.util.Arrays;
-import java.util.Collections;
 
 public class FacebookOAuth2Handler implements OAuth2CustomHandler {
 
@@ -27,7 +25,7 @@ public class FacebookOAuth2Handler implements OAuth2CustomHandler {
       callback.onSuccess(accessToken.getToken());
     } else {
       LoginManager l = LoginManager.getInstance();
-      l.logInWithReadPermissions(activity, Collections.singletonList("public_profile"));
+      l.logInWithReadPermissions(activity, Arrays.asList("public_profile", "email"));
       l.setLoginBehavior(LoginBehavior.WEB_ONLY);
       l.setDefaultAudience(DefaultAudience.NONE);
       LoginManager.getInstance().registerCallback(((MainActivity) activity).getCallbackManager(), new FacebookCallback<LoginResult>() {
