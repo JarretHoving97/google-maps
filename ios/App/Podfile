@@ -12,6 +12,7 @@ def capacitor_pods
   pod 'ByteowlsCapacitorOauth2', :path => '../../node_modules/@byteowls/capacitor-oauth2'
   pod 'CapacitorCommunityGoogleMaps', :path => '../../node_modules/@capacitor-community/google-maps'
   pod 'CapacitorApp', :path => '../../node_modules/@capacitor/app'
+  pod 'CapacitorCamera', :path => '../../node_modules/@capacitor/camera'
   pod 'CapacitorDevice', :path => '../../node_modules/@capacitor/device'
   pod 'CapacitorGeolocation', :path => '../../node_modules/@capacitor/geolocation'
   pod 'CapacitorKeyboard', :path => '../../node_modules/@capacitor/keyboard'
