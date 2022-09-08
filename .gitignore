@@ -11,6 +11,7 @@ dist/*
 *.njsproj
 *.sln
 *.sw?
+.DS_Store
 
 # Generated icons and splash images
 resources/android/icon
