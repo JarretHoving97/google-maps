@@ -249,7 +249,7 @@ buffer-crc32@~0.2.3:
   resolved "https://registry.yarnpkg.com/buffer-crc32/-/buffer-crc32-0.2.13.tgz#0d333e3f00eac50aa1454abd30ef8c2a5d9a7242"
   integrity sha1-DTM+PwDqxQqhRUq9MO+MKl2ackI=
 
-capacitor-secure-storage-plugin@^0.7.1:
+capacitor-secure-storage-plugin@0.7.1:
   version "0.7.1"
   resolved "https://registry.yarnpkg.com/capacitor-secure-storage-plugin/-/capacitor-secure-storage-plugin-0.7.1.tgz#8b646ebaf09658df144effd21f26eecf75529ea5"
   integrity sha512-fxuLh2PYaLw/AewRLpao4CnnWbXnCM3t8E624XrgvzAPk7vqVWXWE1/SV5kzSU0luaTLlZXuxcjx1KAtQi+c1A==
