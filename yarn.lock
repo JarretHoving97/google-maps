@@ -254,6 +254,11 @@ buffer-crc32@~0.2.3:
   resolved "https://registry.yarnpkg.com/buffer-crc32/-/buffer-crc32-0.2.13.tgz#0d333e3f00eac50aa1454abd30ef8c2a5d9a7242"
   integrity sha1-DTM+PwDqxQqhRUq9MO+MKl2ackI=
 
+capacitor-branch-deep-links@4.1.1:
+  version "4.1.1"
+  resolved "https://registry.yarnpkg.com/capacitor-branch-deep-links/-/capacitor-branch-deep-links-4.1.1.tgz#be73969a814aa0d188ed7fadcae137579e398147"
+  integrity sha512-52rAJGqFRKbkWC0XyunI+3MabGnbUEi8X09MywyNrOdRhu2Kw33aq354LhKW6SqwgkMcFxPHlXTsQd3yGJFD5w==
+
 capacitor-native-settings@0.2.1:
   version "0.2.1"
   resolved "https://registry.yarnpkg.com/capacitor-native-settings/-/capacitor-native-settings-0.2.1.tgz#93456ce38b9ec9c1dd025f11630b81a1dc44fe3b"

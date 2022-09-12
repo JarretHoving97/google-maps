@@ -21,11 +21,9 @@
 	<key>CFBundleURLTypes</key>
 	<array>
 		<dict>
-			<key>CFBundleURLName</key>
-			<string>com.getcapacitor.capacitor</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>capacitor</string>
+				<string>amigos</string>
 			</array>
 		</dict>
 		<dict>
@@ -34,12 +32,12 @@
 				<string>fb808769536355021</string>
 			</array>
 		</dict>
-        <dict>
-            <key>CFBundleURLSchemes</key>
-            <array>
-                <string>com.whoisup.app</string>
-            </array>
-        </dict>
+		<dict>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>com.whoisup.app</string>
+			</array>
+		</dict>
 	</array>
 	<key>CFBundleVersion</key>
 	<string>$(CURRENT_PROJECT_VERSION)</string>
@@ -107,5 +105,14 @@
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<true/>
+	<key>branch_app_domain</key>
+	<string>amigos.app.link</string>
+	<key>branch_key</key>
+	<string>key_live_kb2c6IwaUuoVIWLDnZgB7ipkxtjgUcBR</string>
+	<key>branch_universal_link_domein</key>
+	<array>
+		<string>amigos.app.link</string>
+		<string>amigos-alternate.app.link</string>
+	</array>
 </dict>
 </plist>

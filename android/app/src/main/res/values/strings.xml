@@ -6,4 +6,12 @@
     <string name="custom_url_scheme">com.whoisup.app</string>
     <string name="facebook_app_id">808769536355021</string>
     <string name="fb_login_protocol_scheme">fb808769536355021</string>
+
+    <string name="applink_host">amigos.app.link</string>
+    <string name="applink_host_alternate">amigos-alternate.app.link</string>
+    <string name="deeplink_scheme">amigos</string>
+    <string name="branch_key">key_live_kb2c6IwaUuoVIWLDnZgB7ipkxtjgUcBR</string>
+    <string name="branch_test_key">key_test_oaXb2GqjRteKM7Gtk3OfCcocsxikUoB0</string>
+    <bool name="branch_test_mode">false</bool>
+    <!-- set above to "true" to use test key -->
 </resources>

@@ -1,4 +1,4 @@
-apply plugin: 'com.android.application'
+ apply plugin: 'com.android.application'
 
 android {
     compileSdkVersion rootProject.ext.compileSdkVersion
@@ -9,6 +9,7 @@ android {
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        multiDexEnabled true
     }
     buildTypes {
         release {
@@ -46,6 +47,14 @@ dependencies {
 //    implementation 'com.facebook.android:facebook-login:8.1.0'
     implementation 'com.facebook.android:facebook-login:5.15.3'
     implementation 'com.google.android.gms:play-services-auth:19.0.0'
+
+    implementation 'com.android.support:multidex:1.0.3'
+
+    // Branch: required for all Android apps
+    implementation 'io.branch.sdk.android:library:5.0.15'
+
+    // Branch: required if your app is in the Google Play Store (tip: avoid using bundled play services libs)
+    implementation 'com.google.android.gms:play-services-ads-identifier:18.0.1' // GAID matching
 }
 
 apply from: 'capacitor.build.gradle'

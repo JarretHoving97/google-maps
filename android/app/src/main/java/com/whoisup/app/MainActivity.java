@@ -2,12 +2,15 @@ package com.whoisup.app;
 
 import android.content.Intent;
 import android.os.Bundle;
+
 import android.webkit.CookieManager;
 
 import com.facebook.CallbackManager;
 import com.facebook.FacebookSdk;
 
 import com.getcapacitor.BridgeActivity;
+
+import io.branch.referral.Branch;
 
 public class MainActivity extends BridgeActivity {
 
@@ -18,9 +21,19 @@ public class MainActivity extends BridgeActivity {
     super.onCreate(savedInstanceState);
     // Initialize OfflinePlugin;
     registerPlugin(OfflinePlugin.class);
+    registerPlugin(ExtendedBranchPlugin.class);
     // Initialize Facebook SDK
     FacebookSdk.sdkInitialize(this.getApplicationContext());
     callbackManager = CallbackManager.Factory.create();
+
+    // Branch object initialization
+    Branch.getAutoInstance(this);
+  }
+
+  @Override
+  protected void onNewIntent(Intent intent) {
+    this.setIntent(intent);
+    super.onNewIntent(intent);
   }
 
   @Override

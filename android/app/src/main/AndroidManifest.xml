@@ -4,6 +4,7 @@
     package="com.whoisup.app">
 
     <application
+        android:name="co.boundstate.BranchMultiDexApp"
         android:usesCleartextTraffic="true"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -25,6 +26,27 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
 
+            <!-- BEGIN BRANCH -->
+            <!-- Branch universal link domains -->
+            <intent-filter android:autoVerify="true">
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                <data
+                    android:scheme="http"
+                    android:host="@string/applink_host" />
+                <data
+                    android:scheme="https"
+                    android:host="@string/applink_host" />
+                <data
+                    android:scheme="http"
+                    android:host="@string/applink_host_alternate" />
+                <data
+                    android:scheme="https"
+                    android:host="@string/applink_host_alternate" />
+            </intent-filter>
+            <!-- END BRANCH -->
+
             <intent-filter android:autoVerify="true">
                 <action android:name="android.intent.action.VIEW" />
                 <category android:name="android.intent.category.DEFAULT" />
@@ -38,9 +60,17 @@
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
                 <data android:scheme="@string/custom_url_scheme" android:host="oauth" />
+                <data android:scheme="@string/deeplink_scheme"/>
             </intent-filter>
 
         </activity>
+
+        <!-- BEGIN BRANCH -->
+        <!-- Branch init -->
+        <meta-data android:name="io.branch.sdk.BranchKey" android:value="@string/branch_key" />
+        <meta-data android:name="io.branch.sdk.BranchKey.test" android:value="@string/branch_test_key" />
+        <meta-data android:name="io.branch.sdk.TestMode" android:value="@bool/branch_test_mode" />
+        <!-- END BRANCH -->
 
         <meta-data android:name="com.facebook.sdk.ApplicationId"
             android:value="@string/facebook_app_id"/>
