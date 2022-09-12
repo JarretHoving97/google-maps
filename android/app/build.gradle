@@ -55,6 +55,9 @@ dependencies {
 
     // Branch: required if your app is in the Google Play Store (tip: avoid using bundled play services libs)
     implementation 'com.google.android.gms:play-services-ads-identifier:18.0.1' // GAID matching
+
+    // Branch: optional
+    implementation 'androidx.browser:browser:1.3.0' // Chrome Tab matching (enables 100% guaranteed matching based on cookies)
 }
 
 apply from: 'capacitor.build.gradle'
