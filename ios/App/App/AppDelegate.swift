@@ -78,14 +78,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     return ApplicationDelegateProxy.shared.application(application, continue: userActivity, restorationHandler: restorationHandler)
   }
 
-    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+  override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
     super.touchesBegan(touches, with: event)
 
     let statusBarRect = UIApplication.shared.statusBarFrame
     guard let touchPoint = event?.allTouches?.first?.location(in: self.window) else { return }
 
     if statusBarRect.contains(touchPoint) {
-        NotificationCenter.default.post(name: .capacitorStatusBarTapped, object: nil)
+      NotificationCenter.default.post(name: .capacitorStatusBarTapped, object: nil)
     }
   }
 
