@@ -27,10 +27,10 @@ end
 
 target 'App' do
   capacitor_pods
-  #pod 'FBSDKLoginKit'
-  pod 'FacebookCore'
-  pod 'FacebookLogin'
-  # Add your Pods here
+  # Facebook Pods
+  pod 'FBSDKCoreKit'
+  pod 'FBSDKLoginKit'
+  # Firebase Pods
   pod 'FirebaseCore'
   pod 'Firebase/Messaging'
 end

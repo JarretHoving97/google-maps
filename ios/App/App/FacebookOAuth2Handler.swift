@@ -1,6 +1,6 @@
 import Foundation
-import FacebookCore
-import FacebookLogin
+import FBSDKCoreKit
+import FBSDKLoginKit
 import Capacitor
 import ByteowlsCapacitorOauth2
 
@@ -16,15 +16,17 @@ import ByteowlsCapacitorOauth2
             DispatchQueue.main.async {
                 let loginManager = LoginManager()
                 // I only need the most basic permissions but others are available
-                loginManager.logIn(permissions: [ .publicProfile, .email ], viewController: viewController) { result in
-                    switch result {
-                    case .success(_, _, let accessToken):
-                        success(accessToken.tokenString)
-                    case .failed(let error):
-                        failure(error)
-                    case .cancelled:
-                        cancelled()
+                loginManager.logIn(permissions: ["public_profile", "email"], from: viewController) { result, error in
+                    if let token = result?.token {
+                        return success(token.tokenString)
                     }
+                    if let error = error {
+                        return failure(error)
+                    }
+                    if (result?.isCancelled != nil) {
+                        return cancelled()
+                    }
+                    return cancelled()
                 }
             }
         // }

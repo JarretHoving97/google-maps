@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.webkit.CookieManager;
 
 import com.facebook.CallbackManager;
-import com.facebook.FacebookSdk;
 
 import com.getcapacitor.BridgeActivity;
 
@@ -22,8 +21,7 @@ public class MainActivity extends BridgeActivity {
     // Initialize OfflinePlugin;
     registerPlugin(OfflinePlugin.class);
     registerPlugin(ExtendedBranchPlugin.class);
-    // Initialize Facebook SDK
-    FacebookSdk.sdkInitialize(this.getApplicationContext());
+
     callbackManager = CallbackManager.Factory.create();
 
     // Branch object initialization

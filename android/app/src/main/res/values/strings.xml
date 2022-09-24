@@ -5,6 +5,7 @@
     <string name="package_name">com.whoisup.app</string>
     <string name="custom_url_scheme">com.whoisup.app</string>
     <string name="facebook_app_id">808769536355021</string>
+    <string name="facebook_client_token">d7d4ee324765b2d153e888dd5082cef3</string>
     <string name="fb_login_protocol_scheme">fb808769536355021</string>
 
     <string name="applink_host">amigos.app.link</string>
