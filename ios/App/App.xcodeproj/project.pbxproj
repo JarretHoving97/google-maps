@@ -12,6 +12,8 @@
 		3DE196A726307EF100994AB9 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3DE196A626307EF100994AB9 /* GoogleService-Info.plist */; };
 		4511D14428CB7D99001961E4 /* ExtendedBranchPlugin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4511D14328CB7D99001961E4 /* ExtendedBranchPlugin.swift */; };
 		4511D14728CB7F9C001961E4 /* ExtendedBranchPlugin.m in Sources */ = {isa = PBXBuildFile; fileRef = 4511D14628CB7F9C001961E4 /* ExtendedBranchPlugin.m */; };
+		45DDDB7228DC526D002BFCE9 /* ExtendedFacebookPlugin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45DDDB7128DC526D002BFCE9 /* ExtendedFacebookPlugin.swift */; };
+		45DDDB7428DC527A002BFCE9 /* ExtendedFacebookPlugin.m in Sources */ = {isa = PBXBuildFile; fileRef = 45DDDB7328DC527A002BFCE9 /* ExtendedFacebookPlugin.m */; };
 		50379B232058CBB4000EE86E /* capacitor.config.json in Resources */ = {isa = PBXBuildFile; fileRef = 50379B222058CBB4000EE86E /* capacitor.config.json */; };
 		504EC3081FED79650016851F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 504EC3071FED79650016851F /* AppDelegate.swift */; };
 		504EC30D1FED79650016851F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 504EC30B1FED79650016851F /* Main.storyboard */; };
@@ -29,6 +31,8 @@
 		4511D14328CB7D99001961E4 /* ExtendedBranchPlugin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtendedBranchPlugin.swift; sourceTree = "<group>"; };
 		4511D14528CB7F9C001961E4 /* App-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "App-Bridging-Header.h"; sourceTree = "<group>"; };
 		4511D14628CB7F9C001961E4 /* ExtendedBranchPlugin.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ExtendedBranchPlugin.m; sourceTree = "<group>"; };
+		45DDDB7128DC526D002BFCE9 /* ExtendedFacebookPlugin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtendedFacebookPlugin.swift; sourceTree = "<group>"; };
+		45DDDB7328DC527A002BFCE9 /* ExtendedFacebookPlugin.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ExtendedFacebookPlugin.m; sourceTree = "<group>"; };
 		50379B222058CBB4000EE86E /* capacitor.config.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = capacitor.config.json; sourceTree = "<group>"; };
 		504EC3041FED79650016851F /* App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = App.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		504EC3071FED79650016851F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -98,6 +102,8 @@
 				3D0E8A4925F65E9B0039E3FC /* FacebookOAuth2Handler.swift */,
 				4511D14328CB7D99001961E4 /* ExtendedBranchPlugin.swift */,
 				4511D14628CB7F9C001961E4 /* ExtendedBranchPlugin.m */,
+				45DDDB7128DC526D002BFCE9 /* ExtendedFacebookPlugin.swift */,
+				45DDDB7328DC527A002BFCE9 /* ExtendedFacebookPlugin.m */,
 				4511D14528CB7F9C001961E4 /* App-Bridging-Header.h */,
 			);
 			path = App;
@@ -243,9 +249,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				504EC3081FED79650016851F /* AppDelegate.swift in Sources */,
+				45DDDB7228DC526D002BFCE9 /* ExtendedFacebookPlugin.swift in Sources */,
 				4511D14428CB7D99001961E4 /* ExtendedBranchPlugin.swift in Sources */,
 				3D0E8A4A25F65E9B0039E3FC /* FacebookOAuth2Handler.swift in Sources */,
 				4511D14728CB7F9C001961E4 /* ExtendedBranchPlugin.m in Sources */,
+				45DDDB7428DC527A002BFCE9 /* ExtendedFacebookPlugin.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
