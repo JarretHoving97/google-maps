@@ -28,8 +28,8 @@ end
 target 'App' do
   capacitor_pods
   # Facebook Pods
-  pod 'FBSDKCoreKit'
-  pod 'FBSDKLoginKit'
+  pod 'FBSDKCoreKit', '~> 14.1.0'
+  pod 'FBSDKLoginKit', '~> 14.1.0'
   # Firebase Pods
   pod 'FirebaseCore'
   pod 'Firebase/Messaging'
