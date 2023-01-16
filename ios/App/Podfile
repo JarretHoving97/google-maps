@@ -31,6 +31,9 @@ target 'App' do
   pod 'FBSDKCoreKit', '~> 14.1.0'
   pod 'FBSDKLoginKit', '~> 14.1.0'
   # Firebase Pods
-  pod 'FirebaseCore'
-  pod 'Firebase/Messaging'
+  # For apps that use CocoaPods, the Firebase pod is deprecated in v9.0 and higher. 
+  # Instead, you need to reference product pods directly in your Podfile 
+  # (for example, FirebaseCore instead of Firebase/Core and FirebaseFirestore instead of Firebase/Firestore).
+  pod 'FirebaseMessaging'
+  pod 'FirebaseAnalytics'
 end

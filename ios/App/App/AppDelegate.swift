@@ -1,7 +1,7 @@
 import UIKit
 import Capacitor
 import FBSDKCoreKit
-import Firebase
+import FirebaseCore
 import FirebaseMessaging
 import Branch
 
