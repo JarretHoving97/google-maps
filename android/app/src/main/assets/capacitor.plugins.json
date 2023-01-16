@@ -4,6 +4,10 @@
 		"classpath": "com.byteowls.capacitor.oauth2.OAuth2ClientPlugin"
 	},
 	{
+		"pkg": "@capacitor-community/contacts",
+		"classpath": "getcapacitor.community.contacts.ContactsPlugin"
+	},
+	{
 		"pkg": "@capacitor-community/google-maps",
 		"classpath": "com.hemangkumar.capacitorgooglemaps.CapacitorGoogleMaps"
 	},

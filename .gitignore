@@ -11,6 +11,7 @@ dist/*
 *.njsproj
 *.sln
 *.sw?
+.yarn
 .DS_Store
 
 # Generated icons and splash images

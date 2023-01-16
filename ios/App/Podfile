@@ -10,6 +10,7 @@ def capacitor_pods
   pod 'Capacitor', :path => '../../node_modules/@capacitor/ios'
   pod 'CapacitorCordova', :path => '../../node_modules/@capacitor/ios'
   pod 'ByteowlsCapacitorOauth2', :path => '../../node_modules/@byteowls/capacitor-oauth2'
+  pod 'CapacitorCommunityContacts', :path => '../../node_modules/@capacitor-community/contacts'
   pod 'CapacitorCommunityGoogleMaps', :path => '../../node_modules/@capacitor-community/google-maps'
   pod 'CapacitorApp', :path => '../../node_modules/@capacitor/app'
   pod 'CapacitorCamera', :path => '../../node_modules/@capacitor/camera'

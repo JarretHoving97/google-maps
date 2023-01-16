@@ -12,6 +12,8 @@ PODS:
     - Capacitor
   - CapacitorCamera (1.3.1):
     - Capacitor
+  - CapacitorCommunityContacts (3.0.0):
+    - Capacitor
   - CapacitorCommunityGoogleMaps (2.0.0-beta.5):
     - Capacitor
     - GoogleMaps
@@ -148,6 +150,7 @@ DEPENDENCIES:
   - "CapacitorApp (from `../../node_modules/@capacitor/app`)"
   - CapacitorBranchDeepLinks (from `../../node_modules/capacitor-branch-deep-links`)
   - "CapacitorCamera (from `../../node_modules/@capacitor/camera`)"
+  - "CapacitorCommunityContacts (from `../../node_modules/@capacitor-community/contacts`)"
   - "CapacitorCommunityGoogleMaps (from `../../node_modules/@capacitor-community/google-maps`)"
   - "CapacitorCordova (from `../../node_modules/@capacitor/ios`)"
   - "CapacitorDevice (from `../../node_modules/@capacitor/device`)"
@@ -197,6 +200,8 @@ EXTERNAL SOURCES:
     :path: "../../node_modules/capacitor-branch-deep-links"
   CapacitorCamera:
     :path: "../../node_modules/@capacitor/camera"
+  CapacitorCommunityContacts:
+    :path: "../../node_modules/@capacitor-community/contacts"
   CapacitorCommunityGoogleMaps:
     :path: "../../node_modules/@capacitor-community/google-maps"
   CapacitorCordova:
@@ -227,6 +232,7 @@ SPEC CHECKSUMS:
   CapacitorApp: 6539a37b671391147dd0180e1483c051077254bf
   CapacitorBranchDeepLinks: 04e1483b22d701357841d06b22fa2cb1c5e52c49
   CapacitorCamera: 516a1d0d554357def17e85c8e492d5a983aab80f
+  CapacitorCommunityContacts: 13f18144d1f88d5ff60e179965c5235b28381fb2
   CapacitorCommunityGoogleMaps: 6be07a8bfa1426b240ec959441f2713822e08f1e
   CapacitorCordova: d4a821a58b9b14452b05c583b0e52379e45810e5
   CapacitorDevice: 793e3e66d5b27872e66e0e4079d0cd93b762872c
@@ -257,6 +263,6 @@ SPEC CHECKSUMS:
   SDWebImage: 9c36e66c8ce4620b41a7407698dda44211a96764
   SwiftKeychainWrapper: 807ba1d63c33a7d0613288512399cd1eda1e470c
 
-PODFILE CHECKSUM: 1d38199b90ebdfe4ab09f1a1d1f8cd163bf764ef
+PODFILE CHECKSUM: b4dbdf5feab145bdee9b12ff29536e912c83ab7f
 
 COCOAPODS: 1.11.3

@@ -19,6 +19,7 @@
   "license": "ISC",
   "dependencies": {
     "@byteowls/capacitor-oauth2": "3.0.1",
+    "@capacitor-community/contacts": "^3.0.0",
     "@capacitor-community/google-maps": "2.0.0-beta.5",
     "@capacitor/android": "3.6.0",
     "@capacitor/app": "1.1.1",
