@@ -23,6 +23,7 @@ dependencies {
     implementation project(':capacitor-storage')
     implementation project(':capacitor-branch-deep-links')
     implementation project(':capacitor-native-settings')
+    implementation project(':capacitor-rate-app')
     implementation project(':capacitor-secure-storage-plugin')
 
 }

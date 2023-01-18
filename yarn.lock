@@ -269,6 +269,11 @@ capacitor-native-settings@0.2.1:
   resolved "https://registry.yarnpkg.com/capacitor-native-settings/-/capacitor-native-settings-0.2.1.tgz#93456ce38b9ec9c1dd025f11630b81a1dc44fe3b"
   integrity sha512-tIDMaeq12Ebt0GbJEMLptzY3IDZvanUtBzMhGbqRoH4A134dL+AhaI9FsdcHENXEfhXU2xcP/4o3UwtFkrC7jg==
 
+capacitor-rate-app@2.0.0:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/capacitor-rate-app/-/capacitor-rate-app-2.0.0.tgz#2d7c6a39e6c1cece04698f2c54e005304a92e931"
+  integrity sha512-wqtmK7/mb34o5gp7eaWKudqx1xGwmXne4M2cPOdeO64ikfUXTHLtTfWd6kx2kzgm7yh9tNIXkKnqEwLvNT8cKQ==
+
 capacitor-secure-storage-plugin@0.7.1:
   version "0.7.1"
   resolved "https://registry.yarnpkg.com/capacitor-secure-storage-plugin/-/capacitor-secure-storage-plugin-0.7.1.tgz#8b646ebaf09658df144effd21f26eecf75529ea5"

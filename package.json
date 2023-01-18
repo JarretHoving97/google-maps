@@ -36,6 +36,7 @@
     "@capacitor/storage": "1.2.5",
     "capacitor-branch-deep-links": "4.1.1",
     "capacitor-native-settings": "0.2.1",
+    "capacitor-rate-app": "2.0.0",
     "capacitor-secure-storage-plugin": "0.7.1"
   },
   "devDependencies": {
