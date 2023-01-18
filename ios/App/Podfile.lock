@@ -12,7 +12,7 @@ PODS:
     - Capacitor
   - CapacitorCamera (1.3.1):
     - Capacitor
-  - CapacitorCommunityContacts (3.0.0):
+  - CapacitorCommunityContacts (3.0.1):
     - Capacitor
   - CapacitorCommunityGoogleMaps (2.0.0-beta.5):
     - Capacitor
@@ -232,7 +232,7 @@ SPEC CHECKSUMS:
   CapacitorApp: 6539a37b671391147dd0180e1483c051077254bf
   CapacitorBranchDeepLinks: 04e1483b22d701357841d06b22fa2cb1c5e52c49
   CapacitorCamera: 516a1d0d554357def17e85c8e492d5a983aab80f
-  CapacitorCommunityContacts: 13f18144d1f88d5ff60e179965c5235b28381fb2
+  CapacitorCommunityContacts: 341e704a93e734cceeb15fc2b3c04380ac69a2cb
   CapacitorCommunityGoogleMaps: 6be07a8bfa1426b240ec959441f2713822e08f1e
   CapacitorCordova: d4a821a58b9b14452b05c583b0e52379e45810e5
   CapacitorDevice: 793e3e66d5b27872e66e0e4079d0cd93b762872c
