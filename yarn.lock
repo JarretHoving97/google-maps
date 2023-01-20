@@ -7,15 +7,15 @@
   resolved "https://registry.yarnpkg.com/@byteowls/capacitor-oauth2/-/capacitor-oauth2-3.0.1.tgz#7524b73fb6824846927b3e1f9196809179d97fc5"
   integrity sha512-VE5oOeben+AcCvlfYSQGxaXcVzqJMDtNc5/8SntyMPlotOSDIP6DjDO1iI9k7nJ2t27xQL5VQucxg7+LgrZyPA==
 
-"@capacitor-community/contacts@^3.0.1":
-  version "3.0.1"
-  resolved "https://registry.yarnpkg.com/@capacitor-community/contacts/-/contacts-3.0.1.tgz#14f29f27d0e21550861cb80b422c857a56923a97"
-  integrity sha512-Sf8gWS58W2IaKvoUAQcrsaRagp2v5s+koVgr0SczrK272n8jbF0jAAed7Pg99mY3Z/aFvESn/v5MKwPWoNanpA==
+"@capacitor-community/contacts@3.0.2":
+  version "3.0.2"
+  resolved "https://registry.yarnpkg.com/@capacitor-community/contacts/-/contacts-3.0.2.tgz#fb7747c9953e732ac758c2279372a5c0e1aa38aa"
+  integrity sha512-8OgQjef/wnDdYkfcLeL7h2qLH/s/ZBgIZ4S+m9VOZnqfbZlgs+WPIHQTLWmmtpauO+7Nnq0M8M7j4O09Gq2v7A==
 
-"@capacitor-community/google-maps@2.0.0-beta.5":
-  version "2.0.0-beta.5"
-  resolved "https://registry.yarnpkg.com/@capacitor-community/google-maps/-/google-maps-2.0.0-beta.5.tgz#5a1a673b29b9727e9503970f2142f2849ff03db3"
-  integrity sha512-6fchH7/GSyW85XlgdiaisJIffz0d78+zORO0WaJZPt577jW3pPYH6uA1MxyFsCJbQDwD0wj02A+4yPx+5s1kOQ==
+"@capacitor-community/google-maps@2.0.0-beta.6":
+  version "2.0.0-beta.6"
+  resolved "https://registry.yarnpkg.com/@capacitor-community/google-maps/-/google-maps-2.0.0-beta.6.tgz#50e948b71ae61cfaf6b5001ba048e88c60f68906"
+  integrity sha512-QBYoA8NVFBtlQMK4AjgAY38Iy20U3/Wjk7XlgaIJLrranhECYAA1kMoCD9XTAnQfvvZZiFLze/nLbp1mOgdm5Q==
   dependencies:
     "@capacitor/cli" "^3.0.0"
     "@capacitor/core" "^3.0.0"
