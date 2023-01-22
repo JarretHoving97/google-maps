@@ -1,38 +1,51 @@
-## Created with Capacitor Create
+## Building
 
-This app was created using the `npx @capacitor/cli create` command, and comes with a very minimal shell for building an app.
+First specify the correct `server.url` in `capacitor.config.ts`. This can be the public url for the production or qa environment. E.g. `app.example.com` or `qa.app.example.com`. It can also be a local accessible url. E.g. `10.0.0.0:8080`. In the latter case you need to make sure that url is actually accessible from the device you are deploying the app to.
 
-### Running this App
+Then make sure you have ran `yarn` and `npx cap sync`.
 
-To run the App
+Next, copy the contents of `CustomMapViewController.swift` into `node_modules/@capacitor-community/google-maps/ios/Plugin/CustomMapViewController.swift`. This is a temporary workaround and should be resolved in the future.
 
-1. Modify the capacitor.config.json file to point at the correct IP:
-- In the iOS simulator localhost should be used
-- In the Android emulator 10.0.2.2 should be used (maps to localhost)
-- When running on an actual device <your local network IP> should be used
+Finally, you can deploy the app to a connected device or upload a binary to the stores.
 
-Note:
-- the device should be on the same network as your PC
-- the required ports should be open (3000 and 3012)
+### The `www` folder
 
-2. Build the frontend for Android OR iOS:
+This folder only exists because of legacy reasons. It can actually be safely deleted, except that capacitor requires a `www/index.html` file to exist to be able to run `npx cap copy` for example.
+
+Normally this folder would contain the built version of the app. But since we're serving the contents of the app with the help of `server.url`, we do not need this.
+
+Advantages of doing it like this are:
+
+- Easier updating (no native update needs to be done)
+- Cookies working like they should\*
+- Secure contexts working like it should\* (needed to be able to access certain web-apis)
+- No Cross Origin issues\*
+
+* These issues might be fixed in a newer version of Capacitor. Maybe as of v4.6.0
+
+Disavantages:
+
+- No offline support
+
+## Debugging
+
+A guide on debugging WebViews / Webpages on native platforms can be found here: https://ionicframework.com/docs/troubleshooting/debugging. The guide is tailored to Ionic, but most of its explanation is the same with any other framework.
+
+## Launch and Splash assets
+
+### iOS
+
+**Step 1:**
+
+Add `assets/icon.svg`
+
+**Step 2:**
 
 ```bash
-cd frontend
-yarn run android/ios
+# npm install -g capacitor-assets
+npx capacitor-assets generate --iconBackgroundColor '#FA7B1E' --splashBackgroundColor '#FA7B1E' --splashBackgroundColorDark '#FA7B1E' --iconBackgroundColorDark '#FA7B1E' --ios --logoSplashScale 1
 ```
 
-3. Synchronize the project and open the development environment (for Android OR iOS)
+### Android
 
-```bash
-npx cap copy android/ios
-npx cap open android/ios
-```
-
-4. Run the app on the emulator/simulator/device
-- On Android: press the play button on the top-right in Android Studio
-- on iOS: ?
-
-5. You should be able to debug the app:
-- For Android we use Chrome Inspector (chrome://inspect)
-- For iOS we use Safari Web Inspector (?)
+Follow tutorial in repository `splitt-capacitor`
