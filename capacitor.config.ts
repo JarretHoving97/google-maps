@@ -10,6 +10,7 @@ const config: CapacitorConfig = {
     allowNavigation: [
       '*.amigosapp.nl',
       'app.amigosapp.nl',
+      '*.test.app.amigosapp.nl',
       'qa.app.amigosapp.nl',
       'client.qa.app.amigosapp.nl',
       'com.whoisup.app',
