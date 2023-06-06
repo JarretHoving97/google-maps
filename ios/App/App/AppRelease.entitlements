@@ -11,8 +11,9 @@
 	<key>com.apple.developer.associated-domains</key>
 	<array>
 		<string>applinks:app.amigosapp.nl</string>
-		<string>amigos.app.link</string>
-		<string>amigos-alternate.app.link</string>
+		<string>applinks:qa.app.amigosapp.nl</string>
+		<string>applinks:amigos.app.link</string>
+		<string>applinks:amigos-alternate.app.link</string>
 	</array>
 </dict>
 </plist>
