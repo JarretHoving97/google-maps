@@ -17,10 +17,10 @@ public class MainActivity extends BridgeActivity {
 
   @Override
   public void onCreate(Bundle savedInstanceState) {
-    super.onCreate(savedInstanceState);
     // Initialize OfflinePlugin;
     registerPlugin(OfflinePlugin.class);
     registerPlugin(ExtendedBranchPlugin.class);
+    super.onCreate(savedInstanceState);
 
     callbackManager = CallbackManager.Factory.create();
 

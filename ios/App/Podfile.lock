@@ -1,44 +1,44 @@
 PODS:
   - Branch (1.45.2)
-  - ByteowlsCapacitorOauth2 (3.0.1):
+  - ByteowlsCapacitorOauth2 (4.0.2):
     - Capacitor
     - OAuthSwift (= 2.2.0)
-  - Capacitor (3.6.0):
+  - Capacitor (4.8.0):
     - CapacitorCordova
-  - CapacitorApp (1.1.1):
+  - CapacitorApp (4.1.1):
     - Capacitor
-  - CapacitorBranchDeepLinks (4.1.1):
+  - CapacitorBranchDeepLinks (5.0.0):
     - Branch
     - Capacitor
-  - CapacitorCamera (1.3.1):
+  - CapacitorCamera (4.1.5):
     - Capacitor
-  - CapacitorCommunityContacts (3.0.2):
+  - CapacitorCommunityContacts (4.0.3):
     - Capacitor
   - CapacitorCommunityGoogleMaps (2.0.0-beta.6):
     - Capacitor
     - GoogleMaps
     - SDWebImage
-  - CapacitorCordova (3.6.0)
-  - CapacitorDevice (1.1.2):
+  - CapacitorCordova (4.8.0)
+  - CapacitorDevice (4.1.0):
     - Capacitor
-  - CapacitorGeolocation (1.3.1):
+  - CapacitorGeolocation (4.1.0):
     - Capacitor
-  - CapacitorKeyboard (1.2.3):
+  - CapacitorKeyboard (4.1.1):
     - Capacitor
-  - CapacitorNativeSettings (0.2.1):
+  - CapacitorNativeSettings (4.0.3):
     - Capacitor
-  - CapacitorPushNotifications (1.0.9):
+  - CapacitorPreferences (4.0.2):
     - Capacitor
-  - CapacitorRateApp (2.0.0):
+  - CapacitorPushNotifications (4.1.2):
     - Capacitor
-  - CapacitorSecureStoragePlugin (0.7.1):
+  - CapacitorRateApp (3.0.0):
+    - Capacitor
+  - CapacitorSecureStoragePlugin (0.8.1):
     - Capacitor
     - SwiftKeychainWrapper
-  - CapacitorShare (1.1.2):
+  - CapacitorShare (4.1.1):
     - Capacitor
-  - CapacitorSplashScreen (1.2.2):
-    - Capacitor
-  - CapacitorStorage (1.2.5):
+  - CapacitorSplashScreen (4.2.0):
     - Capacitor
   - FBAEMKit (14.1.0):
     - FBSDKCoreKit_Basics (= 14.1.0)
@@ -159,12 +159,12 @@ DEPENDENCIES:
   - "CapacitorGeolocation (from `../../node_modules/@capacitor/geolocation`)"
   - "CapacitorKeyboard (from `../../node_modules/@capacitor/keyboard`)"
   - CapacitorNativeSettings (from `../../node_modules/capacitor-native-settings`)
+  - "CapacitorPreferences (from `../../node_modules/@capacitor/preferences`)"
   - "CapacitorPushNotifications (from `../../node_modules/@capacitor/push-notifications`)"
   - CapacitorRateApp (from `../../node_modules/capacitor-rate-app`)
   - CapacitorSecureStoragePlugin (from `../../node_modules/capacitor-secure-storage-plugin`)
   - "CapacitorShare (from `../../node_modules/@capacitor/share`)"
   - "CapacitorSplashScreen (from `../../node_modules/@capacitor/splash-screen`)"
-  - "CapacitorStorage (from `../../node_modules/@capacitor/storage`)"
   - FBSDKCoreKit (~> 14.1.0)
   - FBSDKLoginKit (~> 14.1.0)
   - FirebaseAnalytics
@@ -217,6 +217,8 @@ EXTERNAL SOURCES:
     :path: "../../node_modules/@capacitor/keyboard"
   CapacitorNativeSettings:
     :path: "../../node_modules/capacitor-native-settings"
+  CapacitorPreferences:
+    :path: "../../node_modules/@capacitor/preferences"
   CapacitorPushNotifications:
     :path: "../../node_modules/@capacitor/push-notifications"
   CapacitorRateApp:
@@ -227,29 +229,27 @@ EXTERNAL SOURCES:
     :path: "../../node_modules/@capacitor/share"
   CapacitorSplashScreen:
     :path: "../../node_modules/@capacitor/splash-screen"
-  CapacitorStorage:
-    :path: "../../node_modules/@capacitor/storage"
 
 SPEC CHECKSUMS:
   Branch: 1fc81857f63403d4682305088b11270719dca8db
-  ByteowlsCapacitorOauth2: 462d87933f497a6403962af022fd8a02f48f464e
-  Capacitor: 838de9244464702bc67e3d47e81c471b79500059
-  CapacitorApp: 6539a37b671391147dd0180e1483c051077254bf
-  CapacitorBranchDeepLinks: 04e1483b22d701357841d06b22fa2cb1c5e52c49
-  CapacitorCamera: 516a1d0d554357def17e85c8e492d5a983aab80f
-  CapacitorCommunityContacts: 930b88149a715775c340ec55706a06642a94d477
+  ByteowlsCapacitorOauth2: 86f9a61aa413119226b12aabc5d03f185e9e1d28
+  Capacitor: 6002aadd64492438e5242325025045235dcb7e84
+  CapacitorApp: acd42fe8561fe751ad5b5f459aa85e6acd7bee24
+  CapacitorBranchDeepLinks: b89845501569ad98f54ee1b7015244b8bce7e021
+  CapacitorCamera: 6f0777dbc5b9fbb59852567ba9ac3b0da2e4ee8f
+  CapacitorCommunityContacts: 02b674ca35a35c47d231caa7f346b39807b094ac
   CapacitorCommunityGoogleMaps: 7533664ae8fa5f79c2d57c81824318d74be36ee5
-  CapacitorCordova: d4a821a58b9b14452b05c583b0e52379e45810e5
-  CapacitorDevice: 793e3e66d5b27872e66e0e4079d0cd93b762872c
-  CapacitorGeolocation: 184809324d0bb80c664a157489127fd5db6be067
-  CapacitorKeyboard: 353a520309166f6cc26b3aa154a6c46c289aa40e
-  CapacitorNativeSettings: cb0dae8e4ae51f464b087fabeda725274e20c788
-  CapacitorPushNotifications: 5efe2b9e8f71995bb935ffed1d29539ad037dff2
-  CapacitorRateApp: cf686bfb12855c28aca913485fead9d3601535f8
-  CapacitorSecureStoragePlugin: bf68be6a20571effa2099e728bb6acfea6cd8aae
-  CapacitorShare: f1a8ffd3bba7d6113f53fb65aa47d61764c4640a
-  CapacitorSplashScreen: 466ab02fdfcfc0efdb6167631386289e82efe2c6
-  CapacitorStorage: 63255170c2f7e9f7363b3e5e015584e6d18f2969
+  CapacitorCordova: c6249dcb2cf04dd835c0e99df1df4b9c8ad997e2
+  CapacitorDevice: 63e8ef8837176b8caf67dc0717b8b1123754a955
+  CapacitorGeolocation: e792888b4eca5cf31ed984491b645d42666278cb
+  CapacitorKeyboard: 16121a97b56c8609ec518ebcdc64d6386c84e5c8
+  CapacitorNativeSettings: b6f40955945bc659f966a43fa54fc6be192d8f9b
+  CapacitorPreferences: 1d66dc32299f55ed632c5611f312878979275ea5
+  CapacitorPushNotifications: b59c99fb4041a4f2c450f9287d158cca48a788f0
+  CapacitorRateApp: f720ea3d26c6b3ef69969af65d5ffadd91b66ff8
+  CapacitorSecureStoragePlugin: e616d090177dfbf9754dd1bdb515a8f23855bf4e
+  CapacitorShare: 964682279c7ba28ac13c435de29e705a2ce8f487
+  CapacitorSplashScreen: 6b1c832e6f822ad1ef05073dc31dfeca02bc03a3
   FBAEMKit: a899515e45476027f73aef377b5cffadcd56ca3a
   FBSDKCoreKit: 24f8bc8d3b5b2a8c5c656a1329492a12e8efa792
   FBSDKCoreKit_Basics: 6e578c9bdc7aa1365dbbbde633c9ebb536bcaa98
@@ -269,6 +269,6 @@ SPEC CHECKSUMS:
   SDWebImage: 9c36e66c8ce4620b41a7407698dda44211a96764
   SwiftKeychainWrapper: 807ba1d63c33a7d0613288512399cd1eda1e470c
 
-PODFILE CHECKSUM: a287b493f998d948d0f82c956a2a4661a2da4ab4
+PODFILE CHECKSUM: 78d6d02165810fe98c38c33ff226c90d238ec400
 
-COCOAPODS: 1.11.3
+COCOAPODS: 1.12.1

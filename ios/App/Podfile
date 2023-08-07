@@ -1,4 +1,6 @@
-platform :ios, '12.0'
+require_relative '../../node_modules/@capacitor/ios/scripts/pods_helpers'
+
+platform :ios, '13.0'
 use_frameworks!
 
 # workaround to avoid Xcode caching of Pods that requires
@@ -17,10 +19,10 @@ def capacitor_pods
   pod 'CapacitorDevice', :path => '../../node_modules/@capacitor/device'
   pod 'CapacitorGeolocation', :path => '../../node_modules/@capacitor/geolocation'
   pod 'CapacitorKeyboard', :path => '../../node_modules/@capacitor/keyboard'
+  pod 'CapacitorPreferences', :path => '../../node_modules/@capacitor/preferences'
   pod 'CapacitorPushNotifications', :path => '../../node_modules/@capacitor/push-notifications'
   pod 'CapacitorShare', :path => '../../node_modules/@capacitor/share'
   pod 'CapacitorSplashScreen', :path => '../../node_modules/@capacitor/splash-screen'
-  pod 'CapacitorStorage', :path => '../../node_modules/@capacitor/storage'
   pod 'CapacitorBranchDeepLinks', :path => '../../node_modules/capacitor-branch-deep-links'
   pod 'CapacitorNativeSettings', :path => '../../node_modules/capacitor-native-settings'
   pod 'CapacitorRateApp', :path => '../../node_modules/capacitor-rate-app'
@@ -38,4 +40,9 @@ target 'App' do
   # (for example, FirebaseCore instead of Firebase/Core and FirebaseFirestore instead of Firebase/Firestore).
   pod 'FirebaseMessaging'
   pod 'FirebaseAnalytics'
+end
+
+
+post_install do |installer|
+  assertDeploymentTarget(installer)
 end

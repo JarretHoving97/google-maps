@@ -51,5 +51,5 @@
         android:id="@+id/webview"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:background="@drawable/ic_transparent"/>
+        android:background="@android:color/transparent"/>
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

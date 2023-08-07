@@ -14,7 +14,7 @@
       },
       "oauth_client": [
         {
-          "client_id": "362044847639-507ds9gtaqecvv4a5vt7v1komr8cd6oh.apps.googleusercontent.com",
+          "client_id": "362044847639-1e2admhqigc2eqtq8ee4mo54c920n45g.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "com.whoisup.app",
@@ -43,7 +43,7 @@
               "client_type": 2,
               "ios_info": {
                 "bundle_id": "com.whoisup.app",
-                "app_store_id": "com.whoisup.app"
+                "app_store_id": "1555857817"
               }
             }
           ]
