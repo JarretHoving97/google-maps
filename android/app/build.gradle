@@ -6,8 +6,8 @@ android {
         applicationId "com.whoisup.app"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 1080502
-        versionName "1.8.5"
+        versionCode 1090200
+        versionName "1.9.2"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         multiDexEnabled true
     }
