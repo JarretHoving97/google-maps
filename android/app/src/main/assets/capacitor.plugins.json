@@ -48,6 +48,10 @@
 		"classpath": "com.capacitorjs.plugins.splashscreen.SplashScreenPlugin"
 	},
 	{
+		"pkg": "@tafelnl/revenuecat-purchases-capacitor",
+		"classpath": "com.revenuecat.purchases.capacitor.PurchasesPlugin"
+	},
+	{
 		"pkg": "capacitor-branch-deep-links",
 		"classpath": "co.boundstate.BranchDeepLinks"
 	},

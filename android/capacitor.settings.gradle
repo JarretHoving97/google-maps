@@ -38,6 +38,9 @@ project(':capacitor-share').projectDir = new File('../node_modules/@capacitor/sh
 include ':capacitor-splash-screen'
 project(':capacitor-splash-screen').projectDir = new File('../node_modules/@capacitor/splash-screen/android')
 
+include ':tafelnl-revenuecat-purchases-capacitor'
+project(':tafelnl-revenuecat-purchases-capacitor').projectDir = new File('../node_modules/@tafelnl/revenuecat-purchases-capacitor/android')
+
 include ':capacitor-branch-deep-links'
 project(':capacitor-branch-deep-links').projectDir = new File('../node_modules/capacitor-branch-deep-links/android')
 
