@@ -1,44 +1,44 @@
 PODS:
-  - Branch (1.45.2)
-  - ByteowlsCapacitorOauth2 (4.0.2):
+  - BranchSDK (3.0.0)
+  - ByteowlsCapacitorOauth2 (5.0.0):
     - Capacitor
     - OAuthSwift (= 2.2.0)
-  - Capacitor (4.8.0):
+  - Capacitor (5.5.0):
     - CapacitorCordova
-  - CapacitorApp (4.1.1):
+  - CapacitorApp (5.0.6):
     - Capacitor
-  - CapacitorBranchDeepLinks (5.0.0):
-    - Branch
+  - CapacitorBranchDeepLinks (6.0.0):
+    - BranchSDK
     - Capacitor
-  - CapacitorCamera (4.1.5):
+  - CapacitorCamera (5.0.7):
     - Capacitor
-  - CapacitorCommunityContacts (4.0.3):
+  - CapacitorCommunityContacts (5.0.4):
     - Capacitor
   - CapacitorCommunityGoogleMaps (2.0.0-beta.7):
     - Capacitor
     - GoogleMaps
     - SDWebImage
-  - CapacitorCordova (4.8.0)
-  - CapacitorDevice (4.1.0):
+  - CapacitorCordova (5.5.0)
+  - CapacitorDevice (5.0.6):
     - Capacitor
-  - CapacitorGeolocation (4.1.0):
+  - CapacitorGeolocation (5.0.6):
     - Capacitor
-  - CapacitorKeyboard (4.1.1):
+  - CapacitorKeyboard (5.0.6):
     - Capacitor
-  - CapacitorNativeSettings (4.0.3):
+  - CapacitorNativeSettings (5.0.1):
     - Capacitor
-  - CapacitorPreferences (4.0.2):
+  - CapacitorPreferences (5.0.6):
     - Capacitor
-  - CapacitorPushNotifications (4.1.2):
+  - CapacitorPushNotifications (5.1.0):
     - Capacitor
-  - CapacitorRateApp (3.0.0):
+  - CapacitorRateApp (4.0.3):
     - Capacitor
-  - CapacitorSecureStoragePlugin (0.8.1):
+  - CapacitorSecureStoragePlugin (0.9.0):
     - Capacitor
     - SwiftKeychainWrapper
-  - CapacitorShare (4.1.1):
+  - CapacitorShare (5.0.6):
     - Capacitor
-  - CapacitorSplashScreen (4.2.0):
+  - CapacitorSplashScreen (5.0.6):
     - Capacitor
   - FBAEMKit (14.1.0):
     - FBSDKCoreKit_Basics (= 14.1.0)
@@ -148,7 +148,7 @@ PODS:
     - SDWebImage/Core (= 5.14.3)
   - SDWebImage/Core (5.14.3)
   - SwiftKeychainWrapper (4.0.1)
-  - TafelnlRevenuecatPurchasesCapacitor (6.1.0-capacitor4):
+  - TafelnlRevenuecatPurchasesCapacitor (6.1.0-capacitor5):
     - Capacitor
     - PurchasesHybridCommon (= 6.2.0)
 
@@ -179,7 +179,7 @@ DEPENDENCIES:
 
 SPEC REPOS:
   trunk:
-    - Branch
+    - BranchSDK
     - FBAEMKit
     - FBSDKCoreKit
     - FBSDKCoreKit_Basics
@@ -242,25 +242,25 @@ EXTERNAL SOURCES:
     :path: "../../node_modules/@tafelnl/revenuecat-purchases-capacitor"
 
 SPEC CHECKSUMS:
-  Branch: 1fc81857f63403d4682305088b11270719dca8db
-  ByteowlsCapacitorOauth2: 86f9a61aa413119226b12aabc5d03f185e9e1d28
-  Capacitor: 6002aadd64492438e5242325025045235dcb7e84
-  CapacitorApp: acd42fe8561fe751ad5b5f459aa85e6acd7bee24
-  CapacitorBranchDeepLinks: b89845501569ad98f54ee1b7015244b8bce7e021
-  CapacitorCamera: 6f0777dbc5b9fbb59852567ba9ac3b0da2e4ee8f
-  CapacitorCommunityContacts: 02b674ca35a35c47d231caa7f346b39807b094ac
+  BranchSDK: e9c0332b2655cf0357d93db479d07152b059e434
+  ByteowlsCapacitorOauth2: 9e7cdae2bf251463a6ad89493e27fb288bf694d7
+  Capacitor: 57890b363df14d5d2d5d8461aa23e886cb34da2a
+  CapacitorApp: 024e1b1bea5f883d79f6330d309bc441c88ad04a
+  CapacitorBranchDeepLinks: 6908a1bfec361ee740ab1b0f32defe623149df76
+  CapacitorCamera: 084b0b228bba7d00587910337b1c89e93b1d32ab
+  CapacitorCommunityContacts: 45de2477f7dc6265d267677939a2c75465d2ed87
   CapacitorCommunityGoogleMaps: 5ab4231f6b8947b61517d562d4eacf2e0ad1a055
-  CapacitorCordova: c6249dcb2cf04dd835c0e99df1df4b9c8ad997e2
-  CapacitorDevice: 63e8ef8837176b8caf67dc0717b8b1123754a955
-  CapacitorGeolocation: e792888b4eca5cf31ed984491b645d42666278cb
-  CapacitorKeyboard: 16121a97b56c8609ec518ebcdc64d6386c84e5c8
-  CapacitorNativeSettings: b6f40955945bc659f966a43fa54fc6be192d8f9b
-  CapacitorPreferences: 1d66dc32299f55ed632c5611f312878979275ea5
-  CapacitorPushNotifications: b59c99fb4041a4f2c450f9287d158cca48a788f0
-  CapacitorRateApp: f720ea3d26c6b3ef69969af65d5ffadd91b66ff8
-  CapacitorSecureStoragePlugin: e616d090177dfbf9754dd1bdb515a8f23855bf4e
-  CapacitorShare: 964682279c7ba28ac13c435de29e705a2ce8f487
-  CapacitorSplashScreen: 6b1c832e6f822ad1ef05073dc31dfeca02bc03a3
+  CapacitorCordova: 3d3908a3d208a11a75f9df3b18c4405c4de76e1d
+  CapacitorDevice: 2c968f98a1ec4d22357418c1521e7ddc46c675e6
+  CapacitorGeolocation: 7be5f77abc205c0efe319fff8587a7183e7b0240
+  CapacitorKeyboard: b978154b024a5f65e044908e37d15b7de58b9d12
+  CapacitorNativeSettings: 6e94ed3c0465206756f320df18efc52f053ce3c7
+  CapacitorPreferences: f03954bcb0ff09c792909e46bff88e3183c16b10
+  CapacitorPushNotifications: b31e326c6e4eb216a622041d6ca21a973f34943f
+  CapacitorRateApp: 896df7ec6a237fea72d1955e0cb26394654b00db
+  CapacitorSecureStoragePlugin: e91d7df060f2495a1acff9583641a6953e3aacba
+  CapacitorShare: cd41743331cb71d217c029de54b681cbd91e0fcc
+  CapacitorSplashScreen: 5fa2ab5e46cf5cc530cf16a51c80c7a986579ccd
   FBAEMKit: a899515e45476027f73aef377b5cffadcd56ca3a
   FBSDKCoreKit: 24f8bc8d3b5b2a8c5c656a1329492a12e8efa792
   FBSDKCoreKit_Basics: 6e578c9bdc7aa1365dbbbde633c9ebb536bcaa98
@@ -281,7 +281,7 @@ SPEC CHECKSUMS:
   RevenueCat: 1f3a5a1c3899cb27ef9279d77a01a807d489a240
   SDWebImage: 9c36e66c8ce4620b41a7407698dda44211a96764
   SwiftKeychainWrapper: 807ba1d63c33a7d0613288512399cd1eda1e470c
-  TafelnlRevenuecatPurchasesCapacitor: 5a50120abd9a937b4a34883aa00a19ea4908fe73
+  TafelnlRevenuecatPurchasesCapacitor: 4137567381d51ccde03faef6cdec10a3adbeb3bf
 
 PODFILE CHECKSUM: 3fb7fe60ef716f7454c6d566e5a3221e37d0513d
 

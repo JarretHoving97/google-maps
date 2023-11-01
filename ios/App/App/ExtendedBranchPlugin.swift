@@ -1,5 +1,5 @@
 import Capacitor
-import Branch
+import BranchSDK
 
 @objc(ExtendedBranchPlugin)
 public class ExtendedBranchPlugin: CAPPlugin {

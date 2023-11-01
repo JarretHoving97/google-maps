@@ -3,7 +3,7 @@ import Capacitor
 import FBSDKCoreKit
 import FirebaseCore
 import FirebaseMessaging
-import Branch
+import BranchSDK
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
