@@ -11,6 +11,9 @@ project(':capacitor-community-contacts').projectDir = new File('../node_modules/
 include ':capacitor-community-google-maps'
 project(':capacitor-community-google-maps').projectDir = new File('../node_modules/@capacitor-community/google-maps/android')
 
+include ':capacitor-community-privacy-screen'
+project(':capacitor-community-privacy-screen').projectDir = new File('../node_modules/@capacitor-community/privacy-screen/android')
+
 include ':capacitor-app'
 project(':capacitor-app').projectDir = new File('../node_modules/@capacitor/app/android')
 

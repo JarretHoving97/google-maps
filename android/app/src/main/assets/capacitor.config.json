@@ -15,6 +15,9 @@
 		]
 	},
 	"plugins": {
+		"PrivacyScreen": {
+			"enable": false
+		},
 		"PushNotifications": {
 			"presentationOptions": [
 				"badge",

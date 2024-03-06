@@ -17,6 +17,9 @@ const config: CapacitorConfig = {
     ],
   },
   plugins: {
+    PrivacyScreen: {
+      enable: false,
+    },
     PushNotifications: {
       presentationOptions: ['badge', 'sound', 'alert'],
     },
