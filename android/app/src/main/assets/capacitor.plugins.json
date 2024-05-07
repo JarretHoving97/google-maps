@@ -56,10 +56,6 @@
 		"classpath": "com.revenuecat.purchases.capacitor.PurchasesPlugin"
 	},
 	{
-		"pkg": "capacitor-branch-deep-links",
-		"classpath": "co.boundstate.BranchDeepLinks"
-	},
-	{
 		"pkg": "capacitor-native-settings",
 		"classpath": "nl.raphael.settings.NativeSettingsPlugin"
 	},

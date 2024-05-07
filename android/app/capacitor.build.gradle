@@ -23,7 +23,6 @@ dependencies {
     implementation project(':capacitor-share')
     implementation project(':capacitor-splash-screen')
     implementation project(':tafelnl-revenuecat-purchases-capacitor')
-    implementation project(':capacitor-branch-deep-links')
     implementation project(':capacitor-native-settings')
     implementation project(':capacitor-rate-app')
     implementation project(':capacitor-secure-storage-plugin')

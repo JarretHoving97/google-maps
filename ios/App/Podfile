@@ -25,7 +25,6 @@ def capacitor_pods
   pod 'CapacitorShare', :path => '../../node_modules/@capacitor/share'
   pod 'CapacitorSplashScreen', :path => '../../node_modules/@capacitor/splash-screen'
   pod 'TafelnlRevenuecatPurchasesCapacitor', :path => '../../node_modules/@tafelnl/revenuecat-purchases-capacitor'
-  pod 'CapacitorBranchDeepLinks', :path => '../../node_modules/capacitor-branch-deep-links'
   pod 'CapacitorNativeSettings', :path => '../../node_modules/capacitor-native-settings'
   pod 'CapacitorRateApp', :path => '../../node_modules/capacitor-rate-app'
   pod 'CapacitorSecureStoragePlugin', :path => '../../node_modules/capacitor-secure-storage-plugin'
@@ -33,6 +32,8 @@ end
 
 target 'App' do
   capacitor_pods
+  # Branch.io
+  pod 'BranchSDK', '~> 3.2.0'
   # Facebook Pods
   pod 'FBSDKCoreKit', '~> 14.1.0'
   pod 'FBSDKLoginKit', '~> 14.1.0'

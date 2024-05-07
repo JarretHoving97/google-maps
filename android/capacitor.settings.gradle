@@ -44,9 +44,6 @@ project(':capacitor-splash-screen').projectDir = new File('../node_modules/@capa
 include ':tafelnl-revenuecat-purchases-capacitor'
 project(':tafelnl-revenuecat-purchases-capacitor').projectDir = new File('../node_modules/@tafelnl/revenuecat-purchases-capacitor/android')
 
-include ':capacitor-branch-deep-links'
-project(':capacitor-branch-deep-links').projectDir = new File('../node_modules/capacitor-branch-deep-links/android')
-
 include ':capacitor-native-settings'
 project(':capacitor-native-settings').projectDir = new File('../node_modules/capacitor-native-settings/android')
 

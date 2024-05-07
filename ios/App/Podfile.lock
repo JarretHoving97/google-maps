@@ -1,14 +1,11 @@
 PODS:
-  - BranchSDK (3.0.0)
+  - BranchSDK (3.2.0)
   - ByteowlsCapacitorOauth2 (5.0.0):
     - Capacitor
     - OAuthSwift (= 2.2.0)
   - Capacitor (5.5.0):
     - CapacitorCordova
   - CapacitorApp (5.0.6):
-    - Capacitor
-  - CapacitorBranchDeepLinks (6.0.0):
-    - BranchSDK
     - Capacitor
   - CapacitorCamera (5.0.7):
     - Capacitor
@@ -155,10 +152,10 @@ PODS:
     - PurchasesHybridCommon (= 6.2.0)
 
 DEPENDENCIES:
+  - BranchSDK (~> 3.2.0)
   - "ByteowlsCapacitorOauth2 (from `../../node_modules/@byteowls/capacitor-oauth2`)"
   - "Capacitor (from `../../node_modules/@capacitor/ios`)"
   - "CapacitorApp (from `../../node_modules/@capacitor/app`)"
-  - CapacitorBranchDeepLinks (from `../../node_modules/capacitor-branch-deep-links`)
   - "CapacitorCamera (from `../../node_modules/@capacitor/camera`)"
   - "CapacitorCommunityContacts (from `../../node_modules/@capacitor-community/contacts`)"
   - "CapacitorCommunityGoogleMaps (from `../../node_modules/@capacitor-community/google-maps`)"
@@ -211,8 +208,6 @@ EXTERNAL SOURCES:
     :path: "../../node_modules/@capacitor/ios"
   CapacitorApp:
     :path: "../../node_modules/@capacitor/app"
-  CapacitorBranchDeepLinks:
-    :path: "../../node_modules/capacitor-branch-deep-links"
   CapacitorCamera:
     :path: "../../node_modules/@capacitor/camera"
   CapacitorCommunityContacts:
@@ -247,11 +242,10 @@ EXTERNAL SOURCES:
     :path: "../../node_modules/@tafelnl/revenuecat-purchases-capacitor"
 
 SPEC CHECKSUMS:
-  BranchSDK: e9c0332b2655cf0357d93db479d07152b059e434
+  BranchSDK: ffa2a71be00efb4cd6e54b55f46349750a5a7625
   ByteowlsCapacitorOauth2: 9e7cdae2bf251463a6ad89493e27fb288bf694d7
   Capacitor: 57890b363df14d5d2d5d8461aa23e886cb34da2a
   CapacitorApp: 024e1b1bea5f883d79f6330d309bc441c88ad04a
-  CapacitorBranchDeepLinks: 6908a1bfec361ee740ab1b0f32defe623149df76
   CapacitorCamera: 084b0b228bba7d00587910337b1c89e93b1d32ab
   CapacitorCommunityContacts: 45de2477f7dc6265d267677939a2c75465d2ed87
   CapacitorCommunityGoogleMaps: 5ab4231f6b8947b61517d562d4eacf2e0ad1a055
@@ -289,6 +283,6 @@ SPEC CHECKSUMS:
   SwiftKeychainWrapper: 807ba1d63c33a7d0613288512399cd1eda1e470c
   TafelnlRevenuecatPurchasesCapacitor: 4137567381d51ccde03faef6cdec10a3adbeb3bf
 
-PODFILE CHECKSUM: cfa4cf31af9700f208d7c83f0d5502269e3b6011
+PODFILE CHECKSUM: 0fa969f436528d8c3607b2bbf180add05b862772
 
-COCOAPODS: 1.12.1
+COCOAPODS: 1.15.2

@@ -9,8 +9,6 @@ import com.facebook.CallbackManager;
 
 import com.getcapacitor.BridgeActivity;
 
-import io.branch.referral.Branch;
-
 public class MainActivity extends BridgeActivity {
 
   private CallbackManager callbackManager;
@@ -19,13 +17,11 @@ public class MainActivity extends BridgeActivity {
   public void onCreate(Bundle savedInstanceState) {
     // Initialize OfflinePlugin;
     registerPlugin(OfflinePlugin.class);
+    registerPlugin(BranchDeepLinksPlugin.class);
     registerPlugin(ExtendedBranchPlugin.class);
     super.onCreate(savedInstanceState);
 
     callbackManager = CallbackManager.Factory.create();
-
-    // Branch object initialization
-    Branch.getAutoInstance(this);
   }
 
   @Override
