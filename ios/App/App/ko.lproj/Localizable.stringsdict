@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>message.polls.button.view-number-of-comments</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@comments@</string>
+		<key>comments</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>%d개 댓글</string>
+			<key>other</key>
+			<string>%d개 댓글</string>
+		</dict>
+	</dict>
+	<key>recording.presentation.name</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@recording@</string>
+		<key>recording</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>other</key>
+			<string>녹음(%d)</string>
+			<key>zero</key>
+			<string>녹음</string>
+			<key>one</key>
+			<string>녹음(%d)</string>
+		</dict>
+	</dict>
+	<key>reaction.authors.number-of-reactions</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@reactions@</string>
+		<key>reactions</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>zero</key>
+			<string>%d개 반응</string>
+			<key>one</key>
+			<string>%d개 반응</string>
+			<key>other</key>
+			<string>%d개 반응</string>
+		</dict>
+	</dict>
+	<key>message.unread.count</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@unread@</string>
+		<key>unread</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>zero</key>
+			<string>%d개 읽지 않음</string>
+			<key>one</key>
+			<string>%d개 읽지 않음</string>
+			<key>other</key>
+			<string>%d개 읽지 않음</string>
+		</dict>
+	</dict>
+	<key>message.search.number-of-results</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@results@</string>
+		<key>results</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>zero</key>
+			<string>%d개 결과</string>
+			<key>one</key>
+			<string>%d개 결과</string>
+			<key>other</key>
+			<string>%d개 결과</string>
+		</dict>
+	</dict>
+	<key>messageList.newMessages</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@messages@</string>
+		<key>messages</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>zero</key>
+			<string>새 메시지</string>
+			<key>one</key>
+			<string>새 메시지</string>
+			<key>other</key>
+			<string>새 메시지</string>
+		</dict>
+	</dict>
+	<key>messageList.typingIndicator.users</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%1$@%2$#@typing@</string>
+		<key>typing</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>zero</key>
+			<string> 입력 중...</string>
+			<key>one</key>
+			<string> 및 %2$d명 입력 중...</string>
+			<key>other</key>
+			<string> 및 %2$d명 입력 중...</string>
+		</dict>
+	</dict>
+	<key>message.threads.count</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@replies@</string>
+		<key>replies</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>zero</key>
+			<string>메시지 없음</string>
+			<key>one</key>
+			<string>%d개 메시지</string>
+			<key>other</key>
+			<string>%d개 메시지</string>
+		</dict>
+	</dict>
+</dict>
+</plist>

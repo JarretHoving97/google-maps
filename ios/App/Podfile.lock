@@ -146,6 +146,10 @@ PODS:
   - SDWebImage (5.14.3):
     - SDWebImage/Core (= 5.14.3)
   - SDWebImage/Core (5.14.3)
+  - SDWebImageSVGCoder (1.7.0):
+    - SDWebImage/Core (~> 5.6)
+  - SDWebImageSwiftUI (3.0.4):
+    - SDWebImage (~> 5.10)
   - SwiftKeychainWrapper (4.0.1)
   - TafelnlRevenuecatPurchasesCapacitor (6.1.0-capacitor5):
     - Capacitor
@@ -175,6 +179,8 @@ DEPENDENCIES:
   - FBSDKLoginKit (~> 14.1.0)
   - FirebaseAnalytics
   - FirebaseMessaging
+  - SDWebImageSVGCoder (~> 1.7)
+  - SDWebImageSwiftUI (~> 3.0)
   - "TafelnlRevenuecatPurchasesCapacitor (from `../../node_modules/@tafelnl/revenuecat-purchases-capacitor`)"
 
 SPEC REPOS:
@@ -199,6 +205,8 @@ SPEC REPOS:
     - PurchasesHybridCommon
     - RevenueCat
     - SDWebImage
+    - SDWebImageSVGCoder
+    - SDWebImageSwiftUI
     - SwiftKeychainWrapper
 
 EXTERNAL SOURCES:
@@ -280,9 +288,11 @@ SPEC CHECKSUMS:
   PurchasesHybridCommon: 8ac2a833eb1a27c4d0d8a352418f1eaa5f4fe68d
   RevenueCat: 1f3a5a1c3899cb27ef9279d77a01a807d489a240
   SDWebImage: 9c36e66c8ce4620b41a7407698dda44211a96764
+  SDWebImageSVGCoder: 15a300a97ec1c8ac958f009c02220ac0402e936c
+  SDWebImageSwiftUI: 824628d8220906aa101f62b39a7492edd138449d
   SwiftKeychainWrapper: 807ba1d63c33a7d0613288512399cd1eda1e470c
   TafelnlRevenuecatPurchasesCapacitor: 4137567381d51ccde03faef6cdec10a3adbeb3bf
 
-PODFILE CHECKSUM: 0fa969f436528d8c3607b2bbf180add05b862772
+PODFILE CHECKSUM: ba97e21cdbeb177ebc05f1ac2e100822693df925
 
 COCOAPODS: 1.15.2

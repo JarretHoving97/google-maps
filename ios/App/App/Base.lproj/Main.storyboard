@@ -1,18 +1,33 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="18122" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="22505" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="18093"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22504"/>
     </dependencies>
     <scenes>
-        <!--Custom Map View Controller-->
+        <!--Main-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="CustomMapViewController" customModule="CapacitorCommunityGoogleMaps" sceneMemberID="viewController"/>
+                <viewController storyboardIdentifier="Main" useStoryboardIdentifierAsRestorationIdentifier="YES" id="BYZ-38-t0r" userLabel="Main" customClass="CustomMapViewController" customModule="CapacitorCommunityGoogleMaps" sceneMemberID="viewController">
+                    <connections>
+                        <segue destination="WBL-jr-OtE" kind="show" id="PI8-HD-qHP"/>
+                    </connections>
+                </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-14" y="26"/>
+        </scene>
+        <!--Chat View Controller-->
+        <scene sceneID="S5a-0N-bsZ">
+            <objects>
+                <hostingController storyboardIdentifier="Chat" modalPresentationStyle="overFullScreen" useStoryboardIdentifierAsRestorationIdentifier="YES" id="WBL-jr-OtE" customClass="ChatViewController" customModule="App" customModuleProvider="target" sceneMemberID="viewController">
+                    <navigationItem key="navigationItem" id="mD6-YC-axe"/>
+                    <splitViewDetailSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+                </hostingController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Vpl-f0-GG5" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="724" y="26"/>
         </scene>
     </scenes>
 </document>

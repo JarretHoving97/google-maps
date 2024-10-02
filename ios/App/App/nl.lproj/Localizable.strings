@@ -1,0 +1,269 @@
+"channel.name.and" = "en";
+"channel.name.andXMore" = "en %@ meer";
+"channel.name.missing" = "GeenKanaal";
+"channel.item.empty-messages" = "Geen berichten";
+"channel.item.poll-someone-voted" = "%@ heeft gestemd:";
+"channel.item.poll-you-voted" = "Je hebt gestemd:";
+"channel.item.poll-someone-created" = "%@ heeft gemaakt:";
+"channel.item.poll-you-created" = "Je hebt gemaakt:";
+"channel.item.typing-singular" = "typt ...";
+"channel.item.typing-plural" = "typen ...";
+"channel.item.muted" = "Kanaal is gedempt";
+"channel.item.mute" = "Dempen";
+"channel.item.unmute" = "Dempen opheffen";
+"channel.name.direct-message" = "gebruiker";
+"channel.name.group" = "groep";
+
+"channel.no-content.title" = "Laten we beginnen met chatten";
+"channel.no-content.message" = "Wat dacht je ervan om je eerste bericht naar een vriend te sturen?";
+"channel.no-content.start" = "Start een chat";
+
+"message.actions.inline-reply" = "Beantwoorden";
+"message.actions.thread-reply" = "Reageren in thread";
+"message.actions.edit" = "Bewerken";
+"message.actions.copy" = "Kopiëren";
+"message.actions.delete" = "Verwijderen";
+"message.actions.pin" = "Vastpinnen";
+"message.actions.unpin" = "Losmaken";
+"message.actions.delete.confirmation-title" = "Bericht verwijderen";
+"message.actions.delete.confirmation-message" = "Weet je zeker dat je dit bericht permanent wilt verwijderen?";
+"message.actions.user-unblock" = "Deblokkeren";
+"message.actions.user-block" = "Blokkeren";
+"message.actions.user-unmute" = "Dempen opheffen";
+"message.actions.user-mute" = "Dempen";
+"message.actions.resend" = "Opnieuw verzenden";
+"message.actions.flag" = "Bericht markeren";
+"message.actions.mark-unread" = "Markeren als ongelezen";
+"message.actions.flag.confirmation-title" = "Bericht markeren";
+"message.actions.flag.confirmation-message" = "Wil je een kopie van dit bericht naar een moderator sturen voor verder onderzoek?";
+"message.actions.user-block.confirmation-message" = "Weet je zeker dat je deze gebruiker wilt blokkeren?";
+"message.actions.user-unblock.confirmation-message" = "Weet je zeker dat je deze gebruiker wilt deblokkeren?";
+
+"messageList.typingIndicator.typing-unknown" = "Iemand typt";
+
+"message.threads.reply" = "Reageren in thread";
+"message.threads.replies" = "Reacties in thread";
+"message.threads.replyWith" = "met %@";
+"message.threads.subtitle" = "met berichten";
+
+"message.gallery.photos" = "Foto's";
+"message.cell.pinnedBy" = "Vastgepind door";
+"message.cell.unknownPin" = "onbekend";
+"message.cell.edited" = "Bewerkt";
+"message.reactions.currentUser" = "Jij";
+
+"message.polls.button.addComment" = "Reactie toevoegen";
+"message.polls.button.updateComment" = "Je reactie bijwerken";
+"message.polls.button.endVote" = "Stemming beëindigen";
+"message.polls.button.seeMoreOptions" = "Bekijk %d meer opties";
+"message.polls.button.show-all" = "Alles tonen";
+"message.polls.button.suggestAnOption" = "Een optie voorstellen";
+"message.polls.button.viewResults" = "Resultaten bekijken";
+"message.polls.subtitle.selectOne" = "Selecteer één";
+"message.polls.subtitle.selectOneOrMore" = "Selecteer één of meer";
+"message.polls.subtitle.selectUpTo" = "Selecteer tot %d";
+"message.polls.subtitle.voteEnded" = "Stemming beëindigd";
+"message.polls.toolbar.comments-title" = "Poll opmerkingen";
+"message.polls.toolbar.options-title" = "Poll opties";
+"message.polls.toolbar.results-title" = "Poll resultaten";
+"message.polls.unknown-vote-author" = "Anoniem";
+"message.polls.votes" = "%d stemmen";
+
+"alert.actions.cancel" = "Annuleren";
+"alert.actions.delete" = "Verwijderen";
+"alert.actions.end" = "Beëindigen";
+"alert.actions.ok" = "OK";
+"alert.actions.discard-changes" = "Wijzigingen negeren";
+"alert.actions.delete-channel-title" = "Gesprek verwijderen";
+"alert.actions.delete-channel-message" = "Weet je zeker dat je dit gesprek wilt verwijderen?";
+"alert.actions.keep-editing" = "Doorgaan met bewerken";
+"alert.actions.send" = "Verzenden";
+"alert.error.title" = "Er is iets misgegaan.";
+"alert.error.message" = "De bewerking kon niet worden voltooid.";
+"alert.actions.mute-channel-title" = "Weet je zeker dat je dit wilt dempen";
+"alert.actions.unmute-channel-title" = "Weet je zeker dat je het dempen van dit wilt opheffen";
+"alert.actions.leave-group-title" = "Groep verlaten";
+"alert.actions.leave-group-message" = "Weet je zeker dat je deze groep wilt verlaten?";
+"alert.actions.leave-group-button" = "Verlaten";
+"alert.actions.view-info-title" = "Info bekijken";
+"alert.text-field.polls-new-option" = "Voer een nieuwe optie in";
+"alert.title.add-comment" = "Reactie toevoegen";
+"alert.title.end-poll" = "Niemand zal meer kunnen stemmen in deze poll.";
+"alert.title.suggest-an-option" = "Stel een optie voor";
+
+"message.only-visible-to-you" = "Alleen zichtbaar voor jou";
+"message.deleted-message-placeholder" = "Bericht verwijderd";
+
+"composer.title.edit" = "Bericht bewerken";
+"composer.title.reply" = "Antwoord op bericht";
+"composer.placeholder.message" = "Stuur een bericht";
+"composer.placeholder.slow-mode" = "Langzame modus";
+"composer.placeholder.giphy" = "Zoek GIFs";
+"composer.checkmark.direct-message-reply" = "Ook verzenden als direct bericht";
+"composer.checkmark.channel-reply" = "Ook verzenden in kanaal";
+"composer.picker.title" = "Kies bijlagetype: ";
+"composer.picker.file" = "Bestand";
+"composer.picker.media" = "Foto of video";
+"composer.picker.cancel" = "Annuleren";
+"composer.files.add-more" = "Meer bestanden toevoegen";
+"composer.images.no-access-library" = "Je hebt geen toegang verleend tot de fotobibliotheek.";
+"composer.images.access-settings" = "Wijzig in Instellingen";
+"composer.quoted.photo" = "Foto";
+"composer.quoted.video" = "Video";
+"composer.quoted.giphy" = "Giphy";
+"composer.polls.action-sheet-discard-title" = "Weet je zeker dat je je poll wilt weggooien?";
+"composer.polls.add-comment" = "Reactie toevoegen";
+"composer.polls.add-option" = "Optie toevoegen";
+"composer.polls.anonymous-poll" = "Anonieme poll";
+"composer.polls.askQuestion" = "Stel een vraag";
+"composer.polls.create-poll" = "Poll maken";
+"composer.polls.options" = "Opties";
+"composer.polls.question" = "Vraag";
+"composer.polls.maximum-votes-per-person" = "Maximaal aantal stemmen per persoon";
+"composer.polls.duplicate-option" = "Dit is al een optie";
+"composer.polls.multiple-answers" = "Meerdere antwoorden";
+"composer.polls.suggest-option" = "Stel een optie voor";
+"composer.polls.type-number-from-1-and-10" = "Typ een getal tussen 1 en 10";
+
+"composer.commands.giphy" = "Giphy";
+"composer.commands.mute" = "Dempen";
+"composer.commands.unmute" = "Dempen opheffen";
+"composer.commands.format.text" = "tekst";
+"composer.commands.format.username" = "@gebruikersnaam";
+
+"composer.suggestions.commands.header" = "Directe opdrachten";
+"message.sending.attachment-uploading-failed" = "UPLOADEN MISLUKT";
+
+"composer.recording.tip" = "Houd ingedrukt om op te nemen, laat los om te verzenden";
+"composer.recording.slide-to-cancel" = "Veeg om te annuleren";
+
+"attachment.max-size.title" = "Bijlagegrootte overschrijdt de limiet";
+"attachment.max-size.message" = "Selecteer alstublieft een kleinere bijlage.";
+
+"message.title.online" = "";
+"message.title.offline" = "";
+"message.title.group" = "%d leden, %d online";
+
+"message.file-attachment.error-preview" = "Er is een fout opgetreden bij het voorvertonen van het bestand.";
+"message.giphy-attachment.title" = "GIPHY";
+
+"message.search.title" = "Zoeken";
+"message.search.cancel" = "Annuleren";
+
+"message.bounce.title" = "Bericht is teruggestuurd";
+
+"current-selection" = "%d van %d";
+
+"attachment.max-size-exceeded" = "Bijlagegrootte overschrijdt de limiet.";
+"dates.time-ago-seconds-plural" = "voor het laatst %d seconden geleden gezien";
+"dates.time-ago-seconds-singular" = "voor het laatst één seconde geleden gezien";
+"dates.time-ago-minutes-singular" = "voor het laatst één minuut geleden gezien";
+"dates.time-ago-minutes-plural" = "voor het laatst %d minuten geleden gezien";
+"dates.time-ago-hours-singular" = "voor het laatst één uur geleden gezien";
+"dates.time-ago-hours-plural" = "voor het laatst %d uur geleden gezien";
+"dates.time-ago-days-singular" = "voor het laatst één dag geleden gezien";
+"dates.time-ago-days-plural" = "voor het laatst %d dagen geleden gezien";
+"dates.time-ago-weeks-singular" = "voor het laatst één week geleden gezien";
+"dates.time-ago-weeks-plural" = "voor het laatst %d weken geleden gezien";
+"dates.time-ago-months-singular" = "voor het laatst één maand geleden gezien";
+"dates.time-ago-months-plural" = "voor het laatst %d maanden geleden gezien";
+"dates.today" = "Vandaag";
+
+"chat-info.pinned-messages.title" = "Vastgepinde berichten";
+"chat-info.pinned-messages.empty-title" = "Geen vastgepinde berichten";
+"chat-info.pinned-messages.empty-desc" = "Houd een belangrijk bericht lang ingedrukt en kies 'Vastpinnen aan gesprek'.";
+
+"chat-info.files.title" = "Bestanden";
+"chat-info.files.empty-title" = "Geen bestanden";
+"chat-info.files.empty-desc" = "Bestanden verzonden in deze chat verschijnen hier.";
+
+"chat-info.media.title" = "Foto's & Video's";
+"chat-info.media.empty-title" = "Geen media";
+"chat-info.media.empty-desc" = "Foto's of video's verzonden in deze chat verschijnen hier.";
+
+"chat-info.mute.user" = "Gebruiker dempen";
+"chat-info.mute.group" = "Groep dempen";
+"chat-info.users.loadMore" = "%@ meer";
+
+"chat-info.rename.name" = "NAAM";
+"chat-info.rename.placeholder" = "Voeg een groepsnaam toe";
+
+"channel.item.audio" = "Audio";
+"channel.item.photo" = "Foto";
+"channel.item.video" = "Video";
+"channel.item.voice-message" = "Spraakbericht";
+
+// Custom
+"custom.contact" = "Contact";
+"custom.save" = "Opslaan";
+"custom.input.textarea.placeholder" = "Voer tekst in.";
+"custom.leaveAmigos" = "Amigos verlaten";
+"custom.cancel" = "Annuleren";
+"custom.iUnderstand" = "Ik begrijp het";
+"custom.upFor" = "In voor %@";
+"custom.wasUpFor" = "Was in voor %@";
+"custom.sendByYou" = "Jij:";
+"custom.today" = "Vandaag";
+"custom.yesterday" = "Gisteren";
+
+"custom.message.url.confirm.title" = "Je verlaat Amigos en navigeert naar:";
+
+"custom.channelList.empty" = "Hier worden chats tussen jou en andere amigos weergegeven.";
+"custom.channelList.title" = "Chats";
+
+"custom.messageList.typingIndicator.user" = "Aan het typen...";
+
+"custom.composer.voice.holdAndRelease" = "Houd ingedrukt om op te nemen, laat los om te verzenden";
+"custom.composer.voice.slideToCancel" = "Veeg om te annuleren";
+
+"custom.composer.attachment.super" = "Word een Super amigo om foto's te kunnen verzenden.";
+
+"custom.pinnedMessage.title" = "Vastgezet bericht";
+"custom.pinnedMessage.subtitle" = "Je kunt hier details toevoegen (zoals het adres) zodat iedereen het gemakkelijk kan vinden.";
+
+"custom.newMessagesIndicator.title" = "%d nieuwe berichten";
+
+"custom.safetyCheck.notice.title" = "Gebruikt %@ Amigos zoals bedoeld?";
+"custom.safetyCheck.review.sheet.title" = "Veiligheidscontrole";
+"custom.safetyCheck.review.sheet.subtitle" = "Geef aan wat deze amigo verkeerd doet. Bij te veel negatieve beoordelingen wordt deze amigo geblokkeerd.";
+"custom.safetyCheck.review.sheet.option.commercial" = "Gebruikt het voor commerciële doeleinden";
+"custom.safetyCheck.review.sheet.option.dating" = "Gebruikt het als datingapp";
+"custom.safetyCheck.review.sheet.option.inappropriateLanguage" = "Ongepast taalgebruik";
+"custom.safetyCheck.review.sheet.option.spam" = "Spam";
+"custom.safetyCheck.review.sheet.option.other" = "Anders";
+"custom.safetyCheck.info.sheet.title" = "Veiligheidscontrole";
+"custom.safetyCheck.info.sheet.receiver.examples.host" = "Voor het organiseren van activiteiten (samen)";
+"custom.safetyCheck.info.sheet.receiver.examples.join" = "Om aan te sluiten bij mensen die zin hebben in hetzelfde als jij";
+"custom.safetyCheck.info.sheet.receiver.examples.other" = "Als je Amigos voor andere doeleinden gebruikt, word je van het platform verwijderd";
+"custom.safetyCheck.info.sheet.receiver.subtitle" = "Gebruik Amigos alleen voor het beoogde doel.";
+"custom.safetyCheck.info.sheet.sender.examples.host" = "Voor het organiseren van activiteiten (samen)";
+"custom.safetyCheck.info.sheet.sender.examples.join" = "Om aan te sluiten bij mensen die zin hebben in hetzelfde als jij";
+"custom.safetyCheck.info.sheet.sender.subtitle" = "Omdat %@ deze chat is gestart, vragen we je te beoordelen of %@ Amigos gebruikt waarvoor het bedoeld is:";
+
+"custom.reactions.tapToRemove" = "Tik om te verwijderen";
+
+"custom.channel.emptyState.direct" = "Wanneer je een chat start, kunnen je berichten door de ontvanger worden beoordeeld.";
+"custom.channel.emptyState.group" = "Er zijn nog geen berichten in deze chat. Breek jij het ijs?";
+
+"custom.channel.superNotice" = "Alleen hosts en Super amigos kunnen een chat starten.\nTik hier en word Super amigo.";
+
+"custom.channel.action.delete.title" = "Chat en activiteit verwijderen";
+"custom.channel.action.delete.confirmation-body" = "Weet je zeker dat je de chat en activiteit wilt verwijderen?";
+"custom.channel.action.delete.confirmation-confirm" = "Verwijderen";
+
+"custom.channel.action.leave.title" = "Chat verlaten";
+"custom.channel.action.leave.confirmation-body" = "Weet je zeker dat je de chat wilt verlaten?";
+"custom.channel.action.leave.confirmation-confirm" = "Verlaten";
+
+"custom.channel.action.archive.title" = "Chat verwijderen";
+"custom.channel.action.archive.confirmation-body" = "Weet je zeker dat je de chat wilt verwijderen?";
+"custom.channel.action.archive.confirmation-confirm" = "Verwijderen";
+
+"custom.channel.action.mute.title" = "Meldingen uitschakelen";
+"custom.channel.action.unmute.title" = "Meldingen inschakelen";
+
+"custom.channel.action.profile.title" = "Profiel bekijken";
+"custom.channel.action.invite.title" = "Uitnodigen";
+"custom.channel.action.activity.title" = "Activiteit bekijken";
+"custom.channel.action.inviteAmigos.title" = "Vrienden uitnodigen";
+"custom.channel.action.manageParticipants.title" = "Deelnemers beheren";

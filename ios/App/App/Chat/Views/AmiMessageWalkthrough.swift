@@ -1,0 +1,30 @@
+import SwiftUI
+import StreamChat
+
+enum MessageWalkthroughType: String {
+    case OnboardingHowToHost = "layout.onboarding"
+    case OnboardingHowToJoin = "onboarding_how_to_host.system"
+    case OnboardingDefault = "onboarding_how_to_join.system"
+}
+
+struct AmiMessageWalkthrough: View {
+    public let type: MessageWalkthroughType
+    
+    var body: some View {
+        HStack {
+            if type == .OnboardingHowToHost {
+                AmiGifImage("walkthrough_03")
+                    .frame(width: 75, height: 152, alignment: .center)
+            } else if type == .OnboardingHowToJoin {
+                AmiGifImage("walkthrough_04")
+                    .frame(width: 75, height: 152, alignment: .center)
+            } else {
+                AmiGifImage("walkthrough_01")
+                    .frame(width: 75, height: 152, alignment: .center)
+            }
+        }
+        .frame(maxWidth: .infinity, minHeight: 152)
+        .padding(16)
+        .background(Color(hex: "#882CCF"))
+    }
+}

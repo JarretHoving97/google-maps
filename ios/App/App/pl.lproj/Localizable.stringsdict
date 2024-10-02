@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>message.polls.button.view-number-of-comments</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@comments@</string>
+		<key>comments</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>%d komentarz</string>
+			<key>other</key>
+			<string>%d komentarze</string>
+		</dict>
+	</dict>
+	<key>recording.presentation.name</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@recording@</string>
+		<key>recording</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>other</key>
+			<string>Nagranie(%d)</string>
+			<key>zero</key>
+			<string>Nagranie</string>
+			<key>one</key>
+			<string>Nagranie(%d)</string>
+		</dict>
+	</dict>
+	<key>reaction.authors.number-of-reactions</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@reactions@</string>
+		<key>reactions</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>zero</key>
+			<string>%d reakcji</string>
+			<key>one</key>
+			<string>%d reakcja</string>
+			<key>other</key>
+			<string>%d reakcje</string>
+		</dict>
+	</dict>
+	<key>message.unread.count</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@unread@</string>
+		<key>unread</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>zero</key>
+			<string>%d nieprzeczytanych</string>
+			<key>one</key>
+			<string>%d nieprzeczytana</string>
+			<key>other</key>
+			<string>%d nieprzeczytane</string>
+		</dict>
+	</dict>
+	<key>message.search.number-of-results</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@results@</string>
+		<key>results</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>zero</key>
+			<string>%d wyników</string>
+			<key>one</key>
+			<string>%d wynik</string>
+			<key>other</key>
+			<string>%d wyniki</string>
+		</dict>
+	</dict>
+	<key>messageList.newMessages</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@messages@</string>
+		<key>messages</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>zero</key>
+			<string>Nowe wiadomości</string>
+			<key>one</key>
+			<string>Nowa wiadomość</string>
+			<key>other</key>
+			<string>Nowe wiadomości</string>
+		</dict>
+	</dict>
+	<key>messageList.typingIndicator.users</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%1$@%2$#@typing@</string>
+		<key>typing</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>zero</key>
+			<string> pisze...</string>
+			<key>one</key>
+			<string> i %2$d więcej pisze...</string>
+			<key>other</key>
+			<string> i %2$d więcej piszą...</string>
+		</dict>
+	</dict>
+	<key>message.threads.count</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@replies@</string>
+		<key>replies</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>zero</key>
+			<string>Brak wiadomości</string>
+			<key>one</key>
+			<string>%d wiadomość</string>
+			<key>other</key>
+			<string>%d wiadomości</string>
+		</dict>
+	</dict>
+</dict>
+</plist>

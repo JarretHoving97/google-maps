@@ -1,28 +1,41 @@
 import UIKit
+import SwiftUI
+import StreamChatSwiftUI
+import StreamChat
 import Capacitor
 import FBSDKCoreKit
 import FirebaseCore
 import FirebaseMessaging
 import BranchSDK
+import SDWebImageSwiftUI
+import SDWebImageSVGCoder
 
 @UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate {
+class AppDelegate: NSObject, UIApplicationDelegate {
 
-  var window: UIWindow?
+    var chat: StreamChatWrapper {
+        StreamChatWrapper.shared
+    }
 
+    var window: UIWindow?
+        
   func application(
     _ application: UIApplication,
     didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?
   ) -> Bool {
     ApplicationDelegate.shared.application(
-      application,
-      didFinishLaunchingWithOptions: launchOptions
+        application,
+        didFinishLaunchingWithOptions: launchOptions
     )
 
+    // Configure Firebase
     FirebaseApp.configure();
 
-    // listener for Branch Deep Link data
+    // Listener for Branch Deep Link data
     Branch.getInstance().initSession(launchOptions: launchOptions)
+      
+    // Add SVG coder for `SDWebImageSwiftUI` pod
+    SDImageCodersManager.shared.addCoder(SDImageSVGCoder.shared)
 
     return true
   }
@@ -78,16 +91,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     return ApplicationDelegateProxy.shared.application(application, continue: userActivity, restorationHandler: restorationHandler)
   }
 
-
   func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
+    // Setup notifications from Firebase
     Messaging.messaging().apnsToken = deviceToken
-    Messaging.messaging().token(completion: { (token, error) in
+      
+    Messaging.messaging().token { token, error in
       if let error = error {
         NotificationCenter.default.post(name: .capacitorDidFailToRegisterForRemoteNotifications, object: error)
       } else if let token = token {
+        self.chat.addDeviceToken(deviceToken: token)
         NotificationCenter.default.post(name: .capacitorDidRegisterForRemoteNotifications, object: token)
       }
-    })
+    }
   }
 
   func application(_ application: UIApplication, didFailToRegisterForRemoteNotificationsWithError error: Error) {

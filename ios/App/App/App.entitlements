@@ -15,5 +15,9 @@
 		<string>applinks:amigos.app.link</string>
 		<string>applinks:amigos-alternate.app.link</string>
 	</array>
+	<key>com.apple.security.application-groups</key>
+	<array>
+		<string>group.com.whoisup.app.stream</string>
+	</array>
 </dict>
 </plist>

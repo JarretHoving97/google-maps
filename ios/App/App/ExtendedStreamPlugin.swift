@@ -1,0 +1,171 @@
+import Capacitor
+import Foundation
+import SwiftUI
+import StreamChat
+import StreamChatSwiftUI
+
+public enum SuperEntitlementStatus {
+    case Unavailable
+    case Available
+    case Active
+}
+
+@objc(ExtendedStreamPlugin)
+public class ExtendedStreamPlugin: CAPPlugin, CAPBridgedPlugin {
+    
+    public let identifier = "ExtendedStream"
+    
+    public let jsName = "ExtendedStream"
+    
+    public let pluginMethods: [CAPPluginMethod] = [
+        CAPPluginMethod(name: "logIn", returnType: CAPPluginReturnNone),
+        CAPPluginMethod(name: "logOut", returnType: CAPPluginReturnNone),
+        CAPPluginMethod(name: "openChannel", returnType: CAPPluginReturnNone),
+        CAPPluginMethod(name: "openChannels", returnType: CAPPluginReturnNone),
+        CAPPluginMethod(name: "setEntitlementDetails", returnType: CAPPluginReturnNone),
+        CAPPluginMethod(name: "setLanguage", returnType: CAPPluginReturnNone),
+    ]
+    
+    public static var shared = ExtendedStreamPlugin();
+    
+    public override func load() {
+        ExtendedStreamPlugin.shared = self
+    }
+    
+    public var superEntitlementStatus: SuperEntitlementStatus = SuperEntitlementStatus.Unavailable
+    
+    func initializeViewController(channelId: String? = nil) {        
+        DispatchQueue.main.async {
+            let mainStoryboard = UIStoryboard(name: "Main", bundle: nil)
+            let chatViewController = mainStoryboard.instantiateViewController(withIdentifier: "Chat") as? ChatViewController
+            
+            if let channelId, let channelId = try? ChannelId(cid: channelId) {
+                chatViewController?.chatViewModel = ChatViewModel(channelId: channelId, isChannelView: true)
+            }
+            
+            self.bridge?.viewController?.present(chatViewController!, animated: true, completion: nil)
+        }
+    }
+    
+    @objc func logIn(_ call: CAPPluginCall) {
+        guard let userId = call.getString("userId") else {
+            return call.reject("Missing userId parameter.")
+        }
+        
+        let name = call.getString("name")
+        let avatarUrl = call.getString("avatarUrl")
+        
+        DispatchQueue.main.async {
+            if let appDelegate = UIApplication.shared.delegate as? AppDelegate {
+                appDelegate.chat.logIn(id: userId, name: name, avatarUrl: avatarUrl)
+            }
+        }
+        
+        call.resolve()
+    }
+    
+    @objc func logOut(_ call: CAPPluginCall) {
+        StreamChatWrapper.shared.logOut()
+        call.resolve()
+    }
+    
+    @objc func openChannels(_ call: CAPPluginCall) {
+        initializeViewController()
+        call.resolve()
+    }
+    
+    @objc func openChannel(_ call: CAPPluginCall) {
+        let channelId = call.getString("channelId")
+        initializeViewController(channelId: channelId)
+        call.resolve()
+    }
+    
+    @objc func notifyNavigateBackToListeners(dismiss: Bool = false) {
+        notifyListeners("navigateBack", data: [:])
+        
+        if dismiss {
+            self.bridge?.viewController?.dismiss(animated: true)
+        }
+    }
+    
+    @objc func notifyNavigateToListeners(route: String, dismiss: Bool = false) {
+        let data = JSObject(dictionaryLiteral: ("route", route), ("replace", false))
+        notifyListeners("navigateTo", data: data)
+        
+        if dismiss {
+            self.bridge?.viewController?.dismiss(animated: true)
+        }
+    }
+    
+    @objc func setEntitlementDetails(_ call: CAPPluginCall) {
+        let superStatus = call.getString("superStatus")
+        
+        if (superStatus == "Unavailable") {
+            superEntitlementStatus = SuperEntitlementStatus.Unavailable
+        } else if (superStatus == "Active") {
+            superEntitlementStatus = SuperEntitlementStatus.Active
+        } else if (superStatus == "Available") {
+            superEntitlementStatus = SuperEntitlementStatus.Available
+        } else {
+            print("[ExtendedStream] Invalid super entitlement status:", superStatus ?? [:])
+        }
+        
+        call.resolve()
+    }
+    
+    @objc func setLanguage(_ call: CAPPluginCall) {
+        let code = call.getString("code")
+        
+        guard let code else {
+            print("[ExtendedStream] Invalid language code:", code ?? [:])
+            return call.resolve();
+        }
+        
+        let availableLanguages = Bundle.main.localizations.filter { $0 != "Base" }
+        let isAvailable = availableLanguages.contains { $0.hasPrefix(code.prefix(2)) }
+        
+        guard isAvailable else {
+            print("[ExtendedStream] Language is not available.")
+            return call.resolve();
+        }
+        
+        LocaleSettings.shared.locale = Locale(identifier: code)
+        LocaleSettings.shared.languageLocale = Locale(identifier: String(code.prefix(2)))
+        
+        call.resolve()
+    }
+    
+    @objc func notifyUnreadCounts(channelUnreadCount: Int, messageUnreadCount: Int) {
+        let data = JSObject(dictionaryLiteral: ("channelUnreadCount", channelUnreadCount), ("messageUnreadCount", messageUnreadCount))
+        notifyListeners("unreadCounts", data: data)
+    }
+ 
+    @MainActor
+    func translate(key: String, namespace: String, options: [String: JSValue] = [:]) async -> String? {
+        var optionsStr = "{ "
+        
+        for (key, value) in options {
+            optionsStr += "\"\(key)\":\"\(value)\","
+        }
+        
+        // Remove the trailing comma and space
+        if optionsStr.count > 1 {
+            optionsStr.removeLast(1)
+        }
+        
+        optionsStr += " }"
+
+        do {
+            let value = try await self.bridge?.webView?.evaluateJavaScript("window.translate(\"\(key)\",\"\(namespace)\",\(optionsStr))")
+            
+            if let value = value as? String {
+                return value
+            }
+            
+            return nil
+        } catch let error {
+            print(error)
+            return nil
+        }
+    }
+}
