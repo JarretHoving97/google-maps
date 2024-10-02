@@ -1,0 +1,133 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <!-- Global -->
+    <string name="global_becomeSuperAmigo">Zostań Super amigo</string>
+    <string name="global_confirm">Potwierdź</string>
+    <string name="global_contact">Kontakt</string>
+    <string name="global_iUnderstand">Rozumiem</string>
+    <string name="global_save">Zapisz</string>
+    <string name="global_wasUpFor">Był w nastroju na %1$s</string>
+    <string name="global_isUpFor">W nastroju na %1$s</string>
+
+    <!-- Channels Screen -->
+    <string name="AmiChannelsScreen_title">Czaty</string>
+
+    <!-- Channel Screen -->
+    <string name="AmiChannelScreen_emptyState_safetyCheck">Kiedy rozpoczynasz czat, odbiorca może oceniać Twoje wiadomości</string>
+    <string name="AmiChannelScreen_emptyState_group">Nie ma jeszcze wiadomości na tym czacie. Chcesz przełamać lody?</string>
+
+    <!-- System Messages -->
+    <string name="AmiChannelSystemMessage_AttendenceReminder">Jeszcze 24 godziny i aktywność się rozpocznie! Liczę na ciebie.</string>
+    <string name="AmiChannelSystemMessage_GroupChatCreated">Jestem %1$s, organizator tego wydarzenia. Czy mógłbyś również krótko przedstawić się na czacie?</string>
+    <string name="AmiChannelSystemMessage_GroupChatJoined">Też tam będę!</string>
+
+    <!-- AmiPinnedMessage -->
+    <string name="AmiPinnedMessage_final_placeholder">Tutaj możesz dodać szczegóły (takie jak adres), aby każdy mógł go łatwo znaleźć.</string>
+    <string name="AmiPinnedMessage_final_title">Umieszczona wiadomość</string>
+    <string name="AmiPinnedMessageModal_input_placeholder">Dodaj tutaj szczegóły (takie jak adres), aby każdy mógł go łatwo znaleźć.</string>
+    <string name="AmiPinnedMessageModal_title">Wprowadź szczegóły aktywności</string>
+
+    <!-- Safety Check Info Modal -->
+    <string name="SafetyCheckInfoModal_title">Safety Check</string>
+    <!-- Sender -->
+    <string name="SafetyCheckInfoModal_sender_subtitle">Ponieważ %1$s rozpoczął ten czat, prosimy Cię o ocenę, czy %1$s używa Amigos zgodnie z jego przeznaczeniem:</string>
+    <string name="SafetyCheckInfoModal_sender_examples_join">Do łączenia się z ludźmi, którzy są w nastroju na to samo co Ty</string>
+    <string name="SafetyCheckInfoModal_sender_examples_host">Do (wspólnego) organizowania aktywności</string>
+    <!-- Receiver -->
+    <string name="SafetyCheckInfoModal_receiver_subtitle">Używaj Amigos tylko zgodnie z jego przeznaczeniem.</string>
+    <string name="SafetyCheckInfoModal_receiver_examples_join">Do łączenia się z ludźmi, którzy są w nastroju na to samo co Ty</string>
+    <string name="SafetyCheckInfoModal_receiver_examples_host">Do (wspólnego) organizowania aktywności</string>
+    <string name="SafetyCheckInfoModal_receiver_examples_other">Jeśli używasz Amigos z innymi intencjami, zostaniesz usunięty z platformy</string>
+
+    <!-- AmiChatSuperPowerOnlyNotice -->
+    <string name="AmiChatSuperPowerOnlyNotice_body">Tylko organizatorzy i Super amigos mogą rozpocząć czat.\nKliknij tutaj i zostań Super amigo.</string>
+
+    <string name="AttachmentsPickerMenu_superOnly_body">Zostań Super amigo, aby móc wysyłać zdjęcia i wideo</string>
+    <string name="AttachmentsPickerMenu_superOnly_title">Tylko Super amigos mogą wysyłać zdjęcia i wideo</string>
+
+    <!-- Attachment Tags -->
+    <string name="custom_attachment_tag_photo">Zdjęcie</string>
+    <string name="custom_attachment_tag_video">Wideo</string>
+    <string name="custom_attachment_tag_file">Plik</string>
+
+    <!-- Safety Check -->
+    <string name="custom_safetyCheck_notice_title">Safety Check: Czy %s używa Amigos zgodnie z przeznaczeniem?</string>
+    <string name="custom_safetyCheck_review_sheet_title">Niewłaściwe korzystanie z czatu</string>
+    <string name="custom_safetyCheck_review_sheet_subtitle">Wskaż tutaj, dlaczego tak uważasz.</string>
+    <string name="custom_safetyCheck_review_sheet_tip">Jeśli będzie zbyt wiele negatywnych Safety Checków, ten amigo zostanie zablokowany.</string>
+
+    <string name="custom_safetyCheck_review_sheet_option_commercial">Wykorzystuje ją do celów komercyjnych</string>
+    <string name="custom_safetyCheck_review_sheet_option_dating">Używa jej jako aplikacji randkowej</string>
+    <string name="custom_safetyCheck_review_sheet_option_inappropriateLanguage">Niewłaściwy język</string>
+    <string name="custom_safetyCheck_review_sheet_option_spam">Spam</string>
+    <string name="custom_safetyCheck_review_sheet_option_other">Pozostałe</string>
+
+    <!-- Selected Channel Menu -->
+    <string name="custom_channel_action_leave_title">Opuść aktywność i usuń czat</string>
+    <string name="custom_channel_action_leave_confirmation_body">Czy na pewno chcesz opuścić tę aktywność i usunąć czat?</string>
+    <string name="custom_channel_action_leave_confirmation_confirm">Opuść i usuń</string>
+    <string name="custom_channel_action_archive_title">Usuń chat</string>
+    <string name="custom_channel_action_archive_confirmation_body">Czy na pewno chcesz usunąć ten czat?</string>
+    <string name="custom_channel_action_archive_confirmation_confirm">Usuń</string>
+    <string name="custom_channel_action_mute_title">Wyłącz powiadomienia</string>
+    <string name="custom_channel_action_unmute_title">Włącz powiadomienia</string>
+    <string name="custom_channel_action_profile_title">Obejrzyj profil</string>
+    <string name="custom_channel_action_invite_title">Zaproś</string>
+    <string name="custom_channel_action_activity_title">Obejrzyj aktywność</string>
+    <string name="custom_channel_action_inviteAmigos_title">Zaproś amigos</string>
+    <string name="custom_channel_action_manageParticipants_title">Zarządzaj uczestnikami</string>
+
+    <!-- Channel List -->
+    <string name="stream_compose_channel_list_you">Ty</string>
+    <string name="stream_compose_channel_list_empty_channels">Czaty między tobą a innymi amigos są wyświetlane tutaj</string>
+    <string name="stream_compose_channel_list_empty_search_results">Brak wyników dla \"%1$s\"</string>
+
+    <!-- Common -->
+    <string name="stream_compose_ok">OK</string>
+    <string name="stream_compose_cancel">Anuluj</string>
+
+    <!-- Message List Header -->
+    <plurals name="stream_compose_message_list_header_typing_users">
+        <item quantity="one">%s pisze</item>
+        <item quantity="few">%s i %d inne osoby piszą</item>
+        <item quantity="many">%s i %d innych osób pisze</item>
+        <item quantity="other">%s i %d innych osób pisze</item>
+    </plurals>
+
+    <!-- Message List -->
+    <string name="stream_compose_message_list_footnote_edited">Edytowano</string>
+    <string name="stream_compose_message_list_unread_separator_zero">nieprzeczytane wiadomości</string>
+    <plurals name="stream_compose_message_list_unread_separator">
+        <item quantity="one">%s nieprzeczytana wiadomość</item>
+        <item quantity="few">%s nieprzeczytane wiadomości</item>
+        <item quantity="many">%s nieprzeczytanych wiadomości</item>
+        <item quantity="other">%s nieprzeczytanych wiadomości</item>
+    </plurals>
+    <string name="stream_compose_message_list_unsupported_attachment">Nieobsługiwany załącznik</string>
+
+    <!-- Selected Message Menu -->
+    <string name="stream_compose_resend_message">Wyślij ponownie</string>
+    <string name="stream_compose_reply">Odpowiedz</string>
+    <string name="stream_compose_mark_as_unread">Oznacz jako nieprzeczytane</string>
+    <string name="stream_compose_copy_message">Kopiuj</string>
+    <string name="stream_compose_edit_message">Edytuj</string>
+    <string name="stream_compose_delete_message">Usuń</string>
+
+    <!-- Message Action Prompts -->
+    <string name="stream_compose_delete_message_title">Usuń wiadomość</string>
+    <string name="stream_compose_delete_message_text">Czy na pewno chcesz trwale usunąć tę wiadomość?</string>
+
+    <!-- Message Composer -->
+    <string name="stream_compose_message_composer_error_message_length">Przekroczono maksymalną długość wiadomości (%1$d).</string>
+    <string name="stream_compose_message_composer_error_file_size">Plik jest zbyt duży - maksymalnie %1$s.</string>
+    <string name="stream_compose_message_composer_error_attachment_count">Przekroczono maksymalną liczbę załączników (%1$d).</string>
+    <string name="stream_compose_message_composer_error_sending_links_not_allowed">Wysyłanie linków nie jest dozwolone w tym czacie.</string>
+    <string name="stream_compose_message_composer_file_not_supported">Typ pliku nie jest obsługiwany</string>
+
+    <string name="stream_compose_message_label">Wyślij wiadomość</string>
+    <string name="stream_compose_cannot_send_messages_label">Nie możesz wysyłać wiadomości w tym czacie</string>
+    <string name="stream_compose_recent_files">Ostatnie pliki</string>
+    <string name="stream_compose_message_deleted">Wiadomość usunięta</string>
+    <string name="stream_compose_download">Pobierz</string>
+    <string name="stream_compose_grant_permission">Udziel uprawnienia</string>
+</resources>

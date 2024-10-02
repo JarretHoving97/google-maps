@@ -1,0 +1,129 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <!-- Global -->
+    <string name="global_becomeSuperAmigo">Word Super amigo</string>
+    <string name="global_confirm">Bevestigen</string>
+    <string name="global_contact">Contact</string>
+    <string name="global_iUnderstand">Ik begrijp het</string>
+    <string name="global_save">Opslaan</string>
+    <string name="global_wasUpFor">Was in voor %1$s</string>
+    <string name="global_isUpFor">Is in voor %1$s</string>
+
+    <!-- Channels Screen -->
+    <string name="AmiChannelsScreen_title">Chats</string>
+
+    <!-- Channel Screen -->
+    <string name="AmiChannelScreen_emptyState_safetyCheck">Als je een chat start, kan de ontvanger jouw berichten beoordelen</string>
+    <string name="AmiChannelScreen_emptyState_group">Er zijn nog geen berichten in deze chat. Breek jij het ijs?</string>
+
+    <!-- System Messages -->
+    <string name="AmiChannelSystemMessage_AttendenceReminder">Nog 24 uur en de activiteit gaat van start! Ik reken op je.</string>
+    <string name="AmiChannelSystemMessage_GroupChatCreated">Ik ben %1$s, de host van deze activiteit. Stel jij jezelf ook even voor in de chat?</string>
+    <string name="AmiChannelSystemMessage_GroupChatJoined">Ik ben er ook bij!</string>
+
+    <!-- AmiPinnedMessage -->
+    <string name="AmiPinnedMessage_final_placeholder">Hier kan jij details (zoals het adres) toevoegen zodat iedereen dat makkelijk terug kan vinden.</string>
+    <string name="AmiPinnedMessage_final_title">Vastgezet bericht</string>
+    <string name="AmiPinnedMessageModal_input_placeholder">Vul hier details (zoals het adres) in zodat iedereen dat makkelijk terug kan vinden.</string>
+    <string name="AmiPinnedMessageModal_title">Vul activiteit details in</string>
+
+    <!-- Safety Check Info Modal -->
+    <string name="SafetyCheckInfoModal_title">Safety Check</string>
+    <!-- Sender -->
+    <string name="SafetyCheckInfoModal_sender_subtitle">Omdat %1$s deze chat is gestart, vragen we jou om te beoordelen of %1$s Amigos gebruikt waar het voor is bedoeld:</string>
+    <string name="SafetyCheckInfoModal_sender_examples_join">Voor het joinen van mensen die in zijn voor hetzelfde als jij</string>
+    <string name="SafetyCheckInfoModal_sender_examples_host">Voor het (samen) hosten van activiteiten</string>
+    <!-- Receiver -->
+    <string name="SafetyCheckInfoModal_receiver_subtitle">Gebruik Amigos alleen waar het voor bedoeld is.</string>
+    <string name="SafetyCheckInfoModal_receiver_examples_join">Voor het joinen van mensen die in zijn voor hetzelfde als jij</string>
+    <string name="SafetyCheckInfoModal_receiver_examples_host">Voor het (samen) hosten van activiteiten</string>
+    <string name="SafetyCheckInfoModal_receiver_examples_other">Als je Amigos met andere intenties gebruikt, zul je verwijderd worden van het platform</string>
+
+    <!-- AmiChatSuperPowerOnlyNotice -->
+    <string name="AmiChatSuperPowerOnlyNotice_body">Alleen hosts en Super amigos kunnen een chat starten.\nTik hier en word Super amigo.</string>
+
+    <string name="AttachmentsPickerMenu_superOnly_body">Word Super amigo om foto\'s en video\'s te kunnen versturen</string>
+    <string name="AttachmentsPickerMenu_superOnly_title">Alleen Super amigos kunnen foto\'s en video\'s versturen</string>
+
+    <!-- Attachment Tags -->
+    <string name="custom_attachment_tag_photo">Foto</string>
+    <string name="custom_attachment_tag_video">Video</string>
+    <string name="custom_attachment_tag_file">Bestand</string>
+
+    <!-- Safety Check -->
+    <string name="custom_safetyCheck_notice_title">Safety Check: Gebruikt %s Amigos zoals het bedoeld is?</string>
+    <string name="custom_safetyCheck_review_sheet_title">Onjuist gebruik chat</string>
+    <string name="custom_safetyCheck_review_sheet_subtitle">Geef hier aan waarom je dit vindt.</string>
+    <string name="custom_safetyCheck_review_sheet_tip">Bij te veel negatieve Safety Checks wordt deze amigo geblokkeerd.</string>
+
+    <string name="custom_safetyCheck_review_sheet_option_commercial">Gebruikt het voor commerciële doeleinden</string>
+    <string name="custom_safetyCheck_review_sheet_option_dating">Gebruikt het als datingapp</string>
+    <string name="custom_safetyCheck_review_sheet_option_inappropriateLanguage">Ongepast taalgebruik</string>
+    <string name="custom_safetyCheck_review_sheet_option_spam">Spam</string>
+    <string name="custom_safetyCheck_review_sheet_option_other">Overig</string>
+
+    <!-- Selected Channel Menu -->
+    <string name="custom_channel_action_leave_title">Activiteit verlaten en chat verwijderen</string>
+    <string name="custom_channel_action_leave_confirmation_body">Weet je zeker dat je deze activiteit wilt verlaten en de chat wilt verwijderen?</string>
+    <string name="custom_channel_action_leave_confirmation_confirm">Verlaat en verwijder</string>
+    <string name="custom_channel_action_archive_title">Chat verwijderen</string>
+    <string name="custom_channel_action_archive_confirmation_body">Weet je zeker dat je deze chat wilt verwijderen?</string>
+    <string name="custom_channel_action_archive_confirmation_confirm">Verwijderen</string>
+    <string name="custom_channel_action_mute_title">Zet meldingen uit</string>
+    <string name="custom_channel_action_unmute_title">Zet meldingen aan</string>
+    <string name="custom_channel_action_profile_title">Profiel bekijken</string>
+    <string name="custom_channel_action_invite_title">Uitnodigen</string>
+    <string name="custom_channel_action_activity_title">Activiteit bekijken</string>
+    <string name="custom_channel_action_inviteAmigos_title">Amigos uitnodigen</string>
+    <string name="custom_channel_action_manageParticipants_title">Deelnemers beheren</string>
+
+    <!-- Channel List -->
+    <string name="stream_compose_channel_list_you">Jij</string>
+    <string name="stream_compose_channel_list_empty_channels">Chats tussen jou en andere amigos worden hier weergegeven</string>
+    <string name="stream_compose_channel_list_empty_search_results">Geen resultaten voor \"%1$s\"</string>
+
+    <!-- Common -->
+    <string name="stream_compose_ok">Oké</string>
+    <string name="stream_compose_cancel">Annuleren</string>
+
+    <!-- Message List Header -->
+    <plurals name="stream_compose_message_list_header_typing_users">
+        <item quantity="one">%s is aan het typen</item>
+        <item quantity="other">%s en %d anderen zijn aan het typen</item>
+    </plurals>
+
+    <!-- Message List -->
+    <string name="stream_compose_message_list_footnote_edited">Bewerkt</string>
+    <string name="stream_compose_message_list_unread_separator_zero">ongelezen berichten</string>
+    <plurals name="stream_compose_message_list_unread_separator">
+        <item quantity="one">%s ongelezen bericht</item>
+        <item quantity="other">%s ongelezen berichten</item>
+    </plurals>
+    <string name="stream_compose_message_list_unsupported_attachment">Niet ondersteunde bijlage</string>
+
+    <!-- Selected Message Menu -->
+    <string name="stream_compose_resend_message">Opnieuw versturen</string>
+    <string name="stream_compose_reply">Reageren</string>
+    <string name="stream_compose_mark_as_unread">Markeren als ongelezen</string>
+    <string name="stream_compose_copy_message">Bericht kopiëren</string>
+    <string name="stream_compose_edit_message">Bericht bewerken</string>
+    <string name="stream_compose_delete_message">Bericht verwijderen</string>
+
+    <!-- Message Action Prompts -->
+    <string name="stream_compose_delete_message_title">Bericht verwijderen</string>
+    <string name="stream_compose_delete_message_text">Weet je zeker dat je dit bericht wilt verwijderen?</string>
+
+    <!-- Message Composer -->
+    <string name="stream_compose_message_composer_error_message_length">Maximale lengte (%1$d) overschreden.</string>
+    <string name="stream_compose_message_composer_error_file_size">Bestand is te groot - max %1$s.</string>
+    <string name="stream_compose_message_composer_error_attachment_count">Maximaal aantal bijlagen (%1$d) overschreden.</string>
+    <string name="stream_compose_message_composer_error_sending_links_not_allowed">Linkjes versturen is niet toegestaan in deze chat.</string>
+    <string name="stream_compose_message_composer_file_not_supported">Bestandstype niet ondersteund</string>
+
+    <string name="stream_compose_message_label">Verstuur een bericht</string>
+    <string name="stream_compose_cannot_send_messages_label">Je kan geen berichten versturen in deze chat</string>
+    <string name="stream_compose_recent_files">Recente bestanden</string>
+    <string name="stream_compose_message_deleted">Bericht verwijderd</string>
+    <string name="stream_compose_download">Download</string>
+    <string name="stream_compose_grant_permission">Toegang verlenen</string>
+</resources>

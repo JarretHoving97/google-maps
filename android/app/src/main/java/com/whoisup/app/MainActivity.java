@@ -19,6 +19,7 @@ public class MainActivity extends BridgeActivity {
     registerPlugin(OfflinePlugin.class);
     registerPlugin(BranchDeepLinksPlugin.class);
     registerPlugin(ExtendedBranchPlugin.class);
+    registerPlugin(ExtendedStreamPlugin.class);
     super.onCreate(savedInstanceState);
 
     callbackManager = CallbackManager.Factory.create();

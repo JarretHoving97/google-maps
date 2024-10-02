@@ -1,18 +1,146 @@
 <?xml version='1.0' encoding='utf-8'?>
 <resources>
-    <string name="app_name">Amigos</string>
-    <string name="title_activity_main">Amigos</string>
-    <string name="package_name">com.whoisup.app</string>
-    <string name="custom_url_scheme">com.whoisup.app</string>
-    <string name="facebook_app_id">808769536355021</string>
-    <string name="facebook_client_token">d7d4ee324765b2d153e888dd5082cef3</string>
-    <string name="fb_login_protocol_scheme">fb808769536355021</string>
+    <string name="app_name" translatable="false">Amigos</string>
+    <string name="title_activity_main" translatable="false">Amigos</string>
+    <string name="package_name" translatable="false">com.whoisup.app</string>
+    <string name="custom_url_scheme" translatable="false">com.whoisup.app</string>
+    <string name="facebook_app_id" translatable="false">808769536355021</string>
+    <string name="facebook_client_token" translatable="false">d7d4ee324765b2d153e888dd5082cef3</string>
+    <string name="fb_login_protocol_scheme" translatable="false">fb808769536355021</string>
 
-    <string name="applink_host">amigos.app.link</string>
-    <string name="applink_host_alternate">amigos-alternate.app.link</string>
-    <string name="deeplink_scheme">amigos</string>
-    <string name="branch_key">key_live_kb2c6IwaUuoVIWLDnZgB7ipkxtjgUcBR</string>
-    <string name="branch_test_key">key_test_oaXb2GqjRteKM7Gtk3OfCcocsxikUoB0</string>
+    <string name="applink_host" translatable="false">amigos.app.link</string>
+    <string name="applink_host_alternate" translatable="false">amigos-alternate.app.link</string>
+    <string name="deeplink_scheme" translatable="false">amigos</string>
+    <string name="branch_key" translatable="false">key_live_kb2c6IwaUuoVIWLDnZgB7ipkxtjgUcBR</string>
+    <string name="branch_test_key" translatable="false">key_test_oaXb2GqjRteKM7Gtk3OfCcocsxikUoB0</string>
     <bool name="branch_test_mode">false</bool>
     <!-- set above to "true" to use test key -->
+
+    <!-- Global -->
+    <string name="global_becomeSuperAmigo">Become Super amigo</string>
+    <string name="global_confirm">Confirm</string>
+    <string name="global_contact">Contact</string>
+    <string name="global_iUnderstand">I understand</string>
+    <string name="global_save">Save</string>
+    <string name="global_wasUpFor">Was up for %1$s</string>
+    <string name="global_isUpFor">Is up for %1$s</string>
+
+    <!-- Channels Screen -->
+    <string name="AmiChannelsScreen_title">Chats</string>
+
+    <!-- Channel Screen -->
+    <string name="AmiChannelScreen_emptyState_safetyCheck">When you start a chat, your messages can be reviewed by the receiver</string>
+    <string name="AmiChannelScreen_emptyState_group">There are no messages in this chat yet. Want to break the ice?</string>
+
+    <!-- System Messages -->
+    <string name="AmiChannelSystemMessage_AttendenceReminder">The activity will start in 24 hours. I\'m counting on you.</string>
+    <string name="AmiChannelSystemMessage_GroupChatCreated">I\'m %1$s, the host of this activity. Go ahead and introduce yourself in the chat as well.</string>
+    <string name="AmiChannelSystemMessage_GroupChatJoined">I\'m going too!</string>
+
+    <!-- AmiPinnedMessage -->
+    <string name="AmiPinnedMessage_final_placeholder">Here you can add details (such as the address) so that everyone can easily find it.</string>
+    <string name="AmiPinnedMessage_final_title">Pinned message</string>
+    <string name="AmiPinnedMessageModal_input_placeholder">Fill in details (such as the address) here so that everyone can easily find it.</string>
+    <string name="AmiPinnedMessageModal_title">Enter activity details</string>
+
+    <!-- Safety Check Info Modal -->
+    <string name="SafetyCheckInfoModal_title">Safety Check</string>
+    <!-- Sender -->
+    <string name="SafetyCheckInfoModal_sender_subtitle">Because %1$s started this chat, we ask you to review whether %1$s is using Amigos for what it\'s intended for:</string>
+    <string name="SafetyCheckInfoModal_sender_examples_join">For joining people who are up for the same as you</string>
+    <string name="SafetyCheckInfoModal_sender_examples_host">For hosting activities (together)</string>
+    <!-- Receiver -->
+    <string name="SafetyCheckInfoModal_receiver_subtitle">Only use Amigos for its intended purpose.</string>
+    <string name="SafetyCheckInfoModal_receiver_examples_join">For joining people who are up for the same as you</string>
+    <string name="SafetyCheckInfoModal_receiver_examples_host">For hosting activities (together)</string>
+    <string name="SafetyCheckInfoModal_receiver_examples_other">If you use Amigos with other intentions, you will be removed from the platform</string>
+
+    <!-- AmiChatSuperPowerOnlyNotice -->
+    <string name="AmiChatSuperPowerOnlyNotice_body">Only hosts and Super amigos can start a chat.\nTap here and become Super amigo.</string>
+
+    <string name="AttachmentsPickerMenu_superOnly_body">Become Super amigo to send photos and videos</string>
+    <string name="AttachmentsPickerMenu_superOnly_title">Only Super amigos can send photos and videos</string>
+
+    <!-- Attachment Tags -->
+    <string name="custom_attachment_tag_photo">Photo</string>
+    <string name="custom_attachment_tag_video">Video</string>
+    <string name="custom_attachment_tag_file">File</string>
+
+    <!-- Safety Check -->
+    <string name="custom_safetyCheck_notice_title">Safety Check: Is %s using Amigos as intended?</string>
+    <string name="custom_safetyCheck_review_sheet_title">Improper use of chat</string>
+    <string name="custom_safetyCheck_review_sheet_subtitle">Indicate here why you think so.</string>
+    <string name="custom_safetyCheck_review_sheet_tip">Upon receiving too many negative Safety Checks, this amigo will be blocked.</string>
+
+    <string name="custom_safetyCheck_review_sheet_option_commercial">Using it for commercial purposes</string>
+    <string name="custom_safetyCheck_review_sheet_option_dating">Using it as a dating app</string>
+    <string name="custom_safetyCheck_review_sheet_option_inappropriateLanguage">Inappropriate language</string>
+    <string name="custom_safetyCheck_review_sheet_option_spam">Spam</string>
+    <string name="custom_safetyCheck_review_sheet_option_other">Other</string>
+
+    <!-- Selected Channel Menu -->
+    <string name="custom_channel_action_leave_title">Leave activity and remove chat</string>
+    <string name="custom_channel_action_leave_confirmation_body">Are you sure you want to leave this activity and remove this chat?</string>
+    <string name="custom_channel_action_leave_confirmation_confirm">Leave and remove</string>
+    <string name="custom_channel_action_archive_title">Remove chat</string>
+    <string name="custom_channel_action_archive_confirmation_body">Are you sure you want to remove this chat?</string>
+    <string name="custom_channel_action_archive_confirmation_confirm">Remove</string>
+    <string name="custom_channel_action_mute_title">Mute notifications</string>
+    <string name="custom_channel_action_unmute_title">Unmute notifications</string>
+    <string name="custom_channel_action_profile_title">View profile</string>
+    <string name="custom_channel_action_invite_title">Invite</string>
+    <string name="custom_channel_action_activity_title">View activity</string>
+    <string name="custom_channel_action_inviteAmigos_title">Invite amigos</string>
+    <string name="custom_channel_action_manageParticipants_title">Manage participants</string>
+
+    <!-- Channel List -->
+    <string name="stream_compose_channel_list_you">You</string>
+    <string name="stream_compose_channel_list_empty_channels">Chats between you and other amigos are displayed here</string>
+    <string name="stream_compose_channel_list_empty_search_results">No results for \"%1$s\"</string>
+
+    <!-- Common -->
+    <string name="stream_compose_ok">OK</string>
+    <string name="stream_compose_cancel">Cancel</string>
+
+    <!-- Message List Header -->
+    <plurals name="stream_compose_message_list_header_typing_users">
+        <item quantity="one">%s is typing</item>
+        <item quantity="other">%s and %d others are typing</item>
+    </plurals>
+
+    <!-- Message List -->
+    <string name="stream_compose_message_list_footnote_edited">Edited</string>
+    <string name="stream_compose_message_list_unread_separator_zero">unread messages</string>
+    <plurals name="stream_compose_message_list_unread_separator">
+        <item quantity="zero">@string/stream_compose_message_list_unread_separator_zero</item>
+        <item quantity="one">%s unread message</item>
+        <item quantity="other">%s unread messages</item>
+    </plurals>
+    <string name="stream_compose_message_list_unsupported_attachment">Unsupported attachment</string>
+
+    <!-- Selected Message Menu -->
+    <string name="stream_compose_resend_message">Resend</string>
+    <string name="stream_compose_reply">Reply</string>
+    <string name="stream_compose_mark_as_unread">Mark as unread</string>
+    <string name="stream_compose_copy_message">Copy message</string>
+    <string name="stream_compose_edit_message">Edit message</string>
+    <string name="stream_compose_delete_message">Delete message</string>
+
+    <!-- Message Action Prompts -->
+    <string name="stream_compose_delete_message_title">Delete message</string>
+    <string name="stream_compose_delete_message_text">Are you sure you want to delete this message?</string>
+
+    <!-- Message Composer -->
+    <string name="stream_compose_message_composer_error_message_length">Max message length (%1$d) exceeded.</string>
+    <string name="stream_compose_message_composer_error_file_size">File is too large - max %1$s.</string>
+    <string name="stream_compose_message_composer_error_attachment_count">Max number of attachments (%1$d) exceeded.</string>
+    <string name="stream_compose_message_composer_error_sending_links_not_allowed">Sending links is not allowed in this chat.</string>
+    <string name="stream_compose_message_composer_file_not_supported">File type is not supported</string>
+
+    <string name="stream_compose_message_label">Send a message</string>
+    <string name="stream_compose_cannot_send_messages_label">You can\'t send messages in this chat</string>
+    <string name="stream_compose_recent_files">Recent files</string>
+    <string name="stream_compose_message_deleted">Message deleted</string>
+    <string name="stream_compose_download">Download</string>
+    <string name="stream_compose_grant_permission">Grant permission</string>
 </resources>

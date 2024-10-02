@@ -1,0 +1,129 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <!-- Global -->
+    <string name="global_becomeSuperAmigo">슈퍼 친구 되기</string>
+    <string name="global_confirm">확인</string>
+    <string name="global_contact">연락처</string>
+    <string name="global_iUnderstand">이해했습니다</string>
+    <string name="global_save">저장</string>
+    <string name="global_wasUpFor">에 대해 %1$s</string>
+    <string name="global_isUpFor">오늘은 어떤 %1$s</string>
+
+    <!-- Channels Screen -->
+    <string name="AmiChannelsScreen_title">채팅</string>
+
+    <!-- Channel Screen -->
+    <string name="AmiChannelScreen_emptyState_safetyCheck">채팅을 시작하면 수신자가 귀하의 메시지를 확인할 수 있습니다</string>
+    <string name="AmiChannelScreen_emptyState_group">이 채팅에는 아직 메시지가 없습니다. 얼음을 깨고 싶으신가요?</string>
+
+    <!-- System Messages -->
+    <string name="AmiChannelSystemMessage_AttendenceReminder">24시간이 지나면 활동이 시작됩니다. 기대할게요.</string>
+    <string name="AmiChannelSystemMessage_GroupChatCreated">저는 %1$s님이, 이 활동의 진행자입니다. 채팅에서 간단히 자기소개를 해 주시겠어요?</string>
+    <string name="AmiChannelSystemMessage_GroupChatJoined">나도 갈게요!</string>
+
+    <!-- AmiPinnedMessage -->
+    <string name="AmiPinnedMessage_final_placeholder">여기에 세부 정보(예: 주소)를 추가하여 모두가 쉽게 찾을 수 있습니다.</string>
+    <string name="AmiPinnedMessage_final_title">고정된 메시지</string>
+    <string name="AmiPinnedMessageModal_input_placeholder">여기에 세부 정보(예: 주소)를 입력하여 모두가 쉽게 찾을 수 있습니다.</string>
+    <string name="AmiPinnedMessageModal_title">활동 세부 정보를 입력하세요</string>
+
+    <!-- Safety Check Info Modal -->
+    <string name="SafetyCheckInfoModal_title">안전 점검</string>
+    <!-- Sender -->
+    <string name="SafetyCheckInfoModal_sender_subtitle">%1$s이(가) 이 채팅을 시작했으니, %1$s이(가) Amigos를 목적에 맞게 사용하고 있는지 평가해 보시기 바랍니다.</string>
+    <string name="SafetyCheckInfoModal_sender_examples_join">귀하와 같은 것을 원하는 사람들과 함께하기 위해</string>
+    <string name="SafetyCheckInfoModal_sender_examples_host">활동을 (함께) 주최하기 위해</string>
+    <!-- Receiver -->
+    <string name="SafetyCheckInfoModal_receiver_subtitle">Amigos는 의도된 용도로만 사용하세요.</string>
+    <string name="SafetyCheckInfoModal_receiver_examples_join">귀하와 같은 것을 원하는 사람들과 함께하기 위해</string>
+    <string name="SafetyCheckInfoModal_receiver_examples_host">활동을 (함께) 주최하기 위해</string>
+    <string name="SafetyCheckInfoModal_receiver_examples_other">다른 의도로 Amigos를 사용하는 경우 플랫폼에서 삭제됩니다.</string>
+
+    <!-- AmiChatSuperPowerOnlyNotice -->
+    <string name="AmiChatSuperPowerOnlyNotice_body">호스트와 슈퍼 친구만 채팅을 시작할 수 있습니다.\n여기를 눌러 슈퍼 친구가 되세요.</string>
+
+    <string name="AttachmentsPickerMenu_superOnly_body">사진과 동영상을 보낼 수 있도록 슈퍼 친구 되기</string>
+    <string name="AttachmentsPickerMenu_superOnly_title">슈퍼 친구들만 사진과 동영상을 보낼 수 있습니다</string>
+
+    <!-- Attachment Tags -->
+    <string name="custom_attachment_tag_photo">사진</string>
+    <string name="custom_attachment_tag_video">비디오</string>
+    <string name="custom_attachment_tag_file">파일</string>
+
+    <!-- Safety Check -->
+    <string name="custom_safetyCheck_notice_title">안전 점검: %s님이 Amigos를 의도한 대로 사용하고 있습니까?</string>
+    <string name="custom_safetyCheck_review_sheet_title">채팅 오용</string>
+    <string name="custom_safetyCheck_review_sheet_subtitle">여기에서 그 이유를 설명하세요.</string>
+    <string name="custom_safetyCheck_review_sheet_tip">부정적인 안전 점검이 너무 많으면 이 친구는 차단됩니다.</string>
+
+    <string name="custom_safetyCheck_review_sheet_option_commercial">상업적 목적으로 사용</string>
+    <string name="custom_safetyCheck_review_sheet_option_dating">데이트 앱으로 사용</string>
+    <string name="custom_safetyCheck_review_sheet_option_inappropriateLanguage">부적절한 언어 사용</string>
+    <string name="custom_safetyCheck_review_sheet_option_spam">스팸</string>
+    <string name="custom_safetyCheck_review_sheet_option_other">기타</string>
+
+    <!-- Selected Channel Menu -->
+    <string name="custom_channel_action_leave_title">활동 종료 및 채팅 삭제</string>
+    <string name="custom_channel_action_leave_confirmation_body">이 활동을 떠나고 채팅을 삭제하시겠습니까?</string>
+    <string name="custom_channel_action_leave_confirmation_confirm">종료 및 삭제</string>
+    <string name="custom_channel_action_archive_title">채팅 삭제</string>
+    <string name="custom_channel_action_archive_confirmation_body">이 채팅을 삭제하시겠습니까?</string>
+    <string name="custom_channel_action_archive_confirmation_confirm">제거</string>
+    <string name="custom_channel_action_mute_title">알림 끄기</string>
+    <string name="custom_channel_action_unmute_title">알림 켜기</string>
+    <string name="custom_channel_action_profile_title">프로필 보기</string>
+    <string name="custom_channel_action_invite_title">초대</string>
+    <string name="custom_channel_action_activity_title">활동 보기</string>
+    <string name="custom_channel_action_inviteAmigos_title">친구 초대</string>
+    <string name="custom_channel_action_manageParticipants_title">참가자 관리</string>
+
+    <!-- Channel List -->
+    <string name="stream_compose_channel_list_you">귀하</string>
+    <string name="stream_compose_channel_list_empty_channels">당신과 다른 아미고들 간의 채팅이 여기에 표시됩니다</string>
+    <string name="stream_compose_channel_list_empty_search_results">\"%1$s\"에 대한 결과가 없습니다</string>
+
+    <!-- Common -->
+    <string name="stream_compose_ok">확인</string>
+    <string name="stream_compose_cancel">취소</string>
+
+    <!-- Message List Header -->
+    <plurals name="stream_compose_message_list_header_typing_users">
+        <item quantity="one">%s님이 입력 중입니다</item>
+        <item quantity="other">%s님과 %d명이 입력 중입니다</item>
+    </plurals>
+
+    <!-- Message List -->
+    <string name="stream_compose_message_list_footnote_edited">편집됨</string>
+    <string name="stream_compose_message_list_unread_separator_zero">읽지 않은 메시지</string>
+    <plurals name="stream_compose_message_list_unread_separator">
+        <item quantity="one">읽지 않은 메시지 %s개</item>
+        <item quantity="other">읽지 않은 메시지 %s개</item>
+    </plurals>
+    <string name="stream_compose_message_list_unsupported_attachment">지원되지 않는 첨부 파일</string>
+
+    <!-- Selected Message Menu -->
+    <string name="stream_compose_resend_message">다시 보내기</string>
+    <string name="stream_compose_reply">답장하기</string>
+    <string name="stream_compose_mark_as_unread">읽지 않음으로 표시</string>
+    <string name="stream_compose_copy_message">복사</string>
+    <string name="stream_compose_edit_message">편집</string>
+    <string name="stream_compose_delete_message">삭제</string>
+
+    <!-- Message Action Prompts -->
+    <string name="stream_compose_delete_message_title">메시지 삭제</string>
+    <string name="stream_compose_delete_message_text">이 메시지를 영구적으로 삭제하시겠습니까?</string>
+
+    <!-- Message Composer -->
+    <string name="stream_compose_message_composer_error_message_length">최대 메시지 길이(%1$d)를 초과했습니다.</string>
+    <string name="stream_compose_message_composer_error_file_size">파일이 너무 큽니다 - 최대 %1$s.</string>
+    <string name="stream_compose_message_composer_error_attachment_count">최대 첨부 파일 수(%1$d)를 초과했습니다.</string>
+    <string name="stream_compose_message_composer_error_sending_links_not_allowed">이 채팅에서는 링크 전송이 허용되지 않습니다.</string>
+    <string name="stream_compose_message_composer_file_not_supported">지원되지 않는 파일 형식입니다</string>
+
+    <string name="stream_compose_message_label">메시지 보내기</string>
+    <string name="stream_compose_cannot_send_messages_label">이 채팅에서는 메시지를 보낼 수 없습니다</string>
+    <string name="stream_compose_recent_files">최근 파일</string>
+    <string name="stream_compose_message_deleted">메시지가 삭제되었습니다</string>
+    <string name="stream_compose_download">다운로드</string>
+    <string name="stream_compose_grant_permission">권한 부여</string>
+</resources>

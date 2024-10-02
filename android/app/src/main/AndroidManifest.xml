@@ -13,6 +13,8 @@
     <uses-permission android:name="android.permission.WRITE_CONTACTS"/>
     <!-- Camera, Photos, input file -->
     <uses-permission android:name="android.permission.READ_MEDIA_IMAGES"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"
+        tools:ignore="ScopedStorage" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"
         tools:ignore="ScopedStorage" />
     <!-- Geolocation API -->
@@ -25,6 +27,7 @@
     <uses-feature android:name="android.hardware.camera" android:required="false" />
     <!-- Audio -->
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
+    <uses-permission android:name="android.permission.READ_MEDIA_AUDIO" />
     <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS"/>
 
     <application
@@ -41,17 +44,67 @@
         <meta-data android:name="com.google.firebase.messaging.default_notification_color" android:resource="@color/colorAccent" />
 
         <activity
+            android:name=".ChannelsActivity"
+            android:exported="true"
+            android:windowSoftInputMode="adjustResize" />
+
+        <activity
+            android:name=".ChannelActivity"
+            android:exported="true"
+            android:windowSoftInputMode="adjustResize" />
+
+        <activity
+            android:name=".MediaGalleryPreviewActivity"
+            android:exported="false"
+            android:windowSoftInputMode="adjustResize" />
+
+        <activity
+            android:name=".SplashActivity"
+            android:launchMode="standard"
+            android:exported="true" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <activity
             android:configChanges="orientation|keyboardHidden|keyboard|screenSize|locale|smallestScreenSize|screenLayout|uiMode"
             android:screenOrientation="portrait"
-            android:name="com.whoisup.app.MainActivity"
+            android:name=".MainActivity"
             android:label="@string/title_activity_main"
             android:theme="@style/AppTheme.NoActionBarLaunch"
             android:launchMode="singleTask"
             android:exported="true">
-
             <intent-filter>
+                <!--
+                This is a hacky workaround to solve issues with opening the wrong Activity when getting notifications meant for the MainActivity.
+
+                Chapter 1:
+                It's actually caused by marking the `SplashActivity` as the `MAIN` `LAUNCHER`.
+                That, in turn, was another workaround to solve this issue: https://stackoverflow.com/questions/78977516
+                Which was apparent when ChannelActivity or ChannelsActivity was opened after opening MainActivity
+
+                Chapter 2:
+                The Capacitor Push Notifications Plugin calls this method: `createNotificationInfo`.
+                Within that method `setContentIntent` is called.
+                That method is given an intent. The intent is generated in a specific order.
+                One of the first things that is called is `getLaunchIntentForPackage`.
+                That method normally gets the `MAIN` `LAUNCHER` from the AndroidManifest
+                BUT it first checks for an existing `MAIN` `INFO`
+                In most apps that doesn't exist. But we specify it now, so it gets priority.
+                Otherwise it would return `.SplashActivity`, which is the wrong activity to start here.
+
+                Chapter 3:
+                It would probably be better to provide `PushNotificationsPlugin` with our own manually specified activity.
+                But that's not an option yet.
+                Plus it would mean that `PushNotificationsPlugin` needs to rewrite quite a lot of code,
+                that is currently abstracted away into the Firebase SDK.
+
+                Amen
+                -->
                 <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
+                <category android:name="android.intent.category.INFO" />
             </intent-filter>
 
             <!-- BEGIN BRANCH -->
@@ -60,18 +113,10 @@
                 <action android:name="android.intent.action.VIEW" />
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
-                <data
-                    android:scheme="http"
-                    android:host="@string/applink_host" />
-                <data
-                    android:scheme="https"
-                    android:host="@string/applink_host" />
-                <data
-                    android:scheme="http"
-                    android:host="@string/applink_host_alternate" />
-                <data
-                    android:scheme="https"
-                    android:host="@string/applink_host_alternate" />
+                <data android:scheme="http"/>
+                <data android:scheme="https"/>
+                <data android:host="@string/applink_host"/>
+                <data android:host="@string/applink_host_alternate"/>
             </intent-filter>
             <!-- END BRANCH -->
 
@@ -79,8 +124,9 @@
                 <action android:name="android.intent.action.VIEW" />
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
-                <data android:scheme="https" android:host="app.amigosapp.nl" />
-                <data android:scheme="https" android:host="qa.app.amigosapp.nl" />
+                <data android:scheme="https"/>
+                <data android:host="app.amigosapp.nl"/>
+                <data android:host="qa.app.amigosapp.nl"/>
             </intent-filter>
 
             <intent-filter>
@@ -132,5 +178,10 @@
                 android:resource="@xml/file_paths" />
         </provider>
 
+        <service android:name=".CustomFirebaseMessagingService" android:exported="false">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+            </intent-filter>
+        </service>
     </application>
 </manifest>
