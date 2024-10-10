@@ -355,22 +355,9 @@ public struct LinkDetectionTextView: View {
                 attributes[key] = value
             }
         }
+        
+        let attributedString = linkify(for: message.adjustedText, attributes: attributes)
 
-        // Create an attributed string with the message text and attributes
-        let attributedText = NSMutableAttributedString(
-            string: message.adjustedText,
-            attributes: attributes
-        )
-        
-        // Only continue if the message has links in it.
-        guard linkDetector.hasLinks(in: message.adjustedText) else { return }
-        
-        // Detect links in the message text
-        linkDetector.links(in: message.adjustedText).forEach { textLink in
-            attributedText.addAttribute(.link, value: textLink.url, range: textLink.range)
-            attributedText.addAttribute(.underlineStyle, value: NSUnderlineStyle.single.rawValue, range: textLink.range)
-        }
-            
-        displayedText = AttributedString(attributedText)
+        displayedText = attributedString
     }
 }

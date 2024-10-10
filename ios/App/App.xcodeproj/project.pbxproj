@@ -38,6 +38,7 @@
 		4555534C2C2EACD700B26AD9 /* CustomShadowsViewModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4555534B2C2EACD700B26AD9 /* CustomShadowsViewModifier.swift */; };
 		4555534E2C2EAED000B26AD9 /* CustomMessageListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4555534D2C2EAED000B26AD9 /* CustomMessageListView.swift */; };
 		455553502C2EBA1700B26AD9 /* CustomMessageCachingUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4555534F2C2EBA1700B26AD9 /* CustomMessageCachingUtils.swift */; };
+		455844302CB68622006C8EF8 /* Links.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4558442F2CB68622006C8EF8 /* Links.swift */; };
 		455A13D12C33D67A0093008F /* AmiTextAreaFieldView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 455A13D02C33D67A0093008F /* AmiTextAreaFieldView.swift */; };
 		455A13D32C343B700093008F /* CustomChatSheetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 455A13D22C343B700093008F /* CustomChatSheetView.swift */; };
 		455AD3BC2C4E716B007E4F74 /* StreamChatSwiftUI in Frameworks */ = {isa = PBXBuildFile; productRef = 455AD3BB2C4E716B007E4F74 /* StreamChatSwiftUI */; };
@@ -164,6 +165,7 @@
 		4555534B2C2EACD700B26AD9 /* CustomShadowsViewModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomShadowsViewModifier.swift; sourceTree = "<group>"; };
 		4555534D2C2EAED000B26AD9 /* CustomMessageListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomMessageListView.swift; sourceTree = "<group>"; };
 		4555534F2C2EBA1700B26AD9 /* CustomMessageCachingUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomMessageCachingUtils.swift; sourceTree = "<group>"; };
+		4558442F2CB68622006C8EF8 /* Links.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Links.swift; sourceTree = "<group>"; };
 		455A13D02C33D67A0093008F /* AmiTextAreaFieldView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AmiTextAreaFieldView.swift; sourceTree = "<group>"; };
 		455A13D22C343B700093008F /* CustomChatSheetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomChatSheetView.swift; sourceTree = "<group>"; };
 		455AD3C42C4FAEB3007E4F74 /* ChannelAction+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ChannelAction+Extensions.swift"; sourceTree = "<group>"; };
@@ -326,6 +328,7 @@
 				45E727752C9AFCAE00A14B14 /* ColorByHashingString.swift */,
 				45E727772C9B070C00A14B14 /* FormatRelative.swift */,
 				45AB7CF62C9DAD6000726A70 /* Color.swift */,
+				4558442F2CB68622006C8EF8 /* Links.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -699,6 +702,7 @@
 				45D1DDB52BD9668A00A53E3D /* CustomChannelListHeaderViewModifier.swift in Sources */,
 				453EC4732C3BDCFF007894AD /* CustomVoiceRecordingContainerView.swift in Sources */,
 				455553432C2E9C2100B26AD9 /* CustomMessageListContainerView.swift in Sources */,
+				455844302CB68622006C8EF8 /* Links.swift in Sources */,
 				45CE208B2CA1833F00FD76A0 /* ChatScreen.swift in Sources */,
 				45E727762C9AFCAE00A14B14 /* ColorByHashingString.swift in Sources */,
 				459836652C3592B3002A1B99 /* AmiButton.swift in Sources */,

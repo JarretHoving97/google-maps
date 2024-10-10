@@ -10,6 +10,7 @@ struct CustomPinnedMessage: View {
     
     @State private var isEditModalPresented = false
     @State private var updatedPinnedMessage: String?
+    @State private var displayedText: AttributedString?
     
     private let channel: ChatChannel
 
@@ -55,6 +56,15 @@ struct CustomPinnedMessage: View {
         }
     }
     
+    func detectLinks() {
+        if let subtitle {
+            displayedText = linkify(for: subtitle, attributes: [
+                .foregroundColor: Color.white.opacity(0.8),
+                .font: fonts.caption1
+            ])
+        }
+    }
+    
     var body: some View {
         if let subtitle {
             ZStack {
@@ -71,12 +81,22 @@ struct CustomPinnedMessage: View {
                             .foregroundColor(.white)
                     }
                     
-                    Text(subtitle)
-                        .font(fonts.caption1)
-                        .frame(maxWidth: .infinity, alignment: .leading)
-                        .foregroundColor(Color.white.opacity(0.8))
-                        .lineLimit(3)
-                        .padding(0)
+                    Group {
+                        if let displayedText {
+                            Text(displayedText)
+                        } else {
+                            Text(subtitle)
+                        }
+                    }
+                    .font(fonts.caption1)
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                    .foregroundColor(Color.white.opacity(0.8))
+                    .tint(Color.white)
+                    .lineLimit(3)
+                    .padding(0)
+                }
+                .onAppear {
+                    detectLinks()
                 }
                 .frame(maxWidth: .infinity)
                 .padding(.horizontal, 12)
