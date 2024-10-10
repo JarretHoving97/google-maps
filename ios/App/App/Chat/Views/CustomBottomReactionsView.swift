@@ -71,9 +71,11 @@ struct CustomBottomReactionsView: View {
             )
             .padding(.top, -14)
             .padding(.horizontal, 4)
-            .onLongPressGesture {
-                 isReactionsUsersSheetPresented = true
-             }
+            .simultaneousGesture(
+                LongPressGesture(minimumDuration: 0.2, maximumDistance: 20).onEnded { _ in
+                    isReactionsUsersSheetPresented = true
+                }
+            )
             .chatSheetPresentation(
                 isPresented: $isReactionsUsersSheetPresented,
                 detents: [.medium()]

@@ -13,6 +13,13 @@ public struct CustomSystemMessageView: View {
     public init(message: ChatMessage) {
         self.message = message
     }
+    
+    func navigateToProfileWebView() {
+        let userId = message.author.id
+        let route = "/profile/\(userId)"
+        
+        ExtendedStreamPlugin.shared.notifyNavigateToListeners(route: route, dismiss: true)
+    }
 
     public var body: some View {
         HStack(spacing: 8) {
@@ -38,6 +45,9 @@ public struct CustomSystemMessageView: View {
         .background(Color.white)
         .cornerRadius(16)
         .modifier(ShadowModifier())
+        .onTapGesture {
+            navigateToProfileWebView()
+        }
         .padding(.all, 4)
         .accessibilityIdentifier("SystemMessageView")
     }

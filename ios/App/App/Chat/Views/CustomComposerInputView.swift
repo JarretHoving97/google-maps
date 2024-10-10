@@ -114,10 +114,12 @@ public struct CustomComposerInputView<Factory: ViewFactory>: View, KeyboardReada
                             .renderingMode(.template)
                             .resizable()
                             .scaledToFit()
-                            .frame(width: 6, height: 6)
+                            .frame(width: 8, height: 8)
                             .foregroundColor(Color.white)
+                            .padding(8)
+                            .contentShape(Rectangle())
                     }
-                    .frame(width: 14, height: 14)
+                    .frame(width: 16, height: 16)
                     .background(Color("Red"))
                     .clipShape(Circle())
                 }

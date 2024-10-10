@@ -55,6 +55,13 @@ public struct CustomMessageContainerView<Factory: ViewFactory>: View {
         _quotedMessage = quotedMessage
     }
     
+    func navigateToProfileWebView() {
+        let userId = message.author.id
+        let route = "/profile/\(userId)"
+        
+        ExtendedStreamPlugin.shared.notifyNavigateToListeners(route: route, dismiss: true)
+    }
+    
     func navigateToOnboardingWebView() {
         if message.layoutKey == "layout.onboarding" {
             ExtendedStreamPlugin.shared.notifyNavigateToListeners(route: "/walkthrough", dismiss: true)
@@ -92,6 +99,11 @@ public struct CustomMessageContainerView<Factory: ViewFactory>: View {
                             .opacity(showsAllInfo ? 1 : 0)
                             .offset(y: bottomReactionsShown ? offsetYAvatar : 0)
                             .animation(nil)
+                            .onTapGesture {
+                                if showsAllInfo {
+                                    navigateToProfileWebView()
+                                }
+                            }
                     }
                 }
 
@@ -138,42 +150,14 @@ public struct CustomMessageContainerView<Factory: ViewFactory>: View {
                                 })
                         }
                     )
-                    .onTapGesture {
-                        navigateToOnboardingWebView()
-                    }
-                    .onTapGesture(count: 2) {
-                        if messageListConfig.doubleTapOverlayEnabled {
-                            handleGestureForMessage(showsMessageActions: true)
-                        }
-                    }
-                    .onLongPressGesture(perform: {
+                    .onLongPressGesture(minimumDuration: 0.2, maximumDistance: 20) {
                         if !message.isDeleted {
                             handleGestureForMessage(showsMessageActions: true)
                         }
-                    })
-                    .offset(x: min(self.offsetX, maximumHorizontalSwipeDisplacement))
-                    .simultaneousGesture(
-                        DragGesture(
-                            minimumDistance: minimumSwipeDistance,
-                            coordinateSpace: .local
-                        )
-                        .updating($offset) { (value, gestureState, _) in
-                            if message.isDeleted || !channel.config.repliesEnabled {
-                                return
-                            }
-                            // Using updating since onEnded is not called if the gesture is canceled.
-                            let diff = CGSize(
-                                width: value.location.x - value.startLocation.x,
-                                height: value.location.y - value.startLocation.y
-                            )
-
-                            if diff == .zero {
-                                gestureState = .zero
-                            } else {
-                                gestureState = value.translation
-                            }
-                        }
-                    )
+                    }
+                    .onTapGesture {
+                        navigateToOnboardingWebView()
+                    }
                     .onChange(of: offset, perform: { _ in
                         if !channel.config.quotesEnabled {
                             return
