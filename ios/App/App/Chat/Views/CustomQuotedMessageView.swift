@@ -1,6 +1,4 @@
 import SwiftUI
-//import Nuke
-//import NukeUI
 import StreamChat
 import StreamChatSwiftUI
 
@@ -56,10 +54,13 @@ public struct CustomQuotedMessageView<Factory: ViewFactory>: View {
                                 foregroundStyleDark: isInComposer
                             )
                         } else if !quotedMessage.imageAttachments.isEmpty {
-                            StreamLazyImage(
-                                url: quotedMessage.imageAttachments[0].imageURL,
-                                size: CGSize(width: attachmentWidth, height: attachmentWidth)
-                            ).clipShape(Rectangle())
+                            AsyncImage(url: quotedMessage.imageAttachments[0].imageURL) { image in
+                                image.resizable()
+                            } placeholder: {
+                                ProgressView()
+                            }
+                            .frame(width: attachmentWidth, height: attachmentWidth)
+                            .clipShape(RoundedRectangle(cornerRadius: 8))
                         } else if !quotedMessage.giphyAttachments.isEmpty {
                             // We don't support giphy attachment as of now.
                         } else if !quotedMessage.fileAttachments.isEmpty {
@@ -73,10 +74,13 @@ public struct CustomQuotedMessageView<Factory: ViewFactory>: View {
                                 cornerRadius: 0
                             )
                         } else if !quotedMessage.linkAttachments.isEmpty {
-                            StreamLazyImage(
-                                url: quotedMessage.linkAttachments[0].previewURL ?? quotedMessage.linkAttachments[0].originalURL,
-                                size: CGSize(width: attachmentWidth, height: attachmentWidth)
-                            ).clipShape(Rectangle())
+                            AsyncImage(url: quotedMessage.linkAttachments[0].previewURL ?? quotedMessage.linkAttachments[0].originalURL) { image in
+                                 image.resizable()
+                             } placeholder: {
+                                 ProgressView()
+                             }
+                             .frame(width: attachmentWidth, height: attachmentWidth)
+                             .clipShape(RoundedRectangle(cornerRadius: 8))
                         }
                     }
                     .frame(width: hasVoiceAttachments ? nil : attachmentWidth, height: attachmentWidth)
