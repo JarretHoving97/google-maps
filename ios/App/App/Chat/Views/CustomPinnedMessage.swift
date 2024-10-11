@@ -98,6 +98,9 @@ struct CustomPinnedMessage: View {
                 .onAppear {
                     detectLinks()
                 }
+                .onChange(of: subtitle) { _ in
+                    detectLinks()
+                }
                 .frame(maxWidth: .infinity)
                 .padding(.horizontal, 12)
                 .padding(.vertical, 8)
