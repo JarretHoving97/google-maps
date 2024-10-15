@@ -8,7 +8,6 @@ import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
 import androidx.compose.animation.shrinkVertically
 import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -30,7 +29,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.node.Ref
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import com.whoisup.app.ExtendedStreamPlugin
@@ -204,42 +202,21 @@ fun AmiChannelHeader(
         }
 
         if (otherUser != null && !otherUser.isSupportTeamMember) {
-            Box(
-                modifier = Modifier
-                    .height(1.dp)
-                    .fillMaxWidth()
-                    .background(CustomTheme.colorScheme.surfaceHard)
-            )
+            Divider()
 
-            Row(
-                modifier = Modifier
-                    .clickable(onClick = {
-                        val route = "/profile/${otherUser.id}/invite"
-                        ExtendedStreamPlugin.shared?.notifyNavigateToListeners(route, false, true)
-                    })
-                    .fillMaxWidth()
-                    .padding(12.dp),
-                horizontalArrangement = Arrangement.spacedBy(6.dp, Alignment.CenterHorizontally),
-                verticalAlignment = Alignment.CenterVertically
-            ) {
-                BasicText(
-                    text = stringResource(id = R.string.custom_channel_action_invite_title),
-                    style = CustomTheme.typography.paragraph.copy(color = CustomTheme.colorScheme.onBackground)
-                )
-                AmiIconButton(
-                    size = 24.dp,
-                    color = CustomTheme.colorScheme.primary,
-                    iconId = R.drawable.plus,
-                    iconColor = CustomTheme.colorScheme.onPrimary
-                )
-            }
+            AmiInviteUser(otherUser = otherUser)
         }
 
-        Box(
-            modifier = Modifier
-                .height(1.dp)
-                .fillMaxWidth()
-                .background(CustomTheme.colorScheme.surfaceHard)
-        )
+        Divider()
     }
+}
+
+@Composable
+private fun Divider() {
+    Box(
+        modifier = Modifier
+            .height(1.dp)
+            .fillMaxWidth()
+            .background(CustomTheme.colorScheme.surfaceHard)
+    )
 }
