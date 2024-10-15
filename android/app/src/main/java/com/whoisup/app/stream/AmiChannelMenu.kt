@@ -228,9 +228,7 @@ internal fun channelOptions(
 
     val isMuted = currentUser?.let { selectedChannel.isMutedFor(it) } ?: false
 
-    val myMember = selectedChannel.members.firstOrNull {
-        it.user.id == currentUser?.id
-    }
+    val myMember = selectedChannel.membership
 
     val isMainHost =
         selectedChannel.createdBy.id === currentUser?.id || // @TODO: this line should eventually be removed

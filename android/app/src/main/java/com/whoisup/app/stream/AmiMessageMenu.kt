@@ -22,6 +22,9 @@ import androidx.compose.ui.unit.dp
 import com.whoisup.app.components.AmiButtonLabel
 import com.whoisup.app.components.AmiSimpleMenu
 import com.whoisup.app.components.TextColor
+import com.whoisup.app.stream.extensions.AmiParticipantRole
+import com.whoisup.app.stream.extensions.amiParticipantRole
+import com.whoisup.app.stream.extensions.isDirectMessageChannel
 import com.whoisup.app.stream.extensions.isSupportTeamMember
 import com.whoisup.app.ui.theme.CustomTheme
 import io.getstream.chat.android.client.utils.message.isGiphy
@@ -59,6 +62,7 @@ fun AmiMessageMenu(
     val ownCapabilities = selectedMessageState?.ownCapabilities ?: setOf()
 
     val newMessageOptions = messageOptions(
+        listViewModel = listViewModel,
         selectedMessage = selectedMessage,
         currentUser = currentUser,
         ownCapabilities = ownCapabilities,
@@ -124,7 +128,7 @@ fun AmiMessageMenu(
     }
 }
 
-internal  class MessageOptionItemState(
+internal class MessageOptionItemState(
     val title: String,
     @DrawableRes val iconId: Int = com.whoisup.app.R.drawable.angle_right,
     val textColor: TextColor? = null,
@@ -133,6 +137,7 @@ internal  class MessageOptionItemState(
 
 @Composable
 internal fun messageOptions(
+    listViewModel: MessageListViewModel,
     selectedMessage: Message,
     currentUser: User?,
     ownCapabilities: Set<String>,
@@ -156,6 +161,7 @@ internal fun messageOptions(
     // user capabilities
     val canQuoteMessage = ownCapabilities.contains(ChannelCapabilities.QUOTE_MESSAGE)
     val canDeleteOwnMessage = ownCapabilities.contains(ChannelCapabilities.DELETE_OWN_MESSAGE)
+    val canDeleteAnyMessage = ownCapabilities.contains(ChannelCapabilities.DELETE_ANY_MESSAGE)
     val canEditOwnMessage = ownCapabilities.contains(ChannelCapabilities.UPDATE_OWN_MESSAGE)
     val canMarkAsUnread = ownCapabilities.contains(ChannelCapabilities.READ_EVENTS)
 
@@ -175,6 +181,10 @@ internal fun messageOptions(
 
     val isDeleteMessagePossible = isAllowedByCreateAt && isOwnMessage && canDeleteOwnMessage
     val isEditMessagePossible = isAllowedByCreateAt && (isOwnMessage && canEditOwnMessage) && !selectedMessage.isGiphy()
+
+    val isDeleteAnyMessagePossible = canDeleteAnyMessage &&
+            !listViewModel.channel.isDirectMessageChannel() &&
+            listViewModel.channel.membership?.amiParticipantRole == AmiParticipantRole.Organizer
 
     return listOfNotNull(
         if (isOwnMessage && isMessageFailed) {
@@ -222,7 +232,7 @@ internal fun messageOptions(
         } else {
             null
         },
-        if (isDeleteMessagePossible) {
+        if (isDeleteMessagePossible || isDeleteAnyMessagePossible) {
             MessageOptionItemState(
                 title = stringResource(id = io.getstream.chat.android.compose.R.string.stream_compose_delete_message),
                 iconId = io.getstream.chat.android.compose.R.drawable.stream_compose_ic_delete,

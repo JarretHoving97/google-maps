@@ -170,9 +170,7 @@ fun AmiChannelScreen(
 
                 var extraContentPaddingTop = 0.dp
 
-                val myMember = listViewModel.channel.members.firstOrNull {
-                    it.user.id == currentUser?.id
-                }
+                val myMember = listViewModel.channel.membership
 
                 val isMainHost =
                     listViewModel.channel.createdBy.id === currentUser?.id || // @TODO: this line should eventually be removed
