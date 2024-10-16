@@ -19,6 +19,14 @@ android {
         versionCode 1090600
         versionName "1.9.6"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+
+        Properties properties = new Properties()
+        properties.load(project.rootProject.file('local.properties').newDataInputStream())
+        manifestPlaceholders = [
+            "googleMapsApiKey": "${properties.getProperty('MAPS_API_KEY')}",
+            // change `appAuthRedirectScheme` to the `custom_url_scheme` value in your strings.xml. They need to be the same. e.g.
+            "appAuthRedirectScheme": "com.whoisup.app"
+        ]
     }
     buildTypes {
         release {
@@ -27,11 +35,6 @@ android {
         }
     }
 }
-
-android.defaultConfig.manifestPlaceholders = [
-  // change to the 'custom_url_scheme' value in your strings.xml. They need to be the same. e.g.
-  "appAuthRedirectScheme": "com.whoisup.app"
-]
 
 repositories {
     flatDir{
