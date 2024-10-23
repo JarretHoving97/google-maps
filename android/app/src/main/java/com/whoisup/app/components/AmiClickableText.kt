@@ -27,6 +27,7 @@ fun AmiClickableText(
     modifier: Modifier = Modifier,
     allowMarkdown: Boolean = false,
     interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
+    onClick: (() -> Unit)? = null,
     onLongPress: (() -> Unit)? = null,
 ) {
     val context = LocalContext.current
@@ -77,8 +78,10 @@ fun AmiClickableText(
                                 ),
                             )
                         }
+                    } else {
+                        onClick?.invoke()
                     }
-                }
+                } ?: onClick?.invoke()
             },
         )
     } else {

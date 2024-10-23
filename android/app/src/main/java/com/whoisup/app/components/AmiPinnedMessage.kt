@@ -2,6 +2,7 @@ package com.whoisup.app.components
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -12,6 +13,7 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.BasicText
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material.ripple.rememberRipple
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
@@ -29,12 +31,18 @@ fun AmiPinnedMessage(
     modifier: Modifier = Modifier,
     onClick: () -> Unit
 ) {
+    val interactionSource = remember { MutableInteractionSource() }
+
     Column(
         modifier = modifier
             .clip(RoundedCornerShape(12.dp))
             .then(
                 if (isAllowedToUpdatePinnedMessage) {
-                    Modifier.clickable(onClick = onClick)
+                    Modifier.clickable(
+                        interactionSource = interactionSource,
+                        indication = rememberRipple(),
+                        onClick = onClick
+                    )
                 } else {
                     Modifier
                 }
@@ -84,6 +92,12 @@ fun AmiPinnedMessage(
                 .fillMaxWidth()
                 .heightIn(max = 64.dp)
                 .verticalScroll(rememberScrollState()),
+            interactionSource = interactionSource,
+            onClick = if (isAllowedToUpdatePinnedMessage) {
+                onClick
+            } else {
+                null
+            }
         )
     }
 }
