@@ -207,6 +207,23 @@ fun AmiChannelHeader(
             AmiInviteUser(otherUser = otherUser)
         }
 
+        val mainHost = if (listViewModel.channel.isDirectMessageChannel()) {
+            null
+        } else {
+            listViewModel.channel.createdBy
+            // It would be nice if we could do something like the following.
+            // But we don't have any guarantees that the main host will be present in the `channel.members` list
+            // listViewModel.channel.members.firstOrNull {
+            //     it.amiParticipantRole == AmiParticipantRole.Organizer
+            // }
+        }
+
+        if (mainHost != null && mainHost.id != currentUser?.id) {
+            Divider()
+
+            AmiChatWithHost(mainHost = mainHost)
+        }
+
         Divider()
     }
 }

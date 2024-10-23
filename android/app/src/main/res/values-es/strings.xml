@@ -42,6 +42,9 @@
     <!-- AmiChatSuperPowerOnlyNotice -->
     <string name="AmiChatSuperPowerOnlyNotice_body">Sólo los anfitriones y los Super amigos pueden iniciar un chat.\nToca aquí y conviértete en Super amigo.</string>
 
+    <!-- AmiChatWithHost -->
+    <string name="AmiChatWithHost_body">Chatear con el anfitrión</string>
+
     <string name="AttachmentsPickerMenu_superOnly_body">Conviértete en Super amigo para poder enviar fotos y videos</string>
     <string name="AttachmentsPickerMenu_superOnly_title">Solo los Super amigos pueden enviar fotos y videos</string>
 

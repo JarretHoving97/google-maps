@@ -42,6 +42,9 @@
     <!-- AmiChatSuperPowerOnlyNotice -->
     <string name="AmiChatSuperPowerOnlyNotice_body">Nur Hosts und Super Amigos können einen Chat beginnen. Hier tippen, um Super Amigo zu werden.</string>
 
+    <!-- AmiChatWithHost -->
+    <string name="AmiChatWithHost_body">Chat mit Host</string>
+
     <string name="AttachmentsPickerMenu_superOnly_body">Werde Super Amigo, um Fotos und Videos senden zu können</string>
     <string name="AttachmentsPickerMenu_superOnly_title">Nur Super Amigos können Fotos und Videos versenden</string>
 

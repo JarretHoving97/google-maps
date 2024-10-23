@@ -42,6 +42,9 @@
     <!-- AmiChatSuperPowerOnlyNotice -->
     <string name="AmiChatSuperPowerOnlyNotice_body">Alleen hosts en Super amigos kunnen een chat starten.\nTik hier en word Super amigo.</string>
 
+    <!-- AmiChatWithHost -->
+    <string name="AmiChatWithHost_body">Chat met host</string>
+
     <string name="AttachmentsPickerMenu_superOnly_body">Word Super amigo om foto\'s en video\'s te kunnen versturen</string>
     <string name="AttachmentsPickerMenu_superOnly_title">Alleen Super amigos kunnen foto\'s en video\'s versturen</string>
 

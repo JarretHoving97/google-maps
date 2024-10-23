@@ -42,6 +42,9 @@
     <!-- AmiChatSuperPowerOnlyNotice -->
     <string name="AmiChatSuperPowerOnlyNotice_body">Tylko organizatorzy i Super amigos mogą rozpocząć czat.\nKliknij tutaj i zostań Super amigo.</string>
 
+    <!-- AmiChatWithHost -->
+    <string name="AmiChatWithHost_body">Czat z organizatorem</string>
+
     <string name="AttachmentsPickerMenu_superOnly_body">Zostań Super amigo, aby móc wysyłać zdjęcia i wideo</string>
     <string name="AttachmentsPickerMenu_superOnly_title">Tylko Super amigos mogą wysyłać zdjęcia i wideo</string>
 
