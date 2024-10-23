@@ -1,6 +1,7 @@
 package com.whoisup.app.stream
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -45,6 +46,9 @@ fun AmiChannelSystemMessage(
                 .widthIn(max = 300.dp)
                 .clip(RoundedCornerShape(12.dp))
                 .background(CustomTheme.colorScheme.surfaceHard)
+                .clickable {
+                    onUserAvatarClick(systemMessageState.message.user.id)
+                }
                 .padding(12.dp),
             horizontalArrangement = Arrangement.spacedBy(12.dp),
             verticalAlignment = Alignment.CenterVertically
@@ -56,9 +60,6 @@ fun AmiChannelSystemMessage(
                     avatarUrl = systemMessageState.message.user.image
                 ),
                 size = 44.dp,
-                onClick = {
-                    onUserAvatarClick(systemMessageState.message.user.id)
-                }
             )
 
             Column {
