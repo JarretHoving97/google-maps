@@ -117,23 +117,28 @@ fun AmiChannelItem(
                 }
             }
 
-            val lastMessagePreview = itemState.channel.getLastMessage(currentUser)?.let { lastMessage ->
-                formatMessagePreview(
-                    message = lastMessage,
-                    showSenderName = true,
-                    isMine = lastMessage.user.id == currentUser?.id,
-                    isDirectMessageChannel = itemState.channel.isDirectMessageChannel()
-                )
-            }
+            if (itemState.typingUsers.isNotEmpty()) {
+                AmiTypingUsers(itemState.typingUsers)
+            } else {
+                val lastMessagePreview =
+                    itemState.channel.getLastMessage(currentUser)?.let { lastMessage ->
+                        formatMessagePreview(
+                            message = lastMessage,
+                            showSenderName = true,
+                            isMine = lastMessage.user.id == currentUser?.id,
+                            isDirectMessageChannel = itemState.channel.isDirectMessageChannel()
+                        )
+                    }
 
-            if (lastMessagePreview != null) {
-                BasicText(
-                    text = lastMessagePreview.annotatedString,
-                    style = CustomTheme.typography.captionSmall.copy(color = CustomTheme.colorScheme.onSurfaceSoft),
-                    maxLines = 1,
-                    overflow = TextOverflow.Ellipsis,
-                    inlineContent = lastMessagePreview.inlineContentMap
-                )
+                if (lastMessagePreview != null) {
+                    BasicText(
+                        text = lastMessagePreview.annotatedString,
+                        style = CustomTheme.typography.captionSmall.copy(color = CustomTheme.colorScheme.onSurfaceSoft),
+                        maxLines = 1,
+                        overflow = TextOverflow.Ellipsis,
+                        inlineContent = lastMessagePreview.inlineContentMap
+                    )
+                }
             }
         }
 

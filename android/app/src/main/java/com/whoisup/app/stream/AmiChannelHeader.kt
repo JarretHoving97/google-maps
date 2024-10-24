@@ -29,7 +29,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.node.Ref
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import com.whoisup.app.ExtendedStreamPlugin
 import com.whoisup.app.R
@@ -155,30 +154,9 @@ fun AmiChannelHeader(
                                 style = CustomTheme.typography.captionSmall.copy(color = CustomTheme.colorScheme.onBackground)
                             )
                         }
-
-                        AnimatedValueVisibility(value = listViewModel.typingUsers.takeIf { it.isNotEmpty() }) {
-                            Row(
-                                modifier = Modifier,
-                                horizontalArrangement = Arrangement.spacedBy(6.dp),
-                                verticalAlignment = Alignment.CenterVertically,
-                            ) {
-                                val typingUsersText =
-                                    LocalContext.current.resources.getQuantityString(
-                                        io.getstream.chat.android.compose.R.plurals.stream_compose_message_list_header_typing_users,
-                                        it.size,
-                                        it.firstOrNull()?.name,
-                                        (it.size - 1).coerceAtLeast(0),
-                                    )
-
-                                BasicText(
-                                    text = "$typingUsersText...",
-                                    style = CustomTheme.typography.captionSmall.copy(color = CustomTheme.colorScheme.onBackground),
-                                    maxLines = 1,
-                                    overflow = TextOverflow.Ellipsis,
-                                )
-                            }
-                        }
                     }
+
+                    AmiTypingUsers(listViewModel.typingUsers)
                 }
             }
 
