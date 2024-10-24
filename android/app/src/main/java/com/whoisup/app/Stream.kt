@@ -46,6 +46,7 @@ class Stream {
 
             val notificationHandler = NotificationHandlerFactory.createNotificationHandler(
                 context = applicationContext,
+                notificationConfig = notificationConfig,
                 newMessageIntent = {
                         message,
                         channel,

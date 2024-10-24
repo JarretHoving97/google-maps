@@ -13,7 +13,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.res.painterResource
+import androidx.core.net.toUri
 import com.whoisup.app.ui.theme.CustomTheme
+import io.getstream.chat.android.client.ChatClient
 import io.getstream.chat.android.compose.state.mediagallerypreview.MediaGalleryPreviewResult
 import io.getstream.chat.android.compose.ui.attachments.AttachmentFactory
 import io.getstream.chat.android.compose.ui.attachments.factory.AudioRecordAttachmentFactory
@@ -21,12 +23,22 @@ import io.getstream.chat.android.compose.ui.attachments.factory.FileAttachmentFa
 import io.getstream.chat.android.compose.ui.attachments.factory.MediaAttachmentFactory
 import io.getstream.chat.android.compose.ui.attachments.factory.UnsupportedAttachmentFactory
 import io.getstream.chat.android.compose.ui.attachments.factory.UploadAttachmentFactory
+import io.getstream.chat.android.compose.viewmodel.messages.AudioPlayerViewModelFactory
+import io.getstream.chat.android.core.internal.InternalStreamChatApi
 import io.getstream.chat.android.models.AttachmentType
 
+@OptIn(InternalStreamChatApi::class)
 fun attachmentFactories(
     mediaGalleryPreviewLauncher: (ManagedActivityResultLauncher<MediaGalleryPreviewContract.Input, MediaGalleryPreviewResult?>)?,
 ): List<AttachmentFactory> = listOf(
     UploadAttachmentFactory(),
+    AudioRecordAttachmentFactory(
+        viewModelFactory = AudioPlayerViewModelFactory(
+            getAudioPlayer = { ChatClient.instance().audioPlayer },
+            getRecordingUri = { it.assetUrl ?: it.upload?.toUri()?.toString() },
+        ),
+        getCurrentUserId = { ChatClient.instance().getCurrentOrStoredUserId() },
+    ),
     MediaAttachmentFactory(
         skipEnrichUrl = false,
         onContentItemClick = {
@@ -56,8 +68,7 @@ fun attachmentFactories(
         },
     ),
     FileAttachmentFactory(),
-    AudioRecordAttachmentFactory(),
-    UnsupportedAttachmentFactory(),
+    UnsupportedAttachmentFactory,
 )
 
 @Composable

@@ -21,21 +21,18 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import com.whoisup.app.components.AmiIconButton
 import com.whoisup.app.ui.theme.CustomTheme
-import io.getstream.chat.android.compose.state.messages.attachments.StatefulStreamMediaRecorder
 import io.getstream.chat.android.compose.ui.components.composer.CoolDownIndicator
 import io.getstream.chat.android.compose.viewmodel.messages.AttachmentsPickerViewModel
 import io.getstream.chat.android.compose.viewmodel.messages.MessageComposerViewModel
 import io.getstream.chat.android.compose.viewmodel.messages.MessageListViewModel
 import io.getstream.chat.android.models.ChannelCapabilities
 import io.getstream.chat.android.ui.common.state.messages.Edit
-import io.getstream.sdk.chat.audio.recording.MediaRecorderState
 
 @Composable
 fun AmiChannelComposer(
     listViewModel: MessageListViewModel,
     composerViewModel: MessageComposerViewModel,
     attachmentsPickerViewModel: AttachmentsPickerViewModel,
-    statefulStreamMediaRecorder: StatefulStreamMediaRecorder? = null,
 ) {
     val messageComposerState by composerViewModel.messageComposerState.collectAsState()
 
@@ -90,37 +87,21 @@ fun AmiChannelComposer(
                 )
             }
 
-            if (statefulStreamMediaRecorder?.mediaRecorderState?.value == MediaRecorderState.RECORDING) {
-                // @TODO: custom UI for `DefaultMessageComposerAudioRecordingContent`
-                DefaultMessageComposerAudioRecordingContent(statefulStreamMediaRecorder)
-            } else {
-                AmiChannelComposerInput(
-                    listViewModel = listViewModel,
-                    composerViewModel = composerViewModel,
-                    messageComposerState = messageComposerState,
-                    onValueChange = { composerViewModel.setMessageInput(it) },
-                    onAttachmentRemoved = { composerViewModel.removeSelectedAttachment(it) },
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .weight(1f),
-                )
-            }
+            AmiChannelComposerInput(
+                listViewModel = listViewModel,
+                composerViewModel = composerViewModel,
+                messageComposerState = messageComposerState,
+                onValueChange = { composerViewModel.setMessageInput(it) },
+                onAttachmentRemoved = { composerViewModel.removeSelectedAttachment(it) },
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .weight(1f),
+            )
 
             if (messageComposerState.coolDownTime > 0 && !isInEditMode) {
                 CoolDownIndicator(coolDownTime = messageComposerState.coolDownTime)
             } else {
-                // TODO don't show if the own ability to send attachments isn't given
-                // TODO release recorder after the composable moves of screen
-                if (statefulStreamMediaRecorder != null) {
-                    RecordAudioButton(
-                        statefulStreamMediaRecorder = statefulStreamMediaRecorder,
-                        onRecordingSaved = {
-                            composerViewModel.addSelectedAttachments(listOf(it))
-                        }
-                    )
-                } else {
-                    Spacer(modifier = Modifier.width(8.dp))
-                }
+                Spacer(modifier = Modifier.width(8.dp))
 
                 SendButton(
                     value = messageComposerState.inputValue,

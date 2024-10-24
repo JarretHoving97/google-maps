@@ -50,7 +50,6 @@ import com.whoisup.app.stream.extensions.amiParticipantRole
 import com.whoisup.app.stream.extensions.isDirectMessageChannel
 import com.whoisup.app.stream.extensions.isSupportTeamMember
 import com.whoisup.app.ui.theme.CustomTheme
-import io.getstream.chat.android.compose.state.messages.attachments.StatefulStreamMediaRecorder
 import io.getstream.chat.android.compose.ui.components.SimpleDialog
 import io.getstream.chat.android.compose.ui.messages.attachments.AttachmentsPicker
 import io.getstream.chat.android.compose.ui.theme.ChatTheme
@@ -110,7 +109,6 @@ const val SAFETY_CHECK_STATE_KEY = "safetyCheckState"
 @Composable
 fun AmiChannelScreen(
     viewModelFactory: MessagesViewModelFactory,
-    statefulStreamMediaRecorder: StatefulStreamMediaRecorder? = null,
     onBackClick: () -> Unit,
     onUserAvatarClick: (String) -> Unit,
     onWalkthroughClick: (slideKey: String?) -> Unit,
@@ -325,7 +323,6 @@ fun AmiChannelScreen(
                     listViewModel = listViewModel,
                     composerViewModel = composerViewModel,
                     attachmentsPickerViewModel = attachmentsPickerViewModel,
-                    statefulStreamMediaRecorder = statefulStreamMediaRecorder
                 )
             }
         }
