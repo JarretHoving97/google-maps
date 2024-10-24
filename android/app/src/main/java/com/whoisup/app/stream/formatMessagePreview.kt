@@ -27,6 +27,7 @@ import com.whoisup.app.stream.extensions.isSupportTeamMember
 import com.whoisup.app.ui.theme.CustomTheme
 import io.getstream.chat.android.client.utils.attachment.isImage
 import io.getstream.chat.android.client.utils.attachment.isVideo
+import io.getstream.chat.android.client.utils.message.isDeleted
 import io.getstream.chat.android.client.utils.message.isSystem
 import io.getstream.chat.android.models.Message
 
@@ -78,7 +79,9 @@ fun formatMessagePreview(
     val inlineContentMap: MutableMap<String, InlineTextContent> = mutableMapOf()
 
     val annotatedString = buildAnnotatedString {
-        if (message.isSystem()) {
+        if (message.isDeleted()) {
+            append(stringResource(id = io.getstream.chat.android.compose.R.string.stream_compose_message_deleted))
+        } else if (message.isSystem()) {
             append(formatSystemMessageText(message))
         } else {
             val attachmentContent = message.attachments.firstOrNull()?.let { attachment ->
