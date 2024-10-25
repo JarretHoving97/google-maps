@@ -9,6 +9,7 @@ import io.getstream.chat.android.client.logger.ChatLogLevel
 import io.getstream.chat.android.client.notifications.handler.NotificationConfig
 import io.getstream.chat.android.client.notifications.handler.NotificationHandlerFactory
 import io.getstream.chat.android.client.token.TokenProvider
+import io.getstream.chat.android.models.InitializationState
 import io.getstream.chat.android.models.User
 import io.getstream.chat.android.offline.plugin.factory.StreamOfflinePluginFactory
 import io.getstream.chat.android.state.extensions.globalState
@@ -72,6 +73,15 @@ class Stream {
             name: String?,
             avatarUrl: String?
         ) {
+            if (ChatClient.instance().clientState.initializationState.value != InitializationState.NOT_INITIALIZED) {
+                // If SDK is already initialized or currently initializing,
+                // do not initialize again.
+                // It can cause crashes.
+                // If explicitly needed to call `logIn` again,
+                // instead call and await `logOut` first, and only then call `logIn` again.
+                return
+            }
+
             // 3 - Authenticate and connect the user
             val user = User(
                 id = userId,
