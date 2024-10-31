@@ -58,7 +58,7 @@ platform :android do
     # Version code and version name for a release must be defined in `build.gradle`
 
     gradle(
-      task: "assemble",
+      task: "bundle",
       project_dir: "android/",
       flags: "--quiet",
       build_type: "Release",
