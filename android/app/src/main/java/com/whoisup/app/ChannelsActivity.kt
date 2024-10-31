@@ -54,6 +54,10 @@ class ChannelsActivity : BaseComponentActivity() {
                                     ExtendedStreamPlugin.shared?.notifyNavigateBackListeners()
                                     finish()
                                 },
+                                onBecomeSuperClick = {
+                                    val route = "/super-amigo"
+                                    ExtendedStreamPlugin.shared?.notifyNavigateToListeners(route, false, true)
+                                },
                             )
                         }
                     }

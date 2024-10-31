@@ -9,6 +9,7 @@ import com.getcapacitor.PluginMethod
 import com.getcapacitor.annotation.CapacitorPlugin
 import kotlinx.coroutines.suspendCancellableCoroutine
 import org.json.JSONObject
+import java.time.ZonedDateTime
 import java.util.Locale
 import kotlin.coroutines.resume
 
@@ -83,6 +84,20 @@ class ExtendedStreamPlugin : Plugin() {
         val superStatus = call.getString("superStatus")
 
         superEntitlementStatus = superStatus?.let { SuperEntitlementStatus.valueOf(it) } ?: superEntitlementStatus
+
+        call.resolve()
+    }
+
+    var chatTrialUntil: ZonedDateTime? = null
+
+    @PluginMethod
+    fun setChatTrialUntil(call: PluginCall) {
+        try {
+            val chatTrialUntilString = call.getString("chatTrialUntil")
+            chatTrialUntil = ZonedDateTime.parse(chatTrialUntilString)
+        } catch (error: Exception) {
+            // do nothing
+        }
 
         call.resolve()
     }

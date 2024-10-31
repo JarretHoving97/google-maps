@@ -144,5 +144,21 @@
 			<string>%d mensajes</string>
 		</dict>
 	</dict>
+	<key>custom.chatTrialNotice.title</key>
+    <dict>
+        <key>NSStringLocalizedFormatKey</key>
+        <string>%#@days@</string>
+        <key>days</key>
+        <dict>
+            <key>NSStringFormatSpecTypeKey</key>
+            <string>NSStringPluralRuleType</string>
+            <key>NSStringFormatValueTypeKey</key>
+            <string>d</string>
+            <key>one</key>
+            <string>Iniciar chats gratis por un día como fundador local</string>
+            <key>other</key>
+            <string>Iniciar chats gratis durante %d días como fundador local</string>
+        </dict>
+    </dict>
 </dict>
 </plist>

@@ -23,6 +23,7 @@ public class ExtendedStreamPlugin: CAPPlugin, CAPBridgedPlugin {
         CAPPluginMethod(name: "openChannel", returnType: CAPPluginReturnNone),
         CAPPluginMethod(name: "openChannels", returnType: CAPPluginReturnNone),
         CAPPluginMethod(name: "setEntitlementDetails", returnType: CAPPluginReturnNone),
+        CAPPluginMethod(name: "setChatTrialUntil", returnType: CAPPluginReturnNone),
         CAPPluginMethod(name: "setLanguage", returnType: CAPPluginReturnNone),
     ]
     
@@ -33,6 +34,8 @@ public class ExtendedStreamPlugin: CAPPlugin, CAPBridgedPlugin {
     }
     
     public var superEntitlementStatus: SuperEntitlementStatus = SuperEntitlementStatus.Unavailable
+    
+    public var chatTrialUntil: Date?
     
     func initializeViewController(channelId: String? = nil) {        
         DispatchQueue.main.async {
@@ -111,6 +114,21 @@ public class ExtendedStreamPlugin: CAPPlugin, CAPBridgedPlugin {
         }
         
         call.resolve()
+    }
+    
+    @objc func setChatTrialUntil(_ call: CAPPluginCall) {
+        let chatTrialUntilString = call.getString("chatTrialUntil")
+        
+        let formatter = ISO8601DateFormatter()
+        formatter.formatOptions = [.withInternetDateTime]
+        
+        if let chatTrialUntilString, let date = formatter.date(from: chatTrialUntilString) {
+            chatTrialUntil = date
+        } else {
+            print("[ExtendedStream] Invalid chat trial date:", chatTrialUntilString ?? [:])
+        }
+       
+       call.resolve()
     }
     
     @objc func setLanguage(_ call: CAPPluginCall) {

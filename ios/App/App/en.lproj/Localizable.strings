@@ -205,6 +205,7 @@
 "custom.sendByYou" = "You:";
 "custom.today" = "Today";
 "custom.yesterday" = "Yesterday";
+"custom.becomeSuperAmigo" = "Become Super amigo";
 
 "custom.message.url.confirm.title" = "You are about to leave Amigos and browse to:";
 
@@ -267,3 +268,6 @@
 "custom.channel.action.activity.title" = "View activity";
 "custom.channel.action.inviteAmigos.title" = "Invite friends";
 "custom.channel.action.manageParticipants.title" = "Manage participants";
+
+"custom.chatTrialNotice.dialog.title" = "Start chats for free for %d days";
+"custom.chatTrialNotice.dialog.body" = "As a local founder you can start chats for free the first %d days. Want to start chats after that as well? Become Super amigo.";

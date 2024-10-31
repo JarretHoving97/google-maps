@@ -205,6 +205,7 @@
 "custom.sendByYou" = "Jij:";
 "custom.today" = "Vandaag";
 "custom.yesterday" = "Gisteren";
+"custom.becomeSuperAmigo" = "Word Super amigo";
 
 "custom.message.url.confirm.title" = "Je verlaat Amigos en navigeert naar:";
 
@@ -267,3 +268,6 @@
 "custom.channel.action.activity.title" = "Activiteit bekijken";
 "custom.channel.action.inviteAmigos.title" = "Vrienden uitnodigen";
 "custom.channel.action.manageParticipants.title" = "Deelnemers beheren";
+
+"custom.chatTrialNotice.dialog.title" = "%d dagen gratis chats starten";
+"custom.chatTrialNotice.dialog.body" = "Als local founder kan jij de eerste %d dagen gratis chats starten. Hierna ook chats starten? Word Super amigo.";

@@ -97,6 +97,7 @@
 "composer.title.edit" = "Edytuj wiadomość";
 "composer.title.reply" = "Odpowiedz na wiadomość";
 "current-selection" = "%d z %d";
+"custom.becomeSuperAmigo" = "Zostań Super amigo";
 "custom.channel.action.activity.title" = "Obejrzyj aktywność";
 "custom.channel.action.archive.confirmation-body" = "Czy na pewno chcesz usunąć czat?";
 "custom.channel.action.archive.confirmation-confirm" = "Usuń";
@@ -118,6 +119,8 @@
 "custom.channel.superNotice" = "Tylko organizatorzy i Super amigos mogą rozpocząć czat.\nKliknij tutaj i zostań Super amigo.";
 "custom.channelList.empty" = "Czaty między tobą a innymi amigos są wyświetlane tutaj.";
 "custom.channelList.title" = "Czaty";
+"custom.chatTrialNotice.dialog.title" = "%d dni darmowych czatów";
+"custom.chatTrialNotice.dialog.body" = "Jako lokalny założyciel możesz rozpoczynać darmowe czaty przez pierwsze %d dni. Chcesz kontynuować czaty po tym okresie? Zostań Super Amigo.";
 "custom.composer.attachment.super" = "Zostań Super amigo, aby móc wysyłać zdjęcia.";
 "custom.composer.voice.holdAndRelease" = "Przytrzymaj, aby nagrać, puść, aby wysłać";
 "custom.composer.voice.slideToCancel" = "Przesuń, aby anulować";

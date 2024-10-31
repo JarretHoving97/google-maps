@@ -38,12 +38,12 @@ class CustomUIFactory: ViewFactory {
     
     // MARK: Channel-related Views
     
-    typealias ChannelListTopViewType = EmptyView
+    typealias ChannelListTopViewType = AmiChatTrialNoticeView
     
     public func makeChannelListTopView(
         searchText: Binding<String>
-    ) -> EmptyView {
-        EmptyView()
+    ) -> AmiChatTrialNoticeView {
+        AmiChatTrialNoticeView()
     }
     
     typealias ChannelDestination = CustomChatChannelView<CustomUIFactory>

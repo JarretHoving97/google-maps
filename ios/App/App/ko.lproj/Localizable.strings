@@ -97,6 +97,7 @@
 "composer.title.edit" = "메시지 편집";
 "composer.title.reply" = "메시지에 답장";
 "current-selection" = "%d 중 %d";
+"custom.becomeSuperAmigo" = "슈퍼 친구 되기";
 "custom.channel.action.activity.title" = "활동 보기";
 "custom.channel.action.archive.confirmation-body" = "정말로 채팅을 삭제하시겠습니까?";
 "custom.channel.action.archive.confirmation-confirm" = "삭제";
@@ -118,6 +119,8 @@
 "custom.channel.superNotice" = "호스트와 슈퍼 친구만 채팅을 시작할 수 있습니다.\n여기를 눌러 슈퍼 친구가 되세요.";
 "custom.channelList.empty" = "당신과 다른 아미고들 간의 채팅이 여기에 표시됩니다.";
 "custom.channelList.title" = "채팅";
+"custom.chatTrialNotice.dialog.title" = "%d일 동안 무료로 채팅을 시작하세요";
+"custom.chatTrialNotice.dialog.body" = "지역 창립자로서 첫 %d일 동안 무료로 채팅을 시작할 수 있습니다. 그 후에도 채팅을 시작하고 싶으신가요? 슈퍼 아미고가 되어보세요.";
 "custom.composer.attachment.super" = "사진을 보내려면 슈퍼 아미고가 되세요.";
 "custom.composer.voice.holdAndRelease" = "녹음하려면 길게 누르고, 보내려면 놓으세요";
 "custom.composer.voice.slideToCancel" = "취소하려면 슬라이드하세요";

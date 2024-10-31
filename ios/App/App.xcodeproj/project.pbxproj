@@ -110,6 +110,7 @@
 		45D3131C2C85A822004E069E /* CustomSupportChatChannelButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45D3131B2C85A822004E069E /* CustomSupportChatChannelButton.swift */; };
 		45DDDB7228DC526D002BFCE9 /* ExtendedFacebookPlugin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45DDDB7128DC526D002BFCE9 /* ExtendedFacebookPlugin.swift */; };
 		45DDDB7428DC527A002BFCE9 /* ExtendedFacebookPlugin.m in Sources */ = {isa = PBXBuildFile; fileRef = 45DDDB7328DC527A002BFCE9 /* ExtendedFacebookPlugin.m */; };
+		45DF88E62CCBB49E00A3E04E /* AmiChatTrailNotice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45DF88E52CCBB49E00A3E04E /* AmiChatTrailNotice.swift */; };
 		45E727742C9AD8FE00A14B14 /* UserRole+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45E727732C9AD8FE00A14B14 /* UserRole+Extensions.swift */; };
 		45E727762C9AFCAE00A14B14 /* ColorByHashingString.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45E727752C9AFCAE00A14B14 /* ColorByHashingString.swift */; };
 		45E727782C9B070C00A14B14 /* FormatRelative.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45E727772C9B070C00A14B14 /* FormatRelative.swift */; };
@@ -247,6 +248,7 @@
 		45D3131B2C85A822004E069E /* CustomSupportChatChannelButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomSupportChatChannelButton.swift; sourceTree = "<group>"; };
 		45DDDB7128DC526D002BFCE9 /* ExtendedFacebookPlugin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtendedFacebookPlugin.swift; sourceTree = "<group>"; };
 		45DDDB7328DC527A002BFCE9 /* ExtendedFacebookPlugin.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ExtendedFacebookPlugin.m; sourceTree = "<group>"; };
+		45DF88E52CCBB49E00A3E04E /* AmiChatTrailNotice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AmiChatTrailNotice.swift; sourceTree = "<group>"; };
 		45E727732C9AD8FE00A14B14 /* UserRole+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UserRole+Extensions.swift"; sourceTree = "<group>"; };
 		45E727752C9AFCAE00A14B14 /* ColorByHashingString.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorByHashingString.swift; sourceTree = "<group>"; };
 		45E727772C9B070C00A14B14 /* FormatRelative.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormatRelative.swift; sourceTree = "<group>"; };
@@ -401,6 +403,7 @@
 				4565C8A22C8B55A30086B805 /* DeletedMessageView.swift */,
 				45AB7CF42C9DAAB700726A70 /* AmiMessageWalkthrough.swift */,
 				45FD39042CA594D7008B039E /* CustomReactionsOverlayView.swift */,
+				45DF88E52CCBB49E00A3E04E /* AmiChatTrailNotice.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -720,6 +723,7 @@
 				4525C7812BE938B600DC197F /* CustomChatChannelNavigatableListItemView.swift in Sources */,
 				457413322C4A6DF700D84E6D /* CustomSafetyCheckNotice.swift in Sources */,
 				455553482C2E9D5E00B26AD9 /* CustomMessageListDateUtils.swift in Sources */,
+				45DF88E62CCBB49E00A3E04E /* AmiChatTrailNotice.swift in Sources */,
 				459E4A282C130A4A003DCEF0 /* CustomMessageDateView.swift in Sources */,
 				45DDDB7228DC526D002BFCE9 /* ExtendedFacebookPlugin.swift in Sources */,
 				45D1DD992BD94B7300A53E3D /* CustomUIFactory.swift in Sources */,

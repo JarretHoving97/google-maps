@@ -144,5 +144,21 @@
 			<string>%d개 메시지</string>
 		</dict>
 	</dict>
+	<key>custom.chatTrialNotice.title</key>
+    <dict>
+        <key>NSStringLocalizedFormatKey</key>
+        <string>%#@days@</string>
+        <key>days</key>
+        <dict>
+            <key>NSStringFormatSpecTypeKey</key>
+            <string>NSStringPluralRuleType</string>
+            <key>NSStringFormatValueTypeKey</key>
+            <string>d</string>
+            <key>one</key>
+            <string>지역 창업자로서 %d일 무료 채팅을 시작하세요</string>
+            <key>other</key>
+            <string>지역 창업자로서 %d일 동안 무료로 채팅을 시작하세요</string>
+        </dict>
+    </dict>
 </dict>
 </plist>

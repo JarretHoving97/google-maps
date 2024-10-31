@@ -45,6 +45,16 @@
     <!-- AmiChatWithHost -->
     <string name="AmiChatWithHost_body">Czat z organizatorem</string>
 
+    <!-- AmiChatTrialNotice -->
+    <plurals name="AmiChatTrialNotice_title">
+        <item quantity="one">Rozpocznij bezpłatne rozmowy 1 na 1 przez jeden dzień jako lokalny założyciel</item>
+        <item quantity="few">Rozpocznij bezpłatne rozmowy 1 na 1 przez %s dni jako lokalny założyciel</item>
+        <item quantity="many">Rozpocznij bezpłatne rozmowy 1 na 1 przez %s dni jako lokalny założyciel</item>
+        <item quantity="other">Rozpocznij bezpłatne rozmowy 1 na 1 przez %s dni jako lokalny założyciel</item>
+    </plurals>
+    <string name="AmiChatTrialNotice_dialog_title">Rozpocznij bezpłatne czaty przez %s dni</string>
+    <string name="AmiChatTrialNotice_dialog_body">Jako lokalny założyciel możesz rozpoczynać czaty za darmo przez pierwsze %s dni. Chcesz rozpocząć czaty również po tym czasie? Zostań Super amigo.</string>
+
     <string name="AttachmentsPickerMenu_superOnly_body">Zostań Super amigo, aby móc wysyłać zdjęcia i wideo</string>
     <string name="AttachmentsPickerMenu_superOnly_title">Tylko Super amigos mogą wysyłać zdjęcia i wideo</string>
 

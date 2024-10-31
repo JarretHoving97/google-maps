@@ -55,6 +55,7 @@ fun AmiChannelsScreen(
     onChannelClick: (Channel) -> Unit,
     onMessageClick: (Message) -> Unit,
     onBackClick: () -> Unit,
+    onBecomeSuperClick: () -> Unit,
 ) {
     BackHandler(enabled = true) {
         onBackClick()
@@ -150,6 +151,8 @@ fun AmiChannelsScreen(
 //                    }
 //                }
 //            )
+
+            AmiChatTrialNotice(onBecomeSuperClick = onBecomeSuperClick)
 
             Box(
                 modifier = Modifier

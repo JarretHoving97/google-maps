@@ -45,6 +45,14 @@
     <!-- AmiChatWithHost -->
     <string name="AmiChatWithHost_body">Chat mit Host</string>
 
+    <!-- AmiChatTrialNotice -->
+    <plurals name="AmiChatTrialNotice_title">
+        <item quantity="one">Als Local Founder %s Tag lang kostenlos Chats beginnen</item>
+        <item quantity="other">Als Local Founder %s Tage lang kostenlos Chats beginnen</item>
+    </plurals>
+    <string name="AmiChatTrialNotice_dialog_title">%s Tage lang kostenlos Chats beginnen</string>
+    <string name="AmiChatTrialNotice_dialog_body">Als Local Founder kannst du in den ersten %s Tagen kostenlos Chats beginnen. Danach auch Chats starten? Werde Super Amigo.</string>
+
     <string name="AttachmentsPickerMenu_superOnly_body">Werde Super Amigo, um Fotos und Videos senden zu können</string>
     <string name="AttachmentsPickerMenu_superOnly_title">Nur Super Amigos können Fotos und Videos versenden</string>
 

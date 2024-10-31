@@ -97,6 +97,7 @@
 "composer.title.edit" = "Nachricht bearbeiten";
 "composer.title.reply" = "Antwort auf Nachricht";
 "current-selection" = "%d von %d";
+"custom.becomeSuperAmigo" = "Super Amigo werden";
 "custom.channel.action.activity.title" = "Aktivität ansehen";
 "custom.channel.action.archive.confirmation-body" = "Bist du sicher, dass du den Chat löschen möchtest?";
 "custom.channel.action.archive.confirmation-confirm" = "Löschen";
@@ -224,3 +225,5 @@
 "custom.leaveAmigos" = "Amigos verlassen";
 "custom.cancel" = "Abbrechen";
 "custom.message.url.confirm.title" = "Sie sind dabei, Amigos zu verlassen und zu folgendem Ziel zu navigieren:";
+"custom.chatTrialNotice.dialog.title" = "%d Tage lang kostenlos Chats beginnen";
+"custom.chatTrialNotice.dialog.body" = "Als Local Founder kannst du in den ersten %d Tagen kostenlos Chats beginnen. Danach auch Chats starten? Werde Super Amigo.";

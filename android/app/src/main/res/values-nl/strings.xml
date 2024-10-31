@@ -45,6 +45,14 @@
     <!-- AmiChatWithHost -->
     <string name="AmiChatWithHost_body">Chat met host</string>
 
+    <!-- AmiChatTrialNotice -->
+    <plurals name="AmiChatTrialNotice_title">
+        <item quantity="one">%s dag gratis chats starten als local founder</item>
+        <item quantity="other">%s dagen gratis chats starten als local founder</item>
+    </plurals>
+    <string name="AmiChatTrialNotice_dialog_title">%s dagen gratis chats starten</string>
+    <string name="AmiChatTrialNotice_dialog_body">Als local founder kan jij de eerste %s dagen gratis chats starten. Hierna ook chats starten? Word Super amigo.</string>
+
     <string name="AttachmentsPickerMenu_superOnly_body">Word Super amigo om foto\'s en video\'s te kunnen versturen</string>
     <string name="AttachmentsPickerMenu_superOnly_title">Alleen Super amigos kunnen foto\'s en video\'s versturen</string>
 
