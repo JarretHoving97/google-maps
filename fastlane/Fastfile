@@ -1,0 +1,86 @@
+opt_out_usage
+
+platform :ios do
+  desc "Build and upload to TestFlight for internal testing"
+  lane :internal do
+    # run pod install
+    cocoapods(
+      clean_install: true,
+      podfile: "ios/App/Podfile"
+    )
+    # generate auth token
+    app_store_connect_api_key(
+      issuer_id: ENV["ISSUER_ID"],
+      key_id: ENV["KEY_ID"],
+      key_content: ENV["KEY_CONTENT_BASE64"],
+      is_key_content_base64: true
+    )
+    # get current app version
+    current_version = get_current_ios_version_code()
+    # get latest app store build number for this version
+    last_app_store_build_number = app_store_build_number(
+      live: false,
+      app_identifier: "com.whoisup.app",
+      version: current_version
+    )
+    # set build number to last one + 1
+    increment_build_number(
+      build_number: last_app_store_build_number + 1,
+      xcodeproj: "ios/App/App.xcodeproj"
+    )
+    # manual code signing
+    update_code_signing_settings(
+      use_automatic_signing: false,
+      path: "ios/App/App.xcodeproj",
+      team_id: "G3578K4W58",
+      code_sign_identity: "Apple Distribution",
+      bundle_identifier: "com.whoisup.app",
+      profile_name: "GitHub Actions Distribution"
+    )
+    build_app(
+      workspace: "ios/App/App.xcworkspace",
+      scheme: "App",
+      xcargs: "-allowProvisioningUpdates",
+      export_method: "app-store", # or "development" or "ad-hoc"
+      export_options: {
+        provisioningProfiles: {
+          "com.whoisup.app" => "GitHub Actions Distribution"
+        }
+      }
+    )
+    upload_to_testflight
+  end
+end
+
+platform :android do
+  desc "Build and upload to Play Store Internal Testing"
+  lane :internal do
+    # Version code and version name for a release must be defined in `build.gradle`
+
+    gradle(
+      task: "assemble",
+      project_dir: "android/",
+      flags: "--quiet",
+      build_type: "Release",
+      properties: {
+        "android.injected.signing.store.file" => ENV['KEYSTORE_PATH'],
+        "android.injected.signing.store.password" => ENV['KEYSTORE_PASSWORD'],
+        "android.injected.signing.key.alias" => ENV['KEYSTORE_ALIAS'],
+        "android.injected.signing.key.password" => ENV['KEY_ALIAS_PASSWORD']
+      }
+    )
+    upload_to_play_store(
+      track: "internal"
+    )
+  end
+
+  def get_current_ios_version_code
+    # TODO: see if this works
+    # Run xcodebuild command to get the version
+    # version = `xcodebuild -showBuildSettings -workspace ios/App/App.xcworkspace -scheme App | grep MARKETING_VERSION | awk '{print $3}'`.strip
+    # return version
+
+    # For now, return the latest version manually.
+    return "1.9.8"
+  end
+end

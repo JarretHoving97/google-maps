@@ -1,0 +1,83 @@
+name: iOS QA Build
+
+on:
+  # Manually run this function.
+  workflow_dispatch:
+
+env:
+  APP_FRONTEND_URL: https://app.amigosapp.nl
+  PACKAGE_NAME: com.whoisup.app
+
+jobs:
+  build:
+    name: Build
+    environment: staging
+    runs-on: macos-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: |
+          npm install --legacy-peer-deps
+
+      - run: |
+          npx cap sync ios
+
+      - name: Install Bundler and Fastlane
+        run: |
+          bundle install
+
+      - name: Copy CustomMapViewController.swift
+        run: |
+          cp ./CustomMapViewController.swift node_modules/@capacitor-community/google-maps/ios/Plugin/CustomMapViewController.swift
+
+      - name: Generate random keychain password
+        run: |
+          echo "KEYCHAIN_PASSWORD=$(openssl rand -base64 20)" >> $GITHUB_ENV
+
+      - name: Install the Apple certificate and provisioning profile
+        env:
+          IOS_CERTIFICATE_BASE64: ${{ secrets.IOS_CERTIFICATE_BASE64 }}
+          IOS_CERTIFICATE_PASSWORD: ${{ secrets.IOS_CERTIFICATE_PASSWORD }}
+          IOS_PROVISIONING_PROFILE_BASE64: ${{ secrets.IOS_PROVISIONING_PROFILE_BASE64 }}
+        run: |
+          # create variables
+          CERTIFICATE_PATH=$RUNNER_TEMP/build_certificate.p12
+          PP_PATH=$RUNNER_TEMP/$PACKAGE_NAME.mobileprovision
+          KEYCHAIN_PATH=$RUNNER_TEMP/app-signing.keychain-db
+
+          # import certificate and provisioning profile from secrets
+          echo -n "$IOS_CERTIFICATE_BASE64" | base64 --decode -o $CERTIFICATE_PATH
+          echo -n "$IOS_PROVISIONING_PROFILE_BASE64" | base64 --decode -o $PP_PATH
+
+          # create temporary keychain
+          security create-keychain -p "$KEYCHAIN_PASSWORD" $KEYCHAIN_PATH
+          security set-keychain-settings -lut 21600 $KEYCHAIN_PATH
+          security unlock-keychain -p "$KEYCHAIN_PASSWORD" $KEYCHAIN_PATH
+
+          # import certificate to keychain
+          security import $CERTIFICATE_PATH -P "$IOS_CERTIFICATE_PASSWORD" -A -t cert -f pkcs12 -k $KEYCHAIN_PATH
+          security set-key-partition-list -S apple-tool:,apple: -k "$KEYCHAIN_PASSWORD" $KEYCHAIN_PATH
+          security list-keychain -d user -s $KEYCHAIN_PATH
+
+          # apply provisioning profile
+          mkdir -p ~/Library/MobileDevice/Provisioning\ Profiles
+          cp $PP_PATH ~/Library/MobileDevice/Provisioning\ Profiles
+
+          # List identities in the keychain and log the codesigning identity name
+          security find-identity -p codesigning -v $KEYCHAIN_PATH
+
+      - name: Build and Upload to TestFlight
+        env:
+          APP_FRONTEND_URL: ${{ env.APP_FRONTEND_URL }}
+          ISSUER_ID: ${{ secrets.IOS_APP_STORE_CONNECT_ISSUER_ID }}
+          KEY_ID: ${{ secrets.IOS_APP_STORE_CONNECT_KEY_ID }}
+          KEY_CONTENT_BASE64: ${{ secrets.IOS_APP_STORE_CONNECT_API_KEY_BASE64 }}
+        run: |
+          fastlane ios internal
