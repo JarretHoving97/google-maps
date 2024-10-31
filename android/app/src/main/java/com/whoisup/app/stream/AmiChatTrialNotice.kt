@@ -94,8 +94,8 @@ fun AmiChatTrialNotice(
                 BasicText(
                     text = pluralStringResource(
                         id = R.plurals.AmiChatTrialNotice_title,
-                        count = remainingTrialDays,
-                        remainingTrialDays
+                        count = remainingTrialDays.toInt(),
+                        remainingTrialDays.toInt()
                     ),
                     style = CustomTheme.typography.captionSmall.copy(color = CustomTheme.colorScheme.onSurface),
                     modifier = Modifier.weight(1f)
