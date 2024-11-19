@@ -10,7 +10,7 @@ enum Env: String {
 }
 
 func getWebViewURL() -> URL {
-    if let webViewUrl = ExtendedStreamPlugin.shared.bridge?.webView?.url {
+    if let webViewUrl = ExtendedStreamPlugin.shared.bridge?.config.serverURL {
         return webViewUrl
     }
     
