@@ -3,24 +3,24 @@ import SwiftUI
 import StreamChatSwiftUI
 
 struct CustomBottomReactionsView: View {
-    
+
     @Injected(\.chatClient) var chatClient
     @Injected(\.utils) var utils
     @Injected(\.colors) var colors
     @Injected(\.images) var images
-    
+
     var showsAllInfo: Bool
     var reactionsPerRow: Int
     var onTap: () -> Void
     var onLongPress: () -> Void
-    
+
     @StateObject var viewModel: ReactionsOverlayViewModel
-    
+
     @State var isReactionsUsersSheetPresented = false
 
     private let reactionSize: CGFloat = 16
     private let cornerRadius: CGFloat = 12
-    
+
     init(
         message: ChatMessage,
         showsAllInfo: Bool,
@@ -34,7 +34,7 @@ struct CustomBottomReactionsView: View {
         self.onLongPress = onLongPress
         _viewModel = StateObject(wrappedValue: ReactionsOverlayViewModel(message: message))
     }
-    
+
     var body: some View {
             HStack(spacing: 4) {
                 ForEach(reactions, id: \.self) { reaction in
@@ -47,7 +47,7 @@ struct CustomBottomReactionsView: View {
                             ReactionIcon(icon: imageIcon)
                                 .frame(width: reactionSize, height: reactionSize)
                         }
-                        
+
                         if count(for: reaction) > 1 {
                             Text("\(count(for: reaction))")
                                 .font(Font.custom(size: 10, weight: ThemeFontWeight.medium))
@@ -83,11 +83,11 @@ struct CustomBottomReactionsView: View {
                 CustomReactionsUsersSheetView(isPresented: $isReactionsUsersSheetPresented, viewModel: viewModel)
             }
     }
-    
+
     private func imageIcon(for reaction: MessageReactionType) -> UIImage? {
         images.availableReactions[reaction]?.smallIcon
     }
-    
+
     private func stringIcon(for reaction: MessageReactionType) -> String? {
         switch reaction.id {
         case "heart":
@@ -104,11 +104,11 @@ struct CustomBottomReactionsView: View {
             return nil
         }
     }
-    
+
     private var message: ChatMessage {
         viewModel.message
     }
-    
+
     private var reactions: [MessageReactionType] {
          let reactionScores = viewModel.message.reactionScores
 
@@ -117,11 +117,11 @@ struct CustomBottomReactionsView: View {
          }
          .sorted(by: utils.sortReactions)
      }
-    
+
     private var userReactionIDs: Set<MessageReactionType> {
         Set(message.currentUserReactions.map(\.type))
     }
-    
+
     private func count(for reaction: MessageReactionType) -> Int {
         message.reactionScores[reaction] ?? 0
     }

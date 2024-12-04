@@ -7,15 +7,15 @@ import SwiftUI
 import StreamChatSwiftUI
 
 struct CustomChatChannelHeaderMoreButtonView: View {
-    
+
     @EnvironmentObject private var viewModel: ChatChannelListViewModel
-    
+
     public let channel: ChatChannel
-    
+
     var body: some View {
         HeaderButtonView(iconSystemName: "ellipsis", leading: false) {
             resignFirstResponder()
-            
+
             withAnimation {
                 viewModel.onMoreTapped(channel: channel)
             }
@@ -29,11 +29,11 @@ public struct CustomChatChannelHeader<Factory: ViewFactory>: ToolbarContent {
     @Injected(\.utils) private var utils
     @Injected(\.colors) private var colors
     @Injected(\.chatClient) private var chatClient
-    
+
     @Environment(\.presentationMode) var presentationMode
-    
+
     @EnvironmentObject private var chatViewModel: ChatViewModel
-    
+
     private var currentUserId: String {
         chatClient.currentUserId ?? ""
     }
@@ -43,18 +43,18 @@ public struct CustomChatChannelHeader<Factory: ViewFactory>: ToolbarContent {
             && utils.messageListConfig.typingIndicatorPlacement == .navigationBar
             && channel.config.typingEventsEnabled
     }
-    
+
     private var otherUser: ChatChannelMember? {
         channel.lastActiveMembers
             .first(where: { $0.id != currentUserId })
     }
-    
+
     public var viewFactory: Factory
     public var channel: ChatChannel
     public var headerImage: UIImage
     @Binding public var isActive: Bool
-    
-    @State var mood: Mood? = nil
+
+    @State var mood: Mood?
 
     public init(
         viewFactory: Factory,
@@ -69,7 +69,7 @@ public struct CustomChatChannelHeader<Factory: ViewFactory>: ToolbarContent {
 
         updateAppearance()
     }
-    
+
     func updateAppearance() {
         // MARK: Navigation bar appearance
         let navigationBarAppearance = UINavigationBarAppearance()
@@ -79,7 +79,7 @@ public struct CustomChatChannelHeader<Factory: ViewFactory>: ToolbarContent {
         UINavigationBar.appearance().standardAppearance = navigationBarAppearance
         UINavigationBar.appearance().compactAppearance = navigationBarAppearance
         UINavigationBar.appearance().scrollEdgeAppearance = navigationBarAppearance
-                
+
         // MARK: Tab bar appearance
         let tabBarAppearance = UITabBarAppearance()
         tabBarAppearance.configureWithDefaultBackground()
@@ -88,22 +88,22 @@ public struct CustomChatChannelHeader<Factory: ViewFactory>: ToolbarContent {
         UITabBar.appearance().scrollEdgeAppearance = tabBarAppearance
         UITabBar.appearance().standardAppearance = tabBarAppearance
     }
-    
+
     func onTapPrincipalHeader() {
         var route: String?
-        
+
         if channel.isDirectMessageChannel, let userId = otherUser?.id {
             route = "/profile/\(userId)"
         } else if !channel.isDirectMessageChannel {
             let activityId = channel.cid.id
             route = "/activity/\(activityId)"
         }
-        
+
         if let route {
             ExtendedStreamPlugin.shared.notifyNavigateToListeners(route: route, dismiss: true)
         }
     }
-    
+
     func setMood() {
         if !channel.isSupportChatChannel && channel.isDirectMessageChannel {
             Task {
@@ -125,7 +125,7 @@ public struct CustomChatChannelHeader<Factory: ViewFactory>: ToolbarContent {
                         }
                     }
                 }
-                
+
                 ZStack {
                     Button {
                         resignFirstResponder()
@@ -142,10 +142,10 @@ public struct CustomChatChannelHeader<Factory: ViewFactory>: ToolbarContent {
                                 .accessibilityElement(children: .contain)
                                 .accessibilityIdentifier("ChannelAvatarView")
                              }
-                                 
+
                             VStack(alignment: .leading, spacing: 0) {
                                 CustomChannelTitleView(channel: channel, shouldShowTypingIndicator: shouldShowTypingIndicator)
-                                 
+
                                 if !shouldShowTypingIndicator {
                                     if let text = mood?.title {
                                          Text(text)
@@ -163,7 +163,7 @@ public struct CustomChatChannelHeader<Factory: ViewFactory>: ToolbarContent {
             }
             .padding(.leading, -14)
         }
-        
+
         ToolbarItem(placement: .topBarTrailing) {
             HStack(spacing: 8) {
                 if !channel.isSupportChatChannel && channel.isDirectMessageChannel, let userId = otherUser?.id {
@@ -180,12 +180,12 @@ public struct CustomChatChannelHeader<Factory: ViewFactory>: ToolbarContent {
                     }
                     .frame(width: 20, height: 20)
                     .padding(.trailing, 2)
-                    
+
                     Divider()
                         .frame(minWidth: 1, idealWidth: 1, maxHeight: .infinity)
                         .overlay(Color("Grey Light"))
                 }
-                
+
                 CustomChatChannelHeaderMoreButtonView(channel: channel)
             }
             .padding(.trailing, -14)
@@ -195,13 +195,13 @@ public struct CustomChatChannelHeader<Factory: ViewFactory>: ToolbarContent {
 
 /// The default header modifier.
 public struct CustomChatChannelHeaderViewModifier<Factory: ViewFactory>: ChatChannelHeaderViewModifier {
-    
+
     @ObservedObject private var channelHeaderLoader = InjectedValues[\.utils].channelHeaderLoader
     @State private var isActive: Bool = false
 
     public var viewFactory: Factory
     public var channel: ChatChannel
-    
+
     public init(viewFactory: Factory, channel: ChatChannel) {
         self.viewFactory = viewFactory
         self.channel = channel

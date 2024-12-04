@@ -21,8 +21,8 @@ public struct CustomChatChannelView<Factory: ViewFactory>: View, KeyboardReadabl
     @State private var tabBarAvailable: Bool = false
 
     private var factory: Factory
-    
-    private var scrollToMessage: ChatMessage? = nil
+
+    private var scrollToMessage: ChatMessage?
 
     public init(
         viewFactory: Factory = DefaultViewFactory.shared,
@@ -91,7 +91,7 @@ public struct CustomChatChannelView<Factory: ViewFactory>: View, KeyboardReadabl
         .accessibilityElement(children: .contain)
         .accessibilityIdentifier("ChatChannelView")
     }
-    
+
     var isIphone: Bool {
         UIDevice.current.userInterfaceIdiom == .phone
     }
@@ -99,7 +99,7 @@ public struct CustomChatChannelView<Factory: ViewFactory>: View, KeyboardReadabl
     private var generatingSnapshot: Bool {
         tabBarAvailable && messageDisplayInfo != nil && !viewModel.reactionsShown
     }
-    
+
     /// Returns the top most view controller.
     func topVC() -> UIViewController? {
         let keyWindow = UIApplication.shared.windows.filter { $0.isKeyWindow }.first

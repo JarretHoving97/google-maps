@@ -16,7 +16,7 @@ public struct CustomSearchResultsView<Factory: ViewFactory>: View {
     var imageLoader: (ChatChannel) -> UIImage
     var onSearchResultTap: (ChannelSelectionInfo) -> Void
     var onItemAppear: (Int) -> Void
-    
+
     public init(
         factory: Factory,
         selectedChannel: Binding<ChannelSelectionInfo?>,

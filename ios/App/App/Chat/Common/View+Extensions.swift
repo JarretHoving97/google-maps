@@ -20,7 +20,7 @@ extension View {
         let generator = UIImpactFeedbackGenerator(style: style)
         generator.impactOccurred()
     }
-    
+
     func flippedUpsideDown() -> some View {
         modifier(FlippedUpsideDown())
     }
@@ -29,7 +29,7 @@ extension View {
          isPresented: Binding<Bool>,
          detents: [UISheetPresentationController.Detent],
          content: () -> Content
-    ) -> some View where Content : View {
+    ) -> some View where Content: View {
          modifier(
              CustomSheetViewModifier(
                  isPresented: isPresented,

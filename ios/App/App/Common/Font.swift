@@ -20,7 +20,7 @@ extension Font {
         style: ThemeFontStyle = ThemeFontStyle.normal
     ) -> Font {
         let fontName: String = "Poppins-" + weight.rawValue + style.rawValue
-        
+
         return Font.custom(fontName, size: size)
     }
 }

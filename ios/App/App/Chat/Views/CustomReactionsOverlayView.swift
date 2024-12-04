@@ -5,7 +5,7 @@ import StreamChatSwiftUI
 public struct CustomReactionsOverlayView<Factory: ViewFactory>: View {
     @Injected(\.utils) private var utils
     @Injected(\.colors) private var colors
-    
+
     @StateObject var viewModel: ReactionsOverlayViewModel
 
     @State private var popIn = false
@@ -75,7 +75,7 @@ public struct CustomReactionsOverlayView<Factory: ViewFactory>: View {
             }
             .transition(.opacity)
             .onTapGesture {
-                dismissReactionsOverlay() { /* No additional handling. */ }
+                dismissReactionsOverlay { /* No additional handling. */ }
             }
             .edgesIgnoringSafeArea(.all)
             .alert(isPresented: $viewModel.errorShown) {
@@ -100,7 +100,7 @@ public struct CustomReactionsOverlayView<Factory: ViewFactory>: View {
                 let width = frame.width
                 Color.clear.preference(key: HeightPreferenceKey.self, value: height)
                 Color.clear.preference(key: WidthPreferenceKey.self, value: width)
-                
+
                 VStack(alignment: .leading) {
                     Group {
                         if messageDisplayInfo.frame.height > messageContainerHeight {
@@ -245,7 +245,7 @@ public struct CustomReactionsOverlayView<Factory: ViewFactory>: View {
             return messageDisplayInfo.message.isRightAligned ? messageActionsWidth : 0
         }
     }
-        
+
     private func messageOriginX(proxy: GeometryProxy) -> CGFloat {
         let origin = messageDisplayInfo.frame.origin.x - diffWidth(proxy: proxy)
         if let initialWidth, let initialOrigin, let screenWidth, abs(initialWidth - screenWidth) > 5 {
@@ -286,10 +286,10 @@ public struct CustomReactionsOverlayView<Factory: ViewFactory>: View {
         } else if originY > maxOrigin {
             originY = maxOrigin
         }
-        
+
         return originY - spacing
     }
-    
+
     private var spacing: CGFloat {
         let divider: CGFloat = isIPad ? 2 : 1
         let spacing = (UIScreen.main.bounds.height - screenHeight) / divider

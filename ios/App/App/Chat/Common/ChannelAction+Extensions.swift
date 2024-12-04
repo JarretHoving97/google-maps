@@ -2,7 +2,7 @@ import StreamChat
 import StreamChatSwiftUI
 
 extension ChannelAction {
-    
+
     /// Returns the channel actions.
     public static func customActions(
         for channel: ChatChannel,
@@ -11,11 +11,11 @@ extension ChannelAction {
         onError: @escaping (Error) -> Void
     ) -> [ChannelAction] {
         var actions = [ChannelAction]()
-        
+
         if let navigateActions = navigateActions(for: channel, chatClient: chatClient) {
             actions += navigateActions
         }
-        
+
         if channel.config.mutesEnabled && channel.ownCapabilities.contains(.muteChannel) {
             if channel.isMuted {
                 let unmuteAction = unmuteAction(
@@ -24,7 +24,7 @@ extension ChannelAction {
                     onDismiss: onDismiss,
                     onError: onError
                 )
-                
+
                 actions.append(unmuteAction)
             } else {
                 let muteAction = muteAction(
@@ -33,11 +33,11 @@ extension ChannelAction {
                     onDismiss: onDismiss,
                     onError: onError
                 )
-                
+
                 actions.append(muteAction)
             }
         }
-        
+
         if !channel.isDirectMessageChannel {
             let memberRole = channel.membership?.memberRole
             let hasCapability = channel.ownCapabilities.contains(.leaveChannel)
@@ -46,20 +46,20 @@ extension ChannelAction {
             let isAllowedToLeaveChannel =
                 hasCapability &&
                 (
-                    
+
                     memberRole == .channel_member ||
                     memberRole == .co_organizer ||
                     (channel.isCurrentUserOrganizer && isActiveActivity)
                 )
 
-            if (isAllowedToLeaveChannel) {
+            if isAllowedToLeaveChannel {
                 let leaveAction = leaveChat(
                     for: channel,
                     chatClient: chatClient,
                     onDismiss: onDismiss,
                     onError: onError
                 )
-                
+
                 actions.append(leaveAction)
             }
         } else {
@@ -69,13 +69,13 @@ extension ChannelAction {
                 onDismiss: onDismiss,
                 onError: onError
             )
-            
+
             actions.append(archiveAction)
         }
-        
+
         return actions
     }
-    
+
     private static func deleteChat(
         for channel: ChatChannel,
         chatClient: ChatClient,
@@ -92,13 +92,13 @@ extension ChannelAction {
                 }
             }
         }
-        
+
         let confirmationPopup = ConfirmationPopup(
             title: tr("custom.channel.action.delete.title"),
             message: tr("custom.channel.action.delete.confirmation-body"),
             buttonTitle: tr("custom.channel.action.delete.confirmation-confirm")
         )
-        
+
         return ChannelAction(
             title: tr("custom.channel.action.delete.title"),
             iconName: "chevron.right",
@@ -107,7 +107,7 @@ extension ChannelAction {
             isDestructive: true
         )
     }
-    
+
     private static func leaveChat(
         for channel: ChatChannel,
         chatClient: ChatClient,
@@ -116,7 +116,7 @@ extension ChannelAction {
     ) -> ChannelAction {
         let action = {
             let controller = chatClient.channelController(for: channel.cid)
-            
+
             if let userId = chatClient.currentUserId {
                 controller.removeMembers(userIds: [userId]) { error in
                     if let error = error {
@@ -127,14 +127,13 @@ extension ChannelAction {
                 }
             }
         }
-        
 
         let confirmationPopup = ConfirmationPopup(
             title: tr("custom.channel.action.leave.title"),
             message: tr("custom.channel.action.leave.confirmation-body"),
             buttonTitle: tr("custom.channel.action.leave.confirmation-confirm")
         )
-        
+
         return ChannelAction(
             title: tr("custom.channel.action.leave.title"),
             iconName: "chevron.right",
@@ -143,7 +142,7 @@ extension ChannelAction {
             isDestructive: true
         )
     }
-    
+
     private static func archiveChat(
         for channel: ChatChannel,
         chatClient: ChatClient,
@@ -152,8 +151,8 @@ extension ChannelAction {
     ) -> ChannelAction {
         let action = {
             let controller = chatClient.channelController(for: channel.cid)
-            
-            controller.hideChannel() { error in
+
+            controller.hideChannel { error in
                 if let error = error {
                     onError(error)
                 } else {
@@ -161,13 +160,13 @@ extension ChannelAction {
                 }
             }
         }
-        
+
         let confirmationPopup = ConfirmationPopup(
             title: tr("custom.channel.action.archive.title"),
             message: tr("custom.channel.action.archive.confirmation-body"),
             buttonTitle: tr("custom.channel.action.archive.confirmation-confirm")
         )
-        
+
         return ChannelAction(
             title: tr("custom.channel.action.archive.title"),
             iconName: "chevron.right",
@@ -176,9 +175,7 @@ extension ChannelAction {
             isDestructive: true
         )
     }
-    
-    
-    
+
     private static func muteAction(
         for channel: ChatChannel,
         chatClient: ChatClient,
@@ -195,7 +192,7 @@ extension ChannelAction {
                 }
             }
         }
-        
+
         return ChannelAction(
             title: tr("custom.channel.action.mute.title"),
             iconName: "chevron.right",
@@ -204,7 +201,7 @@ extension ChannelAction {
             isDestructive: false
         )
     }
-    
+
     private static func unmuteAction(
         for channel: ChatChannel,
         chatClient: ChatClient,
@@ -221,7 +218,7 @@ extension ChannelAction {
                 }
             }
         }
-        
+
         return ChannelAction(
             title: tr("custom.channel.action.unmute.title"),
             iconName: "chevron.right",
@@ -230,14 +227,14 @@ extension ChannelAction {
             isDestructive: false
         )
     }
-    
+
     private static func navigateActions(
         for channel: ChatChannel,
         chatClient: ChatClient
     ) -> [ChannelAction]? {
         let otherUser = channel.lastActiveMembers
             .first(where: { $0.id != chatClient.currentUserId })
-        
+
         if channel.isDirectMessageChannel, let userId = otherUser?.id {
             let profileAction = ChannelAction(
                 title: tr("custom.channel.action.profile.title"),
@@ -248,8 +245,8 @@ extension ChannelAction {
                 },
                 confirmationPopup: nil,
                 isDestructive: false
-            );
-            
+            )
+
             let inviteAction = ChannelAction(
                 title: tr("custom.channel.action.invite.title"),
                 iconName: "chevron.right",
@@ -260,13 +257,13 @@ extension ChannelAction {
                 confirmationPopup: nil,
                 isDestructive: false
             )
-            
+
             return [profileAction, inviteAction]
         }
-        
+
         if !channel.isDirectMessageChannel {
             let activityId = channel.cid.id
-            
+
             let viewAction = ChannelAction(
                 title: tr("custom.channel.action.activity.title"),
                 iconName: "chevron.right",
@@ -277,9 +274,9 @@ extension ChannelAction {
                 confirmationPopup: nil,
                 isDestructive: false
             )
-            
+
             var organizerActions = [viewAction]
-            
+
             if channel.extraData["active"]?.numberValue == 1 {
                 if channel.membership?.memberRole == MemberRole.co_organizer || channel.isCurrentUserOrganizer {
                     let inviteAction = ChannelAction(
@@ -292,9 +289,9 @@ extension ChannelAction {
                         confirmationPopup: nil,
                         isDestructive: false
                     )
-                    
+
                     organizerActions.append(inviteAction)
-                    
+
                     let manageAction = ChannelAction(
                         title: tr("custom.channel.action.manageParticipants.title"),
                         iconName: "chevron.right",
@@ -305,14 +302,14 @@ extension ChannelAction {
                         confirmationPopup: nil,
                         isDestructive: false
                     )
-                    
+
                     organizerActions.append(manageAction)
                 }
             }
-            
+
             return organizerActions
         }
-        
+
         return nil
     }
 }

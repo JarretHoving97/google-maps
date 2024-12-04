@@ -1,3 +1,4 @@
+// swiftlint:disable all
 import Foundation
 import SwiftUI
 import StreamChat
@@ -8,7 +9,7 @@ public final class StreamChatWrapper {
 
     // Chat client
     var client: ChatClient?
-    
+
     // Stream chat
     var chat: StreamChat?
 
@@ -18,53 +19,53 @@ public final class StreamChatWrapper {
             setUpChat()
         }
     }
-    
+
     private var currentUserController: CurrentChatUserController?
     private var delegate: CurrentUserDelegate?
 
     public init() {
         var _config = ChatClientConfig(apiKey: .init(BuildConfiguration.StreamApiKey))
-        
+
         if let bundleId = Bundle.main.bundleIdentifier {
             _config.isLocalStorageEnabled = true
             _config.applicationGroupIdentifier = "group.\(bundleId).stream"
         }
-        
+
         _config.maxAttachmentCountPerMessage = 5
-        
+
         config = _config
     }
-    
+
     func setUpChat() {
         // Create Client
         if client == nil {
             client = ChatClient(config: config)
-            
-            Appearance.localizationProvider = { key, table in
+
+            Appearance.localizationProvider = { key, _ in
                 tr(key)
             }
-            
+
             if let client {
                 chat = StreamChat(chatClient: client, appearance: getAppearence(), utils: getUtils())
             }
         }
     }
-    
+
     func logIn(id: String, name: String?, avatarUrl: String?) {
         setUpChat()
-        
-        var extraData: [String : RawJSON] = [:]
-        
+
+        var extraData: [String: RawJSON] = [:]
+
         if let avatarUrl {
             extraData = ["image": .string(avatarUrl)]
         }
-        
+
         let userInfo: UserInfo = .init(
-            id: id, 
+            id: id,
             name: name,
             extraData: extraData
         )
-        
+
         client!.connectUser(
             userInfo: userInfo,
             tokenProvider: loadStreamToken
@@ -73,7 +74,7 @@ public final class StreamChatWrapper {
                 log.error("[Stream] Connecting the user failed: \(error)")
                 return
             }
-            
+
             UNUserNotificationCenter
                 .current()
                 .requestAuthorization(options: [.alert, .sound, .badge]) { granted, _ in
@@ -83,41 +84,41 @@ public final class StreamChatWrapper {
                         }
                     }
                 }
-            
+
             self.setupCurrentUserController()
         }
     }
-    
+
     /// Disconnects the user and removes related cache.
     public func logOut() {
         setUpChat()
-        
+
         // We don't want to send push notifications related to this user to this device again.
         removeDeviceToken()
-        
+
         // The docs says to use `disconnect` when logging out but `logout` makes more sense to me.
         client!.logout(completion: {})
     }
-    
+
     /// Adds the device token to stream so push notifications can be sent.
     public func addDeviceToken(deviceToken: String) {
         setUpChat()
-        
+
         guard client!.currentUserId != nil else {
             log.warning("[Stream] Failed adding the device as the user is unauthenticated.")
             return
         }
-        
+
         client!.currentUserController().addDevice(.firebase(token: deviceToken, providerName: "Firebase")) { error in
             if let error = error {
                 log.warning("[Stream] Failed adding the device: \(error)")
             }
         }
     }
-    
+
     public func removeDeviceToken() {
         setUpChat()
-        
+
         guard let deviceId = client!.currentUserController().currentUser?.devices.last?.id else {
             return
         }
@@ -128,7 +129,7 @@ public final class StreamChatWrapper {
             }
         }
     }
-    
+
     public func getUtils() -> Utils {
         return Utils(
             commandsConfig: CustomCommandsConfig(),
@@ -142,21 +143,21 @@ public final class StreamChatWrapper {
             channelHeaderLoader: CustomChannelHeaderLoader()
         )
     }
-    
+
     /// Get the `Appearance` to specify when initializing `StreamChat`.
     private func getAppearence() -> Appearance {
         var colors = ColorPalette()
 
-        colors.quotedMessageBackgroundCurrentUser = UIColor(white: 0.0, alpha: 0.05);
-        colors.quotedMessageBackgroundOtherUser = UIColor(white: 0.0, alpha: 0.05);
+        colors.quotedMessageBackgroundCurrentUser = UIColor(white: 0.0, alpha: 0.05)
+        colors.quotedMessageBackgroundOtherUser = UIColor(white: 0.0, alpha: 0.05)
         colors.messageCurrentUserBackground = [UIColor(Color("Purple"))]
         colors.messageOtherUserBackground = [UIColor.white]
-        colors.messageCurrentUserTextColor = UIColor.white;
+        colors.messageCurrentUserTextColor = UIColor.white
         colors.tintColor = Color("Purple")
         colors.background = UIColor(Color("Pale"))
 
         let images = Images()
-        
+
         images.availableReactions = [
             .init(rawValue: "heart"): ChatMessageReactionAppearance(
                 smallIcon: "❤️".toImage(size: 64),
@@ -179,12 +180,12 @@ public final class StreamChatWrapper {
                 largeIcon: "🔥".toImage(size: 256)
             )
         ]
-        
+
         images.sliderThumb = UIImage(named: "SliderThumb")!
 
         return Appearance(colors: colors, images: images, fonts: Fonts())
     }
-    
+
     private func setupCurrentUserController() {
         currentUserController = client?.currentUserController()
         delegate = CurrentUserDelegate()
@@ -203,11 +204,11 @@ class CurrentUserDelegate: CurrentChatUserControllerDelegate {
 }
 
 class CustomCommandsConfig: CommandsConfig {
-    
+
     public let mentionsSymbol: String = "@"
-    
+
     public let instantCommandsSymbol: String = "/"
-    
+
     public func makeCommandsHandler(
         with channelController: ChatChannelController
     ) -> CommandsHandler {
@@ -216,7 +217,7 @@ class CustomCommandsConfig: CommandsConfig {
             commandSymbol: mentionsSymbol,
             mentionAllAppUsers: false
         )
-        
+
         return CommandsHandler(commands: [mentionsCommand])
     }
 }
@@ -227,7 +228,7 @@ let customMessageListConfig = MessageListConfig(
         showAvatars: false,
         showAvatarsInGroups: true,
         reactionsPlacement: .bottom
-        
+
     ),
     messagePaddings: MessagePaddings(horizontal: 12),
     dateIndicatorPlacement: .messageList,

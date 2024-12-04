@@ -5,10 +5,10 @@ extension ChatMessage {
     var alignmentInBubble: HorizontalAlignment {
         .leading
     }
-    
+
     var reactionScoresId: String {
         var output = ""
-        
+
         if reactionScores.isEmpty {
             return output
         }
@@ -19,15 +19,15 @@ extension ChatMessage {
             let score = reactionScores[key] ?? 0
             output += "\(key.rawValue)\(score)"
         }
-        
+
         return output
     }
-    
+
     var layoutKey: String? {
         if let layoutKey = extraData["layoutKey"]?.stringValue {
             return layoutKey
         }
-        
+
         return nil
     }
 }

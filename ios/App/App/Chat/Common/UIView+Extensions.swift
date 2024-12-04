@@ -1,3 +1,4 @@
+// swiftlint:disable all
 import SwiftUI
 
 extension UIView {
@@ -5,12 +6,12 @@ extension UIView {
         translatesAutoresizingMaskIntoConstraints = false
         return self
     }
-    
+
     func withAccessibilityIdentifier(identifier: String) -> Self {
         accessibilityIdentifier = identifier
         return self
     }
-    
+
     func embed(_ subview: UIView, insets: NSDirectionalEdgeInsets = .zero) {
         addSubview(subview)
 

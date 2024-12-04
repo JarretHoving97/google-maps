@@ -1,3 +1,4 @@
+// swiftlint:disable all
 import StreamChatSwiftUI
 import SwiftUI
 import StreamChat
@@ -19,7 +20,7 @@ private struct Example: Identifiable {
 }
 
 struct CustomSafetyCheckInfoSheetView: View {
-    
+
     @Injected(\.colors) private var colors
     @Injected(\.fonts) var fonts
 
@@ -27,7 +28,7 @@ struct CustomSafetyCheckInfoSheetView: View {
     let variant: SafetyCheckInfoVariant
 
     @Binding var isPresented: Bool
-    
+
     init(
         isPresented: Binding<Bool>,
         channel: ChatChannel,
@@ -37,11 +38,11 @@ struct CustomSafetyCheckInfoSheetView: View {
         self.channel = channel
         self.variant = variant
     }
-    
+
     private var otherUserName: String {
         channel.otherUser?.name ?? ""
     }
-    
+
     private var content: Content {
         if variant == .Receiver {
             return .init(
@@ -49,7 +50,7 @@ struct CustomSafetyCheckInfoSheetView: View {
                 examples: [
                     .init(title: tr("custom.safetyCheck.info.sheet.receiver.examples.join"), positive: true),
                     .init(title: tr("custom.safetyCheck.info.sheet.receiver.examples.host"), positive: true),
-                    .init(title: tr("custom.safetyCheck.info.sheet.receiver.examples.other"), positive: false),
+                    .init(title: tr("custom.safetyCheck.info.sheet.receiver.examples.other"), positive: false)
                 ]
             )
         } else {
@@ -62,18 +63,18 @@ struct CustomSafetyCheckInfoSheetView: View {
             )
         }
     }
-    
+
     var body: some View {
         VStack(alignment: .leading, spacing: 24) {
             VStack(alignment: .leading, spacing: 8) {
                 Text("custom.safetyCheck.info.sheet.title")
                     .font(fonts.title)
-                
+
                 Text(content.subtitle)
                     .fixedSize(horizontal: false, vertical: true)
                     .font(fonts.body)
             }
-            
+
             VStack(alignment: .leading, spacing: 8) {
                 ForEach(content.examples) { example in
                     HStack(spacing: 12) {
@@ -86,7 +87,7 @@ struct CustomSafetyCheckInfoSheetView: View {
 
                         Text(example.title)
                             .font(fonts.caption1)
-                        
+
                         Spacer()
                     }
                 }
@@ -95,9 +96,9 @@ struct CustomSafetyCheckInfoSheetView: View {
             .padding(12)
             .background(Color("Grey Light"))
             .cornerRadius(12)
-            
+
             Spacer()
-            
+
             AmiButton("custom.iUnderstand") {
                 isPresented = false
             }

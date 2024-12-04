@@ -26,7 +26,7 @@ struct TextSizeConstants {
 public struct CustomComposerInputView<Factory: ViewFactory>: View, KeyboardReadable {
 
     @EnvironmentObject var viewModel: MessageComposerViewModel
-    
+
     @Injected(\.colors) private var colors
     @Injected(\.fonts) private var fonts
     @Injected(\.images) private var images
@@ -90,11 +90,11 @@ public struct CustomComposerInputView<Factory: ViewFactory>: View, KeyboardReada
 
         return textHeight
     }
-    
+
     var inputPaddingsConfig: PaddingsConfig {
         utils.composerConfig.inputPaddingsConfig
     }
-    
+
     func removeQuotedMessage() {
         quotedMessage = nil
     }
@@ -145,7 +145,7 @@ public struct CustomComposerInputView<Factory: ViewFactory>: View, KeyboardReada
                 )
                 .padding(.trailing, 8)
             }
-            
+
             if !viewModel.addedVoiceRecordings.isEmpty {
                 CustomAddedVoiceRecordingsView(
                     addedVoiceRecordings: viewModel.addedVoiceRecordings,
@@ -177,7 +177,7 @@ public struct CustomComposerInputView<Factory: ViewFactory>: View, KeyboardReada
                     .foregroundColor(.white)
                     .cornerRadius(16)
                 }
-                
+
                 factory.makeComposerTextInputView(
                     text: $text,
                     height: $textHeight,
@@ -229,7 +229,7 @@ public struct CustomComposerInputView<Factory: ViewFactory>: View, KeyboardReada
         var colors = colors
         return Color(colors.composerInputBackground)
     }
-    
+
     private var highlightedBorder: UIColor {
         var colors = colors
         return colors.composerInputHighlightedBorder
@@ -274,7 +274,7 @@ public struct CustomComposerInputContainerView<Factory: ViewFactory>: View {
         self.removeAttachmentWithId = removeAttachmentWithId
         self.shouldScroll = shouldScroll
     }
-    
+
     var factory: Factory
     @Binding var text: String
     @Binding var selectedRangeLocation: Int
@@ -288,10 +288,10 @@ public struct CustomComposerInputContainerView<Factory: ViewFactory>: View {
     var onCustomAttachmentTap: (CustomAttachment) -> Void
     var removeAttachmentWithId: (String) -> Void
     var shouldScroll: Bool
-    
+
     public var body: some View {
         Spacer()
-        
+
         if shouldScroll {
             ScrollView {
                 CustomComposerInputView(

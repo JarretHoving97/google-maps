@@ -1,3 +1,5 @@
+// swiftlint:disable all
+
 import Foundation
 import UIKit
 
@@ -18,7 +20,7 @@ func intlDateTimeFormat(date: Date, format: DateTimeFormat, locale: Locale) -> S
     let dateFormatter = DateFormatter()
     dateFormatter.locale = locale
     dateFormatter.timeZone = TimeZone.current
-    
+
     switch format {
     case .weekdayLong_MonthLong_DayNumeric:
         dateFormatter.dateFormat = DateFormatter.dateFormat(fromTemplate: "EEEE, MMMM d", options: 0, locale: locale)
@@ -42,16 +44,16 @@ func intlDateTimeFormat(date: Date, format: DateTimeFormat, locale: Locale) -> S
     case .weekdayLong:
         dateFormatter.dateFormat = "EEEE"
     }
-    
+
     return dateFormatter.string(from: date)
 }
 
 func formatRelative(date: Date, locale: Locale, ifTodayHideHours: Bool = false) -> String {
     let calendar = Calendar.current
     let now = Date()
-    
+
     let diffInCalendarDays = calendar.dateComponents([.day], from: now, to: date).day ?? 0
-    
+
     if diffInCalendarDays > -7 {
         let isToday = calendar.isDateInToday(date)
         if isToday {
@@ -60,14 +62,14 @@ func formatRelative(date: Date, locale: Locale, ifTodayHideHours: Bool = false) 
             }
             return intlDateTimeFormat(date: date, format: .hour2Digit_Minute2Digit, locale: locale)
         }
-        
+
         let isYesterday = calendar.isDateInYesterday(date)
         if isYesterday {
             return tr("custom.yesterday")
         }
-        
+
         return intlDateTimeFormat(date: date, format: .weekdayLong, locale: locale)
     }
-    
+
     return intlDateTimeFormat(date: date, format: .yearNumeric_MonthShort_DayNumeric, locale: locale)
 }

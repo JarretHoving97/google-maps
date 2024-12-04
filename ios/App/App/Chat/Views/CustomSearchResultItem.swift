@@ -4,25 +4,25 @@ import SwiftUI
 
 /// The search result item user interface.
 struct CustomSearchResultItem<ChannelDestination: View>: View {
-    
+
     @Injected(\.utils) private var utils
-    
+
     var searchResult: ChannelSelectionInfo
     var onlineIndicatorShown: Bool
     var channelName: String
     var avatar: UIImage
     var onSearchResultTap: (ChannelSelectionInfo) -> Void
     var channelDestination: (ChannelSelectionInfo) -> ChannelDestination
-    
+
     var channel: ChatChannel {
         searchResult.channel
     }
-    
+
     private var channelActivityImageUrl: URL? {
         if let imageURL = channel.imageURL {
             return imageURL
         }
-        
+
         return nil
     }
 

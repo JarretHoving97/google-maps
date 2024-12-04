@@ -13,7 +13,7 @@ struct DeletedMessageView: View {
     private var dateFormatter: DateFormatter {
         utils.dateFormatter
     }
-    
+
     private var deletedMessageVisibility: ChatClientConfig.DeletedMessageVisibility {
         chatClient.config.deletedMessagesVisibility
     }
@@ -29,7 +29,7 @@ struct DeletedMessageView: View {
             HStack(spacing: 6) {
                 Text("message.deleted-message-placeholder")
                     .font(fonts.caption1.italic())
-                
+
                 Image(systemName: "trash.fill")
                     .resizable()
                     .scaledToFit()

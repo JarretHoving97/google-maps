@@ -3,9 +3,9 @@ import SwiftUI
 import StreamChatSwiftUI
 
 class CustomMoreChannelActionsViewModel: MoreChannelActionsViewModel {
-    
+
     @Injected(\.chatClient) private var chatClient
-    
+
     /// Published vars.
     @Published var channelActions: [ChannelAction] = []
     @Published var alertShown = false
@@ -16,9 +16,9 @@ class CustomMoreChannelActionsViewModel: MoreChannelActionsViewModel {
             alertShown = alertAction != nil
         }
     }
-    
+
     public var channelController: ChatChannelController?
-    
+
     public override init(
         channel: ChatChannel,
         channelActions: [ChannelAction]
@@ -53,7 +53,7 @@ public struct CustomMoreChannelActionsView: View {
                 if index > 0 {
                     Divider()
                 }
-                
+
                 HStack {
                     if let destination = action.navigationDestination {
                         Button {
@@ -129,7 +129,7 @@ public struct CustomMoreChannelActionsContainerView<Factory: ViewFactory>: View 
     public var body: some View {
         VStack {
             Spacer()
-            
+
             CustomMoreChannelActionsView(viewModel: viewModel)
                 .padding(.horizontal, 16)
                 .padding(.vertical, 12)

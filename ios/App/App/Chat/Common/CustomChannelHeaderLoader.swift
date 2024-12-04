@@ -23,12 +23,12 @@ class CustomChannelHeaderLoader: ChannelHeaderLoader {
     internal lazy var imageCDN = utils.imageCDN
     internal lazy var channelAvatarsMerger = utils.channelAvatarsMerger
     internal lazy var channelNamer = utils.channelNamer
-    
+
     private var loadedImages = [ChannelId: UIImage]()
     private let didLoadImage = PassthroughSubject<ChannelId, Never>()
-    
+
     internal lazy var placeholder1 = images.userAvatarPlaceholder1
-    
+
     /// Loads an image for the provided channel.
     /// If the image is not downloaded, placeholder is returned.
     /// - Parameter channel: the provided channel.
@@ -42,21 +42,21 @@ class CustomChannelHeaderLoader: ChannelHeaderLoader {
             let lastActiveMembers = self.lastActiveMembers(for: channel)
             if let otherMember = lastActiveMembers.first, let url = otherMember.imageURL {
                 loadChannelThumbnail(for: channel.cid, from: url)
-                
+
                 if let name = otherMember.name {
                     return name.toAvatarImage(size: 40)
                 }
             }
         }
-        
+
         return placeholder1
     }
-    
+
     // MARK: - private
 
     private func didFinishedLoading(for cid: ChannelId, image: UIImage) {
         loadedImages[cid] = image
-        
+
         if scheduledUpdates.isEmpty {
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) { [weak self] in
                 guard let self else { return }
@@ -65,10 +65,10 @@ class CustomChannelHeaderLoader: ChannelHeaderLoader {
                 updates.forEach { self.didLoadImage.send($0) }
             }
         }
-        
+
         scheduledUpdates.insert(cid)
     }
-    
+
     private func loadMergedAvatar(from cid: ChannelId, urls: [URL]) {
         if failedImageLoads.contains(cid) {
             return

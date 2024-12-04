@@ -5,7 +5,7 @@ import StreamChatSwiftUI
 struct CustomRecordingTipView: View {
     @Injected(\.colors) private var colors
     @Injected(\.fonts) private var fonts
-    
+
     var body: some View {
         Text("custom.composer.record.holdAndRelease")
             .font(fonts.caption2)
@@ -16,7 +16,7 @@ struct CustomRecordingTipView: View {
             .overlay(
                 Divider()
                     .frame(maxWidth: .infinity, maxHeight: 0.5)
-                    .background(Color(colors.lightBorder)), 
+                    .background(Color(colors.lightBorder)),
                 alignment: .top
             )
             .transition(AnyTransition.opacity.animation(.easeInOut(duration: 0.2)))

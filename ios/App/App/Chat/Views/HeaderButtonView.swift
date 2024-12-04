@@ -1,11 +1,12 @@
+// swiftlint:disable all
 import SwiftUI
 
 struct HeaderButtonView: View {
-    
+
     var iconSystemName: String = "arrow.backward"
     var leading: Bool = true
-    var action: (() -> Void);
-    
+    var action: (() -> Void)
+
     var body: some View {
         Button(action: action) {
             ZStack {
@@ -13,7 +14,7 @@ struct HeaderButtonView: View {
                     .fill(Color.clear)
                     .contentShape(Rectangle())
                     .frame(width: 28, height: 28, alignment: .center)
-                
+
                 Image(systemName: iconSystemName)
                     .resizable()
                     .scaledToFit()

@@ -5,7 +5,7 @@ import StreamChatSwiftUI
 struct AmiThumbButton: View {
     let positive: Bool
     let action: (() -> Void)?
-    
+
     var body: some View {
         Button {
             action?()

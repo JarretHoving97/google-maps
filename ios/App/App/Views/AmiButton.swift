@@ -3,12 +3,12 @@ import StreamChatSwiftUI
 
 struct AmiButton: View {
     @Injected(\.fonts) var fonts
-    
+
     let key: LocalizedStringKey
     var fluid: Bool
     var disabled: Bool
     let action: (() -> Void)?
-    
+
     init(
         _ key: LocalizedStringKey,
         fluid: Bool = true,
@@ -20,19 +20,21 @@ struct AmiButton: View {
         self.fluid = fluid
         self.disabled = disabled
     }
-    
+
     var background: Color {
         var color = Color("Purple")
-        
+
         if disabled {
             color = color.opacity(0.3)
         }
-        
+
         return color
     }
-    
+
     var body: some View {
-        Button(action: { action?() }) {
+        Button {
+            action?()
+        } label: {
             Text(key)
                 .frame(maxWidth: fluid ? .infinity : nil)
                 .contentShape(Rectangle())

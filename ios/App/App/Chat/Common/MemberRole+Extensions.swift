@@ -1,3 +1,4 @@
+// swiftlint:disable all
 import StreamChat
 
 extension MemberRole {

@@ -75,9 +75,9 @@ extension MessageAction {
 
             messageActions.append(copyAction)
         }
-        
+
         let isOwnMessageMutable = abs(message.createdAt.timeIntervalSinceNow) <= TimeInterval(60 * 15)
-        
+
         if channel.ownCapabilities.contains(.updateOwnMessage) && message.isSentByCurrentUser && isOwnMessageMutable {
             if message.poll == nil {
                 let editAction = editMessageAction(
@@ -88,11 +88,11 @@ extension MessageAction {
                 messageActions.append(editAction)
             }
         }
-        
+
         let isOwnMessageDeletable = channel.ownCapabilities.contains(.deleteOwnMessage) && message.isSentByCurrentUser && isOwnMessageMutable
         let isOrganizer = channel.membership?.memberRole == .organizer
         let isAnyMessageDeletable = channel.ownCapabilities.contains(.deleteAnyMessage) && !channel.isDirectMessageChannel && isOrganizer
-        
+
         if isOwnMessageDeletable || isAnyMessageDeletable {
             let deleteAction = deleteAction(
                 for: message,
@@ -101,7 +101,7 @@ extension MessageAction {
                 onFinish: onFinish,
                 onError: onError
             )
-            
+
             messageActions.append(deleteAction)
         }
 
@@ -113,7 +113,7 @@ extension MessageAction {
                 onFinish: onFinish,
                 onError: onError
             )
-            
+
             messageActions.append(markUnreadAction)
         }
 
@@ -193,7 +193,7 @@ extension MessageAction {
 
         return quoteAction
     }
-    
+
     private static func deleteAction(
         for message: ChatMessage,
         channel: ChatChannel,
@@ -232,7 +232,7 @@ extension MessageAction {
 
         return deleteMessage
     }
-    
+
     private static func markAsUnreadAction(
         for message: ChatMessage,
         channel: ChatChannel,
@@ -263,7 +263,7 @@ extension MessageAction {
             confirmationPopup: nil,
             isDestructive: false
         )
-        
+
         return unreadAction
     }
 

@@ -17,13 +17,13 @@ public struct CustomAttachmentPickerTypeView: View {
         _pickerTypeState = pickerTypeState
         self.channelConfig = channelConfig
     }
-    
+
     var state: AttachmentPickerType {
         switch pickerTypeState {
-            case .collapsed:
-                return AttachmentPickerType.none
-            case let .expanded(attachmentPickerType):
-                return attachmentPickerType
+        case .collapsed:
+            return AttachmentPickerType.none
+        case let .expanded(attachmentPickerType):
+            return attachmentPickerType
         }
     }
 

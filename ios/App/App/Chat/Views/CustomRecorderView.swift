@@ -10,21 +10,20 @@ enum RecordingConstants {
 }
 
 struct CustomRecordingView: View {
-    
+
     @Injected(\.colors) var colors
     @Injected(\.utils) var utils
     @Injected(\.fonts) var fonts
-    
+
     var location: CGPoint
     var audioRecordingInfo: AudioRecordingInfo
     var onMicTap: () -> Void
-    
-    
+
     @State private var pulseOpacity: Double = 1.0
     @State private var scaleSize: CGFloat = 1
-    
+
     private let initialLockOffset: CGFloat = -102
-    
+
     var body: some View {
         HStack(spacing: 12) {
             Image(systemName: "record.circle.fill")
@@ -39,11 +38,11 @@ struct CustomRecordingView: View {
                         pulseOpacity = 0.3
                     }
                 }
-            
+
             CustomRecordingDurationView(duration: audioRecordingInfo.duration)
-            
+
             Spacer()
-            
+
             HStack {
                 HStack(spacing: 2) {
                     ForEach(Array(0..<3), id: \.self) { _ in
@@ -53,14 +52,14 @@ struct CustomRecordingView: View {
                             .frame(width: 8, height: 8, alignment: .center)
                     }
                 }
-                
+
                 Text("custom.composer.voice.slideToCancel")
                     .font(fonts.footnote)
             }
             .foregroundColor(Color(colors.textLowEmphasis))
             .opacity(opacityForSlideToCancel)
             .padding(.horizontal, 36)
-            
+
             Button {
                 onMicTap()
             } label: {
@@ -85,14 +84,14 @@ struct CustomRecordingView: View {
             }
         )
     }
-    
+
     private var lockViewOffset: CGFloat {
         if location.y > 0 {
             return initialLockOffset
         }
         return initialLockOffset + location.y
     }
-    
+
     private var opacityForSlideToCancel: CGFloat {
         guard location.x < RecordingConstants.cancelMinDistance else { return 1 }
         let opacity = (1 - location.x / RecordingConstants.cancelMaxDistance)
@@ -104,9 +103,9 @@ struct CustomRecordingDurationView: View {
     @Injected(\.utils) private var utils
     @Injected(\.colors) private var colors
     @Injected(\.fonts) var fonts
-    
+
     var duration: TimeInterval
-    
+
     var body: some View {
         Text(utils.videoDurationFormatter.format(duration) ?? "")
             .font(fonts.headline)
@@ -116,14 +115,14 @@ struct CustomRecordingDurationView: View {
 
 struct CustomLockView: View {
     @Injected(\.colors) var colors
-    
+
     var body: some View {
         VStack(spacing: 8) {
             Image(systemName: "lock.fill")
                 .resizable()
                 .scaledToFit()
                 .frame(width: 16, height: 16, alignment: .center)
-            
+
             VStack(spacing: 2) {
                 ForEach(Array(0..<3), id: \.self) { _ in
                     Image(systemName: "chevron.up")

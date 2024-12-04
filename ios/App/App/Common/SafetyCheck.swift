@@ -1,13 +1,13 @@
 import Foundation
 
 enum RequestError: Error {
-    case InvalidUrl
-    case RequestAborted
-    case ResponseInvalid
+    case invalidUrl
+    case requestAborted
+    case responseInvalid
 }
 
 func getRequestBody(userId: String, state: SafetyCheckState, reason: SafetyCheckReason?) -> String {
-    if (state == .Positive) {
+    if state == .Positive {
         return """
             {
               "operationName": "AddUserPositiveReview",
@@ -46,45 +46,45 @@ func updateSafetyCheck(
         completion(.failure(TokenProviderError.Unauthenticated))
         return
     }
-    
+
     guard let url = URL(string: "\(BuildConfiguration.AmigosApiUrl)/graphql") else {
-        completion(.failure(RequestError.InvalidUrl))
+        completion(.failure(RequestError.invalidUrl))
         return
     }
-    
+
     var request = URLRequest(url: url, cachePolicy: .reloadIgnoringLocalCacheData)
-    
+
     request.httpMethod = "POST"
-    
+
     let body = getRequestBody(userId: userId, state: state, reason: reason)
 
     request.httpBody = body.data(using: .utf8)
-    
+
     let headers = [
         "Authorization": "Bearer \(jwt)",
         "Content-Type": "application/json"
     ]
-    
+
     for (name, value) in headers {
         request.addValue(value, forHTTPHeaderField: name)
     }
-    
+
     let task = URLSession.shared.dataTask(with: request) { data, response, error in
         if let error = error {
-            completion(.failure(RequestError.ResponseInvalid))
+            completion(.failure(RequestError.responseInvalid))
             print(error)
             return
         }
-        
+
         print(data, response)
-        
+
         guard let data, let httpResponse = response as? HTTPURLResponse, 200..<300 ~= httpResponse.statusCode else {
-            completion(.failure(RequestError.ResponseInvalid))
+            completion(.failure(RequestError.responseInvalid))
             return
         }
-        
+
         completion(.success(()))
     }
-    
+
     task.resume()
 }

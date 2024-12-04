@@ -10,7 +10,7 @@ public struct CustomChatChannelListItemView: View {
     @Injected(\.utils) private var utils
     @Injected(\.images) private var images
     @Injected(\.chatClient) private var chatClient
-    
+
     @ObservedObject var localeSettings = LocaleSettings.shared
 
     var channel: ChatChannel
@@ -41,11 +41,11 @@ public struct CustomChatChannelListItemView: View {
         self.onItemTap = onItemTap
         self.onLongPress = onLongPress
     }
-    
+
     private var isRead: Bool {
         return channel.unreadCount == .noUnread
     }
-    
+
     private var isReadByAll: Bool {
         let readUsers = channel.readUsers(
             currentUserId: chatClient.currentUserId,
@@ -54,12 +54,12 @@ public struct CustomChatChannelListItemView: View {
 
         return channel.memberCount <= readUsers.count
     }
-    
+
     private var channelActivityImageUrl: URL? {
         if let imageURL = channel.imageURL {
             return imageURL
         }
-        
+
         return nil
     }
 
@@ -87,7 +87,7 @@ public struct CustomChatChannelListItemView: View {
                         CustomChatTitleView(name: channelName, isRead: isRead)
 
                         Spacer()
-                        
+
                         if let image = image {
                             Image(uiImage: image)
                                 .customizable()
@@ -101,7 +101,7 @@ public struct CustomChatChannelListItemView: View {
                             )
                         }
                     }
-                    
+
                     if channel.subtitleText != nil {
                         HStack {
                             subtitleView
@@ -115,7 +115,7 @@ public struct CustomChatChannelListItemView: View {
                                         isReadByAll: isReadByAll
                                     )
                                 }
-                                
+
                                 if let lastMessageAt = channel.lastMessageAt {
                                     CustomSubtitleText(text: formatRelative(date: lastMessageAt, locale: localeSettings.locale))
                                         .accessibilityIdentifier("timestampView")
@@ -145,7 +145,7 @@ public struct CustomChatChannelListItemView: View {
             if let subtitle = channel.subtitleText {
                 CustomSubtitleText(text: subtitle)
             }
-            
+
             Spacer()
         }
         .accessibilityIdentifier("subtitleView")

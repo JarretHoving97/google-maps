@@ -23,7 +23,7 @@ import ByteowlsCapacitorOauth2
                     if let error = error {
                         return failure(error)
                     }
-                    if (result?.isCancelled != nil) {
+                    if result?.isCancelled != nil {
                         return cancelled()
                     }
                     return cancelled()

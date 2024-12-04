@@ -59,7 +59,7 @@ public struct CustomAttachmentPickerView<Factory: ViewFactory>: View {
         self.isDisplayed = isDisplayed
         self.height = height
     }
-    
+
     func navigateToSuperAmigoWebView() {
         ExtendedStreamPlugin.shared.notifyNavigateToListeners(route: "/super-amigo", dismiss: true)
     }
@@ -84,7 +84,7 @@ public struct CustomAttachmentPickerView<Factory: ViewFactory>: View {
                         selected: selectedPickerState,
                         onPickerStateChange: onPickerStateChange
                     )
-                    
+
                     if selectedPickerState == .photos {
                         if let assets = photoLibraryAssets {
                             let collection = PHFetchResultCollection(fetchResult: assets)
@@ -99,7 +99,7 @@ public struct CustomAttachmentPickerView<Factory: ViewFactory>: View {
                                 viewFactory.makeAssetsAccessPermissionView()
                             }
                         }
-                        
+
                     } else if selectedPickerState == .files {
                         viewFactory.makeFilePickerView(
                             filePickerShown: $filePickerShown,
@@ -132,5 +132,3 @@ public struct CustomAttachmentPickerView<Factory: ViewFactory>: View {
         .accessibilityIdentifier("AttachmentPickerView")
     }
 }
-
-

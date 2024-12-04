@@ -5,7 +5,7 @@ struct AmiIconButton<Content: View>: View {
     let color: Color
     let disabled: Bool
     let content: () -> Content
-    
+
     init(
         action: (() -> Void)?,
         color: Color = Color("Purple"),
@@ -17,16 +17,16 @@ struct AmiIconButton<Content: View>: View {
         self.disabled = disabled
         self.content = content
     }
-    
+
     var body: some View {
-        Button(action: {
+        Button {
             action?()
-        }) {
+        } label: {
             ZStack {
                 Circle()
                     .fill(color)
                     .contentShape(Circle())
-                
+
                 content()
             }
         }

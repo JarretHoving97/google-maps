@@ -3,11 +3,11 @@ import StreamChatSwiftUI
 
 struct AmiRadioButton: View {
     @Injected(\.fonts) var fonts
-    
+
     @Binding var isSelected: Bool
-    
+
     let label: LocalizedStringKey
-    
+
     // Default initalizer
     init(isSelected: Binding<Bool>, label: LocalizedStringKey) {
       self._isSelected = isSelected
@@ -26,11 +26,11 @@ struct AmiRadioButton: View {
     var body: some View {
         HStack(spacing: 10) {
             circleView
-            
+
             labelView.font(fonts.caption1)
         }
         .contentShape(Rectangle())
-        .onTapGesture { 
+        .onTapGesture {
             withAnimation(.easeInOut(duration: 0.2)) {
                 isSelected = true
             }
@@ -43,7 +43,7 @@ private extension AmiRadioButton {
     var outlineColor: Color {
         isSelected ? Color("Purple") : Color("Grey Light")
     }
-    
+
     @ViewBuilder var labelView: some View {
         Text(label)
     }

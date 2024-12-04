@@ -6,12 +6,12 @@ import SwiftUI
  The iOS 15.x  version of .sheet() view modifier lacks features (e.g. detents),
  */
 struct CustomChatSheetView<Content>: UIViewRepresentable where Content: View {
-    
+
     @Binding var isPresented: Bool
     let onDismiss: (() -> Void)?
     let detents: [UISheetPresentationController.Detent]
     let content: Content
-    
+
     init(
         _ isPresented: Binding<Bool>,
         onDismiss: (() -> Void)? = nil,
@@ -23,23 +23,23 @@ struct CustomChatSheetView<Content>: UIViewRepresentable where Content: View {
         self.detents = detents
         self.content = content()
     }
-    
+
     func makeUIView(context: Context) -> UIView {
         let view = UIView()
         return view
     }
-    
+
     func updateUIView(_ uiView: UIView, context: Context) {
         // Create the UIViewController that will be presented by the UIButton
         let viewController = UIViewController()
-        
+
         // Create the UIHostingController that will embed the SwiftUI View
         let hostingController = UIHostingController(rootView: content)
-        
+
         // Add the UIHostingController to the UIViewController
         viewController.addChild(hostingController)
         viewController.view.addSubview(hostingController.view)
-        
+
         // Set constraints
         hostingController.view.translatesAutoresizingMaskIntoConstraints = false
         hostingController.view.leftAnchor.constraint(equalTo: viewController.view.leftAnchor).isActive = true
@@ -47,7 +47,7 @@ struct CustomChatSheetView<Content>: UIViewRepresentable where Content: View {
         hostingController.view.rightAnchor.constraint(equalTo: viewController.view.rightAnchor).isActive = true
         hostingController.view.bottomAnchor.constraint(equalTo: viewController.view.bottomAnchor).isActive = true
         hostingController.didMove(toParent: viewController)
-        
+
         // Set the presentationController as a UISheetPresentationController
         if let sheetController = viewController.presentationController as? UISheetPresentationController {
             sheetController.detents = detents
@@ -55,13 +55,13 @@ struct CustomChatSheetView<Content>: UIViewRepresentable where Content: View {
             sheetController.prefersScrollingExpandsWhenScrolledToEdge = false
             sheetController.preferredCornerRadius = 24
         }
-        
+
         // Set the coordinator (delegate)
         // We need the delegate to use the presentationControllerDidDismiss function
         viewController.presentationController?.delegate = context.coordinator
-        
+
         let presentedViewController = UIApplication.shared.topWindow?.rootViewController?.presentedViewController?.presentedViewController
-        
+
         if isPresented {
             // Present the viewController
             UIApplication.shared.topWindow?.rootViewController?.presentedViewController?.present(viewController, animated: true)
@@ -70,7 +70,7 @@ struct CustomChatSheetView<Content>: UIViewRepresentable where Content: View {
             UIApplication.shared.topWindow?.rootViewController?.presentedViewController?.dismiss(animated: true)
         }
     }
-    
+
     /**
      Creates the custom instance that you use to communicate changes
      from your view controller to other parts of your SwiftUI interface.
@@ -78,16 +78,16 @@ struct CustomChatSheetView<Content>: UIViewRepresentable where Content: View {
     func makeCoordinator() -> Coordinator {
         Coordinator(isPresented: $isPresented, onDismiss: onDismiss)
     }
-    
+
     class Coordinator: NSObject, UISheetPresentationControllerDelegate {
         @Binding var isPresented: Bool
         let onDismiss: (() -> Void)?
-        
+
         init(isPresented: Binding<Bool>, onDismiss: (() -> Void)? = nil) {
             self._isPresented = isPresented
             self.onDismiss = onDismiss
         }
-        
+
         func presentationControllerDidDismiss(_ presentationController: UIPresentationController) {
             isPresented = false
             if let onDismiss = onDismiss {
@@ -102,9 +102,9 @@ struct CustomSheetViewModifier<SheetContent>: ViewModifier where SheetContent: V
     let onDismiss: (() -> Void)?
     let detents: [UISheetPresentationController.Detent]
     let sheetContent: SheetContent
-    
+
     @ObservedObject var localeSettings = LocaleSettings.shared
-    
+
     init(
         isPresented: Binding<Bool>,
         detents: [UISheetPresentationController.Detent] = [.medium()],

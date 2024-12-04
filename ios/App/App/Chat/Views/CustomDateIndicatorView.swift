@@ -27,7 +27,7 @@ public struct CustomDateIndicatorView: View {
                 .cornerRadius(16)
                 .padding(.all, 12)
                 .modifier(ShadowModifier())
-            
+
             Spacer()
         }
     }

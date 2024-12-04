@@ -1,3 +1,5 @@
+// swiftlint:disable all line_length
+
 import BranchSDK
 import Capacitor
 import FBSDKCoreKit

@@ -13,11 +13,11 @@ public struct CustomSystemMessageView: View {
     public init(message: ChatMessage) {
         self.message = message
     }
-    
+
     func navigateToProfileWebView() {
         let userId = message.author.id
         let route = "/profile/\(userId)"
-        
+
         ExtendedStreamPlugin.shared.notifyNavigateToListeners(route: route, dismiss: true)
     }
 
@@ -28,13 +28,13 @@ public struct CustomSystemMessageView: View {
                 .scaledToFit()
                 .frame(maxWidth: 40, alignment: .center)
                 .clipShape(Circle())
-            
+
             VStack(alignment: .leading, spacing: 2) {
                 if let name = message.author.name {
                     Text(name)
                         .font(fonts.footnoteBold)
                 }
-                
+
                 Text(message.text)
                     .font(fonts.caption1)
                     .foregroundColor(Color(colors.textLowEmphasis))

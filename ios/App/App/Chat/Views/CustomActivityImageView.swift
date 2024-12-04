@@ -12,7 +12,7 @@ public struct CustomActivityImageView: View {
             Circle()
                 .fill(Color("Orange"))
                 .frame(width: size.width, height: size.height)
-            
+
             WebImage(url: url)
                 .resizable()
                 .scaledToFit()

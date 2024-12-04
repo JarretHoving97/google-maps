@@ -1,8 +1,10 @@
+// swiftlint:disable all
+
 import Foundation
 import Capacitor
 import BranchSDK
 
-typealias JSObject = [String:Any]
+typealias JSObject = [String: Any]
 
 @objc(BranchDeepLinks)
 public class BranchDeepLinks: CAPPlugin {
@@ -17,7 +19,7 @@ public class BranchDeepLinks: CAPPlugin {
 
     @objc public func branchDidStartSession(notification: Notification) {
         if let error = notification.userInfo?[BranchErrorKey] as? Error {
-            notifyListeners("initError", data:[
+            notifyListeners("initError", data: [
                 "error": error.localizedDescription
             ], retainUntilConsumed: true)
         } else {
@@ -34,7 +36,7 @@ public class BranchDeepLinks: CAPPlugin {
                 referringParams[key as! String] = value
             }
 
-            notifyListeners("init", data:[
+            notifyListeners("init", data: [
                 "referringParams": referringParams
             ], retainUntilConsumed: true)
         }
@@ -72,7 +74,7 @@ public class BranchDeepLinks: CAPPlugin {
             } else if key == "customerEventAlias" {
                 event.alias = value as? String
             } else if key == "customData" {
-                event.customData = value as? [String : String] ?? [:]
+                event.customData = value as? [String: String] ?? [:]
             }
         }
 

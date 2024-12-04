@@ -8,7 +8,7 @@ struct ShadowViewModifier: ViewModifier {
     var cornerRadius: CGFloat = 16
     var firstRadius: CGFloat = 10
     var firstY: CGFloat = 12
-    
+
     func body(content: Content) -> some View {
         content.background(Color(UIColor.systemBackground))
             .cornerRadius(cornerRadius)

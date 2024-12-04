@@ -9,14 +9,14 @@ public struct CustomQuotedMessageView<Factory: ViewFactory>: View {
     @Injected(\.fonts) private var fonts
     @Injected(\.colors) private var colors
     @Injected(\.utils) private var utils
-    
+
     private let attachmentWidth: CGFloat = 36
 
     public var factory: Factory
     public var quotedMessage: ChatMessage
     public var fillAvailableSpace: Bool
     public var isInComposer: Bool
-    
+
     private var messageTypeResolver: MessageTypeResolving {
         utils.messageTypeResolver
     }
@@ -43,7 +43,7 @@ public struct CustomQuotedMessageView<Factory: ViewFactory>: View {
                         .font(fonts.footnoteBold)
                         .padding(.bottom, 2)
                 }
-                
+
                 if !quotedMessage.attachmentCounts.isEmpty {
                     ZStack {
                         if messageTypeResolver.hasCustomAttachment(message: quotedMessage) {
@@ -99,7 +99,7 @@ public struct CustomQuotedMessageView<Factory: ViewFactory>: View {
             .padding(hasVoiceAttachments ? [.top, .bottom] : .all, 8)
             .padding(.leading, 12)
             .padding(.trailing, 8)
-            
+
             if fillAvailableSpace {
                 Spacer()
             }
@@ -110,7 +110,7 @@ public struct CustomQuotedMessageView<Factory: ViewFactory>: View {
                 Rectangle()
                     .frame(maxWidth: 4, maxHeight: .infinity)
                     .foregroundColor(colorByHashingString)
-                
+
                 Spacer()
             }
         )
@@ -127,12 +127,12 @@ public struct CustomQuotedMessageView<Factory: ViewFactory>: View {
         )
         .accessibilityElement(children: .contain)
     }
-    
+
     private var colorByHashingString: Color {
         if let name = quotedMessage.author.name {
             return getColorByHashingString(name)
         }
-        
+
         return Color(colors.alternativeActiveTint)
     }
 
@@ -169,25 +169,25 @@ public struct CustomQuotedMessageView<Factory: ViewFactory>: View {
 
         return ""
     }
-    
+
     private var hasVoiceAttachments: Bool {
         !quotedMessage.voiceRecordingAttachments.isEmpty
     }
 }
 
 struct CustomVoiceRecordingPreview: View {
-    
+
     @Injected(\.images) var images
     @Injected(\.utils) var utils
-    
+
     let voiceAttachment: VoiceRecordingAttachmentPayload
     let foregroundStyleDark: Bool
-    
+
     init(voiceAttachment: VoiceRecordingAttachmentPayload, foregroundStyleDark: Bool) {
         self.voiceAttachment = voiceAttachment
         self.foregroundStyleDark = foregroundStyleDark
     }
-    
+
     var body: some View {
         HStack {
             CustomWaveformViewSwiftUI(

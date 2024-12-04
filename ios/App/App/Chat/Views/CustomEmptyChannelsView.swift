@@ -5,7 +5,7 @@ import StreamChatSwiftUI
 struct CustomEmptyChannelsView: View {
     @Injected(\.colors) var colors
     @Injected(\.fonts) var fonts
-    
+
     var body: some View {
         VStack(spacing: 8) {
             Spacer()
@@ -15,7 +15,7 @@ struct CustomEmptyChannelsView: View {
                     .aspectRatio(contentMode: .fit)
                     .font(.system(size: 64))
                     .foregroundColor(Color(colors.textLowEmphasis))
-                
+
                 Text("custom.channelList.empty")
                     .font(fonts.caption1)
                     .multilineTextAlignment(.center)
@@ -28,6 +28,6 @@ struct CustomEmptyChannelsView: View {
         }
         .frame(maxWidth: .infinity)
         .background(Color.white)
-        
+
     }
 }

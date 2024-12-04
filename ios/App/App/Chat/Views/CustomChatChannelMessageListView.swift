@@ -3,7 +3,7 @@ import StreamChat
 import StreamChatSwiftUI
 
 struct CustomChatChannelMessageListView<Factory: ViewFactory>: View {
-    
+
     @Injected(\.colors) private var colors
     @Injected(\.utils) private var utils
     @Injected(\.chatClient) private var chatClient
@@ -16,7 +16,7 @@ struct CustomChatChannelMessageListView<Factory: ViewFactory>: View {
     @State private var tabBarAvailable: Bool = false
 
     private var factory: Factory
-    
+
     private let channel: ChatChannel
 
     public init(
@@ -37,7 +37,7 @@ struct CustomChatChannelMessageListView<Factory: ViewFactory>: View {
         factory = viewFactory
         self.channel = channel
     }
-    
+
     var body: some View {
         VStack(spacing: 0) {
             if !viewModel.messages.isEmpty {
@@ -93,7 +93,7 @@ struct CustomChatChannelMessageListView<Factory: ViewFactory>: View {
                     }
                 }
             }
-            
+
             Divider()
                 .navigationBarBackButtonHidden(viewModel.reactionsShown)
                 .if(viewModel.reactionsShown, transform: { view in
@@ -112,7 +112,7 @@ struct CustomChatChannelMessageListView<Factory: ViewFactory>: View {
                     view.modifier(factory.makeMessageThreadHeaderViewModifier())
                 }
                 .animation(nil)
-            
+
             if channel.isSupportChatChannel {
                 CustomSupportChatChannelButton()
             } else {
@@ -128,8 +128,7 @@ struct CustomChatChannelMessageListView<Factory: ViewFactory>: View {
                         .reactionsShown && viewModel.channel?.isFrozen == false
                 ) ? 0 : 1)
             }
-        
-            
+
             NavigationLink(
                 isActive: $viewModel.threadMessageShown
             ) {

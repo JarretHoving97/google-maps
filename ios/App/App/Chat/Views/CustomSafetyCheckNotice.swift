@@ -1,3 +1,4 @@
+// swiftlint:disable all
 import SwiftUI
 import StreamChat
 import StreamChatSwiftUI
@@ -17,54 +18,53 @@ enum SafetyCheckReason: String {
 }
 
 struct CustomSafetyCheckNotice: View {
-    
+
     @Injected(\.chatClient) var chatClient
     @Injected(\.fonts) private var fonts
-    
+
     let channel: ChatChannel
-    
+
     @State private var isNegativeSafetyCheckSheetPresented = false
     @State private var isSafetyCheckInfoSheetPresented = false
     @State private var updatedSafetyCheckState: SafetyCheckState?
-    
 
     public init(channel: ChatChannel) {
         self.channel = channel
     }
-    
+
     var safetyCheckState: SafetyCheckState? {
         if let updatedSafetyCheckState {
             return updatedSafetyCheckState
         }
-        
+
         if let stringValue = channel.extraData["safetyCheckState"]?.stringValue {
             if let safetyCheck = SafetyCheckState(rawValue: stringValue) {
                 return safetyCheck
             }
         }
-            
+
         return nil
     }
-    
+
     var currentUserId: String {
         chatClient.currentUserId ?? ""
     }
-    
+
     var isCreatedByCurrentUserId: Bool {
         let createdByUserId = channel.createdBy?.id
-        
+
         guard let createdByUserId else {
             return false
         }
-        
+
         return currentUserId == createdByUserId
     }
-    
+
     func updateChannel(_ safetyCheckState: SafetyCheckState, _ safetyCheckReason: SafetyCheckReason? = nil) {
         guard let otherUserId = channel.otherUser?.id else {
             return
         }
-        
+
         updateSafetyCheck(userId: otherUserId, state: safetyCheckState, reason: safetyCheckReason, completion: { result in
             switch result {
             case .success(()):
@@ -76,14 +76,14 @@ struct CustomSafetyCheckNotice: View {
             }
         })
     }
-    
+
     var showSafetyCheckNotice: Bool {
         channel.otherUser != nil &&
         !channel.isSupportChatChannel &&
         !isCreatedByCurrentUserId &&
         safetyCheckState == .Unanswered
     }
-    
+
     var body: some View {
         if showSafetyCheckNotice {
             HStack(spacing: 12) {
@@ -97,20 +97,20 @@ struct CustomSafetyCheckNotice: View {
                 .onTapGesture {
                     isSafetyCheckInfoSheetPresented = true
                 }
-                
+
                 if let name = channel.otherUser?.name {
                     Text(tr("custom.safetyCheck.notice.title", name))
                         .font(fonts.caption2)
                 }
-                
+
                 Spacer()
                     .layoutPriority(-1)
-                
+
                 HStack(spacing: 8) {
                     AmiThumbButton(positive: false) {
                         isNegativeSafetyCheckSheetPresented = true
                     }
-                    
+
                     AmiThumbButton(positive: true) {
                         updateChannel(.Positive)
                     }
@@ -122,9 +122,9 @@ struct CustomSafetyCheckNotice: View {
             .clipShape(RoundedRectangle(cornerRadius: 12))
             .modifier(ShadowModifier())
             .padding(.all, 12)
-            
+
             // 2 sheet modifiers seems to behave weird sometimes.
-            
+
             Text("").hidden().chatSheetPresentation(
                 isPresented: $isNegativeSafetyCheckSheetPresented,
                 detents: [.medium()]
@@ -135,7 +135,7 @@ struct CustomSafetyCheckNotice: View {
                     updateChannel: updateChannel
                 )
             }
-            
+
             Text("").hidden().chatSheetPresentation(
                 isPresented: $isSafetyCheckInfoSheetPresented,
                 detents: [.medium()]
@@ -151,17 +151,17 @@ struct CustomSafetyCheckNotice: View {
 }
 
 struct CustomNegativeSafetyCheckSheetView: View {
-    
+
     @Injected(\.colors) private var colors
     @Injected(\.fonts) var fonts
     @Injected(\.chatClient) var chatClient
 
-    let updateChannel: (SafetyCheckState, SafetyCheckReason?) -> Void;
+    let updateChannel: (SafetyCheckState, SafetyCheckReason?) -> Void
 
     @Binding var isPresented: Bool
     @Binding var updatedSafetyCheckState: SafetyCheckState?
     @State var selectedSafetyCheckReason: SafetyCheckReason?
-    
+
     init(
         isPresented: Binding<Bool>,
         updatedSafetyCheckState: Binding<SafetyCheckState?>,
@@ -171,17 +171,17 @@ struct CustomNegativeSafetyCheckSheetView: View {
         _updatedSafetyCheckState = updatedSafetyCheckState
         self.updateChannel = updateChannel
     }
-    
+
     var body: some View {
         VStack(alignment: .leading, spacing: 24) {
             VStack(alignment: .leading, spacing: 8) {
                 Text("custom.safetyCheck.review.sheet.title")
                     .font(fonts.title)
-                
+
                 Text("custom.safetyCheck.review.sheet.subtitle")
                     .fixedSize(horizontal: false, vertical: true)
                     .font(fonts.body)
-                
+
                 VStack(alignment: .leading, spacing: 12) {
                     AmiRadioButton(tag: .Commercial, selection: $selectedSafetyCheckReason, label: "custom.safetyCheck.review.sheet.option.commercial")
                     AmiRadioButton(tag: .Dating, selection: $selectedSafetyCheckReason, label: "custom.safetyCheck.review.sheet.option.dating")
@@ -191,9 +191,9 @@ struct CustomNegativeSafetyCheckSheetView: View {
                 }
                 .padding(.top, 16)
             }
-            
+
             Spacer()
-            
+
             AmiButton(
                 "custom.save",
                 disabled: selectedSafetyCheckReason == nil

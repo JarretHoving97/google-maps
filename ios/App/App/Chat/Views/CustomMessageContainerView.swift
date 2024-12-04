@@ -54,14 +54,14 @@ public struct CustomMessageContainerView<Factory: ViewFactory>: View {
         _scrolledId = scrolledId
         _quotedMessage = quotedMessage
     }
-    
+
     func navigateToProfileWebView() {
         let userId = message.author.id
         let route = "/profile/\(userId)"
-        
+
         ExtendedStreamPlugin.shared.notifyNavigateToListeners(route: route, dismiss: true)
     }
-    
+
     func navigateToOnboardingWebView() {
         if message.layoutKey == "layout.onboarding" {
             ExtendedStreamPlugin.shared.notifyNavigateToListeners(route: "/walkthrough", dismiss: true)
@@ -80,9 +80,9 @@ public struct CustomMessageContainerView<Factory: ViewFactory>: View {
                         .frame(minWidth: spacerWidth)
                         .layoutPriority(-1)
                 }
-                
+
                 factory.makeSystemMessageView(message: message)
-                
+
                 if !message.isRightAligned {
                     Spacer()
                         .frame(minWidth: spacerWidth)
@@ -182,7 +182,7 @@ public struct CustomMessageContainerView<Factory: ViewFactory>: View {
                         .accessibilityElement(children: .contain)
                         .accessibility(identifier: "MessageRepliesView")
                     }
-                    
+
                     if bottomReactionsShown {
                         factory.makeBottomReactionsView(message: message, showsAllInfo: showsAllInfo) {
                             handleGestureForMessage(
@@ -284,14 +284,14 @@ public struct CustomMessageContainerView<Factory: ViewFactory>: View {
         }
         return reactionsShown
     }
-    
+
     private var bottomReactionsShown: Bool {
         if messageListConfig.messageDisplayOptions.reactionsPlacement == .top {
             return false
         }
         return reactionsShown
     }
-    
+
     private var reactionsShown: Bool {
         !message.reactionScores.isEmpty
             && !message.isDeleted
@@ -375,7 +375,7 @@ struct SendFailureIndicator: View {
 }
 
 struct HeightPreferenceKey: PreferenceKey {
-    static var defaultValue: CGFloat? = nil
+    static var defaultValue: CGFloat?
 
     static func reduce(value: inout CGFloat?, nextValue: () -> CGFloat?) {
         value = value ?? nextValue()

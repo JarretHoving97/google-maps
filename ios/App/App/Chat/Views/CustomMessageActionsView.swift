@@ -4,11 +4,11 @@ import StreamChat
 
 /// View for the message actions.
 public struct CustomMessageActionsView: View {
-    
+
     @Injected(\.colors) private var colors
 
     @StateObject var viewModel: MessageActionsViewModel
-    
+
     var message: ChatMessage
 
     public init(for message: ChatMessage, messageActions: [MessageAction]) {
@@ -18,10 +18,10 @@ public struct CustomMessageActionsView: View {
         )
         self.message = message
     }
-    
+
     var actions: [MessageAction] {
         let exceptions: [String] = [MessageActionId.flag, MessageActionId.pin]
-        
+
         return viewModel.messageActions.filter({
             !exceptions.contains($0.id)
         })

@@ -16,13 +16,13 @@ extension String {
 
         return image ?? UIImage()
     }
-    
+
     func toAvatarImage(size: CGFloat) -> UIImage {
         let subStr = String(self.prefix(1)) + "."
-        
+
         // Calculate the font size as 40% of the given size
         let fontSize = size * 0.4
-        
+
         let textAttributes: [NSAttributedString.Key: Any] = [
             .font: UIFont.systemFont(ofSize: fontSize, weight: .regular),
             .foregroundColor: UIColor.white
@@ -46,7 +46,7 @@ extension String {
 
         return image
     }
-    
+
     func ranges<S: StringProtocol>(of string: S, options: String.CompareOptions = []) -> [Range<String.Index>] {
         var result: [Range<Index>] = []
         var startIndex = self.startIndex

@@ -7,7 +7,7 @@ public class ExtendedBranchPlugin: CAPPlugin {
         let attributionWindow = call.getInt("attributionWindow", 1)
 
         DispatchQueue.main.async {
-            Branch.getInstance().lastAttributedTouchData(withAttributionWindow: attributionWindow) { (result, error) in
+            Branch.getInstance().lastAttributedTouchData(withAttributionWindow: attributionWindow) { (result, _) in
                 guard let json = result?.lastAttributedTouchJSON else {
                     call.resolve()
                     return

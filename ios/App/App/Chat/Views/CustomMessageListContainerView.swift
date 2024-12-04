@@ -7,7 +7,7 @@ public struct CustomMessageListContainerView<Factory: ViewFactory>: View, Keyboa
     @Injected(\.utils) private var utils
     @Injected(\.chatClient) private var chatClient
     @Injected(\.colors) private var colors
-    
+
     private let scrollAreaId = "scrollArea"
     private let unknownMessageId = "unknown"
 
@@ -25,12 +25,12 @@ public struct CustomMessageListContainerView<Factory: ViewFactory>: View, Keyboa
     var listId: String
     var isMessageThread: Bool
     var shouldShowTypingIndicator: Bool
-    
-    var onMessageAppear: (Int, ScrollDirection) -> ()
+
+    var onMessageAppear: (Int, ScrollDirection) -> Void
     var onScrollToBottom: () -> Void
     var onLongPress: (MessageDisplayInfo) -> Void
     var onJumpToMessage: ((String) -> Bool)?
-    
+
     @State private var width: CGFloat?
     @State private var keyboardShown = false
     @State private var pendingKeyboardUpdate: Bool?
@@ -51,7 +51,7 @@ public struct CustomMessageListContainerView<Factory: ViewFactory>: View, Keyboa
     private var lastInGroupHeaderSize: CGFloat {
         messageListConfig.messageDisplayOptions.lastInGroupHeaderSize
     }
-    
+
     private var newMessagesSeparatorSize: CGFloat {
         messageListConfig.messageDisplayOptions.newMessagesSeparatorSize
     }
@@ -71,7 +71,7 @@ public struct CustomMessageListContainerView<Factory: ViewFactory>: View, Keyboa
         scrollPosition: Binding<String?> = .constant(nil),
         loadingNextMessages: Bool = false,
         firstUnreadMessageId: Binding<MessageId?> = .constant(nil),
-        onMessageAppear: @escaping (Int, ScrollDirection) -> (),
+        onMessageAppear: @escaping (Int, ScrollDirection) -> Void,
         onScrollToBottom: @escaping () -> Void,
         onLongPress: @escaping (MessageDisplayInfo) -> Void,
         onJumpToMessage: ((String) -> Bool)? = nil
@@ -108,7 +108,7 @@ public struct CustomMessageListContainerView<Factory: ViewFactory>: View, Keyboa
             )
         }
     }
-    
+
     private var messageCachingUtils = CustomMessageCachingUtils()
 
     public var body: some View {
@@ -202,7 +202,7 @@ public struct CustomMessageListContainerView<Factory: ViewFactory>: View, Keyboa
                 }
                 .accessibilityIdentifier("MessageListScrollView")
             }
-            
+
             CustomMessageContainerHeaderView(channel: channel)
                 .frame(
                     maxHeight: .infinity,
@@ -265,7 +265,7 @@ public struct CustomMessageListContainerView<Factory: ViewFactory>: View, Keyboa
 
 struct ScrollPositionModifier: ViewModifier {
     @Binding var scrollPosition: String?
-    
+
     func body(content: Content) -> some View {
         #if swift(>=5.9)
         if #available(iOS 17, *) {
@@ -281,9 +281,9 @@ struct ScrollPositionModifier: ViewModifier {
 }
 
 struct ScrollTargetLayoutModifier: ViewModifier {
-    
+
     var enabled: Bool
-    
+
     func body(content: Content) -> some View {
         if !enabled {
             return content
@@ -303,34 +303,34 @@ struct ScrollTargetLayoutModifier: ViewModifier {
 }
 
 public struct CustomNewMessagesIndicatorView: View {
-            
+
     @Injected(\.colors) var colors
     @Injected(\.fonts) var fonts
-    
+
     @Binding var newMessagesStartId: String?
     var count: Int
-    
+
     public init(newMessagesStartId: Binding<String?>, count: Int) {
         _newMessagesStartId = newMessagesStartId
         self.count = count
     }
-    
+
     var line: some View {
         VStack {
             Divider()
                 .background(Color("Purple"))
         }
      }
-    
+
     public var body: some View {
         HStack(spacing: 20) {
             line
-            
+
             Text(tr("custom.newMessagesIndicator.title", count))
                 .fixedSize()
                 .font(fonts.subheadline)
                 .foregroundColor(Color("Purple"))
-            
+
             line
         }
         .frame(maxWidth: .infinity)
@@ -483,18 +483,18 @@ private class MessageRenderingUtil {
 }
 
 struct CustomMessageContainerHeaderView: View {
-    
+
     let channel: ChatChannel
 
     public init(channel: ChatChannel) {
         self.channel = channel
     }
-    
+
     var body: some View {
         VStack {
             if channel.isDirectMessageChannel {
                 CustomSafetyCheckNotice(channel: channel)
-                
+
                 CustomChatSuperPowerOnlyNoticeView(channel: channel)
             } else {
                 CustomPinnedMessage(channel: channel)

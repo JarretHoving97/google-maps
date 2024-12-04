@@ -1,3 +1,4 @@
+// swiftlint:disable all
 import SwiftUI
 import StreamChat
 
@@ -9,7 +10,7 @@ enum MessageWalkthroughType: String {
 
 struct AmiMessageWalkthrough: View {
     public let type: MessageWalkthroughType
-    
+
     var body: some View {
         HStack {
             if type == .OnboardingHowToHost {

@@ -6,14 +6,14 @@ import StreamChatSwiftUI
 
 /// Sourced and modified from: https://github.com/bastienFalcou/SoundWave/blob/master/SoundWave/Classes/AudioVisualizationView.swift
 open class AudioVisualizationView: UIView {
-    
+
     @Injected(\.colors) var colors
-    
+
     fileprivate var isInitialized: Bool = false
-    
+
     var foregroundStyleDark: Bool = false
     var isPreview: Bool = false
-    
+
     public enum AudioVisualizationMode {
         case read
         case write
@@ -24,7 +24,7 @@ open class AudioVisualizationView: UIView {
             updateContent()
         }
     }
-    
+
     override open func didMoveToSuperview() {
         super.didMoveToSuperview()
         guard !isInitialized, superview != nil else { return }
@@ -46,7 +46,7 @@ open class AudioVisualizationView: UIView {
         if isPreview {
             return UIColor(foregroundStyleDark ? Color("Purple") : Color.white)
         }
-        
+
         return UIColor(Color("Grey"))
     }
 
@@ -56,7 +56,7 @@ open class AudioVisualizationView: UIView {
     }
 
     /// The colour of the waveform bar's background.
-    open var barBackgroundColor: UIColor { 
+    open var barBackgroundColor: UIColor {
         UIColor(foregroundStyleDark ? Color("Purple") : Color.white)
     }
 
@@ -290,18 +290,17 @@ open class AudioVisualizationView: UIView {
     }
 }
 
-
 /// Displays an interactive waveform visualisation of an audio file.
 open class WaveformView: UIView {
-    
+
     @Injected(\.images) var images
-    
+
     var onSliderChanged: ((TimeInterval) -> Void)?
     var onSliderTapped: (() -> Void)?
-    
+
     var foregroundStyleDark: Bool = false
     var isPreview: Bool = false
-    
+
     public struct Content: Equatable {
         /// When set to `true` the waveform will be updating with the data live (scrolling to the trailing side
         /// as new data arrive).
@@ -339,7 +338,7 @@ open class WaveformView: UIView {
     var content: Content = .initial {
         didSet { updateContent() }
     }
-    
+
     fileprivate var isInitialized: Bool = false
 
     override open func didMoveToSuperview() {
@@ -375,9 +374,9 @@ open class WaveformView: UIView {
         audioVisualizationView.backgroundColor = .clear
         audioVisualizationView.isPreview = isPreview
         audioVisualizationView.foregroundStyleDark = foregroundStyleDark
-        
+
         slider.setThumbImage(isPreview ? UIImage() : images.sliderThumb, for: .normal)
-        
+
         slider.minimumTrackTintColor = .clear
         slider.maximumTrackTintColor = .clear
     }
@@ -397,9 +396,9 @@ open class WaveformView: UIView {
         audioVisualizationView.setNeedsLayout()
         audioVisualizationView.setNeedsDisplay()
     }
-    
+
     // MARK: - Slider
-    
+
     private func setupSlider() {
         slider.addTarget(
             self,
@@ -413,7 +412,7 @@ open class WaveformView: UIView {
             for: .touchUpInside
         )
     }
-    
+
     @objc internal func didSlide(
         _ sender: UISlider
     ) {
@@ -433,9 +432,9 @@ struct CustomWaveformViewSwiftUI: UIViewRepresentable {
     var addedVoiceRecording: AddedVoiceRecording
     var foregroundStyleDark: Bool = false
     var isPreview: Bool = false
-    var onSliderChanged: ((TimeInterval) -> Void)? = nil
-    var onSliderTapped: (() -> Void)? = nil
-    
+    var onSliderChanged: ((TimeInterval) -> Void)?
+    var onSliderTapped: (() -> Void)?
+
     func makeUIView(context: Context) -> WaveformView {
         let view = WaveformView()
         view.foregroundStyleDark = foregroundStyleDark
@@ -445,11 +444,11 @@ struct CustomWaveformViewSwiftUI: UIViewRepresentable {
         updateContent(for: view)
         return view
     }
-    
+
     func updateUIView(_ uiView: WaveformView, context: Context) {
         updateContent(for: uiView)
     }
-    
+
     private func updateContent(for view: WaveformView) {
         if let audioContext, addedVoiceRecording.url == audioContext.assetLocation {
             view.content = .init(
@@ -474,18 +473,18 @@ struct CustomRecordingWaveform: UIViewRepresentable {
     var currentTime: TimeInterval
     var waveform: [Float]
     var foregroundStyleDark: Bool = false
-    
+
     func makeUIView(context: Context) -> WaveformView {
         let view = WaveformView()
         view.foregroundStyleDark = foregroundStyleDark
         updateContent(for: view)
         return view
     }
-    
+
     func updateUIView(_ uiView: WaveformView, context: Context) {
         updateContent(for: uiView)
     }
-    
+
     private func updateContent(for view: WaveformView) {
         view.content = .init(
             isRecording: true,

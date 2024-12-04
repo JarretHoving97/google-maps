@@ -20,7 +20,7 @@ class CustomMessageCachingUtils {
             }
         }
     }
-    
+
     var jumpToReplyId: String?
 
     func authorId(for message: ChatMessage) -> String {

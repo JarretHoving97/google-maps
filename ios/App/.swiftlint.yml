@@ -1,0 +1,17 @@
+disabled_rules:
+  - blanket_disable_command # TODO: Enable
+  - colon
+  - force_cast
+  - line_length
+  - type_body_length
+  - function_body_length
+  - function_parameter_count
+  - type_name
+  - file_length
+
+included:
+  - App
+
+excluded:
+  - Carthage
+  - Pods

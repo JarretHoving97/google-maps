@@ -88,7 +88,7 @@ public struct CustomMessageView<Factory: ViewFactory>: View {
                         scrolledId: $scrolledId
                     )
                 }
-                
+
 //                Voice recordings are disabled.
 //                if messageTypeResolver.hasVoiceRecording(message: message) {
 //                    factory.makeVoiceRecordingView(
@@ -159,18 +159,18 @@ public struct CustomMessageTextView<Factory: ViewFactory>: View {
         self.bottomPadding = bottomPadding
         _scrolledId = scrolledId
     }
-    
+
     private var showAuthor: Bool {
         !message.isRightAligned && !channel.isDirectMessageChannel
     }
-    
+
     private var messageWalkthroughType: MessageWalkthroughType? {
         if let key = message.layoutKey {
             if let value = MessageWalkthroughType(rawValue: key) {
                 return value
             }
         }
-        
+
         return nil
     }
 
@@ -186,7 +186,7 @@ public struct CustomMessageTextView<Factory: ViewFactory>: View {
                     .padding(.top, 8)
                     .padding(.bottom, 2)
             }
-            
+
             if let quotedMessage = message.quotedMessage {
                 factory.makeQuotedMessageView(
                     quotedMessage: quotedMessage,
@@ -196,7 +196,7 @@ public struct CustomMessageTextView<Factory: ViewFactory>: View {
                 )
                 .padding(.bottom, 8)
             }
-            
+
             if let type = messageWalkthroughType {
                 AmiMessageWalkthrough(type: type)
             }
@@ -223,11 +223,11 @@ public struct CustomMessageTextView<Factory: ViewFactory>: View {
 }
 
 public struct CustomStreamTextView: View {
-    
+
     @Injected(\.fonts) var fonts
-    
+
     var message: ChatMessage
-    
+
     public var body: some View {
         if #available(iOS 15, *) {
             LinkDetectionTextView(message: message)
@@ -242,42 +242,42 @@ public struct CustomStreamTextView: View {
 
 @available(iOS 15, *)
 public struct LinkDetectionTextView: View {
-    
+
     @Injected(\.colors) var colors
     @Injected(\.fonts) var fonts
     @Injected(\.utils) var utils
-    
+
     var message: ChatMessage
-    
+
     var text: LocalizedStringKey {
         LocalizedStringKey(message.adjustedText)
     }
-    
+
     @State var displayedText: AttributedString?
-    
+
     @State var linkDetector = TextLinkDetector()
-    
+
     @State var tintColor = InjectedValues[\.colors].tintColor
-    
+
     @State private var showUrlConfirmation = false
 
     @State private var confirmUrl: URL?
-        
+
     public init(message: ChatMessage) {
         self.message = message
     }
-    
+
     private var markdownEnabled: Bool {
         utils.messageListConfig.markdownSupportEnabled
     }
-    
+
     private var isModerator: Bool {
         message.author.userRole == .moderator
     }
-    
+
     private func handleLinkTap(_ url: URL) {
         let webViewURL = getWebViewURL()
-        
+
         if url.host == webViewURL.host {
             ExtendedStreamPlugin.shared.notifyNavigateToListeners(route: url.relativePath, dismiss: true)
         } else {
@@ -285,7 +285,7 @@ public struct LinkDetectionTextView: View {
             showUrlConfirmation = true
         }
     }
-    
+
     public var body: some View {
         Group {
             if let displayedText {
@@ -329,7 +329,7 @@ public struct LinkDetectionTextView: View {
             detectLinks(for: updated)
         })
     }
-    
+
     func detectLinks(for message: ChatMessage) {
         // Check if local link detection is enabled in the configuration
         guard utils.messageListConfig.localLinkDetectionEnabled else { return }
@@ -355,7 +355,7 @@ public struct LinkDetectionTextView: View {
                 attributes[key] = value
             }
         }
-        
+
         let attributedString = linkify(for: message.adjustedText, attributes: attributes)
 
         displayedText = attributedString

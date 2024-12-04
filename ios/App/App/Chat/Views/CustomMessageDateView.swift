@@ -7,13 +7,13 @@ struct CustomMessageDateView: View {
     @Injected(\.utils) private var utils
     @Injected(\.fonts) private var fonts
     @Injected(\.colors) private var colors
-    
+
     private var dateFormatter: DateFormatter {
         utils.dateFormatter
     }
-    
+
     var message: ChatMessage
-    
+
     var text: String {
         var text = dateFormatter.string(from: message.createdAt)
         let showMessageEditedLabel = utils.messageListConfig.isMessageEditedLabelEnabled
@@ -24,7 +24,7 @@ struct CustomMessageDateView: View {
         }
         return text
     }
-    
+
     var body: some View {
         Text(text)
             .font(Font.custom(size: 10, weight: ThemeFontWeight.medium))

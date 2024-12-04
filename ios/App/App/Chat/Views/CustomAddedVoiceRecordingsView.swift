@@ -5,7 +5,7 @@ import StreamChatSwiftUI
 struct CustomAddedVoiceRecordingsView: View {
     @Injected(\.colors) private var colors
     @Injected(\.utils) private var utils
-    
+
     @StateObject var voiceRecordingHandler = VoiceRecordingHandler()
 
     var addedVoiceRecordings: [AddedVoiceRecording]
@@ -15,21 +15,21 @@ struct CustomAddedVoiceRecordingsView: View {
         self.addedVoiceRecordings = addedVoiceRecordings
         self.onDiscardAttachment = onDiscardAttachment
     }
-    
+
     private var player: AudioPlaying {
         utils.audioPlayer
     }
 
     public var body: some View {
         VStack {
-            ForEach(0..<addedVoiceRecordings.count, id: \.self) { i in
+            ForEach(0..<addedVoiceRecordings.count, id: \.self) { _ in
                 let recording = addedVoiceRecordings[0]
                 CustomVoiceRecordingView(
                     handler: voiceRecordingHandler,
                     addedVoiceRecording: AddedVoiceRecording(
                         url: recording.url,
                         duration: recording.duration,
-                        waveform: recording.waveform                    
+                        waveform: recording.waveform
                     ),
                     index: 0,
                     foregroundStyleDark: true

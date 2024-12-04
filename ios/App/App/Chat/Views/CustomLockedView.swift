@@ -7,9 +7,9 @@ import SwiftUI
 import StreamChatSwiftUI
 
 class VoiceRecordingHandler: ObservableObject, AudioPlayingDelegate {
-    
+
     @Published var context: AudioPlaybackContext = .notLoaded
-    
+
     func audioPlayer(
         _ audioPlayer: AudioPlaying,
         didUpdateContext context: AudioPlaybackContext
@@ -21,19 +21,19 @@ class VoiceRecordingHandler: ObservableObject, AudioPlayingDelegate {
 struct CustomLockedView: View {
     @Injected(\.colors) var colors
     @Injected(\.utils) var utils
-    
+
     @ObservedObject var viewModel: MessageComposerViewModel
     @State var isPlaying = false
     @State var showLockedIndicator = true
     @StateObject var voiceRecordingHandler = VoiceRecordingHandler()
-    
+
     @State private var pulseOpacity: Double = 1.0
     @State private var scaleSize: CGFloat = 1
-    
+
     private var player: AudioPlaying {
         utils.audioPlayer
     }
-    
+
     var body: some View {
         HStack(spacing: 12) {
             if viewModel.recordingState == .locked {
@@ -72,7 +72,7 @@ struct CustomLockedView: View {
                 duration: showContextTime ?
                     voiceRecordingHandler.context.currentTime : viewModel.audioRecordingInfo.duration
             )
-            
+
             CustomRecordingWaveform(
                 duration: viewModel.audioRecordingInfo.duration,
                 currentTime: viewModel.recordingState == .stopped ?
@@ -82,9 +82,9 @@ struct CustomLockedView: View {
                 foregroundStyleDark: true
             )
             .frame(height: 30)
-            
+
             Spacer()
-            
+
             HStack(spacing: 12) {
                 Button {
                     withAnimation {
@@ -101,7 +101,7 @@ struct CustomLockedView: View {
                 .frame(width: 38, height: 38, alignment: .center)
                 .background(Color.red)
                 .clipShape(Circle())
-                
+
                 if viewModel.recordingState == .locked {
                     Button {
                         withAnimation {
@@ -119,7 +119,7 @@ struct CustomLockedView: View {
                     .background(Color.blue)
                     .clipShape(Circle())
                 }
-                
+
                 Button {
                     withAnimation {
                         viewModel.confirmRecording()
@@ -149,11 +149,11 @@ struct CustomLockedView: View {
             }
         })
     }
-    
+
     private var showContextTime: Bool {
         voiceRecordingHandler.context.currentTime > 0
     }
-    
+
     private func handlePlayTap() {
         if isPlaying {
             player.pause()

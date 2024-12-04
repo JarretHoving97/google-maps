@@ -1,3 +1,5 @@
+// swiftlint:disable all
+
 import SwiftUI
 import UIKit
 
@@ -22,7 +24,7 @@ extension Color {
             .sRGB,
             red: Double(r) / 255,
             green: Double(g) / 255,
-            blue:  Double(b) / 255,
+            blue: Double(b) / 255,
             opacity: Double(a) / 255
         )
     }

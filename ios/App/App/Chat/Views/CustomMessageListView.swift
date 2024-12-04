@@ -3,14 +3,14 @@ import SwiftUI
 import StreamChatSwiftUI
 
 public struct CustomMessageListView<Factory: ViewFactory>: View {
-    
+
     @Injected(\.utils) private var utils
     @Injected(\.chatClient) private var chatClient
     @Injected(\.colors) private var colors
-    
+
     private let firstMessageKey = "firstMessage"
     private let lastMessageKey = "lastMessage"
-    
+
     var factory: Factory
     var channel: ChatChannel
     var messages: LazyCachedMapCollection<ChatMessage>
@@ -20,14 +20,14 @@ public struct CustomMessageListView<Factory: ViewFactory>: View {
     var isMessageThread: Bool
     var onMessageAppear: (Int, ScrollDirection) -> Void
     var onLongPress: (MessageDisplayInfo) -> Void
-    
+
     @Binding var firstUnreadMessageId: MessageId?
     @Binding var quotedMessage: ChatMessage?
     @Binding var scrolledId: String?
     @Binding var keyboardShown: Bool
     @Binding var scrollDirection: ScrollDirection
     @Binding var unreadMessagesBannerShown: Bool
-    
+
     public init(
         factory: Factory,
         channel: ChatChannel,
@@ -61,11 +61,11 @@ public struct CustomMessageListView<Factory: ViewFactory>: View {
         _scrollDirection = scrollDirection
         _unreadMessagesBannerShown = unreadMessagesBannerShown
     }
-    
+
     private var messageListDateUtils: CustomMessageListDateUtils {
         CustomMessageListDateUtils(messageListConfig: customMessageListConfig)
     }
-    
+
     private var messageListConfig: MessageListConfig {
         utils.messageListConfig
     }
@@ -73,11 +73,11 @@ public struct CustomMessageListView<Factory: ViewFactory>: View {
     private var lastInGroupHeaderSize: CGFloat {
         messageListConfig.messageDisplayOptions.lastInGroupHeaderSize
     }
-    
+
     private var newMessagesSeparatorSize: CGFloat {
         messageListConfig.messageDisplayOptions.newMessagesSeparatorSize
     }
-    
+
     private func showsLastInGroupInfo(
         for message: ChatMessage,
         channel: ChatChannel
@@ -90,7 +90,7 @@ public struct CustomMessageListView<Factory: ViewFactory>: View {
         let groupInfo = messagesGroupingInfo[message.id] ?? []
         return groupInfo.contains(lastMessageKey) == true
     }
-    
+
     private func additionalTopPadding(showsLastInGroupInfo: Bool, showUnreadSeparator: Bool) -> CGFloat {
         var padding = showsLastInGroupInfo ? lastInGroupHeaderSize : 0
         if showUnreadSeparator {
@@ -104,7 +104,7 @@ public struct CustomMessageListView<Factory: ViewFactory>: View {
         offset += additionalTopPadding(showsLastInGroupInfo: showsLastInGroupInfo, showUnreadSeparator: showUnreadSeparator)
         return offset
     }
-    
+
     private func newMessagesCount(for index: Int?, message: ChatMessage) -> Int {
         channel.unreadCount.messages
     }
@@ -116,7 +116,7 @@ public struct CustomMessageListView<Factory: ViewFactory>: View {
         let groupInfo = messagesGroupingInfo[message.id] ?? []
         return groupInfo.contains(firstMessageKey) == true
     }
-    
+
     private func handleLongPress(messageDisplayInfo: MessageDisplayInfo) {
         if keyboardShown {
             resignFirstResponder()
@@ -140,7 +140,7 @@ public struct CustomMessageListView<Factory: ViewFactory>: View {
             onLongPress(messageDisplayInfo)
         }
     }
-    
+
     public var body: some View {
         ForEach(messages, id: \.id) { message in
             var index: Int? = messageListDateUtils.indexForMessageDate(message: message, in: messages)
@@ -188,7 +188,7 @@ public struct CustomMessageListView<Factory: ViewFactory>: View {
                     factory.makeMessageListDateIndicator(date: messageDate!)
                         .frame(maxHeight: messageListConfig.messageDisplayOptions.dateLabelSize)
                     : nil
-                    
+
                     showUnreadSeparator ?
                     factory.makeNewMessagesIndicatorView(
                         newMessagesStartId: $firstUnreadMessageId,
@@ -201,12 +201,12 @@ public struct CustomMessageListView<Factory: ViewFactory>: View {
                         unreadMessagesBannerShown = false
                     }
                     : nil
-                    
+
                     showsLastInGroupInfo ?
                     factory.makeLastInGroupHeaderView(for: message)
                         .frame(maxHeight: lastInGroupHeaderSize)
                     : nil
-                    
+
                     Spacer()
                 }
                 : nil

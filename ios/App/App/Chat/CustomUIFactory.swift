@@ -1,31 +1,32 @@
+// swiftlint:disable all
 import SwiftUI
 import Photos
 import StreamChat
 import StreamChatSwiftUI
 
 class CustomUIFactory: ViewFactory {
-    
+
     @Injected(\.utils) public var utils
     @Injected(\.chatClient) public var chatClient
-    
+
     public static let shared = CustomUIFactory()
-    
+
     // MARK: Modifiers
-    
+
     typealias HeaderViewModifier = CustomChannelListHeaderViewModifier
-    
+
     func makeChannelListHeaderViewModifier(title: String) -> CustomChannelListHeaderViewModifier {
         CustomChannelListHeaderViewModifier(title: title)
     }
-    
+
     typealias ChatChannelHeaderViewModifier = CustomChatChannelHeaderViewModifier
-    
+
     func makeChannelHeaderViewModifier(for channel: ChatChannel) -> CustomChatChannelHeaderViewModifier<CustomUIFactory> {
         CustomChatChannelHeaderViewModifier(viewFactory: self, channel: channel)
     }
-    
+
     typealias MessageViewModifier = CustomMessageBubbleModifier
-    
+
     func makeMessageViewModifier(for messageModifierInfo: MessageModifierInfo) -> CustomMessageBubbleModifier {
         CustomMessageBubbleModifier(
             message: messageModifierInfo.message,
@@ -35,19 +36,19 @@ class CustomUIFactory: ViewFactory {
             forceLeftToRight: messageModifierInfo.forceLeftToRight
         )
     }
-    
+
     // MARK: Channel-related Views
-    
+
     typealias ChannelListTopViewType = AmiChatTrialNoticeView
-    
+
     public func makeChannelListTopView(
         searchText: Binding<String>
     ) -> AmiChatTrialNoticeView {
         AmiChatTrialNoticeView()
     }
-    
+
     typealias ChannelDestination = CustomChatChannelView<CustomUIFactory>
-    
+
     public func makeChannelDestination() -> (ChannelSelectionInfo) -> ChannelDestination {
         { [unowned self] selectionInfo in
             return CustomChatChannelView(
@@ -57,9 +58,9 @@ class CustomUIFactory: ViewFactory {
             )
         }
     }
-    
+
     typealias ChannelListItemType = CustomChatChannelNavigatableListItem<ChannelDestination>
-    
+
     public func makeChannelListItem(
         channel: ChatChannel,
         channelName: String,
@@ -86,33 +87,33 @@ class CustomUIFactory: ViewFactory {
             onLongPress: trailingSwipeLeftButtonTapped
         )
     }
-    
+
     typealias MessageListDateIndicatorViewType = CustomDateIndicatorView
-    
+
     func makeMessageListDateIndicator(date: Date) -> CustomDateIndicatorView {
         CustomDateIndicatorView(date: date)
     }
-    
+
     typealias ChannelListDividerItem = EmptyView
-    
+
     func makeChannelListDividerItem() -> EmptyView {
         EmptyView()
     }
-    
+
     typealias NoChannels = CustomEmptyChannelsView
-    
+
     func makeNoChannelsView() -> CustomEmptyChannelsView {
         CustomEmptyChannelsView()
     }
-    
+
     func makeChannelListBackground(colors: ColorPalette) -> some View {
         Color.white
             .edgesIgnoringSafeArea(.bottom)
     }
-    
+
     typealias ChannelListSearchResultsViewType = CustomSearchResultsView<CustomUIFactory>
-    
-    public func makeSearchResultsView(        
+
+    public func makeSearchResultsView(
         selectedChannel: Binding<ChannelSelectionInfo?>,
         searchResults: [ChannelSelectionInfo],
         loadingSearchResults: Bool,
@@ -134,9 +135,9 @@ class CustomUIFactory: ViewFactory {
             onItemAppear: onItemAppear
         )
     }
-    
+
     typealias ChannelListSearchResultItem = CustomSearchResultItem<ChannelDestination>
-    
+
     public func makeChannelListSearchResultItem(
         searchResult: ChannelSelectionInfo,
         onlineIndicatorShown: Bool,
@@ -169,9 +170,9 @@ class CustomUIFactory: ViewFactory {
         )
         .id(message.reactionScoresId)
     }
-    
+
     typealias LeadingComposerViewType = CustomAttachmentPickerTypeView
-    
+
     public func makeLeadingComposerView(
         state: Binding<PickerTypeState>,
         channelConfig: ChannelConfig?
@@ -181,7 +182,7 @@ class CustomUIFactory: ViewFactory {
             channelConfig: channelConfig
         )
     }
-    
+
     typealias ComposerInputViewType = CustomComposerInputContainerView<CustomUIFactory>
 
     public func makeComposerInputView(
@@ -214,9 +215,9 @@ class CustomUIFactory: ViewFactory {
             shouldScroll: shouldScroll
         )
     }
-    
+
     typealias TrailingComposerViewType = CustomTrailingComposerView
-    
+
     public func makeTrailingComposerView(
         enabled: Bool,
         cooldownDuration: Int,
@@ -224,9 +225,9 @@ class CustomUIFactory: ViewFactory {
     ) -> CustomTrailingComposerView {
         CustomTrailingComposerView(sendButtonEnabled: enabled, cooldownDuration: cooldownDuration, sendMessage: onTap)
     }
-    
+
     typealias AttachmentSourcePickerViewType = CustomAttachmentSourcePickerView
-    
+
     public func makeAttachmentSourcePickerView(
         selected: AttachmentPickerState,
         onPickerStateChange: @escaping (AttachmentPickerState) -> Void
@@ -236,9 +237,9 @@ class CustomUIFactory: ViewFactory {
             onTap: onPickerStateChange
         )
     }
-    
+
 //    typealias AttachmentPickerViewType = CustomAttachmentPickerView
-    
+
     public func makeAttachmentPickerView(
         attachmentPickerState: Binding<AttachmentPickerState>,
         filePickerShown: Binding<Bool>,
@@ -276,38 +277,38 @@ class CustomUIFactory: ViewFactory {
         .offset(y: isDisplayed ? 0 : popupHeight)
         .animation(.spring)
     }
-    
+
     typealias RecordingView = CustomRecordingView
-    
+
     public func makeComposerRecordingView(
         viewModel: MessageComposerViewModel,
         gestureLocation: CGPoint
     ) -> CustomRecordingView {
         CustomRecordingView(
             location: gestureLocation,
-            audioRecordingInfo: viewModel.audioRecordingInfo, 
+            audioRecordingInfo: viewModel.audioRecordingInfo,
             onMicTap: viewModel.stopRecording
         )
     }
-    
+
     typealias LockedView = CustomLockedView
-    
+
     public func makeComposerRecordingLockedView(
         viewModel: MessageComposerViewModel
     ) -> CustomLockedView {
         CustomLockedView(viewModel: viewModel)
     }
-    
+
     typealias ComposerRecordingTipViewType = CustomRecordingTipView
-    
+
     public func makeComposerRecordingTipView() -> CustomRecordingTipView {
         CustomRecordingTipView()
     }
-    
+
     // MARK: Message-related Views
-    
+
     typealias MessageContainerViewType = CustomMessageContainerView<CustomUIFactory>
-    
+
     public func makeMessageContainerView(
         channel: ChatChannel,
         message: ChatMessage,
@@ -332,45 +333,45 @@ class CustomUIFactory: ViewFactory {
             onLongPress: onLongPress
         )
     }
-    
+
     typealias MessageDateViewType = CustomMessageDateView
-    
+
     func makeMessageDateView(for message: ChatMessage) -> CustomMessageDateView {
         CustomMessageDateView(message: message)
     }
-    
+
     typealias DateIndicatorViewType = CustomDateIndicatorView
-    
+
     func makeDateIndicatorView(dateString: String) -> CustomDateIndicatorView {
         CustomDateIndicatorView(dateString: dateString)
     }
-    
+
     typealias MessageReadIndicatorViewType = CustomMessageReadIndicatorView
-    
+
     public func makeMessageReadIndicatorView(
         channel: ChatChannel,
         message: ChatMessage
     ) -> CustomMessageReadIndicatorView {
         let isRead = channel.unreadCount == .noUnread
         let isReadByAll = message.readByCount >= channel.memberCount - 1
-        
+
         return CustomMessageReadIndicatorView(
             isRead: isRead,
             isReadByAll: isReadByAll,
             localState: message.localState
         )
     }
-    
+
     typealias QuotedMessageHeaderViewType = EmptyView
-    
+
     public func makeQuotedMessageHeaderView(
         quotedMessage: Binding<ChatMessage?>
     ) -> EmptyView {
         EmptyView()
     }
-    
+
     typealias QuotedMessageViewType = CustomQuotedMessageViewContainer<CustomUIFactory>
-    
+
     func makeQuotedMessageView(
         quotedMessage: ChatMessage,
         fillAvailableSpace: Bool,
@@ -385,9 +386,9 @@ class CustomUIFactory: ViewFactory {
             scrolledId: scrolledId
         )
     }
-    
+
     typealias VoiceRecordingViewType = CustomVoiceRecordingContainerView<CustomUIFactory>
-    
+
     public func makeVoiceRecordingView(
         for message: ChatMessage,
         isFirst: Bool,
@@ -402,15 +403,15 @@ class CustomUIFactory: ViewFactory {
             scrolledId: scrolledId
         )
     }
-    
+
     typealias SystemMessageViewType = CustomSystemMessageView
-    
+
     public func makeSystemMessageView(message: ChatMessage) -> CustomSystemMessageView {
         CustomSystemMessageView(message: message)
     }
-    
+
     typealias ReactionsOverlayViewType = CustomReactionsOverlayView<CustomUIFactory>
-    
+
     public func makeReactionsOverlayView(
         channel: ChatChannel,
         currentSnapshot: UIImage,
@@ -427,7 +428,7 @@ class CustomUIFactory: ViewFactory {
             onActionExecuted: onActionExecuted
         )
     }
-    
+
     func supportedMessageActions(
         for message: ChatMessage,
         channel: ChatChannel,
@@ -443,9 +444,9 @@ class CustomUIFactory: ViewFactory {
             onError: onError
         )
     }
-    
+
     typealias MessageActionsViewType = CustomMessageActionsView
-    
+
     public func makeMessageActionsView(
         for message: ChatMessage,
         channel: ChatChannel,
@@ -458,10 +459,10 @@ class CustomUIFactory: ViewFactory {
             onFinish: onFinish,
             onError: onError
         )
-        
+
         return CustomMessageActionsView(for: message, messageActions: messageActions)
     }
-    
+
     public func supportedMoreChannelActions(
         for channel: ChatChannel,
         onDismiss: @escaping () -> Void,
@@ -474,7 +475,7 @@ class CustomUIFactory: ViewFactory {
             onError: onError
         )
     }
-    
+
     typealias MoreActionsView = CustomMoreChannelActionsContainerView<CustomUIFactory>
 
     public func makeMoreChannelActionsView(
@@ -494,9 +495,9 @@ class CustomUIFactory: ViewFactory {
             onDismiss: onDismiss
         )
     }
-    
+
     typealias DeletedMessageViewType = DeletedMessageView
-    
+
     public func makeDeletedMessageView(
         for message: ChatMessage,
         isFirst: Bool,
@@ -507,9 +508,9 @@ class CustomUIFactory: ViewFactory {
             isFirst: isFirst
         )
     }
-    
+
     typealias NewMessagesIndicatorViewType = CustomNewMessagesIndicatorView
-    
+
     public func makeNewMessagesIndicatorView(
         newMessagesStartId: Binding<String?>,
         count: Int
@@ -519,9 +520,9 @@ class CustomUIFactory: ViewFactory {
             count: count
         )
     }
-    
+
     typealias JumpToUnreadButtonType = EmptyView
-    
+
     public func makeJumpToUnreadButton(
         channel: ChatChannel,
         onJumpToMessage: @escaping () -> Void,
@@ -529,9 +530,9 @@ class CustomUIFactory: ViewFactory {
     ) -> EmptyView {
         EmptyView()
     }
-    
+
     typealias ScrollToBottomButtonType = CustomScrollToBottomButton
-    
+
     public func makeScrollToBottomButton(
         unreadCount: Int,
         onScrollToBottom: @escaping () -> Void
@@ -541,9 +542,9 @@ class CustomUIFactory: ViewFactory {
             onScrollToBottom: onScrollToBottom
         )
     }
-    
+
     typealias EmptyMessagesViewType = CustomEmptyMessagesView
-    
+
     public func makeEmptyMessagesView(
         for channel: ChatChannel,
         colors: ColorPalette

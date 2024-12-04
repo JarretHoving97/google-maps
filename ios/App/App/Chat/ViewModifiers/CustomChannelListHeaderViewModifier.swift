@@ -4,33 +4,33 @@ import UIKit
 import Capacitor
 
 struct CustomChannelListHeaderViewModifier: ChannelListHeaderViewModifier {
-    
+
     @Injected(\.fonts) var fonts
     @Injected(\.images) var images
-    
+
     @State var profileShown = false
-    
+
     var title: String
-    
+
     init(title: String) {
         self.title = title
         updateAppearance()
     }
-    
+
     func updateAppearance() {
         let navigationBarAppearance = UINavigationBarAppearance()
-        
+
         navigationBarAppearance.configureWithDefaultBackground()
         navigationBarAppearance.backgroundColor = UIColor(Color.white)
         navigationBarAppearance.shadowColor = UIColor.clear
         navigationBarAppearance.largeTitleTextAttributes = [
             .foregroundColor: UIColor(Color("Grey Dark")),
             .font: UIFont(name: "Poppins-Bold", size: 30)!,
-            .baselineOffset: 12,
+            .baselineOffset: 12
         ]
         navigationBarAppearance.titleTextAttributes = [
             .foregroundColor: UIColor(Color("Grey Dark")),
-            .font: UIFont(name: "Poppins-Bold", size: 15)!,
+            .font: UIFont(name: "Poppins-Bold", size: 15)!
         ]
 
         UINavigationBar.appearance().layoutMargins.left = 16

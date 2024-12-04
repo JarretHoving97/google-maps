@@ -7,20 +7,20 @@ public struct CustomVoiceRecordingContainerView<Factory: ViewFactory>: View {
     @Injected(\.colors) var colors
     @Injected(\.images) var images
     @Injected(\.utils) var utils
-    
+
     let factory: Factory
     let message: ChatMessage
     let width: CGFloat
     let isFirst: Bool
     @Binding var scrolledId: String?
-    
+
     @StateObject var handler = VoiceRecordingHandler()
     @State var playingIndex: Int?
-    
+
     private var player: AudioPlaying {
         utils.audioPlayer
     }
-    
+
     public init(
         factory: Factory,
         message: ChatMessage,
@@ -34,7 +34,7 @@ public struct CustomVoiceRecordingContainerView<Factory: ViewFactory>: View {
         self.isFirst = isFirst
         _scrolledId = scrolledId
     }
-    
+
     public var body: some View {
         VStack(spacing: 4) {
             if let quotedMessage = message.quotedMessage {
@@ -45,7 +45,7 @@ public struct CustomVoiceRecordingContainerView<Factory: ViewFactory>: View {
                     scrolledId: $scrolledId
                 )
             }
-            
+
             ForEach(message.voiceRecordingAttachments, id: \.self) { attachment in
                 CustomVoiceRecordingView(
                     handler: handler,
@@ -56,10 +56,10 @@ public struct CustomVoiceRecordingContainerView<Factory: ViewFactory>: View {
                     ),
                     index: index(for: attachment),
                     foregroundStyleDark: !message.isRightAligned
-                    
+
                 )
             }
-            
+
             if !message.text.isEmpty {
                 CustomAttachmentTextView(message: message)
             }
@@ -91,7 +91,7 @@ public struct CustomVoiceRecordingContainerView<Factory: ViewFactory>: View {
             )
         )
     }
-    
+
     private func index(for attachment: ChatMessageVoiceRecordingAttachment) -> Int {
         message.voiceRecordingAttachments.firstIndex(of: attachment) ?? 0
     }
@@ -102,20 +102,20 @@ struct CustomVoiceRecordingView: View {
     @Injected(\.colors) var colors
     @Injected(\.images) var images
     @Injected(\.fonts) var fonts
-    
+
     @State var isPlaying: Bool = false
     @State var loading: Bool = false
     @State var rate: AudioPlaybackRate = .normal
     @ObservedObject var handler: VoiceRecordingHandler
-    
+
     let addedVoiceRecording: AddedVoiceRecording
     let index: Int
     let foregroundStyleDark: Bool
-    
+
     private var player: AudioPlaying {
         utils.audioPlayer
     }
-    
+
     private var rateTitle: String {
         switch rate {
         case .half:
@@ -124,11 +124,11 @@ struct CustomVoiceRecordingView: View {
             return "x\(Int(rate.rawValue))"
         }
     }
-    
+
     private var duration: String {
         utils.videoDurationFormatter.format(showContextDuration ? handler.context.currentTime : addedVoiceRecording.duration) ?? ""
     }
-    
+
     var body: some View {
         HStack {
             VStack(spacing: 0) {
@@ -146,7 +146,7 @@ struct CustomVoiceRecordingView: View {
                                  .progressViewStyle(CircularProgressViewStyle(tint: foregroundStyleDark ? Color("Purple") : Color.white))
                              : nil
                     )
-                
+
                 Text(duration)
                     .font(fonts.caption2)
                     .foregroundStyle(foregroundStyleDark ? Color(colors.textLowEmphasis) : Color.white)
@@ -154,7 +154,7 @@ struct CustomVoiceRecordingView: View {
                     .frame(width: 34)
                     .multilineTextAlignment(.center)
             }
-            
+
             CustomWaveformViewSwiftUI(
                 audioContext: handler.context,
                 addedVoiceRecording: addedVoiceRecording,
@@ -172,7 +172,7 @@ struct CustomVoiceRecordingView: View {
                 }
             )
             .frame(height: 30)
-                        
+
             Button(action: {
                 if rate == .normal {
                     rate = .double
@@ -207,15 +207,15 @@ struct CustomVoiceRecordingView: View {
             }
         })
     }
-    
+
     private var showContextDuration: Bool {
         isCurrentRecordingActive && handler.context.currentTime > 0
     }
-    
+
     private var isCurrentRecordingActive: Bool {
         handler.context.assetLocation == addedVoiceRecording.url
     }
-    
+
     private func handlePlayTap() {
         if isPlaying {
             player.pause()

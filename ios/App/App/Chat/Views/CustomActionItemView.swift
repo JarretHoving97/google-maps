@@ -18,9 +18,9 @@ public struct CustomActionItemView: View {
                 .foregroundColor(
                     isDestructive ? Color("Red") : Color(colors.text)
                 )
-            
+
             Spacer()
-            
+
             Image(systemName: iconName)
                 .customizable()
                 .frame(maxWidth: 16, maxHeight: 16)

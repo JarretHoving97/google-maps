@@ -5,33 +5,33 @@ import SwiftUI
 extension ChatChannel {
     var otherUser: ChatChannelMember? {
         let currentUserId = StreamChatWrapper.shared.client?.currentUserId
-        
+
         if isDirectMessageChannel {
             return lastActiveMembers.first(where: { $0.id != currentUserId })
         }
-        
+
         return nil
     }
-    
+
     var isCurrentUserOrganizer: Bool {
         let currentUserId = StreamChatWrapper.shared.client?.currentUserId
-        
+
         if membership?.memberRole == .organizer {
             return true
         }
-        
+
         // This is temporary, the initial migration didn't support member roles.
-        if let currentUserId, currentUserId == createdBy?.id  {
+        if let currentUserId, currentUserId == createdBy?.id {
             return true
         }
-        
+
         return false
     }
-    
+
     var isSupportChatChannel: Bool {
         otherUser?.userRole == UserRole.moderator
     }
-    
+
     var subtitleText: String? {
         if shouldShowTypingIndicator {
             let currentUserId = StreamChatWrapper.shared.client?.currentUserId
@@ -39,10 +39,10 @@ extension ChatChannel {
         } else if let lastMessageText = lastMessageText {
             return lastMessageText
         }
-        
+
         return nil
     }
-    
+
     /// Returns the typing indicator string.
     /// - Parameters:
     ///  - currentUserId: the id of the current user.
@@ -50,7 +50,7 @@ extension ChatChannel {
     public func typingIndicatorString(currentUserId: UserId?) -> String {
         let chatUserNamer = InjectedValues[\.utils].chatUserNamer
         let typingUsers = currentlyTypingUsersFiltered(currentUserId: currentUserId)
-        
+
         if isDirectMessageChannel {
             return tr("custom.messageList.typingIndicator.user")
         } else if let user = typingUsers.first(where: { user in user.name != nil }), let name = chatUserNamer.name(forUser: user) {
@@ -60,7 +60,7 @@ extension ChatChannel {
             return tr("messageList.typingIndicator.typingUnknown")
         }
     }
-    
+
     public var lastMessageText: String? {
         guard let latestMessage = latestMessages.first else {
             return nil
@@ -69,25 +69,24 @@ extension ChatChannel {
         if let text = pollMessageText(for: latestMessage) {
             return text
         }
-        
+
         let content = textContent(for: latestMessage)
-        
+
         if latestMessage.isSentByCurrentUser {
             return "\(tr("custom.sendByYou")) \(content)"
         }
-        
+
         if isDirectMessageChannel {
             return content
         }
-        
+
         if let authorName = latestMessage.author.name {
             return "\(authorName): \(content)"
         }
-        
+
         return content
     }
-    
-    
+
     func pollMessageText(for previewMessage: ChatMessage) -> String? {
         guard let poll = previewMessage.poll, !previewMessage.isDeleted else { return nil }
         var components = ["📊"]
@@ -109,7 +108,7 @@ extension ChatChannel {
         }
         return components.joined(separator: " ")
     }
-    
+
     private func textContent(for previewMessage: ChatMessage) -> String {
         if let attachmentPreviewText = attachmentPreviewText(for: previewMessage) {
             return attachmentPreviewText
@@ -119,7 +118,7 @@ extension ChatChannel {
         }
         return previewMessage.adjustedText
     }
-    
+
     /// The message preview text in case it contains attachments.
     /// - Parameter previewMessage: The preview message of the channel.
     /// - Returns: A string representing the message preview text.
