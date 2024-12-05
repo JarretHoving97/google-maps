@@ -3,9 +3,9 @@ import SwiftUI
 import StreamChat
 
 enum MessageWalkthroughType: String {
-    case OnboardingHowToHost = "layout.onboarding"
-    case OnboardingHowToJoin = "onboarding_how_to_host.system"
-    case OnboardingDefault = "onboarding_how_to_join.system"
+    case OnboardingHowToHost = "onboarding"
+    case OnboardingHowToJoin = "how_to_host"
+    case OnboardingDefault = "how_to_join"
 }
 
 struct AmiMessageWalkthrough: View {
