@@ -276,9 +276,9 @@ public struct LinkDetectionTextView: View {
     }
 
     private func handleLinkTap(_ url: URL) {
-        let webViewURL = getWebViewURL()
+        let webViewURL = ExtendedStreamPlugin.shared.webViewURL
 
-        if url.host == webViewURL.host {
+        if let webViewURL, url.host == webViewURL.host {
             ExtendedStreamPlugin.shared.notifyNavigateToListeners(route: url.relativePath, dismiss: true)
         } else {
             confirmUrl = url

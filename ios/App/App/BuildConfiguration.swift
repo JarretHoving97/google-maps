@@ -1,3 +1,4 @@
+// swiftlint:disable all
 import Foundation
 
 // The best way to do environment variables seems to be using `xcconfig` files.
@@ -17,47 +18,73 @@ func getWebViewURL() -> URL {
     fatalError("[BuildConfiguration] Invalid WebView host.")
 }
 
-/// Contains static variables based on the scheme enviroment variable `env`.
-class BuildConfiguration {
+public enum BuildConfiguration {
 
-    private static var webViewURL: URL {
-        if Thread.current.isMainThread {
-            return getWebViewURL()
-        } else {
-            return DispatchQueue.main.sync(execute: getWebViewURL)
+    // TODO: Make use of composition.
+    static var safetyCheckUrl: String = ""
+
+    case production
+    case staging
+    case development(hostURL: String)
+
+    var AmigosApiUrl: String {
+        switch self {
+
+        case .production:
+            return "https://api.app.amigosapp.nl"
+
+        case .staging:
+            return "https://api.qa.app.amigosapp.nl"
+
+        case let .development(hostURL):
+            return "http://\(hostURL):4000"
         }
     }
 
-    static var env: Env {
-        switch webViewURL.host {
-        case "app.amigosapp.nl":
-            return Env.production
-        case "qa.app.amigosapp.nl":
-            return Env.staging
-        default:
-            return Env.development
+    var env: String {
+        switch self {
+
+        case .production:
+            return "https://app.amigosapp.nl"
+
+        case .staging:
+            return "https://qa.app.amigosapp.nl"
+
+        case .development(let hostURL):
+            return hostURL
         }
     }
 
-    static var StreamApiKey: String {
-        switch env {
+    var StreamApiKey: String {
+        switch self {
+
         case .development:
             return "4jwx8cxk6zhe"
+
         case .staging:
             return "kcmnhnu98xhw"
+
         default:
             return "aetbj83fpknp"
         }
     }
+}
 
-    static var AmigosApiUrl: String {
-        switch env {
-        case .development:
-            return "http://\(webViewURL.host!):4000"
-        case .staging:
-            return "https://api.qa.app.amigosapp.nl"
-        default:
-            return "https://api.app.amigosapp.nl"
+extension BuildConfiguration {
+
+    // Compares url to environment and retrieves the configuration.
+    static func create(for url: URL) -> BuildConfiguration {
+
+        let urlString = url.string
+
+        if urlString == BuildConfiguration.staging.env {
+            return .staging
         }
+
+        if urlString == BuildConfiguration.production.env {
+            return .production
+        }
+
+        return .development(hostURL: urlString)
     }
 }

@@ -14,13 +14,13 @@ struct ParsedResponse: Decodable {
 }
 
 /// Fetches a new Stream authentication token, if user is authenticated.
-func loadStreamToken(completion: @escaping (Result<Token, Error>) -> Void) {
+func loadStreamToken(_ url: String, _ completion: @escaping (Result<Token, Error>) -> Void) -> Void {
     guard let jwt = getValueFromKeychain(key: "jwt") else {
         completion(.failure(TokenProviderError.Unauthenticated))
         return
     }
-
-    guard let url = URL(string: "\(BuildConfiguration.AmigosApiUrl)/auth/stream/token") else {
+    
+    guard let url = URL(string: "\(url)/auth/stream/token") else {
         completion(.failure(TokenProviderError.RequestAborted))
         return
     }

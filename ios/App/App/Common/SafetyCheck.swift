@@ -1,9 +1,11 @@
+// swiftlint:disable all
+
 import Foundation
 
 enum RequestError: Error {
-    case invalidUrl
-    case requestAborted
-    case responseInvalid
+    case InvalidUrl
+    case RequestAborted
+    case ResponseInvalid
 }
 
 func getRequestBody(userId: String, state: SafetyCheckState, reason: SafetyCheckReason?) -> String {
@@ -47,8 +49,12 @@ func updateSafetyCheck(
         return
     }
 
-    guard let url = URL(string: "\(BuildConfiguration.AmigosApiUrl)/graphql") else {
-        completion(.failure(RequestError.invalidUrl))
+    guard !BuildConfiguration.safetyCheckUrl.isEmpty else {
+        fatalError("implementationError: Safety check URL is not implemented")
+    }
+
+    guard let url = URL(string: "\(BuildConfiguration.safetyCheckUrl)/graphql") else {
+        completion(.failure(RequestError.InvalidUrl))
         return
     }
 
@@ -71,7 +77,7 @@ func updateSafetyCheck(
 
     let task = URLSession.shared.dataTask(with: request) { data, response, error in
         if let error = error {
-            completion(.failure(RequestError.responseInvalid))
+            completion(.failure(RequestError.ResponseInvalid))
             print(error)
             return
         }
@@ -79,7 +85,7 @@ func updateSafetyCheck(
         print(data, response)
 
         guard let data, let httpResponse = response as? HTTPURLResponse, 200..<300 ~= httpResponse.statusCode else {
-            completion(.failure(RequestError.responseInvalid))
+            completion(.failure(RequestError.ResponseInvalid))
             return
         }
 

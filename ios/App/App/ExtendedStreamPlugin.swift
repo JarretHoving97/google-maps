@@ -19,6 +19,10 @@ public class ExtendedStreamPlugin: CAPPlugin, CAPBridgedPlugin {
 
     public let jsName = "ExtendedStream"
 
+    public var webViewURL: URL? {
+        return bridge?.config.serverURL
+    }
+
     public let pluginMethods: [CAPPluginMethod] = [
         CAPPluginMethod(name: "logIn", returnType: CAPPluginReturnNone),
         CAPPluginMethod(name: "logOut", returnType: CAPPluginReturnNone),
@@ -33,6 +37,7 @@ public class ExtendedStreamPlugin: CAPPlugin, CAPBridgedPlugin {
 
     public override func load() {
         ExtendedStreamPlugin.shared = self
+        configureChat()
     }
 
     public var superEntitlementStatus: SuperEntitlementStatus = SuperEntitlementStatus.Unavailable
@@ -187,5 +192,21 @@ public class ExtendedStreamPlugin: CAPPlugin, CAPBridgedPlugin {
             print(error)
             return nil
         }
+    }
+}
+
+extension ExtendedStreamPlugin {
+
+    private func configureChat() {
+
+        guard let url = bridge?.config.serverURL else {
+
+            fatalError("Implementation error: No URL found in bridge config.")
+        }
+
+        let config: BuildConfiguration = .create(for: url)
+
+        StreamChatWrapper.shared.buildFor(environment: config)
+        BuildConfiguration.safetyCheckUrl = config.AmigosApiUrl
     }
 }
