@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		2FAD9763203C412B000D30F8 /* config.xml in Resources */ = {isa = PBXBuildFile; fileRef = 2FAD9762203C412B000D30F8 /* config.xml */; };
+		319741812CDA54A5009B9F19 /* UNNotificationCenter+BadgeSetter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 319741802CDA5420009B9F19 /* UNNotificationCenter+BadgeSetter.swift */; };
 		3D0E8A4A25F65E9B0039E3FC /* FacebookOAuth2Handler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D0E8A4925F65E9B0039E3FC /* FacebookOAuth2Handler.swift */; };
 		3DE196A726307EF100994AB9 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3DE196A626307EF100994AB9 /* GoogleService-Info.plist */; };
 		45062E6D2C7F66CD00850C3F /* UIView+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45062E6C2C7F66CD00850C3F /* UIView+Extensions.swift */; };
@@ -135,6 +136,7 @@
 
 /* Begin PBXFileReference section */
 		2FAD9762203C412B000D30F8 /* config.xml */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = config.xml; sourceTree = "<group>"; };
+		319741802CDA5420009B9F19 /* UNNotificationCenter+BadgeSetter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UNNotificationCenter+BadgeSetter.swift"; sourceTree = "<group>"; };
 		3D0E8A4925F65E9B0039E3FC /* FacebookOAuth2Handler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FacebookOAuth2Handler.swift; sourceTree = "<group>"; };
 		3DD0638F2611D66C0007D6C7 /* App.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = App.entitlements; sourceTree = "<group>"; };
 		3DE196A626307EF100994AB9 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
@@ -297,6 +299,14 @@
 				D70765C1FC7C2F834D68B5F2 /* Pods-App.release.xcconfig */,
 			);
 			path = Pods;
+			sourceTree = "<group>";
+		};
+		3197417F2CDA5416009B9F19 /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				319741802CDA5420009B9F19 /* UNNotificationCenter+BadgeSetter.swift */,
+			);
+			path = Helpers;
 			sourceTree = "<group>";
 		};
 		45062E6B2C7F665B00850C3F /* Common */ = {
@@ -484,6 +494,7 @@
 		504EC3061FED79650016851F /* App */ = {
 			isa = PBXGroup;
 			children = (
+				3197417F2CDA5416009B9F19 /* Helpers */,
 				45AB7CF82C9DB22600726A70 /* Images */,
 				455A13CF2C33D6380093008F /* Views */,
 				4525C7732BE5170400DC197F /* Common */,
@@ -754,6 +765,7 @@
 				4511D14428CB7D99001961E4 /* ExtendedBranchPlugin.swift in Sources */,
 				455AD3C52C4FAEB3007E4F74 /* ChannelAction+Extensions.swift in Sources */,
 				4525C7832BE9391900DC197F /* CustomChatChannelListItemView.swift in Sources */,
+				319741812CDA54A5009B9F19 /* UNNotificationCenter+BadgeSetter.swift in Sources */,
 				4555534E2C2EAED000B26AD9 /* CustomMessageListView.swift in Sources */,
 				3D0E8A4A25F65E9B0039E3FC /* FacebookOAuth2Handler.swift in Sources */,
 				455DAE302C187E9D001452FD /* View+Extensions.swift in Sources */,

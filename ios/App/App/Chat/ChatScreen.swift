@@ -98,6 +98,12 @@ struct ChatScreen: View {
                 ChatChannelScreen(chatChannelController: chatClient.channelController(for: channelId), viewModel: viewModel)
             } else if let channelListController {
                 ChatChannelsScreen(viewModel: viewModel, chatViewModel: chatViewModel, channelListController: channelListController)
+                    // reset appIcon badge count when channels are loaded.
+                    .onChange(of: viewModel.channels) { channels in
+                        if !channels.isEmpty {
+                            UNUserNotificationCenter.resetAppBadge()
+                        }
+                    }
             }
         }
     }
