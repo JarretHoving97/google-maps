@@ -147,6 +147,7 @@ public struct CustomMessageListContainerView<Factory: ViewFactory>: View, Keyboa
                     .modifier(ScrollTargetLayoutModifier(enabled: loadingNextMessages))
                 }
                 .modifier(ScrollPositionModifier(scrollPosition: loadingNextMessages ? $scrollPosition : .constant(nil)))
+                .dismissKeyboardAndAttachmentViewOnTap()
                 .background(
                     factory.makeMessageListBackground(
                         colors: colors,

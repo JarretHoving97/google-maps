@@ -55,6 +55,7 @@ public struct ChatChannelScreen: View {
             viewFactory: CustomUIFactory.shared,
             channelController: chatChannelController
         )
+        .environment(\.attachmentController, AttachmentEnvironmentController())
         .overlay(viewModel.customAlertShown ? customViewOverlay() : nil)
     }
 }

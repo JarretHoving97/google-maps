@@ -9,6 +9,9 @@
 /* Begin PBXBuildFile section */
 		2FAD9763203C412B000D30F8 /* config.xml in Resources */ = {isa = PBXBuildFile; fileRef = 2FAD9762203C412B000D30F8 /* config.xml */; };
 		319741812CDA54A5009B9F19 /* UNNotificationCenter+BadgeSetter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 319741802CDA5420009B9F19 /* UNNotificationCenter+BadgeSetter.swift */; };
+		31EB438C2D06ED8B007107CA /* EnvironmentValues+AttachmentController+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31EB438B2D06ED78007107CA /* EnvironmentValues+AttachmentController+Extension.swift */; };
+		31EB438F2D0700CD007107CA /* AttachmentEnvironmentController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31EB438E2D0700C7007107CA /* AttachmentEnvironmentController.swift */; };
+		31EB43912D0704F6007107CA /* HidesKeyboardAndAttachmentOnTapGesture.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31EB43902D0704E7007107CA /* HidesKeyboardAndAttachmentOnTapGesture.swift */; };
 		3D0E8A4A25F65E9B0039E3FC /* FacebookOAuth2Handler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D0E8A4925F65E9B0039E3FC /* FacebookOAuth2Handler.swift */; };
 		3DE196A726307EF100994AB9 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3DE196A626307EF100994AB9 /* GoogleService-Info.plist */; };
 		45062E6D2C7F66CD00850C3F /* UIView+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45062E6C2C7F66CD00850C3F /* UIView+Extensions.swift */; };
@@ -137,6 +140,9 @@
 /* Begin PBXFileReference section */
 		2FAD9762203C412B000D30F8 /* config.xml */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = config.xml; sourceTree = "<group>"; };
 		319741802CDA5420009B9F19 /* UNNotificationCenter+BadgeSetter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UNNotificationCenter+BadgeSetter.swift"; sourceTree = "<group>"; };
+		31EB438B2D06ED78007107CA /* EnvironmentValues+AttachmentController+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "EnvironmentValues+AttachmentController+Extension.swift"; sourceTree = "<group>"; };
+		31EB438E2D0700C7007107CA /* AttachmentEnvironmentController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AttachmentEnvironmentController.swift; sourceTree = "<group>"; };
+		31EB43902D0704E7007107CA /* HidesKeyboardAndAttachmentOnTapGesture.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HidesKeyboardAndAttachmentOnTapGesture.swift; sourceTree = "<group>"; };
 		3D0E8A4925F65E9B0039E3FC /* FacebookOAuth2Handler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FacebookOAuth2Handler.swift; sourceTree = "<group>"; };
 		3DD0638F2611D66C0007D6C7 /* App.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = App.entitlements; sourceTree = "<group>"; };
 		3DE196A626307EF100994AB9 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
@@ -307,6 +313,13 @@
 				319741802CDA5420009B9F19 /* UNNotificationCenter+BadgeSetter.swift */,
 			);
 			path = Helpers;
+            sourceTree = "<group>";
+        };
+		31EB438A2D06ED72007107CA /* EnvironmentKeys */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = EnvironmentKeys;
 			sourceTree = "<group>";
 		};
 		45062E6B2C7F665B00850C3F /* Common */ = {
@@ -460,6 +473,10 @@
 		45C0148A2BE13B85003BFD8B /* Chat */ = {
 			isa = PBXGroup;
 			children = (
+				31EB43902D0704E7007107CA /* HidesKeyboardAndAttachmentOnTapGesture.swift */,
+				31EB438E2D0700C7007107CA /* AttachmentEnvironmentController.swift */,
+				31EB438B2D06ED78007107CA /* EnvironmentValues+AttachmentController+Extension.swift */,
+				31EB438A2D06ED72007107CA /* EnvironmentKeys */,
 				45062E6B2C7F665B00850C3F /* Common */,
 				45A6DE382C18ADFF0040F713 /* ViewModifiers */,
 				45A6DE372C18AB0F0040F713 /* Views */,
@@ -730,6 +747,7 @@
 				45F0AFA22C3D1C2200396216 /* CustomMoreChannelActionsView.swift in Sources */,
 				45A6DE442C19E1B80040F713 /* CustomSearchResultItem.swift in Sources */,
 				4555534C2C2EACD700B26AD9 /* CustomShadowsViewModifier.swift in Sources */,
+				31EB438C2D06ED8B007107CA /* EnvironmentValues+AttachmentController+Extension.swift in Sources */,
 				45D313162C8099F9004E069E /* ChatChannelMember+Extensions.swift in Sources */,
 				45D3131A2C82087E004E069E /* Channel+Extensions.swift in Sources */,
 				45C4AD502BEE085B00BAFCF4 /* CustomChatChannelHeaderViewModifier.swift in Sources */,
@@ -786,6 +804,7 @@
 				45E7D9C02C072940001BF7BC /* CustomAttachmentPickerTypeView.swift in Sources */,
 				45CBB34C2C884CA700040F36 /* CustomSafetyCheckInfoSheetView.swift in Sources */,
 				452278072C11AC17004F67DD /* String+Extensions.swift in Sources */,
+				31EB438F2D0700CD007107CA /* AttachmentEnvironmentController.swift in Sources */,
 				4555533B2C2C5BB500B26AD9 /* CustomAttachmentPickerView.swift in Sources */,
 				4522780D2C11C9C1004F67DD /* CustomMessageReadIndicatorView.swift in Sources */,
 				457BD7EE2C480ABE00877ABD /* AmiSafetyCheck.swift in Sources */,
@@ -795,6 +814,7 @@
 				45D1DDB12BD9636700A53E3D /* CustomBottomReactionsView.swift in Sources */,
 				4522780B2C11B02C004F67DD /* CustomSubtitleTextView.swift in Sources */,
 				4525C7852BEA0D3700DC197F /* CustomAvatarView.swift in Sources */,
+				31EB43912D0704F6007107CA /* HidesKeyboardAndAttachmentOnTapGesture.swift in Sources */,
 				457BD7EC2C47E61800877ABD /* CustomPinnedMessage.swift in Sources */,
 				459E4A2A2C130BFF003DCEF0 /* CustomDateIndicatorView.swift in Sources */,
 				455DAE322C1880AB001452FD /* CustomMessageView.swift in Sources */,
