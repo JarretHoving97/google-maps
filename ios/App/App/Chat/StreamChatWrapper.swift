@@ -221,6 +221,7 @@ let customMessageListConfig = MessageListConfig(
     messageDisplayOptions: MessageDisplayOptions(
         showAvatars: false,
         showAvatarsInGroups: true,
+        minimumSwipeGestureDistance: 40,
         reactionsPlacement: .bottom
 
     ),

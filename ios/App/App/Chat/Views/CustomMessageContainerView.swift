@@ -28,7 +28,8 @@ public struct CustomMessageContainerView<Factory: ViewFactory>: View {
     @State private var offsetYAvatar: CGFloat = 0
     @GestureState private var offset: CGSize = .zero
 
-    private let replyThreshold: CGFloat = 60
+    private let replyThreshold: CGFloat = 80
+    private let replySensitivity: CGFloat = 8
     private let paddingValue: CGFloat = 20
 
     public init(
@@ -71,6 +72,14 @@ public struct CustomMessageContainerView<Factory: ViewFactory>: View {
             ExtendedStreamPlugin.shared.notifyNavigateToListeners(route: "/walkthrough/join", dismiss: true)
         }
     }
+
+    private var computeReplyIconOffset: CGFloat {
+        min(maximumHorizontalSwipeDisplacement, max(0, offsetX / replySensitivity))
+    }
+
+    private var computeReplyIconOpacity: Double {
+        min(1, abs(offsetX) / maximumHorizontalSwipeDisplacement)
+     }
 
     public var body: some View {
         HStack(alignment: .bottom) {
@@ -155,6 +164,29 @@ public struct CustomMessageContainerView<Factory: ViewFactory>: View {
                             handleGestureForMessage(showsMessageActions: true)
                         }
                     }
+                    .offset(x: min(self.offsetX, maximumHorizontalSwipeDisplacement))
+                    .simultaneousGesture(
+                        DragGesture(
+                            minimumDistance: minimumSwipeDistance,
+                            coordinateSpace: .local
+                        )
+                        .updating($offset) { (value, gestureState, _) in
+                            if message.isDeleted /* || !channel.config.repliesEnabled */ {
+                                return
+                            }
+                            // Using updating since onEnded is not called if the gesture is canceled.
+                            let diff = CGSize(
+                                width: value.location.x - value.startLocation.x,
+                                height: value.location.y - value.startLocation.y
+                            )
+
+                            if diff == .zero {
+                                gestureState = .zero
+                            } else {
+                                gestureState = value.translation
+                            }
+                        }
+                    )
                     .onTapGesture {
                         navigateToOnboardingWebView()
                     }
@@ -225,10 +257,24 @@ public struct CustomMessageContainerView<Factory: ViewFactory>: View {
                 }
                 .overlay(
                     offsetX > 0 ?
-                        TopLeftView {
-                            Image(uiImage: images.messageActionInlineReply)
+                        VStack {
+                            Spacer()
+
+                            HStack {
+                                Image(systemName: "arrowshape.turn.up.left.fill")
+                                    .renderingMode(.template)
+                                    .resizable()
+                                    .scaledToFit()
+                                    .frame(width: 16, height: 16)
+                                    .foregroundColor(Color("Grey"))
+
+                                Spacer()
+                            }
+
+                            Spacer()
                         }
-                        .offset(x: -32)
+                        .offset(x: computeReplyIconOffset)
+                        .opacity(computeReplyIconOpacity)
                         : nil
                 )
 
