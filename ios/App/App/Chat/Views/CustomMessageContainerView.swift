@@ -64,11 +64,11 @@ public struct CustomMessageContainerView<Factory: ViewFactory>: View {
     }
 
     func navigateToOnboardingWebView() {
-        if message.layoutKey == "layout.onboarding" {
+        if message.layoutKey == "onboarding" {
             ExtendedStreamPlugin.shared.notifyNavigateToListeners(route: "/walkthrough", dismiss: true)
-        } else if message.layoutKey == "onboarding_how_to_host.system" {
+        } else if message.layoutKey == "how_to_host" {
             ExtendedStreamPlugin.shared.notifyNavigateToListeners(route: "/walkthrough/host", dismiss: true)
-        } else if message.layoutKey == "onboarding_how_to_join.system" {
+        } else if message.layoutKey == "how_to_join" {
             ExtendedStreamPlugin.shared.notifyNavigateToListeners(route: "/walkthrough/join", dismiss: true)
         }
     }

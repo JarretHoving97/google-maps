@@ -24,6 +24,7 @@ struct AmiMessageWalkthrough: View {
                     .frame(width: 75, height: 152, alignment: .center)
             }
         }
+        .allowsHitTesting(false)
         .frame(maxWidth: .infinity, minHeight: 152)
         .padding(16)
         .background(Color(hex: "#882CCF"))
