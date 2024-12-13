@@ -44,7 +44,7 @@ public final class StreamChatWrapper {
         }
         
         self.client = client
-        self.chat = StreamChat(chatClient: client, appearance: getAppearence())
+        self.chat = StreamChat(chatClient: client, appearance: getAppearence(), utils: getUtils())
     }
 
     func logIn(id: String, name: String?, avatarUrl: String?) {
