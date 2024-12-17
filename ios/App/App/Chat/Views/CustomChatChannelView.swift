@@ -22,24 +22,24 @@ public struct CustomChatChannelView<Factory: ViewFactory>: View, KeyboardReadabl
 
     private var factory: Factory
 
-    private var scrollToMessage: ChatMessage?
+    private let messageId: String?
 
     public init(
         viewFactory: Factory = DefaultViewFactory.shared,
         viewModel: ChatChannelViewModel? = nil,
+        messageId: String?,
         channelController: ChatChannelController,
-        messageController: ChatMessageController? = nil,
-        scrollToMessage: ChatMessage? = nil
+        messageController: ChatMessageController? = nil
     ) {
         _viewModel = StateObject(
             wrappedValue: viewModel ?? ViewModelsFactory.makeChannelViewModel(
                 with: channelController,
                 messageController: messageController,
-                scrollToMessage: scrollToMessage
+                scrollToMessage: nil
             )
         )
         factory = viewFactory
-        self.scrollToMessage = scrollToMessage
+        self.messageId = messageId
     }
 
     public var body: some View {
@@ -50,7 +50,7 @@ public struct CustomChatChannelView<Factory: ViewFactory>: View, KeyboardReadabl
                     channel: channel,
                     viewModel: viewModel,
                     channelController: chatClient.channelController(for: channel.cid),
-                    scrollToMessage: scrollToMessage
+                    messageId: messageId
                 )
             } else {
                 factory.makeChannelLoadingView()

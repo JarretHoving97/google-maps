@@ -19,23 +19,26 @@ struct CustomChatChannelMessageListView<Factory: ViewFactory>: View {
 
     private let channel: ChatChannel
 
+    private let messageId: String?
+
     public init(
         viewFactory: Factory = DefaultViewFactory.shared,
         channel: ChatChannel,
         viewModel: ChatChannelViewModel? = nil,
         channelController: ChatChannelController,
         messageController: ChatMessageController? = nil,
-        scrollToMessage: ChatMessage? = nil
+        messageId: String? = nil
     ) {
         _viewModel = StateObject(
             wrappedValue: viewModel ?? ViewModelsFactory.makeChannelViewModel(
                 with: channelController,
                 messageController: messageController,
-                scrollToMessage: scrollToMessage
+                scrollToMessage: nil
             )
         )
         factory = viewFactory
         self.channel = channel
+        self.messageId = messageId
     }
 
     var body: some View {
@@ -66,6 +69,11 @@ struct CustomChatChannelMessageListView<Factory: ViewFactory>: View {
                     },
                     onJumpToMessage: viewModel.jumpToMessage(messageId:)
                 )
+                .onAppear {
+                    if let messageId {
+                        _ = viewModel.jumpToMessage(messageId: messageId)
+                    }
+                }
                 .overlay(alignment: .top) {
                     Rectangle()
                         .fill(

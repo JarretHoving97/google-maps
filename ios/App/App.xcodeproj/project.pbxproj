@@ -8,7 +8,10 @@
 
 /* Begin PBXBuildFile section */
 		2FAD9763203C412B000D30F8 /* config.xml in Resources */ = {isa = PBXBuildFile; fileRef = 2FAD9762203C412B000D30F8 /* config.xml */; };
+		3178DEB32D105ECA0084708F /* NotificationHandler+CAP+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3178DEB22D105EA20084708F /* NotificationHandler+CAP+Extension.swift */; };
 		319741812CDA54A5009B9F19 /* UNNotificationCenter+BadgeSetter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 319741802CDA5420009B9F19 /* UNNotificationCenter+BadgeSetter.swift */; };
+		31B020D82CE25C6800198BDB /* NotificationHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31B020D72CE25C6700198BDB /* NotificationHandler.swift */; };
+		31B020DA2CE25C8600198BDB /* LaunchAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31B020D92CE25C8300198BDB /* LaunchAction.swift */; };
 		31EB438C2D06ED8B007107CA /* EnvironmentValues+AttachmentController+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31EB438B2D06ED78007107CA /* EnvironmentValues+AttachmentController+Extension.swift */; };
 		31EB438F2D0700CD007107CA /* AttachmentEnvironmentController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31EB438E2D0700C7007107CA /* AttachmentEnvironmentController.swift */; };
 		31EB43912D0704F6007107CA /* HidesKeyboardAndAttachmentOnTapGesture.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31EB43902D0704E7007107CA /* HidesKeyboardAndAttachmentOnTapGesture.swift */; };
@@ -139,7 +142,10 @@
 
 /* Begin PBXFileReference section */
 		2FAD9762203C412B000D30F8 /* config.xml */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = config.xml; sourceTree = "<group>"; };
+		3178DEB22D105EA20084708F /* NotificationHandler+CAP+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NotificationHandler+CAP+Extension.swift"; sourceTree = "<group>"; };
 		319741802CDA5420009B9F19 /* UNNotificationCenter+BadgeSetter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UNNotificationCenter+BadgeSetter.swift"; sourceTree = "<group>"; };
+		31B020D72CE25C6700198BDB /* NotificationHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationHandler.swift; sourceTree = "<group>"; };
+		31B020D92CE25C8300198BDB /* LaunchAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchAction.swift; sourceTree = "<group>"; };
 		31EB438B2D06ED78007107CA /* EnvironmentValues+AttachmentController+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "EnvironmentValues+AttachmentController+Extension.swift"; sourceTree = "<group>"; };
 		31EB438E2D0700C7007107CA /* AttachmentEnvironmentController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AttachmentEnvironmentController.swift; sourceTree = "<group>"; };
 		31EB43902D0704E7007107CA /* HidesKeyboardAndAttachmentOnTapGesture.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HidesKeyboardAndAttachmentOnTapGesture.swift; sourceTree = "<group>"; };
@@ -320,6 +326,16 @@
 			children = (
 			);
 			path = EnvironmentKeys;
+			sourceTree = "<group>";
+		};
+		31B020D62CE25C3400198BDB /* NotificationHandler */ = {
+			isa = PBXGroup;
+			children = (
+				3178DEB22D105EA20084708F /* NotificationHandler+CAP+Extension.swift */,
+				31B020D92CE25C8300198BDB /* LaunchAction.swift */,
+				31B020D72CE25C6700198BDB /* NotificationHandler.swift */,
+			);
+			path = NotificationHandler;
 			sourceTree = "<group>";
 		};
 		45062E6B2C7F665B00850C3F /* Common */ = {
@@ -511,6 +527,7 @@
 		504EC3061FED79650016851F /* App */ = {
 			isa = PBXGroup;
 			children = (
+				31B020D62CE25C3400198BDB /* NotificationHandler */,
 				3197417F2CDA5416009B9F19 /* Helpers */,
 				45AB7CF82C9DB22600726A70 /* Images */,
 				455A13CF2C33D6380093008F /* Views */,
@@ -752,6 +769,7 @@
 				45D3131A2C82087E004E069E /* Channel+Extensions.swift in Sources */,
 				45C4AD502BEE085B00BAFCF4 /* CustomChatChannelHeaderViewModifier.swift in Sources */,
 				504EC3081FED79650016851F /* AppDelegate.swift in Sources */,
+				31B020DA2CE25C8600198BDB /* LaunchAction.swift in Sources */,
 				45FD39052CA594D7008B039E /* CustomReactionsOverlayView.swift in Sources */,
 				45062E6D2C7F66CD00850C3F /* UIView+Extensions.swift in Sources */,
 				4592A2782BF4D4F20097F75A /* TokenProvider.swift in Sources */,
@@ -763,6 +781,7 @@
 				45E727762C9AFCAE00A14B14 /* ColorByHashingString.swift in Sources */,
 				459836652C3592B3002A1B99 /* AmiButton.swift in Sources */,
 				45A8C3232BFE2F82008AC7B8 /* CustomEmptyChannelsView.swift in Sources */,
+				3178DEB32D105ECA0084708F /* NotificationHandler+CAP+Extension.swift in Sources */,
 				45A8C32A2C007B4F008AC7B8 /* CustomActivityImageView.swift in Sources */,
 				45D1DD852BCEC20F00A53E3D /* ChatChannelsScreen.swift in Sources */,
 				453383032C9C25F000F339B6 /* AmiIconButton.swift in Sources */,
@@ -828,6 +847,7 @@
 				455A13D32C343B700093008F /* CustomChatSheetView.swift in Sources */,
 				45C0B4A82C4407A800865317 /* CustomAddedVoiceRecordingsView.swift in Sources */,
 				45C0B4A62C4406C000865317 /* CustomComposerInputView.swift in Sources */,
+				31B020D82CE25C6800198BDB /* NotificationHandler.swift in Sources */,
 				45DDDB7428DC527A002BFCE9 /* ExtendedFacebookPlugin.m in Sources */,
 				45EB3E032C4565AC00C55C01 /* CustomAttachmentTextView.swift in Sources */,
 				455553412C2DAF6300B26AD9 /* CustomChatChannelMessageListView.swift in Sources */,

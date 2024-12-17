@@ -22,11 +22,13 @@ class LocaleSettings: ObservableObject {
 /// Screen component for the chat channel view.
 public struct ChatChannelScreen: View {
     public var chatChannelController: ChatChannelController
+    let messageId: String?
     @ObservedObject private var viewModel: ChatChannelListViewModel
 
-    init(chatChannelController: ChatChannelController, viewModel: ChatChannelListViewModel) {
+    init(chatChannelController: ChatChannelController, viewModel: ChatChannelListViewModel, messageId: String?) {
         self.chatChannelController = chatChannelController
         self.viewModel = viewModel
+        self.messageId = messageId
     }
 
     @ViewBuilder
@@ -53,6 +55,7 @@ public struct ChatChannelScreen: View {
     public var body: some View {
         CustomChatChannelView(
             viewFactory: CustomUIFactory.shared,
+            messageId: messageId,
             channelController: chatChannelController
         )
         .environment(\.attachmentController, AttachmentEnvironmentController())
@@ -95,8 +98,13 @@ struct ChatScreen: View {
 
     var view: some View {
         NavigationView {
-            if let channelId = chatViewModel.channelId {
-                ChatChannelScreen(chatChannelController: chatClient.channelController(for: channelId), viewModel: viewModel)
+            if let channelId = chatViewModel.info?.streamChannelId {
+                ChatChannelScreen(
+                    chatChannelController: chatClient.channelController(
+                        for: channelId),
+                    viewModel: viewModel,
+                    messageId: chatViewModel.info?.messageId
+                )
             } else if let channelListController {
                 ChatChannelsScreen(viewModel: viewModel, chatViewModel: chatViewModel, channelListController: channelListController)
                     // reset appIcon badge count when channels are loaded.

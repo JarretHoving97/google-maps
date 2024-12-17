@@ -39,6 +39,10 @@ class AppDelegate: NSObject, UIApplicationDelegate {
         // Add SVG coder for `SDWebImageSwiftUI` pod
         SDImageCodersManager.shared.addCoder(SDImageSVGCoder.shared)
 
+        UNUserNotificationCenter.current().delegate = NotificationHandler.current
+
+        application.registerForRemoteNotifications()
+
         return true
     }
 

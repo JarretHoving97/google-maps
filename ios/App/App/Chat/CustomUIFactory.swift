@@ -53,8 +53,8 @@ class CustomUIFactory: ViewFactory {
         { [unowned self] selectionInfo in
             return CustomChatChannelView(
                 viewFactory: self,
-                channelController: chatClient.channelController(for: selectionInfo.channel.cid),
-                scrollToMessage: selectionInfo.message
+                messageId: nil,
+                channelController: chatClient.channelController(for: selectionInfo.channel.cid)
             )
         }
     }

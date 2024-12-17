@@ -29,6 +29,7 @@ const config: CapacitorConfig = {
   },
   ios: {
     contentInset: 'never',
+    handleApplicationNotifications: false,
   },
 };
 

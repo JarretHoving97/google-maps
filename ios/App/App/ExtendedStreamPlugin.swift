@@ -43,15 +43,14 @@ public class ExtendedStreamPlugin: CAPPlugin, CAPBridgedPlugin {
     public var superEntitlementStatus: SuperEntitlementStatus = SuperEntitlementStatus.Unavailable
 
     public var chatTrialUntil: Date?
+    
+    func initializeViewController(info: ChannelInfo? = nil) {
 
-    func initializeViewController(channelId: String? = nil) {
         DispatchQueue.main.async {
             let mainStoryboard = UIStoryboard(name: "Main", bundle: nil)
             let chatViewController = mainStoryboard.instantiateViewController(withIdentifier: "Chat") as? ChatViewController
 
-            if let channelId, let channelId = try? ChannelId(cid: channelId) {
-                chatViewController?.chatViewModel = ChatViewModel(channelId: channelId, isChannelView: true)
-            }
+            chatViewController?.chatViewModel = ChatViewModel(info: info)
 
             self.bridge?.viewController?.present(chatViewController!, animated: true, completion: nil)
         }
@@ -85,16 +84,20 @@ public class ExtendedStreamPlugin: CAPPlugin, CAPBridgedPlugin {
     }
 
     @objc func openChannel(_ call: CAPPluginCall) {
-        let channelId = call.getString("channelId")
-        initializeViewController(channelId: channelId)
+        guard let channelId = call.getString("channelId") else { return }
+        initializeViewController(info: ChannelInfo(channelId: channelId))
         call.resolve()
+    }
+    
+    @objc func dismiss() {
+        self.bridge?.viewController?.dismiss(animated: true)
     }
 
     @objc func notifyNavigateBackToListeners(dismiss: Bool = false) {
         notifyListeners("navigateBack", data: [:])
 
         if dismiss {
-            self.bridge?.viewController?.dismiss(animated: true)
+            self.dismiss()
         }
     }
 
@@ -103,7 +106,7 @@ public class ExtendedStreamPlugin: CAPPlugin, CAPBridgedPlugin {
         notifyListeners("navigateTo", data: data)
 
         if dismiss {
-            self.bridge?.viewController?.dismiss(animated: true)
+            self.dismiss()
         }
     }
 
