@@ -80,7 +80,8 @@ public struct CustomMessageView<Factory: ViewFactory>: View {
 //                    )
 //                }
 
-                if messageTypeResolver.hasVideoAttachment(message: message) {
+                /// also checking if there a no images included otherwise it's redundant
+                if messageTypeResolver.hasVideoAttachment(message: message) && !messageTypeResolver.hasImageAttachment(message: message) {
                     factory.makeVideoAttachmentView(
                         for: message,
                         isFirst: isFirst,
