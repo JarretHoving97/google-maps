@@ -35,8 +35,8 @@ target 'App' do
   # Branch.io
   pod 'BranchSDK', '~> 3.2.0'
   # Facebook Pods
-  pod 'FBSDKCoreKit', '~> 14.1.0'
-  pod 'FBSDKLoginKit', '~> 14.1.0'
+  pod 'FBSDKCoreKit', '~> 15.0.0'
+  pod 'FBSDKLoginKit', '~> 15.0.0'
   # Miscellaneous
   pod 'SDWebImageSwiftUI', '~> 3.0'
   pod 'SDWebImageSVGCoder', '~> 1.7'
