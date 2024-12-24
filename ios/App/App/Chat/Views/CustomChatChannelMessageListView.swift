@@ -110,9 +110,6 @@ struct CustomChatChannelMessageListView<Factory: ViewFactory>: View {
                 .if(!viewModel.reactionsShown, transform: { view in
                     view.navigationBarHidden(false)
                 })
-                .if(viewModel.channelHeaderType == .regular) { view in
-                    view.modifier(factory.makeChannelHeaderViewModifier(for: channel))
-                }
                 .if(viewModel.channelHeaderType == .typingIndicator) { view in
                     view.modifier(factory.makeChannelHeaderViewModifier(for: channel))
                 }
@@ -136,7 +133,7 @@ struct CustomChatChannelMessageListView<Factory: ViewFactory>: View {
                         .reactionsShown && viewModel.channel?.isFrozen == false
                 ) ? 0 : 1)
             }
-
+            
             NavigationLink(
                 isActive: $viewModel.threadMessageShown
             ) {

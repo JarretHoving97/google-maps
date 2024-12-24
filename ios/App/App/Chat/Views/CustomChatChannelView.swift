@@ -22,14 +22,20 @@ public struct CustomChatChannelView<Factory: ViewFactory>: View, KeyboardReadabl
 
     private var factory: Factory
 
+    private var scrollToMessage: ChatMessage?
+
     private let messageId: String?
+
+    var onDidLoadChannel: ((ChatChannel) -> Void)?
 
     public init(
         viewFactory: Factory = DefaultViewFactory.shared,
         viewModel: ChatChannelViewModel? = nil,
         messageId: String?,
         channelController: ChatChannelController,
-        messageController: ChatMessageController? = nil
+        messageController: ChatMessageController? = nil,
+        scrollToMessage: ChatMessage? = nil,
+        onDidLoadChannel: ((ChatChannel) -> Void)? = nil
     ) {
         _viewModel = StateObject(
             wrappedValue: viewModel ?? ViewModelsFactory.makeChannelViewModel(
@@ -39,12 +45,15 @@ public struct CustomChatChannelView<Factory: ViewFactory>: View, KeyboardReadabl
             )
         )
         factory = viewFactory
+        self.onDidLoadChannel = onDidLoadChannel
+        self.scrollToMessage = scrollToMessage
         self.messageId = messageId
     }
 
     public var body: some View {
         ZStack {
             if let channel = viewModel.channel {
+
                 CustomChatChannelMessageListView(
                     viewFactory: factory,
                     channel: channel,
@@ -52,6 +61,9 @@ public struct CustomChatChannelView<Factory: ViewFactory>: View, KeyboardReadabl
                     channelController: chatClient.channelController(for: channel.cid),
                     messageId: messageId
                 )
+                .onAppear {
+                    onDidLoadChannel?(channel)
+                }
             } else {
                 factory.makeChannelLoadingView()
             }

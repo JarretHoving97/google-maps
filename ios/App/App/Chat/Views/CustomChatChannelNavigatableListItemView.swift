@@ -53,15 +53,6 @@ public struct CustomChatChannelNavigatableListItem<ChannelDestination: View>: Vi
                 onItemTap: onItemTap,
                 onLongPress: onLongPress
             )
-
-            NavigationLink(
-                tag: channel.channelSelectionInfo,
-                selection: $selectedChannel
-            ) {
-                LazyView(channelDestination(channel.channelSelectionInfo))
-            } label: {
-                EmptyView()
-            }
         }
         .id("\(channel.id)-navigatable")
     }

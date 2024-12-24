@@ -21,9 +21,12 @@ class LocaleSettings: ObservableObject {
 
 /// Screen component for the chat channel view.
 public struct ChatChannelScreen: View {
+
     public var chatChannelController: ChatChannelController
-    let messageId: String?
-    @ObservedObject private var viewModel: ChatChannelListViewModel
+    @ObservedObject var viewModel: ChatChannelListViewModel
+    var onDidLoadChannel: ((ChatChannel) -> Void)?
+
+    private var messageId: String?
 
     init(chatChannelController: ChatChannelController, viewModel: ChatChannelListViewModel, messageId: String?) {
         self.chatChannelController = chatChannelController
@@ -56,7 +59,9 @@ public struct ChatChannelScreen: View {
         CustomChatChannelView(
             viewFactory: CustomUIFactory.shared,
             messageId: messageId,
-            channelController: chatChannelController
+            channelController: chatChannelController,
+            onDidLoadChannel: onDidLoadChannel
+
         )
         .environment(\.attachmentController, AttachmentEnvironmentController())
         .overlay(viewModel.customAlertShown ? customViewOverlay() : nil)
@@ -74,9 +79,12 @@ struct ChatScreen: View {
 
     private var channelListController: ChatChannelListController?
 
-    init(chatViewModel: ChatViewModel) {
-        self.chatViewModel = chatViewModel
+    var onItemTapped: ((ChatChannel) -> Void)?
+    private let onBackButtonTapped: (() -> Void)?
 
+    init(chatViewModel: ChatViewModel, onBackButtonTapped: (() -> Void)?) {
+        self.chatViewModel = chatViewModel
+        self.onBackButtonTapped = onBackButtonTapped
         var channelListController: ChatChannelListController? {
             if let currentUserId = StreamChatWrapper.shared.client?.currentUserId {
                 return StreamChatWrapper.shared.client!.channelListController(
@@ -87,32 +95,35 @@ struct ChatScreen: View {
                     ]))
                 )
             }
-
             return nil
         }
-
         self.channelListController = channelListController
-
         _viewModel = StateObject(wrappedValue: ChatChannelListViewModel(channelListController: channelListController))
     }
 
     var view: some View {
-        NavigationView {
-            if let channelId = chatViewModel.info?.streamChannelId {
-                ChatChannelScreen(
-                    chatChannelController: chatClient.channelController(
-                        for: channelId),
-                    viewModel: viewModel,
-                    messageId: chatViewModel.info?.messageId
-                )
-            } else if let channelListController {
-                ChatChannelsScreen(viewModel: viewModel, chatViewModel: chatViewModel, channelListController: channelListController)
-                    // reset appIcon badge count when channels are loaded.
-                    .onChange(of: viewModel.channels) { channels in
-                        if !channels.isEmpty {
-                            UNUserNotificationCenter.resetAppBadge()
-                        }
-                    }
+        ChatChannelsScreen(
+            viewModel: viewModel,
+            chatViewModel: chatViewModel,
+            channelListController: channelListController!,
+            onItemTapped: onItemTapped ?? { _ in
+
+            }
+        )
+        .toolbar {
+            ToolbarItem(placement: .topBarLeading) {
+                Button {
+                    onBackButtonTapped?()
+                } label: {
+                    Image(.amiBackButton)
+                        .foregroundStyle(Color(.purple))
+                }
+            }
+        }
+        // reset appIcon badge count when channels are loaded.
+        .onChange(of: viewModel.channels) { channels in
+            if !channels.isEmpty {
+                UNUserNotificationCenter.resetAppBadge()
             }
         }
     }

@@ -22,7 +22,7 @@ final class NotificationHandler: NSObject, UNUserNotificationCenterDelegate {
         withCompletionHandler completionHandler: @escaping () -> Void
     ) {
         handleInCapacitor(with: response)
-        
+
         let userInfo = response.notification.request.content.userInfo
 
         guard let action: LaunchAction = .create(for: userInfo) else {
@@ -33,9 +33,9 @@ final class NotificationHandler: NSObject, UNUserNotificationCenterDelegate {
         switch action {
         // open stream chat
         case let .streamChat(chatInfo):
-            // @TODO: If this is called from a closed app-state, the WebView most likely won't be done loading the navigation strategy. Therefor, `notifyNavigateToListeners()` will do nothing. For apps running on the background this will work.
+            // TODO: If this is called from a closed app-state, the WebView most likely won't be done loading the navigation strategy. Therefor, `notifyNavigateToListeners()` will do nothing. For apps running on the background this will work.
             ExtendedStreamPlugin.shared.notifyNavigateToListeners(route: "/channel/\(chatInfo.channelId)")
-            ExtendedStreamPlugin.shared.initializeViewController(info: chatInfo)
+            ExtendedStreamPlugin.shared.routeToChannel(with: chatInfo)
         }
 
         completionHandler()

@@ -11,20 +11,6 @@ class CustomUIFactory: ViewFactory {
 
     public static let shared = CustomUIFactory()
 
-    // MARK: Modifiers
-
-    typealias HeaderViewModifier = CustomChannelListHeaderViewModifier
-
-    func makeChannelListHeaderViewModifier(title: String) -> CustomChannelListHeaderViewModifier {
-        CustomChannelListHeaderViewModifier(title: title)
-    }
-
-    typealias ChatChannelHeaderViewModifier = CustomChatChannelHeaderViewModifier
-
-    func makeChannelHeaderViewModifier(for channel: ChatChannel) -> CustomChatChannelHeaderViewModifier<CustomUIFactory> {
-        CustomChatChannelHeaderViewModifier(viewFactory: self, channel: channel)
-    }
-
     typealias MessageViewModifier = CustomMessageBubbleModifier
 
     func makeMessageViewModifier(for messageModifierInfo: MessageModifierInfo) -> CustomMessageBubbleModifier {
@@ -61,7 +47,8 @@ class CustomUIFactory: ViewFactory {
 
     typealias ChannelListItemType = CustomChatChannelNavigatableListItem<ChannelDestination>
 
-    public func makeChannelListItem(
+    public func
+    makeChannelListItem(
         channel: ChatChannel,
         channelName: String,
         avatar: UIImage,
@@ -557,4 +544,13 @@ class CustomUIFactory: ViewFactory {
     ) -> CustomEmptyMessagesView {
         CustomEmptyMessagesView(channel: channel)
     }
+}
+
+
+extension ViewFactory {
+    
+    func makeChannelHeaderViewModifier(for channel: ChatChannel) -> CustomChannelHeaderView<Self> {
+        CustomChannelHeaderView(viewFactory: self, channel: channel)
+    }
+
 }

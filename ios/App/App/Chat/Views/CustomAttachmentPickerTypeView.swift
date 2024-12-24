@@ -81,7 +81,7 @@ struct CustomPickerTypeButton: View {
         }
 
         .onChange(of: pickerTypeState) { value in
-            
+
             /// .collapsed is an unused state for our custom implementation which we can't access
             /// so we need to check on it.
             guard value != .collapsed else { return }

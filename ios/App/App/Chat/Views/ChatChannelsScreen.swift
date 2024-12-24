@@ -12,24 +12,22 @@ struct ChatChannelsScreen: View {
 
     private var channelListController: ChatChannelListController
 
-    init(viewModel: ChatChannelListViewModel, chatViewModel: ChatViewModel, channelListController: ChatChannelListController) {
+    private let onItemTapped: ((ChatChannel) -> Void)?
+
+    init(viewModel: ChatChannelListViewModel, chatViewModel: ChatViewModel, channelListController: ChatChannelListController, onItemTapped: @escaping ((ChatChannel) -> Void)) {
         self.viewModel = viewModel
         self.chatViewModel = chatViewModel
         self.channelListController = channelListController
-    }
-
-    func onItemTap(channel: ChatChannel? = nil) {
-        if let channel = channel {
-            viewModel.selectedChannel = channel.channelSelectionInfo
-            ExtendedStreamPlugin.shared.notifyNavigateToListeners(route: "/channel/\(channel.cid.rawValue)")
-        }
+        self.onItemTapped = onItemTapped
     }
 
     var body: some View {
-        ChatChannelListView(
+        CustomChatChannelListView(
             viewFactory: CustomUIFactory.shared,
             viewModel: viewModel,
-            onItemTap: onItemTap
+            title: chatViewModel.title,
+            onItemTap: onItemTapped,
+            embedInNavigationView: false
         )
         .onAppear {
             StreamChatWrapper.shared.client?.currentUserController().synchronize()
