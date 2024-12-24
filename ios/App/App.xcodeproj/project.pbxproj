@@ -137,6 +137,7 @@
 		504EC30F1FED79650016851F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 504EC30E1FED79650016851F /* Assets.xcassets */; };
 		504EC3121FED79650016851F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 504EC3101FED79650016851F /* LaunchScreen.storyboard */; };
 		D45CBB5DEB4C700F8777A7A9 /* Pods_App.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B62611874C1DB9F73AC618CE /* Pods_App.framework */; };
+		D70004872D11C18900C1A448 /* CustomMessageAuthorAndDateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D70004862D11C18900C1A448 /* CustomMessageAuthorAndDateView.swift */; };
 		FE9E807327A2A43C00360DFF /* public in Resources */ = {isa = PBXBuildFile; fileRef = FE9E807227A2A43C00360DFF /* public */; };
 /* End PBXBuildFile section */
 
@@ -285,6 +286,7 @@
 		504EC3131FED79650016851F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		5CA3C1995500D8E91FB7772D /* Pods-App.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-App.debug.xcconfig"; path = "Target Support Files/Pods-App/Pods-App.debug.xcconfig"; sourceTree = "<group>"; };
 		B62611874C1DB9F73AC618CE /* Pods_App.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_App.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		D70004862D11C18900C1A448 /* CustomMessageAuthorAndDateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomMessageAuthorAndDateView.swift; sourceTree = "<group>"; };
 		D70765C1FC7C2F834D68B5F2 /* Pods-App.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-App.release.xcconfig"; path = "Target Support Files/Pods-App/Pods-App.release.xcconfig"; sourceTree = "<group>"; };
 		FE8E1DA3261F364A00AB9CB7 /* AppRelease.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = AppRelease.entitlements; sourceTree = "<group>"; };
 		FE9E807227A2A43C00360DFF /* public */ = {isa = PBXFileReference; lastKnownFileType = folder; path = public; sourceTree = "<group>"; };
@@ -416,6 +418,7 @@
 				458C56742C3843C90055044D /* CustomLockedView.swift */,
 				45A6DE392C19A4430040F713 /* CustomMessageActionsView.swift */,
 				45C4AD4D2BEBD38300BAFCF4 /* CustomMessageAuthorView.swift */,
+				D70004862D11C18900C1A448 /* CustomMessageAuthorAndDateView.swift */,
 				45C4AD4B2BEBAA4300BAFCF4 /* CustomMessageContainerView.swift */,
 				459E4A272C130A4A003DCEF0 /* CustomMessageDateView.swift */,
 				455553422C2E9C2100B26AD9 /* CustomMessageListContainerView.swift */,
@@ -766,6 +769,7 @@
 				4555534C2C2EACD700B26AD9 /* CustomShadowsViewModifier.swift in Sources */,
 				31EB438C2D06ED8B007107CA /* EnvironmentValues+AttachmentController+Extension.swift in Sources */,
 				45D313162C8099F9004E069E /* ChatChannelMember+Extensions.swift in Sources */,
+				D70004872D11C18900C1A448 /* CustomMessageAuthorAndDateView.swift in Sources */,
 				45D3131A2C82087E004E069E /* Channel+Extensions.swift in Sources */,
 				45C4AD502BEE085B00BAFCF4 /* CustomChatChannelHeaderViewModifier.swift in Sources */,
 				504EC3081FED79650016851F /* AppDelegate.swift in Sources */,

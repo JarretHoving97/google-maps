@@ -161,10 +161,6 @@ public struct CustomMessageTextView<Factory: ViewFactory>: View {
         _scrolledId = scrolledId
     }
 
-    private var showAuthor: Bool {
-        !message.isRightAligned && !channel.isDirectMessageChannel
-    }
-
     private var messageWalkthroughType: MessageWalkthroughType? {
         if let key = message.layoutKey {
             if let value = MessageWalkthroughType(rawValue: key) {
@@ -180,13 +176,6 @@ public struct CustomMessageTextView<Factory: ViewFactory>: View {
             alignment: message.alignmentInBubble,
             spacing: 0
         ) {
-            if showAuthor {
-                CustomMessageAuthorView(message: message)
-                    .padding(.leading, leadingPadding)
-                    .padding(.trailing, trailingPadding)
-                    .padding(.top, 8)
-                    .padding(.bottom, 2)
-            }
 
             if let quotedMessage = message.quotedMessage {
                 factory.makeQuotedMessageView(
@@ -195,7 +184,6 @@ public struct CustomMessageTextView<Factory: ViewFactory>: View {
                     isInComposer: false,
                     scrolledId: $scrolledId
                 )
-                .padding(.bottom, 8)
             }
 
             if let type = messageWalkthroughType {
@@ -205,7 +193,7 @@ public struct CustomMessageTextView<Factory: ViewFactory>: View {
             CustomStreamTextView(message: message)
                 .padding(.leading, leadingPadding)
                 .padding(.trailing, trailingPadding)
-                .padding(.top, showAuthor ? 0 : 12)
+                .padding(.top, topPadding)
                 .padding(.bottom, bottomPadding)
                 .fixedSize(horizontal: false, vertical: true)
                 .id("\(message.id)-\(message.textUpdatedAt?.ISO8601Format() ?? "unedited")")

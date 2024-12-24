@@ -339,6 +339,12 @@ class CustomUIFactory: ViewFactory {
     func makeMessageDateView(for message: ChatMessage) -> CustomMessageDateView {
         CustomMessageDateView(message: message)
     }
+    
+    typealias MessageAuthorAndDateViewType = CustomMessageAuthorAndDateView
+    
+    func makeMessageAuthorAndDateView(for message: ChatMessage) -> CustomMessageAuthorAndDateView {
+        CustomMessageAuthorAndDateView(message: message)
+    }
 
     typealias DateIndicatorViewType = CustomDateIndicatorView
 

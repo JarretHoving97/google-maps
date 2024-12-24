@@ -135,16 +135,16 @@ public struct CustomMessageContainerView<Factory: ViewFactory>: View {
                     .overlay(
                         ZStack {
                             topReactionsShown ?
-                                factory.makeMessageReactionView(
-                                    message: message,
-                                    onTapGesture: {
-                                        handleGestureForMessage(showsMessageActions: false)
-                                    },
-                                    onLongPressGesture: {
-                                        handleGestureForMessage(showsMessageActions: false)
-                                    }
-                                )
-                                : nil
+                            factory.makeMessageReactionView(
+                                message: message,
+                                onTapGesture: {
+                                    handleGestureForMessage(showsMessageActions: false)
+                                },
+                                onLongPressGesture: {
+                                    handleGestureForMessage(showsMessageActions: false)
+                                }
+                            )
+                            : nil
 
                             (message.localState == .sendingFailed || message.isBounced) ? SendFailureIndicator() : nil
                         }
@@ -250,6 +250,10 @@ public struct CustomMessageContainerView<Factory: ViewFactory>: View {
                                     factory.makeMessageDateView(for: message)
                                 }
                             }
+                        } else if !message.isRightAligned
+                            && channel.memberCount > 2
+                            && messageListConfig.messageDisplayOptions.showAuthorName {
+                            factory.makeMessageAuthorAndDateView(for: message)
                         } else if messageListConfig.messageDisplayOptions.showMessageDate {
                             factory.makeMessageDateView(for: message)
                         }
@@ -296,7 +300,7 @@ public struct CustomMessageContainerView<Factory: ViewFactory>: View {
         .padding(.bottom, isMessagePinned ? paddingValue / 2 : 0)
         .transition(
             message.isSentByCurrentUser ?
-                messageListConfig.messageDisplayOptions.currentUserMessageTransition :
+            messageListConfig.messageDisplayOptions.currentUserMessageTransition :
                 messageListConfig.messageDisplayOptions.otherUserMessageTransition
         )
         .accessibilityElement(children: .contain)
@@ -340,8 +344,8 @@ public struct CustomMessageContainerView<Factory: ViewFactory>: View {
 
     private var reactionsShown: Bool {
         !message.reactionScores.isEmpty
-            && !message.isDeleted
-            && channel.config.reactionsEnabled
+        && !message.isDeleted
+        && channel.config.reactionsEnabled
     }
 
     private var messageListConfig: MessageListConfig {
