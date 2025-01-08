@@ -21,8 +21,23 @@ extension ExtendedStreamPlugin {
         return navigationController
     }
 
+    /// initialize chat if no instance can be found.
+    func openChannel(info: ChannelInfo) {
+        if ExtendedStreamPlugin.shared.chatNavigationController != nil {
+            routeToChannel(with: info)
+        } else {
+            let model = ChatPresentationModel(
+                channel: ChannelInfo(channelId: info.channelId),
+                presentInStack: true
+            )
+            initializeViewController(model: model)
+        }
+    }
+
     func routeToChannel(with channel: ChannelInfo, loadChannel: Bool = true, animated: Bool = true) {
+
         DispatchQueue.main.async { [weak chatNavigationController, weak self] in
+
             guard let self, let chatNavigationController, let detailViewController = ChatViewControllerComposer.composeWith(
                 chatClient: chatClient,
                 with: channel.channelId,
