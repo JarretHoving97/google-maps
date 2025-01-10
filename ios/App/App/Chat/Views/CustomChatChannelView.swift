@@ -25,6 +25,7 @@ public struct CustomChatChannelView<Factory: ViewFactory>: View, KeyboardReadabl
     private var scrollToMessage: ChatMessage?
 
     private let messageId: String?
+    var onChatWithHostTapped: ((String?) -> Void)?
 
     var onDidLoadChannel: ((ChatChannel) -> Void)?
 
@@ -35,7 +36,9 @@ public struct CustomChatChannelView<Factory: ViewFactory>: View, KeyboardReadabl
         channelController: ChatChannelController,
         messageController: ChatMessageController? = nil,
         scrollToMessage: ChatMessage? = nil,
-        onDidLoadChannel: ((ChatChannel) -> Void)? = nil
+        onDidLoadChannel: ((ChatChannel) -> Void)? = nil,
+        onChatWithHostTapped: ((String?) -> Void)? = nil
+
     ) {
         _viewModel = StateObject(
             wrappedValue: viewModel ?? ViewModelsFactory.makeChannelViewModel(
@@ -46,6 +49,7 @@ public struct CustomChatChannelView<Factory: ViewFactory>: View, KeyboardReadabl
         )
         factory = viewFactory
         self.onDidLoadChannel = onDidLoadChannel
+        self.onChatWithHostTapped = onChatWithHostTapped
         self.scrollToMessage = scrollToMessage
         self.messageId = messageId
     }
@@ -53,14 +57,17 @@ public struct CustomChatChannelView<Factory: ViewFactory>: View, KeyboardReadabl
     public var body: some View {
         ZStack {
             if let channel = viewModel.channel {
-
-                CustomChatChannelMessageListView(
-                    viewFactory: factory,
-                    channel: channel,
-                    viewModel: viewModel,
-                    channelController: chatClient.channelController(for: channel.cid),
-                    messageId: messageId
-                )
+                VStack(spacing: 0) {
+                    if !channel.isDirectMessageChannel && !channel.isCurrentUserOrganizer {
+                        chatWithHostView
+                    }
+                    CustomChatChannelMessageListView(
+                        viewFactory: factory,
+                        channel: channel,
+                        viewModel: viewModel,
+                        channelController: chatClient.channelController(for: channel.cid)
+                    )
+                }
                 .onAppear {
                     onDidLoadChannel?(channel)
                 }
@@ -142,6 +149,15 @@ public struct CustomChatChannelView<Factory: ViewFactory>: View, KeyboardReadabl
     private var bottomPadding: CGFloat {
         let bottomPadding = topVC()?.view.safeAreaInsets.bottom ?? 0
         return bottomPadding
+    }
+
+    private var chatWithHostView: some View {
+        VStack {
+            Divider()
+            ChatWithHostView(onChatWithHostTapped: { onChatWithHostTapped?(viewModel.channel?.createdBy?.id) })
+                .frame(height: 32)
+            Divider()
+        }
     }
 }
 

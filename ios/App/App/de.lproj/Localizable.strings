@@ -227,3 +227,5 @@
 "custom.message.url.confirm.title" = "Sie sind dabei, Amigos zu verlassen und zu folgendem Ziel zu navigieren:";
 "custom.chatTrialNotice.dialog.title" = "%d Tage lang kostenlos Chats beginnen";
 "custom.chatTrialNotice.dialog.body" = "Als Local Founder kannst du in den ersten %d Tagen kostenlos Chats beginnen. Danach auch Chats starten? Werde Super Amigo.";
+
+"channel.start.message.with.host" = "Chat mit Host";

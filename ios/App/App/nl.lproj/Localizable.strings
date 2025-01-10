@@ -271,3 +271,5 @@
 
 "custom.chatTrialNotice.dialog.title" = "%d dagen gratis chats starten";
 "custom.chatTrialNotice.dialog.body" = "Als local founder kan jij de eerste %d dagen gratis chats starten. Hierna ook chats starten? Word Super amigo.";
+
+"channel.start.message.with.host" = "Chat met host";

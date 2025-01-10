@@ -24,7 +24,9 @@ public struct ChatChannelScreen: View {
 
     public var chatChannelController: ChatChannelController
     @ObservedObject var viewModel: ChatChannelListViewModel
+
     var onDidLoadChannel: ((ChatChannel) -> Void)?
+    var onChatWithHostTapped: ((String?) -> Void)?
 
     private var messageId: String?
 
@@ -60,8 +62,8 @@ public struct ChatChannelScreen: View {
             viewFactory: CustomUIFactory.shared,
             messageId: messageId,
             channelController: chatChannelController,
-            onDidLoadChannel: onDidLoadChannel
-
+            onDidLoadChannel: onDidLoadChannel,
+            onChatWithHostTapped: onChatWithHostTapped
         )
         .environment(\.attachmentController, AttachmentEnvironmentController())
         .overlay(viewModel.customAlertShown ? customViewOverlay() : nil)
@@ -80,6 +82,7 @@ struct ChatScreen: View {
     private var channelListController: ChatChannelListController?
 
     var onItemTapped: ((ChatChannel) -> Void)?
+
     private let onBackButtonTapped: (() -> Void)?
 
     init(chatViewModel: ChatViewModel, onBackButtonTapped: (() -> Void)?) {
@@ -106,9 +109,7 @@ struct ChatScreen: View {
             viewModel: viewModel,
             chatViewModel: chatViewModel,
             channelListController: channelListController!,
-            onItemTapped: onItemTapped ?? { _ in
-
-            }
+            onItemTapped: onItemTapped ?? { _ in }
         )
         .toolbar {
             ToolbarItem(placement: .topBarLeading) {

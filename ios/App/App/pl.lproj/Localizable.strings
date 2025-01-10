@@ -227,3 +227,5 @@
 "custom.leaveAmigos" = "opuść Amigos";
 "custom.cancel" = "Anuluj";
 "custom.message.url.confirm.title" = "Zamierzasz opuścić Amigos i przejść do:";
+
+"channel.start.message.with.host" = "Czat z organizatorem";

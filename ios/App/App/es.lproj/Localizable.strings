@@ -227,3 +227,5 @@
 "custom.leaveAmigos" = "salir de Amigos";
 "custom.cancel" = "Cancelar";
 "custom.message.url.confirm.title" = "Estás a punto de salir de Amigos y navegar a:";
+
+"channel.start.message.with.host" = "Chatear con el anfitrión";

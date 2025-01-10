@@ -227,3 +227,5 @@
 "custom.leaveAmigos" = "Amigos 나가기";
 "custom.cancel" = "취소";
 "custom.message.url.confirm.title" = "Amigos를 떠나 다음 사이트로 이동하려고 합니다:";
+
+"channel.start.message.with.host" = "호스트와 채팅";

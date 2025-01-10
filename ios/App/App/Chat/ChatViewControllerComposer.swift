@@ -22,6 +22,7 @@ class ChatViewControllerComposer {
         chatClient: ChatClient,
         with channelId: String?,
         messageId: String?,
+        channelCreationService: ChannelCreationService = RemoteFindOrCreateChannelService(),
         in navigationController: UINavigationController,
         loadChannel: Bool,
         showBackButtonInHeader: Bool = false
@@ -37,6 +38,12 @@ class ChatViewControllerComposer {
                 showBackButtonInHeader: showBackButtonInHeader
             )
 
+            channelViewController.rootView.onChatWithHostTapped = adaptOnChatWithHostTapped(
+                 client: chatClient,
+                 loader: MainTheadDispatchDecorator(decoratee: channelCreationService),
+                 in: navigationController
+             )
+
             channelViewController.navigationItem.largeTitleDisplayMode = .never
 
             return channelViewController
@@ -48,6 +55,7 @@ class ChatViewControllerComposer {
     static private func composeWith(
         channelController: ChatChannelController,
         channelListController: ChatChannelListController,
+        channelCreationService: ChannelCreationService = RemoteFindOrCreateChannelService(),
         messageId: String?,
         navigation: UINavigationController,
         loadChannel: Bool = true,
@@ -65,38 +73,17 @@ class ChatViewControllerComposer {
         let viewController = UIHostingController(rootView: channelView)
 
         if loadChannel {
-            viewController.rootView.onDidLoadChannel = adaptChannelToHeaderHandler(for: viewController, in: navigation, showBackButtonInHeader: showBackButtonInHeader)
+            viewController.rootView.onDidLoadChannel = adaptChannelToHeaderHandler(
+                for: viewController,
+                channelCreationService: channelCreationService,
+                in: navigation,
+                showBackButtonInHeader: showBackButtonInHeader
+            )
         }
 
         return viewController
     }
 
-    static func adaptChannelToHeaderHandler(
-        for detailViewController: UIHostingController<ChatChannelScreen>,
-        in navigation: UINavigationController,
-        showBackButtonInHeader: Bool = false
-    ) -> ((ChatChannel) -> Void) {
-        return  { [weak navigation] channel in
-            guard let navigation, navigation.navigationItem.titleView == nil else { return }
-            setChannelHeader(
-                channel: channel,
-                showBackButtonInHeader: showBackButtonInHeader,
-                for: detailViewController,
-                in: navigation
-            )
-        }
-    }
-
-    private static func routeToChannel(chatClient: ChatClient, messageId: String?, with navigationController: UINavigationController) -> ((ChatChannel) -> Void) {
-
-        return { [ weak navigationController] chatChannel in
-            guard let navigationController else { return }
-
-            guard let detailViewController = composeWith(chatClient: chatClient, with: chatChannel.id, messageId: messageId, in: navigationController, loadChannel: false) else { return }
-            ChatViewControllerComposer.setChannelHeader(channel: chatChannel, for: detailViewController, in: navigationController)
-            navigationController.pushViewController(detailViewController, animated: true)
-        }
-    }
 
     private static func createChannelListController() -> ChatChannelListController? {
 
@@ -155,7 +142,7 @@ class ChatViewControllerComposer {
 
         // auto layout
         NSLayoutConstraint.activate([
-            
+
             backButton.widthAnchor.constraint(equalToConstant: 24),
             backButton.heightAnchor.constraint(equalToConstant: 24),
 
@@ -171,5 +158,85 @@ class ChatViewControllerComposer {
 
     @objc private static func customBackAction() {
         ExtendedStreamPlugin.shared.notifyNavigateBackToListeners(dismiss: true)
+    }
+}
+
+
+// MARK: Adaptors
+extension ChatViewControllerComposer {
+
+    private static func routeToChannel(chatClient: ChatClient, messageId: String?, with navigationController: UINavigationController) -> ((ChatChannel) -> Void) {
+
+        return { [ weak navigationController] chatChannel in
+            guard let navigationController else { return }
+
+            guard let detailViewController = composeWith(chatClient: chatClient, with: chatChannel.id, messageId: messageId, in: navigationController, loadChannel: false) else { return }
+            ChatViewControllerComposer.setChannelHeader(channel: chatChannel, for: detailViewController, in: navigationController)
+            navigationController.pushViewController(detailViewController, animated: true)
+        }
+    }
+
+    static private func adaptOnChatWithHostTapped(client: ChatClient, loader: ChannelCreationService, in navigation: UINavigationController) -> ((String?) -> Void) {
+
+        return { user in
+            guard let user else { return }
+
+            loader.load(for: user) { result in
+                if case let .success(channel) = result {
+                    let channelView = composeWith(
+                        chatClient: client,
+                        with: channel,
+                        messageId: nil,
+                        in: navigation,
+                        loadChannel: true
+                    )!
+                    navigation.pushViewController(channelView, animated: true)
+                }
+            }
+        }
+    }
+
+    static func adaptChannelToHeaderHandler(
+        for detailViewController: UIHostingController<ChatChannelScreen>,
+        channelCreationService: ChannelCreationService,
+        in navigation: UINavigationController,
+        showBackButtonInHeader: Bool = false
+    ) -> ((ChatChannel) -> Void) {
+        return  { [weak navigation] channel in
+            guard let navigation, navigation.navigationItem.titleView == nil else { return }
+            setChannelHeader(
+                channel: channel,
+                showBackButtonInHeader: showBackButtonInHeader,
+                for: detailViewController,
+                in: navigation
+            )
+        }
+    }
+}
+
+// MARK: Decorators
+
+final class MainTheadDispatchDecorator<T> {
+    private let decoratee: T
+
+    init(decoratee: T) {
+        self.decoratee = decoratee
+    }
+
+    func dispatch(completion: @escaping () -> Void) {
+        guard Thread.isMainThread else {
+            return DispatchQueue.main.async { completion() }
+        }
+
+        completion()
+    }
+}
+
+extension MainTheadDispatchDecorator: ChannelCreationService where T == ChannelCreationService {
+
+    func load(for user: String, completion: @escaping FindOrCreateChannelResult) {
+        return decoratee.load(for: user, completion: { [weak self] result in
+            self?.dispatch { completion(result) }
+        })
     }
 }

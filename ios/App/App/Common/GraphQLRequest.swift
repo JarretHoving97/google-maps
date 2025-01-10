@@ -1,11 +1,9 @@
-// swiftlint:disable all
-
 import Foundation
 
 enum RequestError: Error {
-    case InvalidUrl
-    case RequestAborted
-    case ResponseInvalid
+    case invalidUrl
+    case grapquestAborted
+    case responseInvalid
 }
 
 func getRequestBody(userId: String, state: SafetyCheckState, reason: SafetyCheckReason?) -> String {
@@ -38,32 +36,20 @@ func getRequestBody(userId: String, state: SafetyCheckState, reason: SafetyCheck
     }
 }
 
-func updateSafetyCheck(
-    userId: String,
-    state: SafetyCheckState,
-    reason: SafetyCheckReason?,
-    completion: @escaping (Result<Void, Error>
-) -> Void) {
+func executeGraphQLRequest(body: String, completion: @escaping (Result<Data, Error>) -> Void) {
     guard let jwt = getValueFromKeychain(key: "jwt") else {
         completion(.failure(TokenProviderError.Unauthenticated))
         return
     }
 
-    guard !BuildConfiguration.safetyCheckUrl.isEmpty else {
-        fatalError("implementationError: Safety check URL is not implemented")
-    }
-
     guard let url = URL(string: "\(BuildConfiguration.safetyCheckUrl)/graphql") else {
-        completion(.failure(RequestError.InvalidUrl))
+        completion(.failure(RequestError.invalidUrl))
         return
     }
 
     var request = URLRequest(url: url, cachePolicy: .reloadIgnoringLocalCacheData)
 
     request.httpMethod = "POST"
-
-    let body = getRequestBody(userId: userId, state: state, reason: reason)
-
     request.httpBody = body.data(using: .utf8)
 
     let headers = [
@@ -77,19 +63,17 @@ func updateSafetyCheck(
 
     let task = URLSession.shared.dataTask(with: request) { data, response, error in
         if let error = error {
-            completion(.failure(RequestError.ResponseInvalid))
+            completion(.failure(RequestError.responseInvalid))
             print(error)
             return
         }
 
-        print(data, response)
-
         guard let data, let httpResponse = response as? HTTPURLResponse, 200..<300 ~= httpResponse.statusCode else {
-            completion(.failure(RequestError.ResponseInvalid))
+            completion(.failure(RequestError.responseInvalid))
             return
         }
 
-        completion(.success(()))
+        completion(.success((data)))
     }
 
     task.resume()

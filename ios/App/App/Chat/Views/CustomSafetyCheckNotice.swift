@@ -65,16 +65,15 @@ struct CustomSafetyCheckNotice: View {
             return
         }
 
-        updateSafetyCheck(userId: otherUserId, state: safetyCheckState, reason: safetyCheckReason, completion: { result in
+        executeGraphQLRequest(body: getRequestBody(userId: otherUserId, state: safetyCheckState, reason: safetyCheckReason)) { result in
             switch result {
-            case .success(()):
-                // @TODO: Figure out a way to refetch the channel instead of using the `updatedSafetyCheckState`.
+            case .success:
                 updatedSafetyCheckState = safetyCheckState
-//                isNegativeSafetyCheckSheetPresented = false
+
             case .failure(let error):
                 print("Something went wrong when updating safety check.", error)
             }
-        })
+        }
     }
 
     var showSafetyCheckNotice: Bool {
