@@ -3,11 +3,8 @@ opt_out_usage
 platform :ios do
   desc "Build and upload to TestFlight for internal testing"
   lane :internal do
-    # run pod install
-    cocoapods(
-      clean_install: true,
-      podfile: "ios/App/Podfile"
-    )
+    # set xcode (build tools) version
+    xcodes(version: "16.1", select_for_current_build_only: true)
     # generate auth token
     app_store_connect_api_key(
       issuer_id: ENV["ISSUER_ID"],
@@ -41,15 +38,18 @@ platform :ios do
     build_app(
       workspace: "ios/App/App.xcworkspace",
       scheme: "App",
+      configuration: "Release",
       xcargs: "-allowProvisioningUpdates",
       export_method: "app-store", # or "development" or "ad-hoc"
       export_options: {
         provisioningProfiles: {
           "com.whoisup.app" => "GitHub Actions Distribution"
         }
-      }
-    )
-    upload_to_testflight
+      } 
+    ) 
+    upload_to_testflight(skip_waiting_for_build_processing: true)
+    # TODO: Add options to wait for processing, add internal test group and avoid submitting for review.
+    # Make use of key like: `api_key = app_store_connect_api_key(...)`
   end
 end
 

@@ -80,4 +80,4 @@ jobs:
           KEY_ID: ${{ secrets.IOS_APP_STORE_CONNECT_KEY_ID }}
           KEY_CONTENT_BASE64: ${{ secrets.IOS_APP_STORE_CONNECT_API_KEY_BASE64 }}
         run: |
-          fastlane ios internal
+          bundle exec fastlane ios internal
