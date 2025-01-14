@@ -345,13 +345,6 @@
 			path = Helpers;
 			sourceTree = "<group>";
 		};
-		31EB438A2D06ED72007107CA /* EnvironmentKeys */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = EnvironmentKeys;
-			sourceTree = "<group>";
-		};
 		31B020D62CE25C3400198BDB /* NotificationHandler */ = {
 			isa = PBXGroup;
 			children = (
@@ -360,13 +353,6 @@
 				31B020D72CE25C6700198BDB /* NotificationHandler.swift */,
 			);
 			path = NotificationHandler;
-			sourceTree = "<group>";
-		};
-		31EB438A2D06ED72007107CA /* EnvironmentKeys */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = EnvironmentKeys;
 			sourceTree = "<group>";
 		};
 		45062E6B2C7F665B00850C3F /* Common */ = {
@@ -528,7 +514,6 @@
 				3189B7E02D11CC0900F4CC62 /* ChannelLoader */,
 				31EB438E2D0700C7007107CA /* AttachmentEnvironmentController.swift */,
 				31EB438B2D06ED78007107CA /* EnvironmentValues+AttachmentController+Extension.swift */,
-				31EB438A2D06ED72007107CA /* EnvironmentKeys */,
 				45062E6B2C7F665B00850C3F /* Common */,
 				45A6DE382C18ADFF0040F713 /* ViewModifiers */,
 				45A6DE372C18AB0F0040F713 /* Views */,
