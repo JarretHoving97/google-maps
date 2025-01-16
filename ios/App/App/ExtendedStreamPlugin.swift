@@ -25,7 +25,7 @@ public class ExtendedStreamPlugin: CAPPlugin, CAPBridgedPlugin {
     }
 
     private(set) var chatNavigationController: UINavigationController?
-
+    
     public let pluginMethods: [CAPPluginMethod] = [
         CAPPluginMethod(name: "logIn", returnType: CAPPluginReturnNone),
         CAPPluginMethod(name: "logOut", returnType: CAPPluginReturnNone),
@@ -86,7 +86,17 @@ public class ExtendedStreamPlugin: CAPPlugin, CAPBridgedPlugin {
     }
     
     @objc func openChannels(_ call: CAPPluginCall) {
-        initializeViewController()
+        if let channel = call.getString("channelId"), !channel.isEmpty {
+            let channelInfo = ChatPresentationModel(
+                channel: ChannelInfo(channelId: channel),
+                presentInStack: true
+            )
+
+            initializeViewController(model: channelInfo)
+        } else {
+            initializeViewController()
+        }
+
         call.resolve()
     }
     
@@ -227,3 +237,4 @@ extension ExtendedStreamPlugin {
         BuildConfiguration.safetyCheckUrl = config.AmigosApiUrl
     }
 }
+

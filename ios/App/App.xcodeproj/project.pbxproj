@@ -21,6 +21,7 @@
 		31A673C62D09BEDF00CF140C /* ChatViewControllerComposer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31A673C52D09BECA00CF140C /* ChatViewControllerComposer.swift */; };
 		31B020D82CE25C6800198BDB /* NotificationHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31B020D72CE25C6700198BDB /* NotificationHandler.swift */; };
 		31B020DA2CE25C8600198BDB /* LaunchAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31B020D92CE25C8300198BDB /* LaunchAction.swift */; };
+		31D4D4872D390BB500D88513 /* CustomHostingController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31D4D4862D390BB400D88513 /* CustomHostingController.swift */; };
 		31EB438C2D06ED8B007107CA /* EnvironmentValues+AttachmentController+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31EB438B2D06ED78007107CA /* EnvironmentValues+AttachmentController+Extension.swift */; };
 		31EB438F2D0700CD007107CA /* AttachmentEnvironmentController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31EB438E2D0700C7007107CA /* AttachmentEnvironmentController.swift */; };
 		31EB43912D0704F6007107CA /* HidesKeyboardAndAttachmentOnTapGesture.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31EB43902D0704E7007107CA /* HidesKeyboardAndAttachmentOnTapGesture.swift */; };
@@ -163,6 +164,7 @@
 		31A673C52D09BECA00CF140C /* ChatViewControllerComposer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatViewControllerComposer.swift; sourceTree = "<group>"; };
 		31B020D72CE25C6700198BDB /* NotificationHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationHandler.swift; sourceTree = "<group>"; };
 		31B020D92CE25C8300198BDB /* LaunchAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchAction.swift; sourceTree = "<group>"; };
+		31D4D4862D390BB400D88513 /* CustomHostingController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomHostingController.swift; sourceTree = "<group>"; };
 		31EB438B2D06ED78007107CA /* EnvironmentValues+AttachmentController+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "EnvironmentValues+AttachmentController+Extension.swift"; sourceTree = "<group>"; };
 		31EB438E2D0700C7007107CA /* AttachmentEnvironmentController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AttachmentEnvironmentController.swift; sourceTree = "<group>"; };
 		31EB43902D0704E7007107CA /* HidesKeyboardAndAttachmentOnTapGesture.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HidesKeyboardAndAttachmentOnTapGesture.swift; sourceTree = "<group>"; };
@@ -341,6 +343,7 @@
 			isa = PBXGroup;
 			children = (
 				319741802CDA5420009B9F19 /* UNNotificationCenter+BadgeSetter.swift */,
+				45AB7CF82C9DB22600726A70 /* Images */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -358,6 +361,7 @@
 		45062E6B2C7F665B00850C3F /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				31D4D4862D390BB400D88513 /* CustomHostingController.swift */,
 				3166B6482D12DD8E00EC65A4 /* ChannelInfo.swift */,
 				45D313192C82087E004E069E /* Channel+Extensions.swift */,
 				455AD3C42C4FAEB3007E4F74 /* ChannelAction+Extensions.swift */,
@@ -552,7 +556,6 @@
 			children = (
 				31B020D62CE25C3400198BDB /* NotificationHandler */,
 				3197417F2CDA5416009B9F19 /* Helpers */,
-				45AB7CF82C9DB22600726A70 /* Images */,
 				455A13CF2C33D6380093008F /* Views */,
 				4525C7732BE5170400DC197F /* Common */,
 				45B61B812BE4C8C700B2EC61 /* Fonts */,
@@ -873,6 +876,7 @@
 				4511D14728CB7F9C001961E4 /* ExtendedBranchPlugin.m in Sources */,
 				45E727742C9AD8FE00A14B14 /* UserRole+Extensions.swift in Sources */,
 				45A6DE462C19E3590040F713 /* CustomChatView.swift in Sources */,
+				31D4D4872D390BB500D88513 /* CustomHostingController.swift in Sources */,
 				45AB7CF32C9DA8C200726A70 /* AmiGifImage.swift in Sources */,
 				455A13D32C343B700093008F /* CustomChatSheetView.swift in Sources */,
 				45C0B4A82C4407A800865317 /* CustomAddedVoiceRecordingsView.swift in Sources */,

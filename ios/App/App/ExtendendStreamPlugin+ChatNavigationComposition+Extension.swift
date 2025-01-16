@@ -69,6 +69,8 @@ extension ExtendedStreamPlugin {
                 in: navigationController
             )
             navigationController.pushViewController(detailViewController, animated: true)
+            
+            notifyNavigateToListeners(route: "/channels/\(chatChannel.id)", dismiss: false)
         }
     }
 

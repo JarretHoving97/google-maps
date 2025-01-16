@@ -26,7 +26,7 @@ class ChatViewControllerComposer {
         in navigationController: UINavigationController,
         loadChannel: Bool,
         showBackButtonInHeader: Bool = false
-    ) -> UIHostingController<ChatChannelScreen>? {
+    ) -> CustomHostingController<ChatChannelScreen>? {
 
         if let channelId, let object = try? ChannelId(cid: channelId), let channelController = createChannelListController() {
 
@@ -60,7 +60,7 @@ class ChatViewControllerComposer {
         navigation: UINavigationController,
         loadChannel: Bool = true,
         showBackButtonInHeader: Bool = false
-    ) -> UIHostingController<ChatChannelScreen> {
+    ) -> CustomHostingController<ChatChannelScreen> {
 
         let viewModel = ChatChannelListViewModel(
             channelListController: channelListController
@@ -70,7 +70,7 @@ class ChatViewControllerComposer {
             viewModel: viewModel,
             messageId: messageId
         )
-        let viewController = UIHostingController(rootView: channelView)
+        let viewController = CustomHostingController(rootView: channelView)
 
         if loadChannel {
             viewController.rootView.onDidLoadChannel = adaptChannelToHeaderHandler(
@@ -83,7 +83,6 @@ class ChatViewControllerComposer {
 
         return viewController
     }
-
 
     private static func createChannelListController() -> ChatChannelListController? {
 
@@ -135,8 +134,8 @@ class ChatViewControllerComposer {
 
         container.addSubview(stackView)
 
-        // determine if we need to show the backbutton in the header
-        // we do not want to a back button when the current view is a root view in the UINavigationController
+        /// show the back button when the current view is the `Root viewcontroller` of the `UINavigationcontroller` and the current view has no back button for it's self.
+        /// We show the backbutton in this case when we present the chat as root view. (which has no backbutton by default)
         backButton.isHidden = !showBackButtonInHeader
         detailViewController.navigationItem.titleView = container
 
@@ -160,7 +159,6 @@ class ChatViewControllerComposer {
         ExtendedStreamPlugin.shared.notifyNavigateBackToListeners(dismiss: true)
     }
 }
-
 
 // MARK: Adaptors
 extension ChatViewControllerComposer {
