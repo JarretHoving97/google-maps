@@ -19,7 +19,7 @@ public enum BuildConfiguration {
     case staging
     case development(hostURL: String)
 
-    public var AmigosApiUrl: String {
+    public var amigosApiUrl: String {
         switch self {
 
         case .production:
@@ -47,7 +47,7 @@ public enum BuildConfiguration {
         }
     }
 
-    public var StreamApiKey: String {
+    public var streamApiKey: String {
         switch self {
 
         case .development:

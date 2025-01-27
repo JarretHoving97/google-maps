@@ -47,8 +47,8 @@ extension ChannelAction {
                 hasCapability &&
                 (
 
-                    memberRole == .channel_member ||
-                    memberRole == .co_organizer ||
+                    memberRole == .channelMember ||
+                    memberRole == .coOrganizer ||
                     (channel.isCurrentUserOrganizer && isActiveActivity)
                 )
 
@@ -269,7 +269,7 @@ extension ChannelAction {
             var organizerActions = [viewAction]
 
             if channel.extraData["active"]?.numberValue == 1 {
-                if channel.membership?.memberRole == MemberRole.co_organizer || channel.isCurrentUserOrganizer {
+                if channel.membership?.memberRole == MemberRole.coOrganizer || channel.isCurrentUserOrganizer {
                     let inviteAction = ChannelAction(
                         title: tr("custom.channel.action.inviteAmigos.title"),
                         iconName: "chevron.right",

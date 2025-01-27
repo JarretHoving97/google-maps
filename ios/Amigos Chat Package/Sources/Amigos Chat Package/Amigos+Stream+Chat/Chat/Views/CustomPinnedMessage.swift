@@ -23,7 +23,7 @@ struct CustomPinnedMessage: View {
             return false
         }
 
-        return channel.membership?.memberRole == MemberRole.co_organizer || channel.isCurrentUserOrganizer
+        return channel.membership?.memberRole == MemberRole.coOrganizer || channel.isCurrentUserOrganizer
     }
 
     var pinnedMessage: String? {

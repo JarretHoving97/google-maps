@@ -1,20 +1,19 @@
-// swiftlint:disable all
 import SwiftUI
 import StreamChat
 import StreamChatSwiftUI
 
 public enum SafetyCheckState: String {
-    case Unanswered = "UNANSWERED"
-    case Positive = "POSITIVE"
-    case Negative = "NEGATIVE"
+    case unanswered = "UNANSWERED"
+    case positive = "POSITIVE"
+    case negative = "NEGATIVE"
 }
 
 public enum SafetyCheckReason: String {
-  case Other = "OTHER"
-  case Commercial = "COMMERICAL"
-  case Dating = "DATING"
-  case InappropriateLanguage = "INAPPROPRIATE_LANGUAGE"
-  case Spam = "SPAM"
+  case other = "OTHER"
+  case commercial = "COMMERICAL"
+  case dating = "DATING"
+  case inappropriateLanguage = "INAPPROPRIATE_LANGUAGE"
+  case spam = "SPAM"
 }
 
 struct CustomSafetyCheckNotice: View {
@@ -82,7 +81,7 @@ struct CustomSafetyCheckNotice: View {
         channel.otherUser != nil &&
         !channel.isSupportChatChannel &&
         !isCreatedByCurrentUserId &&
-        safetyCheckState == .Unanswered
+        safetyCheckState == .unanswered
     }
 
     var body: some View {
@@ -113,7 +112,7 @@ struct CustomSafetyCheckNotice: View {
                     }
 
                     AmiThumbButton(positive: true) {
-                        updateChannel(.Positive)
+                        updateChannel(.positive)
                     }
                 }
             }
@@ -144,7 +143,7 @@ struct CustomSafetyCheckNotice: View {
                 CustomSafetyCheckInfoSheetView(
                     isPresented: $isSafetyCheckInfoSheetPresented,
                     channel: channel,
-                    variant: SafetyCheckInfoVariant.Sender
+                    variant: SafetyCheckInfoVariant.sender
                 )
             }
         }
@@ -184,11 +183,11 @@ struct CustomNegativeSafetyCheckSheetView: View {
                     .font(fonts.body)
 
                 VStack(alignment: .leading, spacing: 12) {
-                    AmiRadioButton(tag: .Commercial, selection: $selectedSafetyCheckReason, label: "custom.safetyCheck.review.sheet.option.commercial")
-                    AmiRadioButton(tag: .Dating, selection: $selectedSafetyCheckReason, label: "custom.safetyCheck.review.sheet.option.dating")
-                    AmiRadioButton(tag: .InappropriateLanguage, selection: $selectedSafetyCheckReason, label: "custom.safetyCheck.review.sheet.option.inappropriateLanguage")
-                    AmiRadioButton(tag: .Spam, selection: $selectedSafetyCheckReason, label: "custom.safetyCheck.review.sheet.option.spam")
-                    AmiRadioButton(tag: .Other, selection: $selectedSafetyCheckReason, label: "custom.safetyCheck.review.sheet.option.other")
+                    AmiRadioButton(tag: .commercial, selection: $selectedSafetyCheckReason, label: "custom.safetyCheck.review.sheet.option.commercial")
+                    AmiRadioButton(tag: .dating, selection: $selectedSafetyCheckReason, label: "custom.safetyCheck.review.sheet.option.dating")
+                    AmiRadioButton(tag: .inappropriateLanguage, selection: $selectedSafetyCheckReason, label: "custom.safetyCheck.review.sheet.option.inappropriateLanguage")
+                    AmiRadioButton(tag: .spam, selection: $selectedSafetyCheckReason, label: "custom.safetyCheck.review.sheet.option.spam")
+                    AmiRadioButton(tag: .other, selection: $selectedSafetyCheckReason, label: "custom.safetyCheck.review.sheet.option.other")
                 }
                 .padding(.top, 16)
             }
@@ -199,7 +198,7 @@ struct CustomNegativeSafetyCheckSheetView: View {
                 "custom.save",
                 disabled: selectedSafetyCheckReason == nil
             ) {
-                updateChannel(.Negative, $selectedSafetyCheckReason.wrappedValue)
+                updateChannel(.negative, $selectedSafetyCheckReason.wrappedValue)
             }
         }
         .padding(.all, 16)

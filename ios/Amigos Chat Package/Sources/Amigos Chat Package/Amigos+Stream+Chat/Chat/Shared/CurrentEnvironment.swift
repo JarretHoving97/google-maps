@@ -11,7 +11,7 @@ class CurrentEnvironment {
 
     static private(set) var apiUrl: URL?
     static private(set) var url: URL?
-    
+
     private init() {}
 
     public static func set(apiUrl: URL, url: URL) {

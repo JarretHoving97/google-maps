@@ -27,7 +27,7 @@ public struct CustomChatChannelView<Factory: ViewFactory>: View, KeyboardReadabl
     private let messageId: String?
 
     var onDidLoadChannel: ((ChatChannel) -> Void)?
-    
+
     var onChatWithHostTapped: ((String?) -> Void)?
 
     public init(

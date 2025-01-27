@@ -1,11 +1,10 @@
-// swiftlint:disable all
 import SwiftUI
 import StreamChatSwiftUI
 
 enum ButtonType {
-    case Disabled
-    case Sendable
-    case VoiceRecorder
+    case disabled
+    case sendable
+    case voiceRecorder
 }
 
 /// View for the button for sending messages.
@@ -32,20 +31,20 @@ public struct CustomTrailingComposerView: View {
     private var buttonType: ButtonType {
         if sendButtonEnabled {
             // Happens when the user has typed something.
-            return .Sendable
+            return .sendable
         }
 
 //        if ExtendedStreamPlugin.shared.superEntitlementStatus == SuperEntitlementStatus.Active {
 //            return .VoiceRecorder
 //        }
 
-        return .Disabled
+        return .disabled
     }
 
     private var background: Color {
         var color = Color("Purple")
 
-        if buttonType == .Disabled {
+        if buttonType == .disabled {
             color = color.opacity(0.3)
         }
 
@@ -53,7 +52,7 @@ public struct CustomTrailingComposerView: View {
     }
 
     private var systemImage: String {
-        if buttonType == .VoiceRecorder {
+        if buttonType == .voiceRecorder {
             return "mic.fill"
         }
 
@@ -61,9 +60,9 @@ public struct CustomTrailingComposerView: View {
     }
 
     func onDragGestureChange(_ value: DragGesture.Value) {
-        if buttonType == .Sendable {
+        if buttonType == .sendable {
             sendMessage()
-        } else if buttonType == .VoiceRecorder {
+        } else if buttonType == .voiceRecorder {
             if !longPressed {
                 longPressStarted = Date()
                 longPressed = true
@@ -108,9 +107,9 @@ public struct CustomTrailingComposerView: View {
         }
             .frame(width: 44, height: 44, alignment: .center)
             .background(background)
-            .animation(.easeInOut, value: buttonType == .Sendable)
+            .animation(.easeInOut, value: buttonType == .sendable)
             .clipShape(Circle())
-            .disabled(buttonType == .Disabled)
+            .disabled(buttonType == .disabled)
             .gesture(
                 DragGesture(minimumDistance: 0)
                     .onChanged { value in

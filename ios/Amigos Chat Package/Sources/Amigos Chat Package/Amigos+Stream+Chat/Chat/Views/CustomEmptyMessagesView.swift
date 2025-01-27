@@ -38,7 +38,7 @@ public struct CustomEmptyMessagesView: View {
                     CustomSafetyCheckInfoSheetView(
                         isPresented: $isSafetyCheckInfoSheetPresented,
                         channel: channel,
-                        variant: SafetyCheckInfoVariant.Receiver
+                        variant: SafetyCheckInfoVariant.receiver
                     )
                 }
             } else {

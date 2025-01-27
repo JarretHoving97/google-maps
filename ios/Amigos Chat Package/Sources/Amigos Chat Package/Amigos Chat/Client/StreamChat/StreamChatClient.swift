@@ -9,7 +9,6 @@ import StreamChatSwiftUI
 import StreamChat
 import Foundation
 
-
 // MARK: Connected to Streams DEMO environment for now
 /// We need to integrate with our own configuration in the near future.
 /// This is currently not possible

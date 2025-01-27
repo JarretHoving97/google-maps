@@ -1,18 +1,16 @@
-// swiftlint:disable all
-
 import Foundation
 import UIKit
 
 enum DateTimeFormat {
-    case weekdayLong_MonthLong_DayNumeric
-    case hour2Digit_Minute2Digit
-    case monthShort_DayNumeric_Hour2Digit_Minute2Digit
-    case yearNumeric_MonthShort_DayNumeric
-    case monthShort_DayNumeric
+    case weekdayLongMonthLongDay
+    case hour2DigitMinute2Digit
+    case monthShortDayNumeri2DigitTime
+    case yearNumericMonthShortDayNumeric
+    case monthShortDayNumeric
     case dayNumeric
-    case weekdayShort_YearNumeric_MonthShort_DayNumeric
-    case weekdayShort_MonthShort_DayNumeric
-    case yearNumeric_MonthShort_Day2Digit
+    case weekdayShortYearNumericMonthShortDayNumeric
+    case weekdayShortMonthShortDayNumeric
+    case yearNumericMonthShortDay2Digit
     case weekdayLong
 }
 
@@ -22,24 +20,24 @@ func intlDateTimeFormat(date: Date, format: DateTimeFormat, locale: Locale) -> S
     dateFormatter.timeZone = TimeZone.current
 
     switch format {
-    case .weekdayLong_MonthLong_DayNumeric:
+    case .weekdayLongMonthLongDay:
         dateFormatter.dateFormat = DateFormatter.dateFormat(fromTemplate: "EEEE, MMMM d", options: 0, locale: locale)
-    case .hour2Digit_Minute2Digit:
+    case .hour2DigitMinute2Digit:
         dateFormatter.dateFormat = DateFormatter.dateFormat(fromTemplate: "jj:mm", options: 0, locale: locale)
-    case .monthShort_DayNumeric_Hour2Digit_Minute2Digit:
+    case .monthShortDayNumeri2DigitTime:
         let timeFormat = DateFormatter.dateFormat(fromTemplate: "jj:mm", options: 0, locale: locale)
         dateFormatter.dateFormat = DateFormatter.dateFormat(fromTemplate: "MMM d, \(timeFormat ?? "")", options: 0, locale: locale)
-    case .yearNumeric_MonthShort_DayNumeric:
+    case .yearNumericMonthShortDayNumeric:
         dateFormatter.dateFormat = DateFormatter.dateFormat(fromTemplate: "MMM d y", options: 0, locale: locale)
-    case .monthShort_DayNumeric:
+    case .monthShortDayNumeric:
         dateFormatter.dateFormat = DateFormatter.dateFormat(fromTemplate: "MMM d", options: 0, locale: locale)
     case .dayNumeric:
         dateFormatter.dateFormat = "d"
-    case .weekdayShort_YearNumeric_MonthShort_DayNumeric:
+    case .weekdayShortYearNumericMonthShortDayNumeric:
         dateFormatter.dateFormat = DateFormatter.dateFormat(fromTemplate: "EEE, MMM d, y", options: 0, locale: locale)
-    case .weekdayShort_MonthShort_DayNumeric:
+    case .weekdayShortMonthShortDayNumeric:
         dateFormatter.dateFormat = DateFormatter.dateFormat(fromTemplate: "EEE, MMM d", options: 0, locale: locale)
-    case .yearNumeric_MonthShort_Day2Digit:
+    case .yearNumericMonthShortDay2Digit:
         dateFormatter.dateFormat = DateFormatter.dateFormat(fromTemplate: "MMM dd, y", options: 0, locale: locale)
     case .weekdayLong:
         dateFormatter.dateFormat = "EEEE"
@@ -60,7 +58,7 @@ func formatRelative(date: Date, locale: Locale, ifTodayHideHours: Bool = false) 
             if ifTodayHideHours {
                 return tr("custom.today")
             }
-            return intlDateTimeFormat(date: date, format: .hour2Digit_Minute2Digit, locale: locale)
+            return intlDateTimeFormat(date: date, format: .hour2DigitMinute2Digit, locale: locale)
         }
 
         let isYesterday = calendar.isDateInYesterday(date)
@@ -71,5 +69,5 @@ func formatRelative(date: Date, locale: Locale, ifTodayHideHours: Bool = false) 
         return intlDateTimeFormat(date: date, format: .weekdayLong, locale: locale)
     }
 
-    return intlDateTimeFormat(date: date, format: .yearNumeric_MonthShort_DayNumeric, locale: locale)
+    return intlDateTimeFormat(date: date, format: .yearNumericMonthShortDayNumeric, locale: locale)
 }

@@ -1,6 +1,5 @@
 import UIKit
 import SwiftUI
-import UIKit
 
 /**
  A component which can be used to make sheets using the UIKit-way.

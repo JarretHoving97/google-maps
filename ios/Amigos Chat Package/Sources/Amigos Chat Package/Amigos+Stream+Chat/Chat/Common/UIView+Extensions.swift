@@ -1,4 +1,3 @@
-// swiftlint:disable all
 import SwiftUI
 
 extension UIView {
@@ -53,15 +52,15 @@ extension NSLayoutAnchor {
         constraint(lessThanOrEqualTo: anchor).with(priority: .defaultHigh)
     }
 
-    @objc func pin(equalTo anchor: NSLayoutAnchor<AnchorType>, constant c: CGFloat) -> NSLayoutConstraint {
-        constraint(equalTo: anchor, constant: c).with(priority: .defaultHigh)
+    @objc func pin(equalTo anchor: NSLayoutAnchor<AnchorType>, constant float: CGFloat) -> NSLayoutConstraint {
+        constraint(equalTo: anchor, constant: float).with(priority: .defaultHigh)
     }
 
-    @objc func pin(greaterThanOrEqualTo anchor: NSLayoutAnchor<AnchorType>, constant c: CGFloat) -> NSLayoutConstraint {
-        constraint(greaterThanOrEqualTo: anchor, constant: c).with(priority: .defaultHigh)
+    @objc func pin(greaterThanOrEqualTo anchor: NSLayoutAnchor<AnchorType>, constant float: CGFloat) -> NSLayoutConstraint {
+        constraint(greaterThanOrEqualTo: anchor, constant: float).with(priority: .defaultHigh)
     }
 
-    @objc func pin(lessThanOrEqualTo anchor: NSLayoutAnchor<AnchorType>, constant c: CGFloat) -> NSLayoutConstraint {
-        constraint(lessThanOrEqualTo: anchor, constant: c).with(priority: .defaultHigh)
+    @objc func pin(lessThanOrEqualTo anchor: NSLayoutAnchor<AnchorType>, constant float: CGFloat) -> NSLayoutConstraint {
+        constraint(lessThanOrEqualTo: anchor, constant: float).with(priority: .defaultHigh)
     }
 }

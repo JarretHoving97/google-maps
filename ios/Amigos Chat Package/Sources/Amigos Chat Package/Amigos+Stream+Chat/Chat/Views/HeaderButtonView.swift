@@ -1,4 +1,3 @@
-// swiftlint:disable all
 //  HeaderButtonView.swift
 //  App
 //
@@ -27,8 +26,8 @@ struct HeaderButtonView: View {
                     .font(.system(size: 16, weight: .semibold))
                     .frame(width: 16, height: 16, alignment: .center)
                     .foregroundColor(Color("Purple"))
-                    .alignmentGuide(HorizontalAlignment.center, computeValue: { d in
-                       d[HorizontalAlignment.center]
+                    .alignmentGuide(HorizontalAlignment.center, computeValue: { viewDimension in
+                        viewDimension[HorizontalAlignment.center]
                     })
             }
         }

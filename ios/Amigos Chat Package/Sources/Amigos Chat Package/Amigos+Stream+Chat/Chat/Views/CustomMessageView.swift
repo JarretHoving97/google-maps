@@ -286,11 +286,11 @@ public struct LinkDetectionTextView: View {
         }
         .environment(\.openURL, OpenURLAction { url in
             switch url.scheme {
-                case "http", "https":
-                    handleLinkTap(url)
-                    return .handled
-                default:
-                    return .systemAction
+            case "http", "https":
+                handleLinkTap(url)
+                return .handled
+            default:
+                return .systemAction
             }
         })
         .confirmationDialog(

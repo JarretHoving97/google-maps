@@ -1,9 +1,7 @@
-// swiftlint:disable all
 import Foundation
 import SwiftUI
 import StreamChat
 import StreamChatSwiftUI
-
 
 public class AmigosChatClient: AmigosChatClientProtocol {
 
@@ -65,7 +63,7 @@ public class AmigosChatClient: AmigosChatClientProtocol {
 
         /// set shared controllers
         CurrentEnvironment.set(
-            apiUrl: URL(string: config.environment.AmigosApiUrl)!,
+            apiUrl: URL(string: config.environment.amigosApiUrl)!,
             url: (URL(string: config.environment.env)!)
         )
         KeychainController.setJwtLoader(keychainLoader)
@@ -85,7 +83,6 @@ public class AmigosChatClient: AmigosChatClientProtocol {
             tokenProvider: streamTokenProvider()
         )
 
-
         guard let user = chatClient?.currentUserId else {
             throw AmigosClientError.unauthorized
         }
@@ -104,7 +101,7 @@ public class AmigosChatClient: AmigosChatClientProtocol {
         let userController = chatClient.currentUserController()
         chatClient.currentUserController().delegate = userDelegate
         userController.delegate = userDelegate
-        
+
         self.currentUserController = userController
         self.currentUserController?.synchronize()
 
@@ -143,7 +140,6 @@ public class AmigosChatClient: AmigosChatClientProtocol {
         }
     }
 }
-
 
 public protocol ChatPushConfig {
     func addDeviceToken(deviceToken: String)
@@ -184,4 +180,3 @@ let customMessageListConfig = MessageListConfig(
     uniqueReactionsEnabled: true,
     markdownSupportEnabled: false
 )
-

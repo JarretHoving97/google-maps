@@ -79,10 +79,8 @@ class CustomMessageCachingUtils {
     }
 
     func userDisplayInfo(with id: String) -> UserDisplayInfo? {
-        for userInfo in messageAuthors.values {
-            if userInfo.id == id {
-                return userInfo
-            }
+        for userInfo in messageAuthors.values where userInfo.id == id {
+            return userInfo
         }
         return nil
     }

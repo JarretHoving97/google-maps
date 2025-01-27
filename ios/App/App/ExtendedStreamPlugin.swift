@@ -256,10 +256,10 @@ extension ExtendedStreamPlugin {
                 isLocalStorageEnabled: true,
                 applicationGroupIdentifier: "group.com.whoisup.app.stream",
                 maxAttachmentCountPerMessage: 10,
-                apiKey: config.StreamApiKey
+                apiKey: config.streamApiKey
             ),
             tokenProvider: CapacitorTokenLoader(
-                url: config.AmigosApiUrl,
+                url: config.amigosApiUrl,
                 keychainLoader: keychainLoader
             ),
             pushConfig: StreamPushConfig(),

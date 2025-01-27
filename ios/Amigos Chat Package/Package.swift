@@ -17,7 +17,8 @@ let package = Package(
     dependencies: [
         .package(url: "https://github.com/GetStream/stream-chat-swift", from: "4.63.0"),
         .package(url: "https://github.com/GetStream/stream-chat-swiftui", from: "4.63.0"),
-        .package(url: "https://github.com/SDWebImage/SDWebImageSwiftUI", from: "3.1.3")
+        .package(url: "https://github.com/SDWebImage/SDWebImageSwiftUI", from: "3.1.3"),
+        .package(url: "https://github.com/SimplyDanny/SwiftLintPlugins", exact: "0.58.2")
     ],
     targets: [
         .target(
@@ -29,7 +30,8 @@ let package = Package(
             ],
             resources: [
                 .process("Resources")
-            ]
+            ],
+            plugins: [.plugin(name: "SwiftLintBuildToolPlugin", package: "SwiftLintPlugins")]
         ),
     ]
 )

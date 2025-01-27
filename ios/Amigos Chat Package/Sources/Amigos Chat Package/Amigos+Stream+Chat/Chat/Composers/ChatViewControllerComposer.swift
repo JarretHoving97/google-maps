@@ -44,14 +44,12 @@ public class ChatViewControllerComposer {
                 onWillMoveToParent: onWillMoveToParent
             )
 
-
             channelViewController.rootView.onChatWithHostTapped = adaptOnChatWithHostTapped(
                 client: chatClient,
                 routeHandler: routeHandler,
                 loader: MainTheadDispatchDecorator(decoratee: channelCreationService),
                 in: navigationController
             )
-
 
             channelViewController.navigationItem.largeTitleDisplayMode = .never
 
@@ -88,7 +86,6 @@ public class ChatViewControllerComposer {
 
         let viewController = CustomHostingController(rootView: channelView)
         viewController.onWillMoveToParent = onWillMoveToParent
-
 
         if loadChannel {
             viewController.rootView.onDidLoadChannel = adaptChannelToHeaderHandler(
@@ -251,7 +248,6 @@ extension ChatViewControllerComposer {
         }
     }
 }
-
 
 // MARK: Decorators
 

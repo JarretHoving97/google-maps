@@ -5,14 +5,13 @@
 //  Created by Jarret on 08/01/2025.
 //
 
-
 import Foundation
 import StreamChat
 
 /// Maps Stream API's channels to our own channel type
 /// Here we can also define custom logic if we wan't different behaviour based of the data given.
 enum ChatChannelMapper {
-    
+
     static private var namer: ChatChannelNamer = defaultChatChannelNamer()
 
     static func map(channels: [ChatChannel]) -> [Channel] {

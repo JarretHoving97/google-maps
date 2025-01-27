@@ -1,15 +1,13 @@
-// swiftlint:disable all
-
 import Foundation
 
 enum RequestError: Error {
-    case InvalidUrl
-    case RequestAborted
-    case ResponseInvalid
+    case invalidUrl
+    case requestAborted
+    case requestInvalid
 }
 
 func getRequestBody(userId: String, state: SafetyCheckState, reason: SafetyCheckReason?) -> String {
-    if state == .Positive {
+    if state == .positive {
         return """
             {
               "operationName": "AddUserPositiveReview",
@@ -52,7 +50,7 @@ func executeGraphQLRequest(
     }
 
     guard var url = CurrentEnvironment.apiUrl else {
-        completion(.failure(RequestError.InvalidUrl))
+        completion(.failure(RequestError.invalidUrl))
         return
     }
 
@@ -74,13 +72,13 @@ func executeGraphQLRequest(
 
     let task = URLSession.shared.dataTask(with: request) { data, response, error in
         if let error = error {
-            completion(.failure(RequestError.ResponseInvalid))
+            completion(.failure(RequestError.requestInvalid))
             print(error)
             return
 
         }
         guard let data, let httpResponse = response as? HTTPURLResponse, 200..<300 ~= httpResponse.statusCode else {
-            completion(.failure(RequestError.ResponseInvalid))
+            completion(.failure(RequestError.requestInvalid))
             return
         }
 

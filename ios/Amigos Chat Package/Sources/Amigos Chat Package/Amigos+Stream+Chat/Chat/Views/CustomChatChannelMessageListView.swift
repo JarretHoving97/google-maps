@@ -133,7 +133,7 @@ struct CustomChatChannelMessageListView<Factory: ViewFactory>: View {
                         .reactionsShown && viewModel.channel?.isFrozen == false
                 ) ? 0 : 1)
             }
-            
+
             NavigationLink(
                 isActive: $viewModel.threadMessageShown
             ) {

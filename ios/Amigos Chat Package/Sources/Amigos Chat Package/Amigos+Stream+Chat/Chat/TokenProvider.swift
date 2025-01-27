@@ -1,6 +1,4 @@
-// swiftlint:disable all
 import Foundation
-
 
 public protocol TokenProvider {
     typealias TokenLoadResult = ((Result<LocalToken, Error>) -> Void)

@@ -66,8 +66,7 @@ public struct ChannelsListView: View {
             imageURL: nil,
             unreadCount: 4,
             lastMessage: Message(id: UUID(), text: "I need you now, can you meet me at the bridge?")
-        ),
-        
+        )
     ]
 
     return ChannelsListView(viewModel: viewModel)

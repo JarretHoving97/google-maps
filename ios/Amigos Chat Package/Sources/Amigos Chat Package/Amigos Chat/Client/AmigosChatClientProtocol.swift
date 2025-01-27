@@ -13,6 +13,6 @@ public protocol AmigosChatClientProtocol {
     var channelListLoader: ChannelListLoader? { get }
 
     var config: Configuration { get }
-    
+
     func login(with loginInfo: loginInfo) async throws
 }

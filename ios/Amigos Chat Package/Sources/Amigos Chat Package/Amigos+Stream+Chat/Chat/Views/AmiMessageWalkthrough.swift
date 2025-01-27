@@ -1,11 +1,10 @@
-// swiftlint:disable all
 import SwiftUI
 import StreamChat
 
 enum MessageWalkthroughType: String {
-    case OnboardingHowToHost = "onboarding"
-    case OnboardingHowToJoin = "how_to_host"
-    case OnboardingDefault = "how_to_join"
+    case onboardingHowToHost = "onboarding"
+    case onboardingHowToJoin = "how_to_host"
+    case onboardingDefault = "how_to_join"
 }
 
 struct AmiMessageWalkthrough: View {
@@ -13,10 +12,10 @@ struct AmiMessageWalkthrough: View {
 
     var body: some View {
         HStack {
-            if type == .OnboardingHowToHost {
+            if type == .onboardingHowToHost {
                 AmiGifImage("walkthrough_03")
                     .frame(width: 75, height: 152, alignment: .center)
-            } else if type == .OnboardingHowToJoin {
+            } else if type == .onboardingHowToJoin {
                 AmiGifImage("walkthrough_04")
                     .frame(width: 75, height: 152, alignment: .center)
             } else {

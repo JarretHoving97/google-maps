@@ -5,7 +5,6 @@
 //  Created by Jarret on 10/01/2025.
 //
 
-
 class UserProvider {
 
     static let shared = UserProvider()

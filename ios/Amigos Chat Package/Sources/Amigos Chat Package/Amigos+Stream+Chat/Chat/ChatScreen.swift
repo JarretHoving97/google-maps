@@ -15,7 +15,7 @@ public struct ChatChannelScreen: View {
 
     var onChatWithHostTapped: ((String?) -> Void)?
 
-    init(with viewFactory: CustomUIFactory, chatChannelController: ChatChannelController, viewModel: ChatChannelListViewModel,  messageId: String?) {
+    init(with viewFactory: CustomUIFactory, chatChannelController: ChatChannelController, viewModel: ChatChannelListViewModel, messageId: String?) {
         self.chatChannelController = chatChannelController
         self.viewModel = viewModel
         self.messageId = messageId

@@ -12,7 +12,6 @@ public protocol ChannelCreationService {
     func load(for user: String, completion: @escaping FindOrCreateChannelResult)
 }
 
-
 public class RemoteFindOrCreateChannelService: ChannelCreationService {
 
     public init() {}

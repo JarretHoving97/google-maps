@@ -1,11 +1,10 @@
-// swiftlint:disable all
 import StreamChatSwiftUI
 import SwiftUI
 import StreamChat
 
 enum SafetyCheckInfoVariant: String {
-    case Receiver = "receiver"
-    case Sender = "sender"
+    case receiver = "receiver"
+    case sender = "sender"
 }
 
 private struct Content {
@@ -44,7 +43,7 @@ struct CustomSafetyCheckInfoSheetView: View {
     }
 
     private var content: Content {
-        if variant == .Receiver {
+        if variant == .receiver {
             return .init(
                 subtitle: tr("custom.safetyCheck.info.sheet.receiver.subtitle"),
                 examples: [
