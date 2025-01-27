@@ -26,7 +26,8 @@ public class ChatViewControllerComposer {
         channelCreationService: ChannelCreationService = RemoteFindOrCreateChannelService(),
         in navigationController: UINavigationController,
         loadChannel: Bool,
-        showBackButtonInHeader: Bool = false
+        showBackButtonInHeader: Bool = false,
+        onWillMoveToParent: ((UIViewController?) -> Void)? = nil
     ) -> UIHostingController<ChatChannelScreen>? {
 
         if let channelId, let object = try? ChannelId(cid: channelId), let channelController = createChannelListController() {
@@ -39,7 +40,8 @@ public class ChatViewControllerComposer {
                 messageId: messageId,
                 navigation: navigationController,
                 loadChannel: loadChannel,
-                showBackButtonInHeader: showBackButtonInHeader
+                showBackButtonInHeader: showBackButtonInHeader,
+                onWillMoveToParent: onWillMoveToParent
             )
 
 
@@ -68,7 +70,8 @@ public class ChatViewControllerComposer {
         channelCreationService: ChannelCreationService = RemoteFindOrCreateChannelService(),
         navigation: UINavigationController,
         loadChannel: Bool = true,
-        showBackButtonInHeader: Bool = false
+        showBackButtonInHeader: Bool = false,
+        onWillMoveToParent: ((UIViewController?) -> Void)? = nil
     ) -> UIHostingController<ChatChannelScreen> {
 
         RouteController.setupRouteAction(action: routeHandler)
@@ -82,7 +85,9 @@ public class ChatViewControllerComposer {
             viewModel: viewModel,
             messageId: messageId
         )
-        let viewController = UIHostingController(rootView: channelView)
+
+        let viewController = CustomHostingController(rootView: channelView)
+        viewController.onWillMoveToParent = onWillMoveToParent
 
 
         if loadChannel {
@@ -148,8 +153,8 @@ public class ChatViewControllerComposer {
 
         container.addSubview(stackView)
 
-        // determine if we need to show the backbutton in the header
-        // we do not want to a back button when the current view is a root view in the UINavigationController
+        /// show the back button when the current view is the `Root viewcontroller` of the `UINavigationcontroller` and the current view has no back button for it's self.
+         /// We show the backbutton in this case when we present the chat as root view. (which has no backbutton by default)
         backButton.isHidden = !showBackButtonInHeader
         detailViewController.navigationItem.titleView = container
 

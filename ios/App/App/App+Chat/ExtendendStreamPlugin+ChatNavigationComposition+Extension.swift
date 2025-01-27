@@ -26,6 +26,14 @@ extension ExtendedStreamPlugin {
         }
     }
 
+    private func adaptOnWillMoveToParent() -> ((UIViewController?) -> Void) {
+        return { [weak self] parent in
+            if parent == nil {
+                self?.notifyNavigateBackToListeners(dismiss: false)
+            }
+        }
+    }
+
     func composeNavigation(model: ChatPresentationModel? = nil) -> UINavigationController {
         let navigationController = model != nil ? buildStack(with: model!.channel, inStack: model!.presentInStack) : build()
         return navigationController
@@ -54,7 +62,8 @@ extension ExtendedStreamPlugin {
                 routeHandler: routeAction(),
                 messageId: channel.messageId,
                 in: chatNavigationController,
-                loadChannel: loadChannel
+                loadChannel: loadChannel,
+                onWillMoveToParent: adaptOnWillMoveToParent()
             ) else { return }
 
             chatNavigationController.pushViewController(detailViewController, animated: animated)
@@ -72,7 +81,8 @@ extension ExtendedStreamPlugin {
                 routeHandler: routeAction(),
                 messageId: messageId,
                 in: navigationController,
-                loadChannel: false
+                loadChannel: false,
+                onWillMoveToParent: adaptOnWillMoveToParent()
             ) else { return }
 
             ChatViewControllerComposer.setChannelHeader(
@@ -82,7 +92,6 @@ extension ExtendedStreamPlugin {
                 in: navigationController
             )
             navigationController.pushViewController(detailViewController, animated: true)
-            
             notifyNavigateToListeners(route: "/channels/\(chatChannel.id)", dismiss: false)
         }
     }
@@ -173,7 +182,8 @@ extension ExtendedStreamPlugin {
             messageId: channel.messageId,
             in: navigationController,
             loadChannel: true,
-            showBackButtonInHeader: !inStack
+            showBackButtonInHeader: !inStack,
+            onWillMoveToParent: adaptOnWillMoveToParent()
         )
         let stack = !inStack ? [chatViewController].compactMap {$0} : [channelViewController, chatViewController].compactMap {$0}
 
