@@ -1,5 +1,4 @@
 {
-  "originHash" : "f062b17fd501f114deb2dad3b99503535359b149a8d4da194380e3a8a9787b46",
   "pins" : [
     {
       "identity" : "collectionconcurrencykit",
@@ -17,6 +16,24 @@
       "state" : {
         "revision" : "678d442c6f7828def400a70ae15968aef67ef52d",
         "version" : "1.8.3"
+      }
+    },
+    {
+      "identity" : "sdwebimage",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/SDWebImage/SDWebImage.git",
+      "state" : {
+        "revision" : "10d06f6a33bafae8c164fbfd1f03391f6d4692b3",
+        "version" : "5.20.0"
+      }
+    },
+    {
+      "identity" : "sdwebimageswiftui",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/SDWebImage/SDWebImageSwiftUI",
+      "state" : {
+        "revision" : "451c6dfd5ecec2cf626d1d9ca81c2d4a60355172",
+        "version" : "3.1.3"
       }
     },
     {
@@ -101,5 +118,5 @@
       }
     }
   ],
-  "version" : 3
+  "version" : 2
 }

@@ -11,13 +11,10 @@ import StreamChat
 import StreamChatSwiftUI
 import SwiftUI
 import UIKit
+import Amigos_Chat_Package
 
 @UIApplicationMain
 class AppDelegate: NSObject, UIApplicationDelegate {
-
-    var chat: StreamChatWrapper {
-        StreamChatWrapper.shared
-    }
 
     var window: UIWindow?
 
@@ -35,7 +32,7 @@ class AppDelegate: NSObject, UIApplicationDelegate {
 
         // Listener for Branch Deep Link data
         Branch.getInstance().initSession(launchOptions: launchOptions)
-
+        
         // Add SVG coder for `SDWebImageSwiftUI` pod
         SDImageCodersManager.shared.addCoder(SDImageSVGCoder.shared)
 
@@ -105,7 +102,7 @@ class AppDelegate: NSObject, UIApplicationDelegate {
             if let error = error {
                 NotificationCenter.default.post(name: .capacitorDidFailToRegisterForRemoteNotifications, object: error)
             } else if let token = token {
-                self.chat.addDeviceToken(deviceToken: token)
+                ExtendedStreamPlugin.chatClient.addDeviceToken(token)
                 NotificationCenter.default.post(name: .capacitorDidRegisterForRemoteNotifications, object: token)
             }
         }

@@ -3,29 +3,24 @@
 import Capacitor
 import Foundation
 import SwiftUI
-import StreamChat
 import StreamChatSwiftUI
-
-public enum SuperEntitlementStatus {
-    case Unavailable
-    case Available
-    case Active
-}
+import Amigos_Chat_Package
 
 @objc(ExtendedStreamPlugin)
 public class ExtendedStreamPlugin: CAPPlugin, CAPBridgedPlugin {
-    @Injected(\.chatClient) var chatClient
+
+    static private(set) var chatClient: AmigosChatClient!
+
+    private(set) var chatNavigationController: UINavigationController?
 
     public let identifier = "ExtendedStream"
-    
+
     public let jsName = "ExtendedStream"
-    
+
     public var webViewURL: URL? {
         return bridge?.config.serverURL
     }
 
-    private(set) var chatNavigationController: UINavigationController?
-    
     public let pluginMethods: [CAPPluginMethod] = [
         CAPPluginMethod(name: "logIn", returnType: CAPPluginReturnNone),
         CAPPluginMethod(name: "logOut", returnType: CAPPluginReturnNone),
@@ -35,17 +30,16 @@ public class ExtendedStreamPlugin: CAPPlugin, CAPBridgedPlugin {
         CAPPluginMethod(name: "setChatTrialUntil", returnType: CAPPluginReturnNone),
         CAPPluginMethod(name: "setLanguage", returnType: CAPPluginReturnNone)
     ]
-    
+
     public static var shared = ExtendedStreamPlugin()
-    
+
     public override func load() {
         ExtendedStreamPlugin.shared = self
         setupNavigationAppearance()
+
         configureChat()
     }
-    
-    public var superEntitlementStatus: SuperEntitlementStatus = SuperEntitlementStatus.Unavailable
-    
+
     public var chatTrialUntil: Date?
 
     func initializeViewController(model: ChatPresentationModel? = nil) {
@@ -53,10 +47,14 @@ public class ExtendedStreamPlugin: CAPPlugin, CAPBridgedPlugin {
     }
 
     private func createChat(model: ChatPresentationModel? = nil) {
+
+        guard ExtendedStreamPlugin.chatClient.clientConfigured else { return }
+
         DispatchQueue.main.async { [weak self] in
+
             guard let self else { return }
             guard chatNavigationController == nil else { return }
-            
+
             let navigation = self.composeNavigation(model: model)
             self.chatNavigationController = navigation
             self.bridge?.viewController?.present(self.chatNavigationController!, animated: true, completion: nil)
@@ -67,25 +65,32 @@ public class ExtendedStreamPlugin: CAPPlugin, CAPBridgedPlugin {
         guard let userId = call.getString("userId") else {
             return call.reject("Missing userId parameter.")
         }
-        
+
         let name = call.getString("name")
-        let avatarUrl = call.getString("avatarUrl")
-        
-        DispatchQueue.main.async {
-            if let appDelegate = UIApplication.shared.delegate as? AppDelegate {
-                appDelegate.chat.logIn(id: userId, name: name, avatarUrl: avatarUrl)
+        let avatarUrl = call.getString("avatarUrl") ?? ""
+
+        Task {
+            do {
+                try await ExtendedStreamPlugin.chatClient?.login(with: AmigosChatClient.LoginInfo(id: userId, name: name ?? "", imageUrl: URL(string: avatarUrl)))
+            } catch {
+                print(error.localizedDescription)
             }
         }
-        
         call.resolve()
     }
-    
+
     @objc func logOut(_ call: CAPPluginCall) {
-        StreamChatWrapper.shared.logOut()
+
+        Task {
+            await ExtendedStreamPlugin.chatClient?.logout()
+        }
+
         call.resolve()
     }
-    
+
     @objc func openChannels(_ call: CAPPluginCall) {
+        guard ExtendedStreamPlugin.chatClient.clientConfigured else { return }
+
         if let channel = call.getString("channelId"), !channel.isEmpty {
             let channelInfo = ChatPresentationModel(
                 channel: ChannelInfo(channelId: channel),
@@ -99,7 +104,7 @@ public class ExtendedStreamPlugin: CAPPlugin, CAPBridgedPlugin {
 
         call.resolve()
     }
-    
+
     @objc func openChannel(_ call: CAPPluginCall) {
         guard let channelId = call.getString("channelId") else { return }
         initializeViewController(
@@ -119,101 +124,102 @@ public class ExtendedStreamPlugin: CAPPlugin, CAPBridgedPlugin {
 
     @objc func notifyNavigateBackToListeners(dismiss: Bool = false) {
         notifyListeners("navigateBack", data: [:])
-        
+
         if dismiss {
             self.dismiss()
         }
     }
-    
-    @objc func notifyNavigateToListeners(route: String, dismiss: Bool = false) {
-        let data = JSObject(dictionaryLiteral: ("route", route), ("replace", false))
-        notifyListeners("navigateTo", data: data)
-        
+
+    @objc func notifyNavigateToListeners(route: String?, dismiss: Bool = false) {
+        if let route {
+            let data = JSObject(dictionaryLiteral: ("route", route), ("replace", false))
+            notifyListeners("navigateTo", data: data)
+        }
         if dismiss {
             self.dismiss()
         }
     }
-    
+
     @objc func setEntitlementDetails(_ call: CAPPluginCall) {
         let superStatus = call.getString("superStatus")
-        
+
         if superStatus == "Unavailable" {
-            superEntitlementStatus = SuperEntitlementStatus.Unavailable
+            SuperStatusController.shared.superEntitlementStatus = .unavailable
         } else if superStatus == "Active" {
-            superEntitlementStatus = SuperEntitlementStatus.Active
+            SuperStatusController.shared.superEntitlementStatus = .active
         } else if superStatus == "Available" {
-            superEntitlementStatus = SuperEntitlementStatus.Available
+            SuperStatusController.shared.superEntitlementStatus = .available
         } else {
             print("[ExtendedStream] Invalid super entitlement status:", superStatus ?? [:])
         }
-        
+
         call.resolve()
     }
-    
+
     @objc func setChatTrialUntil(_ call: CAPPluginCall) {
         let chatTrialUntilString = call.getString("chatTrialUntil")
-        
+
         let formatter = ISO8601DateFormatter()
         formatter.formatOptions = [.withInternetDateTime]
-        
+
         if let chatTrialUntilString, let date = formatter.date(from: chatTrialUntilString) {
-            chatTrialUntil = date
+            SuperStatusController.shared.chatTrialUntil = date
         } else {
             print("[ExtendedStream] Invalid chat trial date:", chatTrialUntilString ?? [:])
         }
-        
+
         call.resolve()
     }
-    
+
     @objc func setLanguage(_ call: CAPPluginCall) {
         let code = call.getString("code")
-        
+
         guard let code else {
             print("[ExtendedStream] Invalid language code:", code ?? [:])
             return call.resolve()
         }
-        
+
         let availableLanguages = Bundle.main.localizations.filter { $0 != "Base" }
         let isAvailable = availableLanguages.contains { $0.hasPrefix(code.prefix(2)) }
-        
+
         guard isAvailable else {
             print("[ExtendedStream] Language is not available.")
             return call.resolve()
         }
-        
+
         LocaleSettings.shared.locale = Locale(identifier: code)
         LocaleSettings.shared.languageLocale = Locale(identifier: String(code.prefix(2)))
-        
+
         call.resolve()
     }
-    
+
     @objc func notifyUnreadCounts(channelUnreadCount: Int, messageUnreadCount: Int) {
         let data = JSObject(dictionaryLiteral: ("channelUnreadCount", channelUnreadCount), ("messageUnreadCount", messageUnreadCount))
         notifyListeners("unreadCounts", data: data)
     }
-    
+
     @MainActor
     func translate(key: String, namespace: String, options: [String: JSValue] = [:]) async -> String? {
         var optionsStr = "{ "
-        
+
         for (key, value) in options {
             optionsStr += "\"\(key)\":\"\(value)\","
         }
-        
+
         // Remove the trailing comma and space
         if optionsStr.count > 1 {
             optionsStr.removeLast(1)
         }
-        
+
         optionsStr += " }"
-        
+
         do {
             let value = try await self.bridge?.webView?.evaluateJavaScript("window.translate(\"\(key)\",\"\(namespace)\",\(optionsStr))")
-            
+
             if let value = value as? String {
                 return value
             }
-            
+
             return nil
         } catch let error {
             print(error)
@@ -223,18 +229,48 @@ public class ExtendedStreamPlugin: CAPPlugin, CAPBridgedPlugin {
 }
 
 extension ExtendedStreamPlugin {
-    
+
     private func configureChat() {
-        
+
         guard let url = bridge?.config.serverURL else {
-            
             fatalError("Implementation error: No URL found in bridge config.")
         }
-        
+
+        /// setup keychain loader
+        let keychainLoader = CAPKeyChainLoader()
         let config: BuildConfiguration = .create(for: url)
-        
-        StreamChatWrapper.shared.buildFor(environment: config)
-        BuildConfiguration.safetyCheckUrl = config.AmigosApiUrl
+
+        /// set translation handler
+        TranslationController.set {
+            await ExtendedStreamPlugin.shared.translate(
+                key: $0.key,
+                namespace: $0.namespace,
+                options: $0.options as? [String: JSValue] ?? [:]
+            )
+        }
+
+        /// create client
+        ExtendedStreamPlugin.chatClient = AmigosChatClient(
+            config: .init(
+                environment: config,
+                isLocalStorageEnabled: true,
+                applicationGroupIdentifier: "group.com.whoisup.app.stream",
+                maxAttachmentCountPerMessage: 10,
+                apiKey: config.StreamApiKey
+            ),
+            tokenProvider: CapacitorTokenLoader(
+                url: config.AmigosApiUrl,
+                keychainLoader: keychainLoader
+            ),
+            pushConfig: StreamPushConfig(),
+            userDelegate: CurrentUserModel(
+                onDidChangeUnreadCount: { unreadCount in
+                 ExtendedStreamPlugin.shared.notifyUnreadCounts(
+                     channelUnreadCount: unreadCount.channels,
+                     messageUnreadCount: unreadCount.messages
+                 )
+                }),
+            keychainLoader: keychainLoader
+        )
     }
 }
-

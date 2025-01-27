@@ -1,3 +1,5 @@
+import Amigos_Chat_Package
+
 enum LaunchAction {
 
     case streamChat(ChannelInfo)

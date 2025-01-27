@@ -1,0 +1,275 @@
+"channel.name.and" = "and";
+"channel.name.andXMore" = "and %@ more";
+"channel.name.missing" = "NoChannel";
+"channel.item.empty-messages" = "No messages";
+"channel.item.poll-someone-voted" = "%@ voted:";
+"channel.item.poll-you-voted" = "You voted:";
+"channel.item.poll-someone-created" = "%@ created:";
+"channel.item.poll-you-created" = "You created:";
+"channel.item.typing-singular" = "is typing ...";
+"channel.item.typing-plural" = "are typing ...";
+"channel.item.muted" = "Channel is muted";
+"channel.item.mute" = "Mute";
+"channel.item.unmute" = "Unmute";
+"channel.name.direct-message" = "user";
+"channel.name.group" = "group";
+
+"channel.no-content.title" = "Let's start chatting";
+"channel.no-content.message" = "How about sending your first message to a friend?";
+"channel.no-content.start" = "Start a chat";
+
+"message.actions.inline-reply" = "Reply";
+"message.actions.thread-reply" = "Thread Reply";
+"message.actions.edit" = "Edit";
+"message.actions.copy" = "Copy";
+"message.actions.delete" = "Delete";
+"message.actions.pin" = "Pin";
+"message.actions.unpin" = "Unpin";
+"message.actions.delete.confirmation-title" = "Delete message";
+"message.actions.delete.confirmation-message" = "Are you sure you want to permanently delete this message?";
+"message.actions.user-unblock" = "Unblock";
+"message.actions.user-block" = "Block";
+"message.actions.user-unmute" = "Unmute";
+"message.actions.user-mute" = "Mute";
+"message.actions.resend" = "Resend";
+"message.actions.flag" = "Flag message";
+"message.actions.mark-unread" = "Mark unread";
+"message.actions.flag.confirmation-title" = "Flag message";
+"message.actions.flag.confirmation-message" = "Do you want to send a copy of this message to a moderator for further investigation?";
+"message.actions.user-block.confirmation-message" = "Are you sure you want to block this user?";
+"message.actions.user-unblock.confirmation-message" = "Are you sure you want to unblock this user?";
+
+"messageList.typingIndicator.typing-unknown" = "Someone is typing";
+
+"message.threads.reply" = "Thread Reply";
+"message.threads.replies" = "Thread Replies";
+"message.threads.replyWith" = "with %@";
+"message.threads.subtitle" = "with messages";
+
+"message.gallery.photos" = "Photos";
+"message.cell.pinnedBy" = "Pinned by";
+"message.cell.unknownPin" = "unknown";
+"message.cell.edited" = "Edited";
+"message.reactions.currentUser" = "You";
+
+"message.polls.button.addComment" = "Add a Comment";
+"message.polls.button.updateComment" = "Update Your Comment";
+"message.polls.button.endVote" = "End Vote";
+"message.polls.button.seeMoreOptions" = "See %d More Options";
+"message.polls.button.show-all" = "Show All";
+"message.polls.button.suggestAnOption" = "Suggest an Option";
+"message.polls.button.viewResults" = "View Results";
+"message.polls.subtitle.selectOne" = "Select one";
+"message.polls.subtitle.selectOneOrMore" = "Select one or more";
+"message.polls.subtitle.selectUpTo" = "Select up to %d";
+"message.polls.subtitle.voteEnded" = "Vote ended";
+"message.polls.toolbar.comments-title" = "Poll Comments";
+"message.polls.toolbar.options-title" = "Poll Options";
+"message.polls.toolbar.results-title" = "Poll Results";
+"message.polls.unknown-vote-author" = "Anonymous";
+"message.polls.votes" = "%d votes";
+
+"alert.actions.cancel" = "Cancel";
+"alert.actions.delete" = "Delete";
+"alert.actions.end" = "End";
+"alert.actions.ok" = "OK";
+"alert.actions.discard-changes" = "Discard Changes";
+"alert.actions.delete-channel-title" = "Delete conversation";
+"alert.actions.delete-channel-message" = "Are you sure you want to delete this conversation?";
+"alert.actions.keep-editing" = "Keep Editing";
+"alert.actions.send" = "Send";
+"alert.error.title" = "Something went wrong.";
+"alert.error.message" = "The operation couldn't be completed.";
+"alert.actions.mute-channel-title" = "Are you sure you want to mute this";
+"alert.actions.unmute-channel-title" = "Are you sure you want to unmute this";
+"alert.actions.leave-group-title" = "Leave group";
+"alert.actions.leave-group-message" = "Are you sure you want to leave this group?";
+"alert.actions.leave-group-button" = "Leave";
+"alert.actions.view-info-title" = "View info";
+"alert.text-field.polls-new-option" = "Enter a new option";
+"alert.title.add-comment" = "Add a comment";
+"alert.title.end-poll" = "Nobody will be able to vote in this poll anymore.";
+"alert.title.suggest-an-option" = "Suggest an option";
+
+"message.only-visible-to-you" = "Only visible to you";
+"message.deleted-message-placeholder" = "Message deleted";
+
+"composer.title.edit" = "Edit message";
+"composer.title.reply" = "Reply to message";
+"composer.placeholder.message" = "Send a message";
+"composer.placeholder.slow-mode" = "Slow mode";
+"composer.placeholder.giphy" = "Search GIFs";
+"composer.checkmark.direct-message-reply" = "Also send as direct message";
+"composer.checkmark.channel-reply" = "Also send in channel";
+"composer.picker.title" = "Choose attachment type: ";
+"composer.picker.file" = "File";
+"composer.picker.media" = "Photo or Video";
+"composer.picker.cancel" = "Cancel";
+"composer.files.add-more" = "Add more files";
+"composer.images.no-access-library" = "You have not granted access to the photo library.";
+"composer.images.access-settings" = "Change in Settings";
+"composer.quoted.photo" = "Photo";
+"composer.quoted.video" = "Video";
+"composer.quoted.giphy" = "Giphy";
+"composer.polls.action-sheet-discard-title" = "Are you sure you want to discard your poll?";
+"composer.polls.add-comment" = "Add a comment";
+"composer.polls.add-option" = "Add an option";
+"composer.polls.anonymous-poll" = "Anonymous poll";
+"composer.polls.askQuestion" = "Ask a question";
+"composer.polls.create-poll" = "Create Poll";
+"composer.polls.options" = "Options";
+"composer.polls.question" = "Question";
+"composer.polls.maximum-votes-per-person" = "Maximum votes per person";
+"composer.polls.duplicate-option" = "This is already an option";
+"composer.polls.multiple-answers" = "Multiple answers";
+"composer.polls.suggest-option" = "Suggest an option";
+"composer.polls.type-number-from-1-and-10" = "Type a number from 1 and 10";
+
+"composer.commands.giphy" = "Giphy";
+"composer.commands.mute" = "Mute";
+"composer.commands.unmute" = "Unmute";
+"composer.commands.format.text" = "text";
+"composer.commands.format.username" = "@username";
+
+"composer.suggestions.commands.header" = "Instant commands";
+"message.sending.attachment-uploading-failed" = "UPLOADING FAILED";
+
+"composer.recording.tip" = "Hold to record, release to send";
+"composer.recording.slide-to-cancel" = "Slide to cancel";
+
+"attachment.max-size.title" = "Attachment size exceed the limit";
+"attachment.max-size.message" = "Please select a smaller attachment.";
+
+"message.title.online" = "";
+"message.title.offline" = "";
+"message.title.group" = "%d members, %d online";
+
+"message.file-attachment.error-preview" = "Error occured while previewing the file.";
+"message.giphy-attachment.title" = "GIPHY";
+
+"message.search.title" = "Search";
+"message.search.cancel" = "Cancel";
+
+"message.bounce.title" = "Message was bounced";
+
+"current-selection" = "%d of %d";
+
+"attachment.max-size-exceeded" = "Attachment size exceed the limit.";
+"dates.time-ago-seconds-plural" = "last seen %d seconds ago";
+"dates.time-ago-seconds-singular" = "last seen just one second ago";
+"dates.time-ago-minutes-singular" = "last seen one minute ago";
+"dates.time-ago-minutes-plural" = "last seen %d minutes ago";
+"dates.time-ago-hours-singular" = "last seen one hour ago";
+"dates.time-ago-hours-plural" = "last seen %d hours ago";
+"dates.time-ago-days-singular" = "last seen one day ago";
+"dates.time-ago-days-plural" = "last seen %d days ago";
+"dates.time-ago-weeks-singular" = "last seen one week ago";
+"dates.time-ago-weeks-plural" = "last seen %d weeks ago";
+"dates.time-ago-months-singular" = "last seen one month ago";
+"dates.time-ago-months-plural" = "last seen %d months ago";
+"dates.today" = "Today";
+
+"chat-info.pinned-messages.title" = "Pinned Messages";
+"chat-info.pinned-messages.empty-title" = "No pinned messages";
+"chat-info.pinned-messages.empty-desc" = "Long-press an important message and choose Pin to conversation.";
+
+"chat-info.files.title" = "Files";
+"chat-info.files.empty-title" = "No files";
+"chat-info.files.empty-desc" = "Files sent in this chat will appear here.";
+
+"chat-info.media.title" = "Photos & Videos";
+"chat-info.media.empty-title" = "No media";
+"chat-info.media.empty-desc" = "Photos or videos sent in this chat will appear here.";
+
+"chat-info.mute.user" = "Mute User";
+"chat-info.mute.group" = "Mute Group";
+"chat-info.users.loadMore" = "%@ more";
+
+"chat-info.rename.name" = "NAME";
+"chat-info.rename.placeholder" = "Add a group name";
+
+"channel.item.audio" = "Audio";
+"channel.item.photo" = "Photo";
+"channel.item.video" = "Video";
+"channel.item.voice-message" = "Voice Message";
+
+// Custom
+"custom.contact" = "Contact";
+"custom.save" = "Save";
+"custom.input.textarea.placeholder" = "Enter text.";
+"custom.leaveAmigos" = "Leave Amigos";
+"custom.cancel" = "Cancel";
+"custom.iUnderstand" = "I understand";
+"custom.upFor" = "Up for %@";
+"custom.wasUpFor" = "Was up for %@";
+"custom.sendByYou" = "You:";
+"custom.today" = "Today";
+"custom.yesterday" = "Yesterday";
+"custom.becomeSuperAmigo" = "Become Super amigo";
+
+"custom.message.url.confirm.title" = "You are about to leave Amigos and browse to:";
+
+"custom.channelList.empty" = "Chats between you and other amigos are displayed here.";
+"custom.channelList.title" = "Chats";
+
+"custom.messageList.typingIndicator.user" = "Typing...";
+
+"custom.composer.voice.holdAndRelease" = "Hold to record, release to send";
+"custom.composer.voice.slideToCancel" = "Swipe to cancel";
+
+"custom.composer.attachment.super" = "Become a Super amigo to send photos.";
+
+"custom.pinnedMessage.title" = "Pinned message";
+"custom.pinnedMessage.subtitle" = "You can add details here (such as the address) so everyone can easily find it.";
+
+"custom.newMessagesIndicator.title" = "%d new messages";
+
+"custom.safetyCheck.notice.title" = "Is %@ using Amigos as intended?";
+"custom.safetyCheck.review.sheet.title" = "Safety check";
+"custom.safetyCheck.review.sheet.subtitle" = "Indicate what this amigo is doing wrong. If there are too many negative reviews, this amigo will be blocked.";
+"custom.safetyCheck.review.sheet.option.commercial" = "Using it for commercial purposes";
+"custom.safetyCheck.review.sheet.option.dating" = "Using it as a dating app";
+"custom.safetyCheck.review.sheet.option.inappropriateLanguage" = "Inappropriate language";
+"custom.safetyCheck.review.sheet.option.spam" = "Spam";
+"custom.safetyCheck.review.sheet.option.other" = "Other";
+"custom.safetyCheck.info.sheet.title" = "Safety Check";
+"custom.safetyCheck.info.sheet.receiver.examples.host" = "For hosting activities (together)";
+"custom.safetyCheck.info.sheet.receiver.examples.join" = "For joining people who are up for the same as you";
+"custom.safetyCheck.info.sheet.receiver.examples.other" = "If you use Amigos with other intentions, you will be removed from the platform";
+"custom.safetyCheck.info.sheet.receiver.subtitle" = "Only use Amigos for its intended purpose.";
+"custom.safetyCheck.info.sheet.sender.examples.host" = "For hosting activities (together)";
+"custom.safetyCheck.info.sheet.sender.examples.join" = "For joining people who are up for the same as you";
+"custom.safetyCheck.info.sheet.sender.subtitle" = "Because %@ started this chat, we ask you to review whether %@ is using Amigos for what it's intended for:";
+
+"custom.reactions.tapToRemove" = "Tap to remove";
+
+"custom.channel.emptyState.direct" = "When you start a chat, your messages can be reviewed by the receiver.";
+"custom.channel.emptyState.group" = "There are no messages in this chat yet. Want to break the ice?";
+
+"custom.channel.superNotice" = "Only hosts and Super amigos can start a chat.\nTap here and become Super amigo.";
+
+"custom.channel.action.delete.title" = "Delete chat and activity";
+"custom.channel.action.delete.confirmation-body" = "Are you sure you want to delete the chat and activity?";
+"custom.channel.action.delete.confirmation-confirm" = "Delete";
+
+"custom.channel.action.leave.title" = "Leave chat";
+"custom.channel.action.leave.confirmation-body" = "Are you sure you want to leave the chat?";
+"custom.channel.action.leave.confirmation-confirm" = "Leave";
+
+"custom.channel.action.archive.title" = "Delete chat";
+"custom.channel.action.archive.confirmation-body" = "Are you sure you want to delete the chat?";
+"custom.channel.action.archive.confirmation-confirm" = "Delete";
+
+"custom.channel.action.mute.title" = "Turn off notifications";
+"custom.channel.action.unmute.title" = "Turn on notifications";
+
+"custom.channel.action.profile.title" = "View profile";
+"custom.channel.action.invite.title" = "Invite";
+"custom.channel.action.activity.title" = "View activity";
+"custom.channel.action.inviteAmigos.title" = "Invite friends";
+"custom.channel.action.manageParticipants.title" = "Manage participants";
+
+"custom.chatTrialNotice.dialog.title" = "Start chats for free for %d days";
+"custom.chatTrialNotice.dialog.body" = "As a local founder you can start chats for free the first %d days. Want to start chats after that as well? Become Super amigo.";
+
+"channel.start.message.with.host" = "Chat with host";

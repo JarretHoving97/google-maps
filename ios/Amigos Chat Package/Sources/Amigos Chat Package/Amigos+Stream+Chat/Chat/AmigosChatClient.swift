@@ -1,0 +1,187 @@
+// swiftlint:disable all
+import Foundation
+import SwiftUI
+import StreamChat
+import StreamChatSwiftUI
+
+
+public class AmigosChatClient: AmigosChatClientProtocol {
+
+    enum AmigosClientError: Swift.Error {
+        case implementationFailed
+        case unauthorized
+    }
+
+    public typealias loginInfo = LoginInfo
+
+    public var config: Config
+
+    public private(set) var chatClient: ChatClient?
+
+    private var streamChat: StreamChat?
+
+    private var currentUserController: CurrentChatUserController?
+
+    public var channelListLoader: ChannelListLoader?
+
+    private let tokenProvider: TokenProvider
+
+    private let pushConfig: ChatPushConfig
+
+    private let userDelegate: CurrentChatUserControllerDelegate
+
+    public var clientConfigured: Bool {
+        ChatControllers.channelListController != nil &&
+        chatClient?.currentUserId != nil
+    }
+
+    public init(
+        config: Config,
+        tokenProvider: TokenProvider,
+        pushConfig: ChatPushConfig,
+        userDelegate: CurrentChatUserControllerDelegate,
+        keychainLoader: KeychainLoader
+    ) {
+        self.config = config
+        self.tokenProvider = tokenProvider
+        self.pushConfig = pushConfig
+        self.userDelegate = userDelegate
+
+        /// initialze client
+        var streamClientConfig = ChatClientConfig(apiKey: APIKey(config.apiKey))
+        streamClientConfig.isLocalStorageEnabled = config.isLocalStorageEnabled
+        streamClientConfig.applicationGroupIdentifier = config.applicationGroupIdentifier
+        streamClientConfig.maxAttachmentCountPerMessage = config.maxAttachmentCountPerMessage
+
+        let chatClient = ChatClient(config: streamClientConfig)
+
+        self.streamChat = StreamChat(
+            chatClient: chatClient,
+            appearance: config.appearence,
+            utils: .amigosUtils
+        )
+
+        self.chatClient = chatClient
+
+        /// set shared controllers
+        CurrentEnvironment.set(
+            apiUrl: URL(string: config.environment.AmigosApiUrl)!,
+            url: (URL(string: config.environment.env)!)
+        )
+        KeychainController.setJwtLoader(keychainLoader)
+        ChatControllers.configureClient(client: chatClient)
+    }
+
+    /// login and start receiving events and loaders
+    public func login(with info: LoginInfo) async throws {
+
+        try await chatClient?.connectUser(
+            userInfo: UserInfo(
+                id: info.id,
+                name: info.name,
+                imageURL: info.imageUrl
+
+            ),
+            tokenProvider: streamTokenProvider()
+        )
+
+
+        guard let user = chatClient?.currentUserId else {
+            throw AmigosClientError.unauthorized
+        }
+
+        guard let chatClient else {
+            throw AmigosClientError.implementationFailed
+        }
+
+        let channelController = chatClient.channelListController(
+            query: .init(
+                filter: .containMembers(userIds: [user])
+            )
+        )
+
+        /// setup user controller
+        let userController = chatClient.currentUserController()
+        chatClient.currentUserController().delegate = userDelegate
+        userController.delegate = userDelegate
+        
+        self.currentUserController = userController
+        self.currentUserController?.synchronize()
+
+        /// setup channels loader
+        channelListLoader = StreamChannelListLoader(chatChannelListcontroller: channelController)
+        channelController.synchronize()
+
+        /// push permissions:
+        try await UNUserNotificationCenter
+            .current()
+            .requestAuthorization(options: [.alert, .sound, .badge])
+
+        await UIApplication.shared.registerForRemoteNotifications()
+
+        /// set global instances for StreamUI
+        UserProvider.shared.set(userId: user)
+    }
+
+    public func logout() async {
+        pushConfig.removeDeviceToken()
+        await chatClient?.logout()
+    }
+
+    public func addDeviceToken(_ token: String) {
+        pushConfig.addDeviceToken(deviceToken: token)
+    }
+
+    private func streamTokenProvider() -> (@escaping (Result<Token, Error>) -> Void) -> Void {
+        return  { [weak self] completion in
+            self?.tokenProvider.loadToken { result in
+                let mappedResult = result.flatMap { localToken in
+                    Result { try localToken.toStreamChatToken() }
+                }
+                completion(mappedResult)
+            }
+        }
+    }
+}
+
+
+public protocol ChatPushConfig {
+    func addDeviceToken(deviceToken: String)
+    func removeDeviceToken()
+}
+
+// MARK: Other modules
+class CustomCommandsConfig: CommandsConfig {
+
+    public let mentionsSymbol: String = "@"
+
+    public let instantCommandsSymbol: String = "/"
+
+    public func makeCommandsHandler(
+        with channelController: ChatChannelController
+    ) -> CommandsHandler {
+        let mentionsCommand = MentionsCommandHandler(
+            channelController: channelController,
+            commandSymbol: mentionsSymbol,
+            mentionAllAppUsers: false
+        )
+
+        return CommandsHandler(commands: [mentionsCommand])
+    }
+}
+
+let customMessageListConfig = MessageListConfig(
+    typingIndicatorPlacement: .navigationBar,
+    messageDisplayOptions: MessageDisplayOptions(
+        showAvatars: false,
+        showAvatarsInGroups: true,
+        minimumSwipeGestureDistance: 40,
+        reactionsPlacement: .bottom
+
+    ),
+    messagePaddings: MessagePaddings(horizontal: 12),
+    dateIndicatorPlacement: .messageList,
+    uniqueReactionsEnabled: true,
+    markdownSupportEnabled: false
+)
+

@@ -33,6 +33,7 @@ final class NotificationHandler: NSObject, UNUserNotificationCenterDelegate {
         switch action {
         // open stream chat
         case let .streamChat(chatInfo):
+
             ExtendedStreamPlugin.shared.openChannel(info: chatInfo)
         }
 
