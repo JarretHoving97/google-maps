@@ -39,6 +39,8 @@ PODS:
     - Capacitor
   - CapacitorSplashScreen (5.0.6):
     - Capacitor
+  - CapacitorStatusBar (5.0.8):
+    - Capacitor
   - FBAEMKit (15.0.0):
     - FBSDKCoreKit_Basics (= 15.0.0)
   - FBSDKCoreKit (15.0.0):
@@ -175,6 +177,7 @@ DEPENDENCIES:
   - CapacitorSecureStoragePlugin (from `../../node_modules/capacitor-secure-storage-plugin`)
   - "CapacitorShare (from `../../node_modules/@capacitor/share`)"
   - "CapacitorSplashScreen (from `../../node_modules/@capacitor/splash-screen`)"
+  - "CapacitorStatusBar (from `../../node_modules/@capacitor/status-bar`)"
   - FBSDKCoreKit (~> 15.0.0)
   - FBSDKLoginKit (~> 15.0.0)
   - FirebaseAnalytics
@@ -246,6 +249,8 @@ EXTERNAL SOURCES:
     :path: "../../node_modules/@capacitor/share"
   CapacitorSplashScreen:
     :path: "../../node_modules/@capacitor/splash-screen"
+  CapacitorStatusBar:
+    :path: "../../node_modules/@capacitor/status-bar"
   TafelnlRevenuecatPurchasesCapacitor:
     :path: "../../node_modules/@tafelnl/revenuecat-purchases-capacitor"
 
@@ -269,6 +274,7 @@ SPEC CHECKSUMS:
   CapacitorSecureStoragePlugin: e91d7df060f2495a1acff9583641a6953e3aacba
   CapacitorShare: cd41743331cb71d217c029de54b681cbd91e0fcc
   CapacitorSplashScreen: 5fa2ab5e46cf5cc530cf16a51c80c7a986579ccd
+  CapacitorStatusBar: 51af549cfcf35aac3ab072b062967ae5971ee485
   FBAEMKit: d8312d8451ead46282adc7f3565ffc4965e3a4a7
   FBSDKCoreKit: 81879058dd06208c0820fc713d054ca54903e8ba
   FBSDKCoreKit_Basics: eebc9bb69a0e5d133b92dca53a20716227faa454
@@ -293,6 +299,6 @@ SPEC CHECKSUMS:
   SwiftKeychainWrapper: 807ba1d63c33a7d0613288512399cd1eda1e470c
   TafelnlRevenuecatPurchasesCapacitor: 4137567381d51ccde03faef6cdec10a3adbeb3bf
 
-PODFILE CHECKSUM: 64609521f75d10d2be0578433261b4066533a47d
+PODFILE CHECKSUM: e8bedf502c5a4e2c64a739c520fdd79bec423200
 
 COCOAPODS: 1.16.2
