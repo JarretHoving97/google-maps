@@ -167,7 +167,7 @@ public class ChatViewControllerComposer {
     }
 
     @objc private static func customBackAction() {
-        RouteController.headerDissmissButtonAction?(.dismiss)
+        RouteController.headerDismissButtonAction?(.dismiss)
     }
 }
 
