@@ -13,6 +13,7 @@
 
 /* Begin PBXFileReference section */
 		313C492D2D2C2DF400A265C9 /* Amigos Chat.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Amigos Chat.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		315347C62D3FB2B500BF77D3 /* AmigosChat.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = AmigosChat.xctestplan; sourceTree = "<group>"; };
 		316D7DF12D300B8300D85E8B /* Amigos Chat Package */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = "Amigos Chat Package"; path = "../Amigos Chat Package"; sourceTree = SOURCE_ROOT; };
 		31FB07AF2D300C74002B49E2 /* Amigos_ChatApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Amigos_ChatApp.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -32,6 +33,7 @@
 		313C49242D2C2DF400A265C9 = {
 			isa = PBXGroup;
 			children = (
+				315347C62D3FB2B500BF77D3 /* AmigosChat.xctestplan */,
 				316D7DF12D300B8300D85E8B /* Amigos Chat Package */,
 				31D9DE9B2D2D123200F5E156 /* Frameworks */,
 				313C492E2D2C2DF400A265C9 /* Products */,
@@ -85,7 +87,7 @@
 			isa = PBXProject;
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
-				LastSwiftUpdateCheck = 1610;
+				LastSwiftUpdateCheck = 1620;
 				LastUpgradeCheck = 1620;
 				TargetAttributes = {
 					313C492C2D2C2DF400A265C9 = {
@@ -307,7 +309,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 15.6;
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
 				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
-				MACOSX_DEPLOYMENT_TARGET = 15.1;
+				MACOSX_DEPLOYMENT_TARGET = 12.4;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.amigos.chat;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -350,7 +352,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 15.6;
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
 				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
-				MACOSX_DEPLOYMENT_TARGET = 15.1;
+				MACOSX_DEPLOYMENT_TARGET = 12.4;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.amigos.chat;
 				PRODUCT_NAME = "$(TARGET_NAME)";

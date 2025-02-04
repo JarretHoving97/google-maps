@@ -32,7 +32,7 @@ class AppDelegate: NSObject, UIApplicationDelegate {
 
         // Listener for Branch Deep Link data
         Branch.getInstance().initSession(launchOptions: launchOptions)
-        
+
         // Add SVG coder for `SDWebImageSwiftUI` pod
         SDImageCodersManager.shared.addCoder(SDImageSVGCoder.shared)
 

@@ -66,7 +66,7 @@ public class StreamChatClient: AmigosChatClientProtocol {
         let guest =  UserCredentials(
             id: "luke_skywalker",
             name: "Luke Skywalker",
-            avatarURL: URL(string: "https://vignette.wikia.nocookie.net/starwars/images/2/20/LukeTLJ.jpg"),
+            avatarURL: URL(string: "https://profilepictures-dev.amigosapp.nl/public/01aeaaaa-3cc1-4834-82d0-8ae142807ddd.jpg"),
             token: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoibHVrZV9za3l3YWxrZXIifQ.b6EiC8dq2AHk0JPfI-6PN-AM9TVzt8JV-qB1N9kchlI",
             birthLand: "Tatooine"
         )

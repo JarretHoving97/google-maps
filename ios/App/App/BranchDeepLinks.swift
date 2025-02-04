@@ -42,6 +42,7 @@ public class BranchDeepLinks: CAPPlugin {
         }
     }
 
+    // swiftlint:disable cyclomatic_complexity
     @objc func sendBranchEvent(_ call: CAPPluginCall) {
         guard let eventName = call.options["eventName"] as? String else {
           call.reject("Must provide an event name")
@@ -82,3 +83,5 @@ public class BranchDeepLinks: CAPPlugin {
         call.resolve()
     }
 }
+
+// swiftlint:enable cyclomatic_complexity

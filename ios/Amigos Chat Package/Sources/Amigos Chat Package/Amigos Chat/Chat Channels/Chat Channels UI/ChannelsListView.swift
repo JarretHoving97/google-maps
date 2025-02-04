@@ -58,14 +58,14 @@ public struct ChannelsListView: View {
             name: "Luke Skywalker",
             imageURL: nil,
             unreadCount: 4,
-            lastMessage: Message(id: UUID(), text: "What's up dog?")
+            lastMessage: DisplayMessage(id: UUID(), text: "What's up dog?")
         ),
         Channel(
             id: UUID(),
             name: "Han Solo",
             imageURL: nil,
             unreadCount: 4,
-            lastMessage: Message(id: UUID(), text: "I need you now, can you meet me at the bridge?")
+            lastMessage: DisplayMessage(id: UUID(), text: "I need you now, can you meet me at the bridge?")
         )
     ]
 

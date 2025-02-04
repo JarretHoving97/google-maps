@@ -12,10 +12,15 @@ public struct Channel: Hashable, Equatable {
     public let name: String
     public let imageURL: URL?
     public let unreadCount: Int
-    public let lastMessage: Message?
+    public let lastMessage: DisplayMessage?
 }
 
-public struct Message: Hashable, Equatable {
-    public let id: UUID
-    public let text: String
+public struct DisplayMessage: Hashable, Equatable {
+    let id: UUID
+    let text: String
+
+    public init(id: UUID = UUID(), text: String) {
+        self.id = id
+        self.text = text
+    }
 }

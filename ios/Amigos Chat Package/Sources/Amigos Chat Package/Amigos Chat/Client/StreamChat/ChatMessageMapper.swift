@@ -9,7 +9,7 @@ import Foundation
 import StreamChat
 
 enum ChatMessageMapper {
-    static func map(messages: [ChatMessage]) -> [Message] {
+    static func map(messages: [ChatMessage]) -> [DisplayMessage] {
         messages.map { $0.toLocal() }
     }
 }

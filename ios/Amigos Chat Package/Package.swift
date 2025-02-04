@@ -33,5 +33,10 @@ let package = Package(
             ],
             plugins: [.plugin(name: "SwiftLintBuildToolPlugin", package: "SwiftLintPlugins")]
         ),
+        .testTarget(
+            name: "AmigosChatUnitTests",
+            dependencies: ["Amigos Chat Package"],
+            plugins: [.plugin(name: "SwiftLintBuildToolPlugin", package: "SwiftLintPlugins")]
+        )
     ]
 )

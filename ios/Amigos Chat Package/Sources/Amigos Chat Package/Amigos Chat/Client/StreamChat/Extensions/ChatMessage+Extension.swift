@@ -9,7 +9,17 @@ import Foundation
 import StreamChat
 
 extension ChatMessage {
-    func toLocal() -> Message {
-        Message(id: UUID(uuidString: id) ?? UUID(), text: text)
+    func toLocal() -> DisplayMessage {
+        DisplayMessage(
+            id: UUID(uuidString: id) ?? UUID(),
+            text: text
+        )
+    }
+}
+
+extension ChatUser: Author {
+
+    public var userId: UUID {
+        return UUID(uuidString: id) ?? UUID()
     }
 }

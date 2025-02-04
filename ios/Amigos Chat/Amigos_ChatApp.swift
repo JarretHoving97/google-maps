@@ -27,7 +27,8 @@ struct Amigos_ChatApp: App {
             //                    )
             //                )
             //            )
-            ChatChannelsViewControllerComposer.composeWith(routeAction: nil, onBackButtonTapped: nil).rootView
+            //            ChatChannelsViewControllerComposer.composeWith(routeAction: nil, onBackButtonTapped: nil).rootView
+            //        }
         }
     }
 }

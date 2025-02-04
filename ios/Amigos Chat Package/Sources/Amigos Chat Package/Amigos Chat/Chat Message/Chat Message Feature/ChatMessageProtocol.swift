@@ -1,0 +1,34 @@
+//
+//  ChatMessageProtocol.swift
+//  Amigos Chat Package
+//
+//  Created by Jarret on 22/01/2025.
+//
+
+import Foundation
+
+public protocol ChatMessageProtocol {
+    var id: String { get }
+    var user: Author { get }
+    var isSentByCurrentUser: Bool { get }
+    var text: String { get }
+    var localQuotedMessage: ChatMessageProtocol? { get }
+    var isDeleted: Bool { get }
+    var attachments: [ChatMessageAttachmentProtocol] { get }
+}
+
+public protocol ChatMessageAttachmentProtocol {
+    var localType: LocalChatMessageAttachment { get }
+    var payload: Data { get }
+}
+
+public protocol Author {
+    var userId: UUID { get }
+    var name: String? { get }
+}
+
+extension Author {
+    func toLocal() -> LocalUser {
+        LocalUser(id: userId, name: name ?? "")
+    }
+}

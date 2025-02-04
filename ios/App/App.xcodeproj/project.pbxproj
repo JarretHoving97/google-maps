@@ -93,7 +93,6 @@
 		ABE0716230DB7D590E949544 /* CurrentUserDelegate+StreamUserDelegate+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CurrentUserDelegate+StreamUserDelegate+Extension.swift"; sourceTree = "<group>"; };
 		B62611874C1DB9F73AC618CE /* Pods_App.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_App.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D70765C1FC7C2F834D68B5F2 /* Pods-App.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-App.release.xcconfig"; path = "Target Support Files/Pods-App/Pods-App.release.xcconfig"; sourceTree = "<group>"; };
-		D793A0B62D4787FF008AAD5A /* Amigos Chat Package */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = "Amigos Chat Package"; path = "../Amigos Chat Package"; sourceTree = SOURCE_ROOT; };
 		FE8E1DA3261F364A00AB9CB7 /* AppRelease.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = AppRelease.entitlements; sourceTree = "<group>"; };
 		FE9E807227A2A43C00360DFF /* public */ = {isa = PBXFileReference; lastKnownFileType = folder; path = public; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -150,7 +149,6 @@
 		504EC2FB1FED79650016851F = {
 			isa = PBXGroup;
 			children = (
-				D793A0B62D4787FF008AAD5A /* Amigos Chat Package */,
 				504EC3061FED79650016851F /* App */,
 				504EC3051FED79650016851F /* Products */,
 				2202CC72E50A5C7B7789ED71 /* Pods */,

@@ -86,7 +86,7 @@ public class ChatViewControllerComposer {
 
         let viewController = CustomHostingController(rootView: channelView)
         viewController.onWillMoveToParent = onWillMoveToParent
-
+        
         if loadChannel {
             viewController.rootView.onDidLoadChannel = adaptChannelToHeaderHandler(
                 viewFactory: viewFactory,

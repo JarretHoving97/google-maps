@@ -1,0 +1,232 @@
+//
+//  MultiMediaView.swift
+//  Amigos Chat Package
+//
+//  Created by Jarret on 23/01/2025.
+//
+
+import SwiftUI
+
+public struct MultiMediaView: View {
+
+    var sources: [MediaAttachment]
+    let isSentByCurrentUser: Bool
+    let width: CGFloat
+
+    init(sources: [MediaAttachment], isSentByCurrentUser: Bool = false, width: CGFloat = .messageWidth) {
+        self.sources = sources
+        self.isSentByCurrentUser = isSentByCurrentUser
+        self.width = width
+    }
+
+    public var body: some View {
+        let spacing: CGFloat = 2
+
+        Group {
+            if sources.count == 1 {
+                imageView(
+                    with: sources[0],
+                    width: width,
+                    height: height(width: width)
+                )
+            } else if sources.count == 2 {
+                HStack(spacing: spacing) {
+                    imageView(
+                        with: sources[0],
+                        width: width / 2,
+                        height: height(width: width)
+                    )
+                    imageView(
+                        with: sources[1],
+                        width: width / 2,
+                        height: height(width: width)
+                    )
+                }
+            } else if sources.count == 3 {
+
+                HStack(spacing: spacing) {
+                    imageView(
+                        with: sources[0],
+                        width: width / 2,
+                        height: height(width: width)
+                    )
+                    VStack(spacing: spacing) {
+                        imageView(
+                            with: sources[1],
+                            width: width / 2,
+                            height: height(width: width / 2)
+                        )
+                        imageView(
+                            with: sources[2],
+                            width: width / 2,
+                            height: height(width: width / 2)
+                        )
+                    }
+                    .frame(height: height(width: width))
+                }
+
+            } else if sources.count >= 4 {
+
+                VStack(spacing: spacing) {
+                    HStack(spacing: spacing) {
+                        imageView(
+                            with: sources[0],
+                            width: width / 2,
+                            height: height(width: width / 2)
+                        )
+                        imageView(
+                            with: sources[1],
+                            width: width / 2,
+                            height: height(width: width / 2)
+                        )
+                    }
+
+                    HStack(spacing: spacing) {
+                        imageView(
+                            with: sources[2],
+                            width: width / 2,
+                            height: height(width: width / 2)
+                        )
+
+                        imageView(
+                            with: sources[3],
+                            width: width / 2,
+                            height: height(width: width / 2)
+                        )
+                        .overlay {
+                            if sources.count > 4 {
+                                ZStack {
+                                    Color.black
+                                        .opacity(0.3)
+                                    Text("+\(sources.count - 4)")
+                                        .font(.system(size: 32, weight: .bold))
+                                        .foregroundColor(.white)
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        .background(isSentByCurrentUser ? Color(.purple) : Color.white)
+    }
+
+    ///  The computed height as 3/4 of the width.
+    private func height(width: CGFloat) -> CGFloat {
+        3 * width / 4
+    }
+
+    @ViewBuilder func imageView(with source: MediaAttachment, width: CGFloat, height: CGFloat) -> some View {
+
+        Group {
+            switch source.type {
+            case .image:
+                LazyLoadImage(
+                    source: source,
+                    width: width,
+                    height: height
+                )
+
+            case .video:
+                ZStack {
+                    LazyLoadImage(
+                        source: source,
+                        width: width,
+                        height: height
+                    )
+                    VStack {
+                        VideoPlayIcon()
+                    }
+                }
+            }
+        }
+        .withUploadingStateIndicator(
+            for: source.uploadingState,
+            url: source.url
+        )
+    }
+}
+
+#Preview {
+    VStack {
+        MultiMediaView(
+            sources: [
+                MediaAttachment(
+                    imageLoader: DefaultImageLoader(),
+                    imageCDN: MockImageCDN(),
+                    videoPreviewLoader: DefaultPreviewVideoLoader(),
+                    url: ImageURLExamples.portraitImageUrl,
+                    type: .image, uploadingState: .init(localFileURL: ImageURLExamples.portraitImageUrl, state: .uploading(progress: 0.2)))
+            ], isSentByCurrentUser: true
+        )
+        MultiMediaView(
+            sources: [
+                MediaAttachment(
+                    imageLoader: DefaultImageLoader(),
+                    imageCDN: MockImageCDN(),
+                    videoPreviewLoader: DefaultPreviewVideoLoader(),
+                    url: ImageURLExamples.portraitImageUrl,
+                    type: .image,
+                    uploadingState: .some(
+                        UploadingState(localFileURL: ImageURLExamples.portraitImageUrl, state: .uploading(progress: 0.88))
+                    )
+                ),
+                MediaAttachment(
+                    imageLoader: DefaultImageLoader(),
+                    imageCDN: MockImageCDN(),
+                    videoPreviewLoader: DefaultPreviewVideoLoader(),
+                    url: ImageURLExamples.portraitImageUrl,
+                    type: .image,
+                    uploadingState: nil),
+                MediaAttachment(
+                    imageLoader: DefaultImageLoader(),
+                    imageCDN: MockImageCDN(),
+                    videoPreviewLoader: DefaultPreviewVideoLoader(),
+                    url: ImageURLExamples.portraitImageUrl,
+                    type: .image,
+                    uploadingState: nil)
+            ],
+            isSentByCurrentUser: true
+        )
+        MultiMediaView(
+            sources: [
+                MediaAttachment(
+                    imageLoader: DefaultImageLoader(),
+                    imageCDN: MockImageCDN(),
+                    videoPreviewLoader: DefaultPreviewVideoLoader(),
+                    url: VideoURLExamples.example1,
+                    type: .video,
+                    uploadingState: .some(
+                        UploadingState(
+                            localFileURL: VideoURLExamples.example1,
+                            state: .uploadingFailed
+                        )
+                    )
+                ),
+
+                MediaAttachment(
+                    imageLoader: DefaultImageLoader(),
+                    imageCDN: MockImageCDN(),
+                    videoPreviewLoader: DefaultPreviewVideoLoader(),
+                    url: ImageURLExamples.portraitImageUrl,
+                    type: .image,
+                    uploadingState: nil),
+                MediaAttachment(
+                    imageLoader: DefaultImageLoader(),
+                    imageCDN: MockImageCDN(),
+                    videoPreviewLoader: DefaultPreviewVideoLoader(),
+                    url: ImageURLExamples.portraitImageUrl,
+                    type: .image,
+                    uploadingState: nil),
+                MediaAttachment(
+                    imageLoader: DefaultImageLoader(),
+                    imageCDN: MockImageCDN(),
+                    videoPreviewLoader: DefaultPreviewVideoLoader(),
+                    url: VideoURLExamples.example1,
+                    type: .video,
+                    uploadingState: nil)
+
+            ]
+        )
+    }
+}

@@ -1,0 +1,24 @@
+{
+  "configurations" : [
+    {
+      "id" : "4BF2D54E-3370-49C9-84FB-7735560C91B0",
+      "name" : "Configuration 1",
+      "options" : {
+
+      }
+    }
+  ],
+  "defaultOptions" : {
+
+  },
+  "testTargets" : [
+    {
+      "target" : {
+        "containerPath" : "container:..\/Amigos Chat Package",
+        "identifier" : "AmigosChatUnitTests",
+        "name" : "AmigosChatUnitTests"
+      }
+    }
+  ],
+  "version" : 1
+}
