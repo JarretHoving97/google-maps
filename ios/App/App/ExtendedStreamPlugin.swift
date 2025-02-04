@@ -249,6 +249,11 @@ extension ExtendedStreamPlugin {
             )
         }
 
+        /// Set back button action for when we need only the chat to appear
+        RouteController.setHeaderBackButton { [weak self] routeInfo in
+            self?.notifyNavigateBackToListeners(dismiss: routeInfo.dismiss)
+        }
+
         /// create client
         ExtendedStreamPlugin.chatClient = AmigosChatClient(
             config: .init(

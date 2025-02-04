@@ -26,7 +26,6 @@ public class ChatViewControllerComposer {
         channelCreationService: ChannelCreationService = RemoteFindOrCreateChannelService(),
         in navigationController: UINavigationController,
         loadChannel: Bool,
-        showBackButtonInHeader: Bool = false,
         onWillMoveToParent: ((UIViewController?) -> Void)? = nil
     ) -> UIHostingController<ChatChannelScreen>? {
 
@@ -40,7 +39,6 @@ public class ChatViewControllerComposer {
                 messageId: messageId,
                 navigation: navigationController,
                 loadChannel: loadChannel,
-                showBackButtonInHeader: showBackButtonInHeader,
                 onWillMoveToParent: onWillMoveToParent
             )
 
@@ -68,7 +66,6 @@ public class ChatViewControllerComposer {
         channelCreationService: ChannelCreationService = RemoteFindOrCreateChannelService(),
         navigation: UINavigationController,
         loadChannel: Bool = true,
-        showBackButtonInHeader: Bool = false,
         onWillMoveToParent: ((UIViewController?) -> Void)? = nil
     ) -> UIHostingController<ChatChannelScreen> {
 
@@ -86,14 +83,13 @@ public class ChatViewControllerComposer {
 
         let viewController = CustomHostingController(rootView: channelView)
         viewController.onWillMoveToParent = onWillMoveToParent
-        
+
         if loadChannel {
             viewController.rootView.onDidLoadChannel = adaptChannelToHeaderHandler(
                 viewFactory: viewFactory,
                 for: viewController,
                 channelCreationService: channelCreationService,
-                in: navigation,
-                showBackButtonInHeader: showBackButtonInHeader
+                in: navigation
             )
         }
 
@@ -171,7 +167,7 @@ public class ChatViewControllerComposer {
     }
 
     @objc private static func customBackAction() {
-        RouteController.routeAction?(.dismiss)
+        RouteController.headerDissmissButtonAction?(.dismiss)
     }
 }
 
@@ -239,9 +235,11 @@ extension ChatViewControllerComposer {
     ) -> ((ChatChannel) -> Void) {
         return  { [weak navigation] channel in
             guard let navigation, navigation.navigationItem.titleView == nil else { return }
+            let showBackButtonInHeader = navigation.viewControllers.count == 1
             setChannelHeader(
                 with: viewFactory,
                 channel: channel,
+                showBackButtonInHeader: showBackButtonInHeader,
                 for: detailViewController,
                 in: navigation
             )

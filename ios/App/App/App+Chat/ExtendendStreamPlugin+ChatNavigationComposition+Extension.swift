@@ -40,13 +40,13 @@ extension ExtendedStreamPlugin {
     }
 
     /// initialize chat if no instance can be found.
-    func openChannel(info: ChannelInfo) {
+    func openChannel(info: ChannelInfo, presentInStack: Bool = false) {
         if ExtendedStreamPlugin.shared.chatNavigationController != nil {
             routeToChannel(with: info)
         } else {
             let model = ChatPresentationModel(
                 channel: ChannelInfo(channelId: info.channelId),
-                presentInStack: true
+                presentInStack: presentInStack
             )
             initializeViewController(model: model)
         }
@@ -182,7 +182,6 @@ extension ExtendedStreamPlugin {
             messageId: channel.messageId,
             in: navigationController,
             loadChannel: true,
-            showBackButtonInHeader: !inStack,
             onWillMoveToParent: adaptOnWillMoveToParent()
         )
         let stack = !inStack ? [chatViewController].compactMap {$0} : [channelViewController, chatViewController].compactMap {$0}
