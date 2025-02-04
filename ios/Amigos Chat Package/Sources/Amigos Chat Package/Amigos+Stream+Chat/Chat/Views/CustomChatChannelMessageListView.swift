@@ -21,9 +21,12 @@ struct CustomChatChannelMessageListView<Factory: ViewFactory>: View {
 
     private let messageId: String?
 
+    private var onReloadChannelHeader: ((ChatChannel) -> Void)?
+
     public init(
         viewFactory: Factory = DefaultViewFactory.shared,
         channel: ChatChannel,
+        onReloadChannelHeader: ((ChatChannel) -> Void)?,
         viewModel: ChatChannelViewModel? = nil,
         channelController: ChatChannelController,
         messageController: ChatMessageController? = nil,
@@ -39,6 +42,7 @@ struct CustomChatChannelMessageListView<Factory: ViewFactory>: View {
         factory = viewFactory
         self.channel = channel
         self.messageId = messageId
+        self.onReloadChannelHeader = onReloadChannelHeader
     }
 
     var body: some View {
@@ -103,6 +107,13 @@ struct CustomChatChannelMessageListView<Factory: ViewFactory>: View {
             }
 
             Divider()
+
+                .if(viewModel.channelHeaderType == .regular) { _ in
+                    reloadHeaderEmptyView
+                }
+                .if(viewModel.channelHeaderType == .typingIndicator) { _ in
+                    reloadHeaderEmptyView
+                }
                 .navigationBarBackButtonHidden(viewModel.reactionsShown)
                 .if(viewModel.reactionsShown, transform: { view in
                     view.navigationBarHidden(true)
@@ -110,13 +121,6 @@ struct CustomChatChannelMessageListView<Factory: ViewFactory>: View {
                 .if(!viewModel.reactionsShown, transform: { view in
                     view.navigationBarHidden(false)
                 })
-                .if(viewModel.channelHeaderType == .typingIndicator) { view in
-                    view.modifier(factory.makeChannelHeaderViewModifier(for: channel))
-                }
-                .if(viewModel.channelHeaderType == .messageThread) { view in
-                    view.modifier(factory.makeMessageThreadHeaderViewModifier())
-                }
-                .animation(nil)
 
             if channel.isSupportChatChannel {
                 CustomSupportChatChannelButton()
@@ -166,5 +170,15 @@ struct CustomChatChannelMessageListView<Factory: ViewFactory>: View {
             .edgesIgnoringSafeArea(.all)
             : nil
         )
+    }
+
+
+    var reloadHeaderEmptyView: some View {
+        ZStack {
+            EmptyView()
+        }
+        .onAppear {
+            onReloadChannelHeader?(channel)
+        }
     }
 }

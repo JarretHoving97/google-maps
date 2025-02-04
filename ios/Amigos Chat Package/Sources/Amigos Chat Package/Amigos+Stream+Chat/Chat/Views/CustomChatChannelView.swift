@@ -64,6 +64,7 @@ public struct CustomChatChannelView<Factory: ViewFactory>: View, KeyboardReadabl
                     CustomChatChannelMessageListView(
                         viewFactory: factory,
                         channel: channel,
+                        onReloadChannelHeader: onDidLoadChannel,
                         viewModel: viewModel,
                         channelController: chatClient.channelController(for: channel.cid)
                     )

@@ -112,58 +112,72 @@ public class ChatViewControllerComposer {
         return nil
     }
 
-    public static func setChannelHeader(with viewFactory: CustomUIFactory, channel: ChatChannel, showBackButtonInHeader: Bool = false, for detailViewController: UIHostingController<ChatChannelScreen>, in navigationController: UINavigationController) {
-
-        let channelView = CustomChannelHeaderView(
-            viewFactory: viewFactory,
-            channel: channel
+    public static func setChannelHeader(
+        with viewFactory: CustomUIFactory,
+        channel: ChatChannel,
+        showBackButtonInHeader: Bool = false,
+        for detailViewController: UIHostingController<ChatChannelScreen>,
+        in navigationController: UINavigationController
+    ) {
+        let titleView = createTitleHeaderView(
+            with: viewFactory,
+            channel: channel,
+            viewModel: detailViewController.rootView.viewModel
         )
-        .environmentObject(detailViewController.rootView.viewModel)
+        
+        detailViewController.navigationItem.titleView = titleView
+        detailViewController.navigationItem.titleView?.layoutIfNeeded()
 
-        let navView = UIHostingController(
+        detailViewController.rootView.onDidLoadChannel = { [weak detailViewController] channel in
+            guard let detailViewController else { return }
+            
+            let titleView = createTitleHeaderView(
+                with: viewFactory,
+                channel: channel,
+                viewModel: detailViewController.rootView.viewModel
+            )
+            
+            detailViewController.navigationItem.titleView = titleView
+            detailViewController.navigationItem.titleView?.layoutIfNeeded()
+        }
+    }
+
+    private static func createTitleHeaderView(
+        with viewFactory: CustomUIFactory,
+        channel:  ChatChannel,
+        viewModel: ChatChannelListViewModel,
+        showBackButtonInHeader: Bool = false
+    ) -> UIView {
+        let channelView = CustomChannelHeaderView(
+              viewFactory: CustomUIFactory(),
+              channel: channel
+          )
+        .environmentObject(viewModel)
+
+        let chatTitleView = UIHostingController(
             rootView: channelView
         ).view!
 
-        navView.translatesAutoresizingMaskIntoConstraints = false
+        let width = UIScreen.main.bounds.width
 
-        let container = UIView()
-
-        // create stackview to have multiple views in navigation title view
-        let stackView = UIStackView()
-        stackView.translatesAutoresizingMaskIntoConstraints = false
-        stackView.spacing = 20
-        stackView.distribution = .fillProportionally
-        stackView.axis = .horizontal
+        // title view container
+        let titleView = UIView()
+        titleView.backgroundColor = .white
+        titleView.frame = CGRect(x: 0, y: 0, width: width, height: 50)
 
         // create a backbutton
         let backButton = UIButton()
-        backButton.translatesAutoresizingMaskIntoConstraints = false
         backButton.setImage(UIImage(named: "amiBackButton"), for: .normal)
         backButton.addTarget(self, action: #selector(customBackAction), for: .touchUpInside)
-
-        stackView.addArrangedSubview(backButton)
-        stackView.addArrangedSubview(navView)
-
-        container.addSubview(stackView)
 
         /// show the back button when the current view is the `Root viewcontroller` of the `UINavigationcontroller` and the current view has no back button for it's self.
          /// We show the backbutton in this case when we present the chat as root view. (which has no backbutton by default)
         backButton.isHidden = !showBackButtonInHeader
-        detailViewController.navigationItem.titleView = container
 
-        // auto layout
-        NSLayoutConstraint.activate([
-            backButton.widthAnchor.constraint(equalToConstant: 24),
-            backButton.heightAnchor.constraint(equalToConstant: 24),
+        titleView.hstack(backButton, chatTitleView.withWidth(width))
 
-            container.heightAnchor.constraint(equalToConstant: 44), // default navigation height
-            container.widthAnchor.constraint(equalToConstant: navigationController.navigationBar.frame.width),
+        return titleView
 
-            stackView.topAnchor.constraint(equalTo: container.topAnchor),
-            stackView.leadingAnchor.constraint(equalTo: container.leadingAnchor),
-            stackView.bottomAnchor.constraint(equalTo: container.bottomAnchor),
-            stackView.trailingAnchor.constraint(equalTo: container.trailingAnchor)
-        ])
     }
 
     @objc private static func customBackAction() {
@@ -233,7 +247,7 @@ extension ChatViewControllerComposer {
         in navigation: UINavigationController,
         showBackButtonInHeader: Bool = false
     ) -> ((ChatChannel) -> Void) {
-        return  { [weak navigation] channel in
+        return { [weak navigation] channel in
             guard let navigation, navigation.navigationItem.titleView == nil else { return }
             let showBackButtonInHeader = navigation.viewControllers.count == 1
             setChannelHeader(
