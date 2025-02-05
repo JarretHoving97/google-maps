@@ -2,14 +2,17 @@
 include ':capacitor-android'
 project(':capacitor-android').projectDir = new File('../node_modules/@capacitor/android/capacitor')
 
-include ':byteowls-capacitor-oauth2'
-project(':byteowls-capacitor-oauth2').projectDir = new File('../node_modules/@byteowls/capacitor-oauth2/android')
-
 include ':capacitor-community-contacts'
 project(':capacitor-community-contacts').projectDir = new File('../node_modules/@capacitor-community/contacts/android')
 
+include ':capacitor-community-generic-oauth2'
+project(':capacitor-community-generic-oauth2').projectDir = new File('../node_modules/@capacitor-community/generic-oauth2/android')
+
 include ':capacitor-community-google-maps'
 project(':capacitor-community-google-maps').projectDir = new File('../node_modules/@capacitor-community/google-maps/android')
+
+include ':capacitor-community-in-app-review'
+project(':capacitor-community-in-app-review').projectDir = new File('../node_modules/@capacitor-community/in-app-review/android')
 
 include ':capacitor-community-privacy-screen'
 project(':capacitor-community-privacy-screen').projectDir = new File('../node_modules/@capacitor-community/privacy-screen/android')
@@ -49,9 +52,6 @@ project(':tafelnl-revenuecat-purchases-capacitor').projectDir = new File('../nod
 
 include ':capacitor-native-settings'
 project(':capacitor-native-settings').projectDir = new File('../node_modules/capacitor-native-settings/android')
-
-include ':capacitor-rate-app'
-project(':capacitor-rate-app').projectDir = new File('../node_modules/capacitor-rate-app/android')
 
 include ':capacitor-secure-storage-plugin'
 project(':capacitor-secure-storage-plugin').projectDir = new File('../node_modules/capacitor-secure-storage-plugin/android')

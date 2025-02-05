@@ -71,8 +71,6 @@
 	<string>This is needed to be able to scan barcodes and share pictures.</string>
 	<key>NSContactsUsageDescription</key>
 	<string>This is needed to connect with your friends easily.</string>
-	<key>NSLocationAlwaysUsageDescription</key>
-	<string>This is needed to share your location with friends.</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>This is needed to share your location with friends.</string>
 	<key>NSMicrophoneUsageDescription</key>

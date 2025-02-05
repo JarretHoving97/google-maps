@@ -11,9 +11,10 @@ install! 'cocoapods', :disable_input_output_paths => true
 def capacitor_pods
   pod 'Capacitor', :path => '../../node_modules/@capacitor/ios'
   pod 'CapacitorCordova', :path => '../../node_modules/@capacitor/ios'
-  pod 'ByteowlsCapacitorOauth2', :path => '../../node_modules/@byteowls/capacitor-oauth2'
   pod 'CapacitorCommunityContacts', :path => '../../node_modules/@capacitor-community/contacts'
+  pod 'CapacitorCommunityGenericOauth2', :path => '../../node_modules/@capacitor-community/generic-oauth2'
   pod 'CapacitorCommunityGoogleMaps', :path => '../../node_modules/@capacitor-community/google-maps'
+  pod 'CapacitorCommunityInAppReview', :path => '../../node_modules/@capacitor-community/in-app-review'
   pod 'CapacitorCommunityPrivacyScreen', :path => '../../node_modules/@capacitor-community/privacy-screen'
   pod 'CapacitorApp', :path => '../../node_modules/@capacitor/app'
   pod 'CapacitorCamera', :path => '../../node_modules/@capacitor/camera'
@@ -27,7 +28,6 @@ def capacitor_pods
   pod 'CapacitorStatusBar', :path => '../../node_modules/@capacitor/status-bar'
   pod 'TafelnlRevenuecatPurchasesCapacitor', :path => '../../node_modules/@tafelnl/revenuecat-purchases-capacitor'
   pod 'CapacitorNativeSettings', :path => '../../node_modules/capacitor-native-settings'
-  pod 'CapacitorRateApp', :path => '../../node_modules/capacitor-rate-app'
   pod 'CapacitorSecureStoragePlugin', :path => '../../node_modules/capacitor-secure-storage-plugin'
 end
 

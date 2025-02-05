@@ -18,6 +18,7 @@ const config: CapacitorConfig = {
       'client.qa.app.amigosapp.nl',
       'com.whoisup.app',
     ],
+    androidScheme: 'http'
   },
   plugins: {
     PrivacyScreen: {

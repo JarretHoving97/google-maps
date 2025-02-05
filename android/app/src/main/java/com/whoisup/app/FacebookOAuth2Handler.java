@@ -2,8 +2,8 @@ package com.whoisup.app;
 
 import android.app.Activity;
 
-import com.byteowls.capacitor.oauth2.handler.AccessTokenCallback;
-import com.byteowls.capacitor.oauth2.handler.OAuth2CustomHandler;
+import com.getcapacitor.community.genericoauth2.handler.AccessTokenCallback;
+import com.getcapacitor.community.genericoauth2.handler.OAuth2CustomHandler;
 import com.facebook.AccessToken;
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;

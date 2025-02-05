@@ -4,7 +4,6 @@
 	"bundledWebRuntime": false,
 	"webDir": "www",
 	"server": {
-		"url": "https://app.amigosapp.nl",
 		"allowNavigation": [
 			"*.amigosapp.nl",
 			"app.amigosapp.nl",
@@ -12,7 +11,8 @@
 			"qa.app.amigosapp.nl",
 			"client.qa.app.amigosapp.nl",
 			"com.whoisup.app"
-		]
+		],
+		"androidScheme": "http"
 	},
 	"plugins": {
 		"PrivacyScreen": {
@@ -29,5 +29,25 @@
 	"ios": {
 		"contentInset": "never",
 		"handleApplicationNotifications": false
-	}
+	},
+	"packageClassList": [
+		"ContactsPlugin",
+		"GenericOAuth2Plugin",
+		"CapacitorGoogleMaps",
+		"InAppReviewPlugin",
+		"PrivacyScreenPlugin",
+		"AppPlugin",
+		"CAPCameraPlugin",
+		"DevicePlugin",
+		"GeolocationPlugin",
+		"KeyboardPlugin",
+		"PreferencesPlugin",
+		"PushNotificationsPlugin",
+		"SharePlugin",
+		"SplashScreenPlugin",
+		"StatusBarPlugin",
+		"PurchasesPlugin",
+		"NativeSettingsPlugin",
+		"SecureStoragePlugin"
+	]
 }

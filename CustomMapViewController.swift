@@ -119,6 +119,13 @@ class CustomWKWebView: WKWebView {
 class CustomMapViewController: CAPBridgeViewController, UIScrollViewDelegate, WKNavigationDelegate {
     var customWKWebView: CustomWKWebView? = nil
 
+    override open func capacitorDidLoad() {
+        bridge?.registerPluginInstance(BranchDeepLinks())
+        bridge?.registerPluginInstance(ExtendedBranchPlugin())
+        bridge?.registerPluginInstance(ExtendedFacebookPlugin())
+        bridge?.registerPluginInstance(ExtendedStreamPlugin())
+    }
+
     override func viewDidLoad() {
         webView?.navigationDelegate = self
         super.viewDidLoad()

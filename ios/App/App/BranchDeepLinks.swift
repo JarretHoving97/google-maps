@@ -8,6 +8,14 @@ typealias JSObject = [String: Any]
 
 @objc(BranchDeepLinks)
 public class BranchDeepLinks: CAPPlugin {
+    public let identifier = "BranchDeepLinks"
+
+    public let jsName = "BranchDeepLinks"
+
+    public let pluginMethods: [CAPPluginMethod] = [
+        CAPPluginMethod(name: "sendBranchEvent", returnType: CAPPluginReturnPromise)
+    ]
+
     public override func load() {
         NotificationCenter.default.addObserver(
                 self,

@@ -2,7 +2,7 @@
 
 android {
     namespace "com.whoisup.app"
-    compileSdkVersion rootProject.ext.compileSdkVersion
+    compileSdk rootProject.ext.compileSdkVersion
     buildFeatures {
         compose true
     }

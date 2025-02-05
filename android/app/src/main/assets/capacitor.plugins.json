@@ -1,15 +1,19 @@
 [
 	{
-		"pkg": "@byteowls/capacitor-oauth2",
-		"classpath": "com.byteowls.capacitor.oauth2.OAuth2ClientPlugin"
-	},
-	{
 		"pkg": "@capacitor-community/contacts",
 		"classpath": "getcapacitor.community.contacts.ContactsPlugin"
 	},
 	{
+		"pkg": "@capacitor-community/generic-oauth2",
+		"classpath": "com.getcapacitor.community.genericoauth2.GenericOAuth2Plugin"
+	},
+	{
 		"pkg": "@capacitor-community/google-maps",
 		"classpath": "com.hemangkumar.capacitorgooglemaps.CapacitorGoogleMaps"
+	},
+	{
+		"pkg": "@capacitor-community/in-app-review",
+		"classpath": "com.getcapacitor.community.inappreview.InAppReviewPlugin"
 	},
 	{
 		"pkg": "@capacitor-community/privacy-screen",
@@ -62,10 +66,6 @@
 	{
 		"pkg": "capacitor-native-settings",
 		"classpath": "nl.raphael.settings.NativeSettingsPlugin"
-	},
-	{
-		"pkg": "capacitor-rate-app",
-		"classpath": "com.capacitor.rateApp.CapacitorRateAppPlugin"
 	},
 	{
 		"pkg": "capacitor-secure-storage-plugin",

@@ -2,7 +2,7 @@ import Foundation
 import FBSDKCoreKit
 import FBSDKLoginKit
 import Capacitor
-import ByteowlsCapacitorOauth2
+import CapacitorCommunityGenericOauth2
 
 @objc class FacebookOAuth2Handler: NSObject, OAuth2CustomHandler {
 
