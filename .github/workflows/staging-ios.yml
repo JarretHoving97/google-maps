@@ -33,10 +33,6 @@ jobs:
         run: |
           bundle install
 
-      - name: Copy CustomMapViewController.swift
-        run: |
-          cp ./CustomMapViewController.swift node_modules/@capacitor-community/google-maps/ios/Plugin/CustomMapViewController.swift
-
       - name: Generate random keychain password
         run: |
           echo "KEYCHAIN_PASSWORD=$(openssl rand -base64 20)" >> $GITHUB_ENV

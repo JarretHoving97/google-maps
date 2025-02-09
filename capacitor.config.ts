@@ -9,7 +9,7 @@ const config: CapacitorConfig = {
   bundledWebRuntime: false,
   webDir: 'www',
   server: {
-    url: process.env.APP_FRONTEND_URL,
+    url: process.env.APP_FRONTEND_URL ?? "https://app.amigosapp.nl",
     allowNavigation: [
       '*.amigosapp.nl',
       'app.amigosapp.nl',

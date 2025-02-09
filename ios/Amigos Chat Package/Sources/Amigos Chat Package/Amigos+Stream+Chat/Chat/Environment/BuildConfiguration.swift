@@ -17,7 +17,7 @@ public enum BuildConfiguration {
 
     case production
     case staging
-    case development(hostURL: String)
+    case development(host: String)
 
     public var amigosApiUrl: String {
         switch self {
@@ -28,8 +28,8 @@ public enum BuildConfiguration {
         case .staging:
             return "https://api.qa.app.amigosapp.nl"
 
-        case let .development(hostURL):
-            return "http://\(hostURL):4000"
+        case let .development(host):
+            return "http://\(host):4000"
         }
     }
 
@@ -42,8 +42,8 @@ public enum BuildConfiguration {
         case .staging:
             return "https://qa.app.amigosapp.nl"
 
-        case .development(let hostURL):
-            return hostURL
+        case .development(let host):
+            return "http://\(host):5173"
         }
     }
 
@@ -77,6 +77,10 @@ public extension BuildConfiguration {
             return .production
         }
 
-        return .development(hostURL: urlString)
+        guard let host = url.host else {
+            fatalError("Invalid host from development url.")
+        }
+
+        return .development(host: host)
     }
 }

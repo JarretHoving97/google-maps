@@ -116,17 +116,10 @@ class CustomWKWebView: WKWebView {
     }
 }
 
-class CustomMapViewController: CAPBridgeViewController, UIScrollViewDelegate, WKNavigationDelegate {
+open class CustomMapViewController: CAPBridgeViewController, UIScrollViewDelegate, WKNavigationDelegate {
     var customWKWebView: CustomWKWebView? = nil
 
-    override open func capacitorDidLoad() {
-        bridge?.registerPluginInstance(BranchDeepLinks())
-        bridge?.registerPluginInstance(ExtendedBranchPlugin())
-        bridge?.registerPluginInstance(ExtendedFacebookPlugin())
-        bridge?.registerPluginInstance(ExtendedStreamPlugin())
-    }
-
-    override func viewDidLoad() {
+    open override func viewDidLoad() {
         webView?.navigationDelegate = self
         super.viewDidLoad()
 
@@ -164,12 +157,12 @@ class CustomMapViewController: CAPBridgeViewController, UIScrollViewDelegate, WK
         self.customWKWebView?.customOfflineView?.loadingLabel.isHidden = true
     }
 
-    func webView(_ webView: WKWebView, didFailProvisionalNavigation navigation: WKNavigation!, withError error: Error) {
+    open func webView(_ webView: WKWebView, didFailProvisionalNavigation navigation: WKNavigation!, withError error: Error) {
         self.customWKWebView?.customOfflineView?.isHidden = false
         self.customWKWebView?.customOfflineView?.loadingLabel.isHidden = true
     }
 
-    func webView(_ webView: WKWebView, didFail navigation: WKNavigation!, withError error: Error) {
+    open func webView(_ webView: WKWebView, didFail navigation: WKNavigation!, withError error: Error) {
         self.customWKWebView?.customOfflineView?.isHidden = false
         self.customWKWebView?.customOfflineView?.loadingLabel.isHidden = true
     }

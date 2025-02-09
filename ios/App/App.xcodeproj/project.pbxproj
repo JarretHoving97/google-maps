@@ -40,6 +40,7 @@
 		507AA1A4E46266322DBCCD73 /* CurrentUserDelegate+StreamUserDelegate+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABE0716230DB7D590E949544 /* CurrentUserDelegate+StreamUserDelegate+Extension.swift */; };
 		8241647BA9E39D96D0026458 /* CAPKeychainLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1374B7E8AE3D71FB4C1EE1EA /* CAPKeychainLoader.swift */; };
 		D45CBB5DEB4C700F8777A7A9 /* Pods_App.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B62611874C1DB9F73AC618CE /* Pods_App.framework */; };
+		D740490D2D56323B00AAB2C1 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D740490C2D56322F00AAB2C1 /* MainViewController.swift */; };
 		D793A0B82D478809008AAD5A /* AmigosChat in Frameworks */ = {isa = PBXBuildFile; productRef = D793A0B72D478809008AAD5A /* AmigosChat */; };
 		DF04072BB2FB3498AEE664F7 /* CurrentUserModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E58E14D133ABA03CF36A375 /* CurrentUserModel.swift */; };
 		EFCFF896C3A60B275773EBD5 /* ChatPushConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 987AB422F4757C09B4931227 /* ChatPushConfig.swift */; };
@@ -93,6 +94,7 @@
 		ABE0716230DB7D590E949544 /* CurrentUserDelegate+StreamUserDelegate+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CurrentUserDelegate+StreamUserDelegate+Extension.swift"; sourceTree = "<group>"; };
 		B62611874C1DB9F73AC618CE /* Pods_App.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_App.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D70765C1FC7C2F834D68B5F2 /* Pods-App.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-App.release.xcconfig"; path = "Target Support Files/Pods-App/Pods-App.release.xcconfig"; sourceTree = "<group>"; };
+		D740490C2D56322F00AAB2C1 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		FE8E1DA3261F364A00AB9CB7 /* AppRelease.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = AppRelease.entitlements; sourceTree = "<group>"; };
 		FE9E807227A2A43C00360DFF /* public */ = {isa = PBXFileReference; lastKnownFileType = folder; path = public; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -180,6 +182,7 @@
 				50379B222058CBB4000EE86E /* capacitor.config.json */,
 				504EC3131FED79650016851F /* Info.plist */,
 				2FAD9762203C412B000D30F8 /* config.xml */,
+				D740490C2D56322F00AAB2C1 /* MainViewController.swift */,
 				45A8C3202BFE2DF1008AC7B8 /* ExtendedStreamPlugin.swift */,
 				4511D14328CB7D99001961E4 /* ExtendedBranchPlugin.swift */,
 				4511D14628CB7F9C001961E4 /* ExtendedBranchPlugin.m */,
@@ -407,6 +410,7 @@
 				EFCFF896C3A60B275773EBD5 /* ChatPushConfig.swift in Sources */,
 				DF04072BB2FB3498AEE664F7 /* CurrentUserModel.swift in Sources */,
 				8241647BA9E39D96D0026458 /* CAPKeychainLoader.swift in Sources */,
+				D740490D2D56323B00AAB2C1 /* MainViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

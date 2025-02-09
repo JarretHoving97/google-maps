@@ -9,7 +9,8 @@
     "build-android": "npx cap sync android",
     "build-all": "npx cap sync",
     "open-ios": "npx cap sync ios && npx cap open ios",
-    "open-android": "npx cap sync android && npx cap open android"
+    "open-android": "npx cap sync android && npx cap open android",
+    "postinstall": "cp ./CustomMapViewController.swift node_modules/@capacitor-community/google-maps/ios/Plugin/CustomMapViewController.swift"
   },
   "keywords": [
     "capacitor",
