@@ -229,3 +229,5 @@
 "custom.message.url.confirm.title" = "Amigos를 떠나 다음 사이트로 이동하려고 합니다:";
 
 "channel.start.message.with.host" = "호스트와 채팅";
+
+"mediapicker.media.used.for.stories.consent.message" = "그룹 채팅의 미디어는 Amigos 앱의 스토리를 통해 공유할 수 있습니다.";

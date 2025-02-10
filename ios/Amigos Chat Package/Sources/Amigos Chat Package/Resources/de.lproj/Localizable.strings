@@ -229,3 +229,5 @@
 "custom.chatTrialNotice.dialog.body" = "Als Local Founder kannst du in den ersten %d Tagen kostenlos Chats beginnen. Danach auch Chats starten? Werde Super Amigo.";
 
 "channel.start.message.with.host" = "Chat mit Host";
+
+"mediapicker.media.used.for.stories.consent.message" = "Medien in einem Gruppenchat können über Stories in der Amigos-App geteilt werden.";

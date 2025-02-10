@@ -273,3 +273,5 @@
 "custom.chatTrialNotice.dialog.body" = "Als local founder kan jij de eerste %d dagen gratis chats starten. Hierna ook chats starten? Word Super amigo.";
 
 "channel.start.message.with.host" = "Chat met host";
+
+"mediapicker.media.used.for.stories.consent.message" = "De media in een groepschat kan mogelijk in de Amigos app via stories gedeeld worden.";

@@ -229,3 +229,5 @@
 "custom.message.url.confirm.title" = "Zamierzasz opuścić Amigos i przejść do:";
 
 "channel.start.message.with.host" = "Czat z organizatorem";
+
+"mediapicker.media.used.for.stories.consent.message" = "Media w czacie grupowym mogą być udostępniane w aplikacji Amigos za pomocą relacji.";

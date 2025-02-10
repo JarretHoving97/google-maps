@@ -2,8 +2,24 @@ import SwiftUI
 import StreamChat
 import StreamChatSwiftUI
 
+/// Injecting through `@EnvironmentObject` to get `isDirectMessageChannel` state
+class CurrentChannelInfo: ObservableObject {
+
+    @Published private var channel: ChatChannel?
+
+    init(channel: ChatChannel?) {
+        self.channel = channel
+    }
+
+    var isDirectMessageChannel: Bool {
+        channel?.isDirectMessageChannel ?? false
+    }
+}
+
 /// Screen component for the chat channel view.
 public struct ChatChannelScreen: View {
+
+    @StateObject var currentChannelInfo: CurrentChannelInfo
 
     public var chatChannelController: ChatChannelController
     @ObservedObject var viewModel: ChatChannelListViewModel
@@ -20,6 +36,7 @@ public struct ChatChannelScreen: View {
         self.viewModel = viewModel
         self.messageId = messageId
         self.viewFactory = viewFactory
+        _currentChannelInfo = StateObject(wrappedValue: CurrentChannelInfo(channel: chatChannelController.channel))
     }
 
     @ViewBuilder
@@ -51,6 +68,7 @@ public struct ChatChannelScreen: View {
             onDidLoadChannel: onDidLoadChannel,
             onChatWithHostTapped: onChatWithHostTapped
         )
+        .environmentObject(currentChannelInfo)
         .environment(\.attachmentController, AttachmentEnvironmentController())
         .overlay(viewModel.customAlertShown ? customViewOverlay() : nil)
     }
