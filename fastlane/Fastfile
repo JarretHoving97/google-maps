@@ -39,7 +39,7 @@ platform :ios do
       workspace: "ios/App/App.xcworkspace",
       scheme: "App",
       configuration: "Release",
-      xcargs: "-allowProvisioningUpdates",
+      xcargs: "-allowProvisioningUpdates -skipPackagePluginValidation -skipMacroValidation",
       export_method: "app-store", # or "development" or "ad-hoc"
       export_options: {
         provisioningProfiles: {
