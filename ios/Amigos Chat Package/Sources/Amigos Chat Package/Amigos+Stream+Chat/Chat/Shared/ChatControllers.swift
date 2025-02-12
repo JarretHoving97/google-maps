@@ -26,6 +26,7 @@ class ChatControllers {
     @discardableResult
     static func set(query: ChannelListQuery) -> ChatChannelListController {
         self.channelListController = client.channelListController(query: query)
+        self.channelListController?.synchronize()
         return channelListController!
     }
 

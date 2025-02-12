@@ -91,23 +91,17 @@ public class AmigosChatClient: AmigosChatClientProtocol {
             throw AmigosClientError.implementationFailed
         }
 
-        let channelController = chatClient.channelListController(
-            query: .init(
-                filter: .containMembers(userIds: [user])
-            )
-        )
-
         /// setup user controller
         let userController = chatClient.currentUserController()
         chatClient.currentUserController().delegate = userDelegate
+
         userController.delegate = userDelegate
 
         self.currentUserController = userController
         self.currentUserController?.synchronize()
 
         /// setup channels loader
-        channelListLoader = StreamChannelListLoader(chatChannelListcontroller: channelController)
-        channelController.synchronize()
+        ChatControllers.configureClient(client: chatClient)
 
         /// push permissions:
         try await UNUserNotificationCenter
