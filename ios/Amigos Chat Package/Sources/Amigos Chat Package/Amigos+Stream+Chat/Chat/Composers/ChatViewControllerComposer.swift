@@ -119,24 +119,25 @@ public class ChatViewControllerComposer {
         for detailViewController: UIHostingController<ChatChannelScreen>,
         in navigationController: UINavigationController
     ) {
+
         let titleView = createTitleHeaderView(
             with: viewFactory,
             channel: channel,
-            viewModel: detailViewController.rootView.viewModel
+            viewModel: detailViewController.rootView.viewModel,
+            showBackButtonInHeader: showBackButtonInHeader
         )
-        
         detailViewController.navigationItem.titleView = titleView
         detailViewController.navigationItem.titleView?.layoutIfNeeded()
 
         detailViewController.rootView.onDidLoadChannel = { [weak detailViewController] channel in
             guard let detailViewController else { return }
-            
+
             let titleView = createTitleHeaderView(
                 with: viewFactory,
                 channel: channel,
                 viewModel: detailViewController.rootView.viewModel
             )
-            
+
             detailViewController.navigationItem.titleView = titleView
             detailViewController.navigationItem.titleView?.layoutIfNeeded()
         }
@@ -162,6 +163,7 @@ public class ChatViewControllerComposer {
 
         // title view container
         let titleView = UIView()
+
         titleView.backgroundColor = .white
         titleView.frame = CGRect(x: 0, y: 0, width: width, height: 50)
 
@@ -170,11 +172,11 @@ public class ChatViewControllerComposer {
         backButton.setImage(UIImage(named: "amiBackButton"), for: .normal)
         backButton.addTarget(self, action: #selector(customBackAction), for: .touchUpInside)
 
+        titleView.hstack(backButton.withWidth(30), chatTitleView.withWidth(width), spacing: showBackButtonInHeader ? 10 : 0)
+
         /// show the back button when the current view is the `Root viewcontroller` of the `UINavigationcontroller` and the current view has no back button for it's self.
          /// We show the backbutton in this case when we present the chat as root view. (which has no backbutton by default)
         backButton.isHidden = !showBackButtonInHeader
-
-        titleView.hstack(backButton, chatTitleView.withWidth(width))
 
         return titleView
 
