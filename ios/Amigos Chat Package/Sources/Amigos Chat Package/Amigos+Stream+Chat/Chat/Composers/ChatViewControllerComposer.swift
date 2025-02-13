@@ -135,7 +135,8 @@ public class ChatViewControllerComposer {
             let titleView = createTitleHeaderView(
                 with: viewFactory,
                 channel: channel,
-                viewModel: detailViewController.rootView.viewModel
+                viewModel: detailViewController.rootView.viewModel,
+                showBackButtonInHeader: showBackButtonInHeader
             )
 
             detailViewController.navigationItem.titleView = titleView
@@ -246,12 +247,11 @@ extension ChatViewControllerComposer {
         viewFactory: CustomUIFactory,
         for detailViewController: UIHostingController<ChatChannelScreen>,
         channelCreationService: ChannelCreationService,
-        in navigation: UINavigationController,
-        showBackButtonInHeader: Bool = false
+        in navigation: UINavigationController
     ) -> ((ChatChannel) -> Void) {
         return { [weak navigation] channel in
             guard let navigation, navigation.navigationItem.titleView == nil else { return }
-            let showBackButtonInHeader = navigation.viewControllers.count == 1
+            let showBackButtonInHeader = navigation.viewControllers.count <= 1
             setChannelHeader(
                 with: viewFactory,
                 channel: channel,
