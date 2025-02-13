@@ -21,6 +21,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import com.whoisup.app.components.AmiIconButton
 import com.whoisup.app.ui.theme.CustomTheme
+import io.getstream.chat.android.compose.state.messages.attachments.Images
 import io.getstream.chat.android.compose.ui.components.composer.CoolDownIndicator
 import io.getstream.chat.android.compose.viewmodel.messages.AttachmentsPickerViewModel
 import io.getstream.chat.android.compose.viewmodel.messages.MessageComposerViewModel
@@ -79,9 +80,11 @@ fun AmiChannelComposer(
                     iconId = io.getstream.chat.android.compose.R.drawable.stream_compose_ic_add,
                     onClick = remember(attachmentsPickerViewModel) {
                         {
-                            attachmentsPickerViewModel.changeAttachmentState(
-                                true,
-                            )
+                            // Reset the pickerMode to `Images`
+                            // This is a workaround, until https://github.com/GetStream/stream-chat-android/pull/5614 gets merged
+                            attachmentsPickerViewModel.changeAttachmentPickerMode(Images) { false }
+
+                            attachmentsPickerViewModel.changeAttachmentState(true)
                         }
                     },
                 )
