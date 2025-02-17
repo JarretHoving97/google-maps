@@ -10,7 +10,9 @@ import Amigos_Chat_Package
 
 class StreamPushConfig: ChatPushConfig {
 
-    var streamClient: ChatClient?
+    var streamClient: ChatClient? {
+        ExtendedStreamPlugin.chatClient.chatClient
+    }
     /// Adds the device token to stream so push notifications can be sent.
     public func addDeviceToken(deviceToken: String) {
 
