@@ -361,6 +361,7 @@ fun AmiChannelScreen(
         )
 
         AttachmentsPickerMenu(
+            listViewModel = listViewModel,
             attachmentsPickerViewModel = attachmentsPickerViewModel,
             composerViewModel = composerViewModel,
         )
@@ -384,6 +385,7 @@ fun AmiChannelScreen(
  */
 @Composable
 private fun AttachmentsPickerMenu(
+    listViewModel: MessageListViewModel,
     attachmentsPickerViewModel: AttachmentsPickerViewModel,
     composerViewModel: MessageComposerViewModel,
 ) {
@@ -395,6 +397,7 @@ private fun AttachmentsPickerMenu(
         exit = fadeOut(animationSpec = tween(delayMillis = AnimationConstants.DefaultDurationMillis / 2)),
     ) {
         AmiAttachmentsPicker(
+            listViewModel = listViewModel,
             attachmentsPickerViewModel = attachmentsPickerViewModel,
             composerViewModel = composerViewModel
         )

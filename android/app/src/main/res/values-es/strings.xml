@@ -54,6 +54,9 @@
     <string name="AmiChatTrialNotice_dialog_title">Iniciar chats gratis por %s días</string>
     <string name="AmiChatTrialNotice_dialog_body">Como fundador local, puedes iniciar chats gratis los primeros %s días. ¿Quieres iniciar chats también después de eso? Conviértete en Super amigo.</string>
 
+    <!-- AmiAttachmentsPicker -->
+    <string name="AmiAttachmentsPicker_mediaUsedForStoriesConsent">Los archivos multimedia compartidos en el chat grupal podrían publicarse en Amigos app a través de stories.</string>
+
     <string name="AttachmentsPickerMenu_superOnly_body">Conviértete en Super amigo para poder enviar fotos y videos</string>
     <string name="AttachmentsPickerMenu_superOnly_title">Solo los Super amigos pueden enviar fotos y videos</string>
 

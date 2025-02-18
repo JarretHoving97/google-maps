@@ -18,7 +18,10 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.safeDrawingPadding
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.text.BasicText
 import androidx.compose.material.Card
 import androidx.compose.material.Icon
 import androidx.compose.material.IconButton
@@ -27,23 +30,32 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.platform.LocalLayoutDirection
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import com.whoisup.app.components.DcIcon
+import com.whoisup.app.stream.extensions.isDirectMessageChannel
+import com.whoisup.app.ui.theme.CustomTheme
 import io.getstream.chat.android.compose.R
 import io.getstream.chat.android.compose.state.messages.attachments.AttachmentsPickerMode
+import io.getstream.chat.android.compose.state.messages.attachments.Files
+import io.getstream.chat.android.compose.state.messages.attachments.Images
+import io.getstream.chat.android.compose.state.messages.attachments.MediaCapture
 import io.getstream.chat.android.compose.ui.messages.attachments.factory.AttachmentsPickerTabFactory
 import io.getstream.chat.android.compose.ui.theme.ChatTheme
 import io.getstream.chat.android.compose.ui.util.mirrorRtl
 import io.getstream.chat.android.compose.viewmodel.messages.AttachmentsPickerViewModel
 import io.getstream.chat.android.compose.viewmodel.messages.MessageComposerViewModel
+import io.getstream.chat.android.compose.viewmodel.messages.MessageListViewModel
 import io.getstream.chat.android.models.Attachment
 import io.getstream.chat.android.models.Channel
 
 @OptIn(ExperimentalAnimationApi::class)
 @Composable
 fun AnimatedVisibilityScope.AmiAttachmentsPicker(
+    listViewModel: MessageListViewModel,
     attachmentsPickerViewModel: AttachmentsPickerViewModel,
     composerViewModel: MessageComposerViewModel,
 ) {
@@ -114,6 +126,37 @@ fun AnimatedVisibilityScope.AmiAttachmentsPicker(
                         onAttachmentsSelected(attachmentsPickerViewModel.getSelectedAttachments())
                     },
                 )
+
+                if (
+                    !listViewModel.channel.isDirectMessageChannel() && (
+                        attachmentsPickerViewModel.attachmentsPickerMode is Images ||
+                        attachmentsPickerViewModel.attachmentsPickerMode is Files ||
+                        attachmentsPickerViewModel.attachmentsPickerMode is MediaCapture
+                    )
+                ) {
+                    Row(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .clip(RoundedCornerShape(12.dp))
+                            .background(ChatTheme.attachmentPickerTheme.backgroundSecondary)
+                            .padding(16.dp),
+                        horizontalArrangement = Arrangement.spacedBy(8.dp),
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        DcIcon(
+                            id = com.whoisup.app.R.drawable.alert_circle,
+                            contentDescription = null,
+                            size = 16.dp,
+                            color = CustomTheme.colorScheme.primary
+                        )
+
+                        BasicText(
+                            text = stringResource(com.whoisup.app.R.string.AmiAttachmentsPicker_mediaUsedForStoriesConsent),
+                            style = CustomTheme.typography.captionSmall.copy(color = CustomTheme.colorScheme.onSurface),
+                            modifier = Modifier.weight(1f)
+                        )
+                    }
+                }
 
                 Surface(
                     modifier = Modifier.fillMaxSize(),

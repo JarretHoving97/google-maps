@@ -53,6 +53,9 @@
     <string name="AmiChatTrialNotice_dialog_title">%s Tage lang kostenlos Chats beginnen</string>
     <string name="AmiChatTrialNotice_dialog_body">Als Local Founder kannst du in den ersten %s Tagen kostenlos Chats beginnen. Danach auch Chats starten? Werde Super Amigo.</string>
 
+    <!-- AmiAttachmentsPicker -->
+    <string name="AmiAttachmentsPicker_mediaUsedForStoriesConsent">Medien in einem Gruppenchat können über Stories in der Amigos-App geteilt werden.</string>
+
     <string name="AttachmentsPickerMenu_superOnly_body">Werde Super Amigo, um Fotos und Videos senden zu können</string>
     <string name="AttachmentsPickerMenu_superOnly_title">Nur Super Amigos können Fotos und Videos versenden</string>
 

@@ -53,6 +53,9 @@
     <string name="AmiChatTrialNotice_dialog_title">%s일 동안 무료로 채팅을 시작하세요</string>
     <string name="AmiChatTrialNotice_dialog_body">지역 창립자로서 첫 %s일 동안 무료로 채팅을 시작할 수 있습니다. 그 후에도 채팅을 시작하고 싶으신가요? 슈퍼 아미고가 되어보세요.</string>
 
+    <!-- AmiAttachmentsPicker -->
+    <string name="AmiAttachmentsPicker_mediaUsedForStoriesConsent">그룹 채팅의 미디어는 Amigos 앱의 스토리를 통해 공유할 수 있습니다.</string>
+
     <string name="AttachmentsPickerMenu_superOnly_body">사진과 동영상을 보낼 수 있도록 슈퍼 친구 되기</string>
     <string name="AttachmentsPickerMenu_superOnly_title">슈퍼 친구들만 사진과 동영상을 보낼 수 있습니다</string>
 

@@ -53,6 +53,9 @@
     <string name="AmiChatTrialNotice_dialog_title">%s dagen gratis chats starten</string>
     <string name="AmiChatTrialNotice_dialog_body">Als local founder kan jij de eerste %s dagen gratis chats starten. Hierna ook chats starten? Word Super amigo.</string>
 
+    <!-- AmiAttachmentsPicker -->
+    <string name="AmiAttachmentsPicker_mediaUsedForStoriesConsent">De media in een groepschat kan mogelijk in de Amigos app via stories gedeeld worden.</string>
+
     <string name="AttachmentsPickerMenu_superOnly_body">Word Super amigo om foto\'s en video\'s te kunnen versturen</string>
     <string name="AttachmentsPickerMenu_superOnly_title">Alleen Super amigos kunnen foto\'s en video\'s versturen</string>
 

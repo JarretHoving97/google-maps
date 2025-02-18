@@ -55,6 +55,9 @@
     <string name="AmiChatTrialNotice_dialog_title">Rozpocznij bezpłatne czaty przez %s dni</string>
     <string name="AmiChatTrialNotice_dialog_body">Jako lokalny założyciel możesz rozpoczynać czaty za darmo przez pierwsze %s dni. Chcesz rozpocząć czaty również po tym czasie? Zostań Super amigo.</string>
 
+    <!-- AmiAttachmentsPicker -->
+    <string name="AmiAttachmentsPicker_mediaUsedForStoriesConsent">Media w czacie grupowym mogą być udostępniane w aplikacji Amigos za pomocą relacji.</string>
+
     <string name="AttachmentsPickerMenu_superOnly_body">Zostań Super amigo, aby móc wysyłać zdjęcia i wideo</string>
     <string name="AttachmentsPickerMenu_superOnly_title">Tylko Super amigos mogą wysyłać zdjęcia i wideo</string>
 
