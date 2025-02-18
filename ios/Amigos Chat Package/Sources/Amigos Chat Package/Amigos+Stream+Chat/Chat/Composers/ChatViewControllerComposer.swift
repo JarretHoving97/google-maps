@@ -29,7 +29,7 @@ public class ChatViewControllerComposer {
         onWillMoveToParent: ((UIViewController?) -> Void)? = nil
     ) -> UIHostingController<ChatChannelScreen>? {
 
-        if let channelId, let object = try? ChannelId(cid: channelId), let channelController = createChannelListController() {
+        if let channelId, let object = try? ChannelId(cid: channelId), let channelController = ChatControllers.channelListController {
 
             let channelViewController = composeWith(
                 viewFactory: CustomUIFactory(),
@@ -94,22 +94,6 @@ public class ChatViewControllerComposer {
         }
 
         return viewController
-    }
-
-    private static func createChannelListController() -> ChatChannelListController? {
-
-        if let currentUserId = UserProvider.shared.id {
-            return ChatControllers.set(
-                query: .init(
-                    filter: .and([
-                        .equal(.type, to: .messaging),
-                        .containMembers(userIds: [currentUserId]),
-                        .exists(.lastMessageAt)
-                    ])
-                )
-            )
-        }
-        return nil
     }
 
     public static func setChannelHeader(

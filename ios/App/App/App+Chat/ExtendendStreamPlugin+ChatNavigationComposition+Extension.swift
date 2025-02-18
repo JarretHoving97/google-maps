@@ -12,7 +12,6 @@ import Amigos_Chat_Package
 
 struct ChatPresentationModel {
     let channel: ChannelInfo
-    let presentInStack: Bool
 }
 
 extension ExtendedStreamPlugin {
@@ -35,18 +34,20 @@ extension ExtendedStreamPlugin {
     }
 
     func composeNavigation(model: ChatPresentationModel? = nil) -> UINavigationController {
-        let navigationController = model != nil ? buildStack(with: model!.channel, inStack: model!.presentInStack) : build()
-        return navigationController
+        if let channel = model?.channel {
+            return buildStack(with: channel)
+        }
+
+        return build()
     }
 
     /// initialize chat if no instance can be found.
-    func openChannel(info: ChannelInfo, presentInStack: Bool = false) {
+    func openChannel(info: ChannelInfo) {
         if ExtendedStreamPlugin.shared.chatNavigationController != nil {
             routeToChannel(with: info)
         } else {
             let model = ChatPresentationModel(
-                channel: ChannelInfo(channelId: info.channelId),
-                presentInStack: presentInStack
+                channel: ChannelInfo(channelId: info.channelId)
             )
             initializeViewController(model: model)
         }
@@ -160,7 +161,7 @@ extension ExtendedStreamPlugin {
         return navigationController
     }
 
-    private func buildStack(with channel: ChannelInfo, inStack: Bool = true) -> UINavigationController {
+    private func buildStack(with channel: ChannelInfo) -> UINavigationController {
 
         let navigationController = UINavigationController()
         navigationController.navigationBar.prefersLargeTitles = true
@@ -184,7 +185,8 @@ extension ExtendedStreamPlugin {
             loadChannel: true,
             onWillMoveToParent: adaptOnWillMoveToParent()
         )
-        let stack = !inStack ? [chatViewController].compactMap {$0} : [channelViewController, chatViewController].compactMap {$0}
+
+        let stack = [channelViewController, chatViewController].compactMap {$0}
 
         navigationController.setViewControllers(stack, animated: true)
 

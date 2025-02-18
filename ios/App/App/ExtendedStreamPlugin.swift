@@ -93,8 +93,7 @@ public class ExtendedStreamPlugin: CAPPlugin, CAPBridgedPlugin {
 
         if let channel = call.getString("channelId"), !channel.isEmpty {
             let channelInfo = ChatPresentationModel(
-                channel: ChannelInfo(channelId: channel),
-                presentInStack: true
+                channel: ChannelInfo(channelId: channel)
             )
 
             initializeViewController(model: channelInfo)
@@ -109,8 +108,7 @@ public class ExtendedStreamPlugin: CAPPlugin, CAPBridgedPlugin {
         guard let channelId = call.getString("channelId") else { return }
         initializeViewController(
             model: ChatPresentationModel(
-                channel: ChannelInfo(channelId: channelId),
-                presentInStack: false
+                channel: ChannelInfo(channelId: channelId)
             )
         )
 
