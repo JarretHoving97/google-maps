@@ -113,7 +113,11 @@ struct RemoteToLocalMessageMapperTests {
 
     private func makeThirdPartyChatMessage(
         id: UUID,
-        user: LocalUser = LocalUser(userId: UUID(), name: "any user"),
+        user: LocalUser = LocalUser(
+            role: Role(rawValue: ""),
+            userId: UUID(),
+            name: "any user"
+        ),
         isSentByCurrentUser: Bool = false,
         message: String,
         isDeleted: Bool,
@@ -142,6 +146,7 @@ struct RemoteToLocalMessageMapperTests {
     /// And we can extend `ChatMessage` to this protocol so we know the mocking behaviour will also
     /// work on Stream's `ChatMessage` object
     struct ThirdPartyMessageMock: ChatMessageProtocol {
+        var layoutKey: String?
         var user: any Author
         var id: String
         var isSentByCurrentUser: Bool
@@ -165,7 +170,20 @@ struct RemoteToLocalMessageMapperTests {
     }
 
     private struct LocalUser: Author {
+        var role: any AnyRole
         var userId: UUID
         var name: String?
+    }
+
+    struct Role: AnyRole {
+        var rawValue: String
+
+        init(rawValue: String) {
+            self.rawValue = rawValue
+        }
+
+        init(stringLiteral value: String) {
+            self.rawValue = value
+        }
     }
 }

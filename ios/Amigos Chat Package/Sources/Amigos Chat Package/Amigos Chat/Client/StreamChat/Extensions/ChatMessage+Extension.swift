@@ -22,4 +22,8 @@ extension ChatUser: Author {
     public var userId: UUID {
         return UUID(uuidString: id) ?? UUID()
     }
+
+    public var role: any AnyRole {
+        return userRole
+    }
 }

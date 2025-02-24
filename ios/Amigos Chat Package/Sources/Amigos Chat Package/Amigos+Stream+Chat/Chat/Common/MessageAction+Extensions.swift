@@ -128,7 +128,7 @@ extension MessageAction {
     ) -> MessageAction {
         let copyAction = MessageAction(
             id: MessageActionId.copy,
-            title:  tr("message.actions.copy"),
+            title: tr("message.actions.copy"),
             iconName: "",
             action: {
                 UIPasteboard.general.string = message.adjustedText

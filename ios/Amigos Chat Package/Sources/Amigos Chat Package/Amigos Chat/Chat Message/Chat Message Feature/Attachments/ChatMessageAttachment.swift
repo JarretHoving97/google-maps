@@ -63,7 +63,7 @@ extension LocalChatMessageAttachment {
                 imageCDN: cdn,
                 videoPreviewLoader: videoPreviewLoader,
                 url: imageAttachment.imageUrl,
-                type: .image,
+                type: .photo,
                 uploadingState: imageAttachment.uploadingState
             )
         case .video(let videoAttachment):

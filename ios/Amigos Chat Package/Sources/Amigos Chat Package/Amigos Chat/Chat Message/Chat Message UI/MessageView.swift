@@ -10,13 +10,15 @@ import SwiftUI
 extension CGFloat {
 
     static var messageWidth: CGFloat {
-        UIScreen.main.bounds.width * 0.76
+        UIScreen.main.bounds.width * 0.6
     }
 }
 
 struct MessageView: View {
 
     let viewModel: MessageViewModel
+
+    @State private var selectedSingleAttachment: MediaAttachment?
 
     private let defaultTextPadding = EdgeInsets(top: 8, leading: 16, bottom: 8, trailing: 16)
 
@@ -31,17 +33,41 @@ struct MessageView: View {
     var body: some View {
 
         if viewModel.isDeleted {
+
             LocalDeletedMessageView(
                 isRightAligned: viewModel.isFirst,
                 isSentByCurrentUser: viewModel.isSentByCurrentUser
             )
+            .modifier(bubbleResolvedModifier)
+
+        } else if viewModel.asSuperEmoji {
+
+            VStack(spacing: 0) {
+                quotedMessageView
+                Text(viewModel.messageText)
+                    .font(Font.system(size: 50))
+                    .frame(height: 50)
+            }
+            .modifier(bubbleResolvedModifier)
+
         } else {
             VStack(alignment: .leading, spacing: 0) {
                 quotedMessageView
                 mediaAttachmentView
+                walkthroughView
                 messageTextView
             }
             .modifier(bubbleResolvedModifier)
+            .fullScreenCover(isPresented: $selectedSingleAttachment.toBoolBinding) {
+
+                SingleAttachmentGalleryView(
+                    isPresented: $selectedSingleAttachment.toBoolBinding,
+                    viewModel: SingleAttachmentViewModel(
+                        author: viewModel.author,
+                        attachment: selectedSingleAttachment!
+                    )
+                )
+            }
         }
     }
 
@@ -58,20 +84,33 @@ struct MessageView: View {
 
 extension MessageView {
 
+    private var walkthroughView: some View {
+
+        Group {
+            if let type = viewModel.walkthroughType {
+                AmiMessageWalkthrough(type: type)
+            }
+        }
+    }
+
     private var messageTextView: some View {
         Group {
             if !viewModel.messageText.isEmpty {
-                Text(viewModel.messageText)
-
-                    .foregroundStyle(viewModel.isSentByCurrentUser ? .white : .black)
-                    .font(.body)
+                LinkDetectionTextView(
+                    viewModel: LinkDetectionTextViewModel(
+                        isSentByCurrentUser: viewModel.isSentByCurrentUser,
+                        isModerator: viewModel.author.isModerator,
+                        text: viewModel.messageText
+                    )
+                )
                 /// when `attachmentsPadding` is zero. We need to add an other padding because we don't want the same padding when there are any attachments
-                    .padding(attachmentsPadding == EdgeInsets(.zero) ? defaultTextPadding : EdgeInsets(.zero))
+                .padding(attachmentsPadding == EdgeInsets(.zero) ? defaultTextPadding : EdgeInsets(.zero))
             } else {
                 EmptyView()
             }
         }
     }
+
     private var quotedMessageView: some View {
         Group {
             if let message = viewModel.quotedMessage {
@@ -98,6 +137,7 @@ extension MessageView {
                         trailing: -10
                     )
                 )
+                .fixedSize(horizontal: false, vertical: true)
             } else {
                 EmptyView()
             }
@@ -117,6 +157,7 @@ extension MessageView {
             case .multimedia:
 
                 MultiMediaView(
+                    user: viewModel.author,
                     sources: viewModel.mediaAttachments,
                     isSentByCurrentUser: viewModel.isSentByCurrentUser,
                     width: width
@@ -133,11 +174,15 @@ extension MessageView {
         Group {
             if let image = viewModel.imageAttachments.first {
                 ImageAttachmentView(
+                    author: viewModel.author,
                     attachment: image,
                     loader: viewModel.imageLoader,
                     imageCDN: viewModel.imageCDN,
                     width: width
                 )
+                .onTapGesture {
+                    selectedSingleAttachment = viewModel.mediaAttachments.first
+                }
             } else {
                 EmptyView()
             }
@@ -148,10 +193,14 @@ extension MessageView {
         Group {
             if let video = viewModel.videoAttachments.first {
                 VideoPreviewAttachmentView(
+                    user: viewModel.author,
                     videoPreviewLoader: viewModel.videoPreviewLoader,
                     attachment: video,
                     width: width
                 )
+                .onTapGesture {
+                    selectedSingleAttachment = viewModel.mediaAttachments.first
+                }
             } else {
                 EmptyView()
             }
@@ -163,74 +212,65 @@ extension MessageView {
         return ResolvedViewModifier(
             MessageBubbleViewModifier(
                 contentInsets: attachmentsPadding,
+                hidden: viewModel.bubbleHidden,
                 model: bubbleInfo
             )
         )
     }
 
     var attachmentsPadding: EdgeInsets {
-
-        /// if message is deleted. it can still contain attachments etc
-        if viewModel.isDeleted {
+        if viewModel.isDeleted ||
+           !viewModel.mediaAttachments.isEmpty ||
+           (viewModel.asSuperEmoji && viewModel.quotedMessage == nil) ||
+            viewModel.walkthroughType != nil {
             return EdgeInsets(.zero)
         }
-
-        if !viewModel.mediaAttachments.isEmpty && !viewModel.messageText.isEmpty {
-            return EdgeInsets(.zero)
-        }
-
-        if !viewModel.mediaAttachments.isEmpty && viewModel.messageText.isEmpty {
-            return EdgeInsets(.zero)
-        }
-
         return defaultTextPadding
     }
 }
 
 #Preview {
-//    MessageView(
-//        viewModel: MessageViewModel(
-//            message: Message(
-//                isSentByCurrentUser: true,
-//                message: TextExamples.largeMessageText,
-//                quotedMessage: { Message(
-//                    message: TextExamples.largeMessageText,
-//                    attachments: [
-//                        .image(ImageAttachment(imageUrl: ImageURLExamples.portraitImageUrl, uploadingState: .none))
-//                    ]
-//                )
-//                },
-//
-//                isDeleted: false,
-//                attachments: [
-//                    .image(ImageAttachment(imageUrl: ImageURLExamples.portraitImageUrl, uploadingState: .none)),
-//                    .image(ImageAttachment(imageUrl: ImageURLExamples.portraitImageUrl, uploadingState: .some(UploadingState(localFileURL: ImageURLExamples.portraitImageUrl, state: .uploading(progress: 0.9))))),
-//                    .image(ImageAttachment(imageUrl: ImageURLExamples.portraitImageUrl, uploadingState: .some(UploadingState(localFileURL: ImageURLExamples.portraitImageUrl, state: .uploading(progress: 0.9))))),
-//                    .image(ImageAttachment(imageUrl: ImageURLExamples.portraitImageUrl, uploadingState: .none)),
-//                    .image(ImageAttachment(imageUrl: ImageURLExamples.portraitImageUrl, uploadingState: .none))
-//                ]
-//            )
-//        )
-//    )
-
     MessageView(
         viewModel: MessageViewModel(
             message: Message(
-                message: "Allo",
-                quotedMessage: {
-                    Message(
-                        isSentByCurrentUser: true,
-                        message: "tesss",
-                        quotedMessage: { Message(
-                            message: TextExamples.largeMessageText,
-                            attachments: [
-                                .image(ImageAttachment(imageUrl: ImageURLExamples.portraitImageUrl, uploadingState: .none))
-                            ]
+                isSentByCurrentUser: true,
+                message: TextExamples.messageWithLinks,
+                quotedMessage: { Message(
+                    message: TextExamples.largeMessageText,
+                    attachments: [
+                        .image(
+                            ImageAttachment(
+                                imageUrl: ImageURLExamples.portraitImageUrl,
+                                uploadingState: .none
+                            )
                         )
-                        }
+                    ]
+                )
+                },
+
+                isDeleted: false,
+                attachments: [
+                    .image(
+                        ImageAttachment(
+                            imageUrl: ImageURLExamples.portraitImageUrl,
+                            uploadingState: .none
+                        )
+                    ),
+                    .image(
+                        ImageAttachment(
+                            imageUrl: ImageURLExamples.landscapeImageUrl,
+                            uploadingState: .some(UploadingState(localFileURL: ImageURLExamples.portraitImageUrl, state: .uploading(progress: 0.9)))
+                        )
+                    ),
+                    .video(
+                        VideoAttachment(
+                            url: VideoURLExamples.example1,
+                            uploadingState: .none
+                        )
                     )
-                }
+                ]
             )
         )
     )
+    .frame(width: UIScreen.main.bounds.size.width * 0.6)
 }

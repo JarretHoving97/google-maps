@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import StreamChat
 
 public protocol ChatMessageProtocol {
     var id: String { get }
@@ -15,6 +16,7 @@ public protocol ChatMessageProtocol {
     var localQuotedMessage: ChatMessageProtocol? { get }
     var isDeleted: Bool { get }
     var attachments: [ChatMessageAttachmentProtocol] { get }
+    var layoutKey: String? { get }
 }
 
 public protocol ChatMessageAttachmentProtocol {
@@ -25,10 +27,20 @@ public protocol ChatMessageAttachmentProtocol {
 public protocol Author {
     var userId: UUID { get }
     var name: String? { get }
+    var role: any AnyRole { get }
 }
 
 extension Author {
+
     func toLocal() -> LocalUser {
-        LocalUser(id: userId, name: name ?? "")
+        LocalUser(id: userId, name: name ?? "", isModerator: role.rawValue == "moderator" )
     }
+}
+
+public protocol AnyRole: RawRepresentable, Codable, Hashable, ExpressibleByStringLiteral {
+    var rawValue: String { get }
+
+    init(rawValue: String)
+
+    init(stringLiteral value: String)
 }

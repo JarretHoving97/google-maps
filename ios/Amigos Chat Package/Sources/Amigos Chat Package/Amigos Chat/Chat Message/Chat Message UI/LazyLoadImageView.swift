@@ -33,7 +33,6 @@ struct LazyLoadImage: View {
                 }
             }
         }
-        .frame(width: width, height: height)
         .onAppear {
             guard image == nil else { return }
 

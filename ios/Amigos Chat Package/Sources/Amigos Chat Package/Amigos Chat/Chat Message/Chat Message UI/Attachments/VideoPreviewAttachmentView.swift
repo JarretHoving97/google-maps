@@ -12,14 +12,18 @@ struct VideoPreviewAttachmentView: View {
     let videoPreviewLoader: PreviewVideoLoader
 
     let attachment: VideoAttachment
+    let user: LocalUser
 
     @State var previewImage: UIImage?
     @State var error: Error?
 
+    @State private var galleryPresented: Bool = false
+
     var ratio: CGFloat = 0.75
     let width: CGFloat
 
-    init(videoPreviewLoader: PreviewVideoLoader, attachment: VideoAttachment, width: CGFloat = UIScreen.main.bounds.size.width * 0.68) {
+    init(user: LocalUser, videoPreviewLoader: PreviewVideoLoader, attachment: VideoAttachment, width: CGFloat = UIScreen.main.bounds.size.width * 0.68) {
+        self.user = user
         self.videoPreviewLoader = videoPreviewLoader
         self.attachment = attachment
         self.width = width
@@ -81,6 +85,10 @@ struct VideoPlayIcon: View {
 
 #Preview {
     VideoPreviewAttachmentView(
+        user: LocalUser(
+            id: UUID(),
+            name: "Ilon"
+        ),
         videoPreviewLoader: DefaultPreviewVideoLoader(),
         attachment: VideoAttachment(
             url: VideoURLExamples.example1,

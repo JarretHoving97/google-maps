@@ -80,7 +80,6 @@ public final class DefaultPreviewVideoLoader: PreviewVideoLoader {
     }
 }
 
-
 final class Cache<Key: Hashable, Value> {
     private let wrapped: NSCache<WrappedKey, Entry>
 

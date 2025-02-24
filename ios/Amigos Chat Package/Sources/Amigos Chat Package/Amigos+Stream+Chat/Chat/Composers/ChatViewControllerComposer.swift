@@ -122,7 +122,6 @@ public class ChatViewControllerComposer {
                 viewModel: detailViewController.rootView.viewModel,
                 showBackButtonInHeader: showBackButtonInHeader
             )
-
             detailViewController.navigationItem.titleView = titleView
             detailViewController.navigationItem.titleView?.layoutIfNeeded()
         }
@@ -130,7 +129,7 @@ public class ChatViewControllerComposer {
 
     private static func createTitleHeaderView(
         with viewFactory: CustomUIFactory,
-        channel:  ChatChannel,
+        channel: ChatChannel,
         viewModel: ChatChannelListViewModel,
         showBackButtonInHeader: Bool = false
     ) -> UIView {

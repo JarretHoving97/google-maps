@@ -48,12 +48,11 @@ extension UIView {
             anchoredConstraints.height = heightAnchor.constraint(equalToConstant: size.height)
         }
 
-        [anchoredConstraints.top, anchoredConstraints.leading, anchoredConstraints.bottom, anchoredConstraints.trailing, anchoredConstraints.width, anchoredConstraints.height].forEach{ $0?.isActive = true }
+        [anchoredConstraints.top, anchoredConstraints.leading, anchoredConstraints.bottom, anchoredConstraints.trailing, anchoredConstraints.width, anchoredConstraints.height].forEach { $0?.isActive = true }
 
         return anchoredConstraints
     }
 
-    
     @discardableResult
     func fillSuperview(padding: UIEdgeInsets = .zero) -> AnchoredConstraints {
         translatesAutoresizingMaskIntoConstraints = false

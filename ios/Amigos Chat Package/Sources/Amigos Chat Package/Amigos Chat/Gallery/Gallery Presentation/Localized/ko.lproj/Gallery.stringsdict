@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>selected_media_attachments_count</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@media_count@</string>
+		<key>media_count</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>zero</key>
+			<string>미디어 0개 선택됨</string>
+			<key>one</key>
+			<string>미디어 1개 선택됨</string>
+			<key>other</key>
+			<string>미디어 %d개 선택됨</string>
+		</dict>
+	</dict>
+</dict>
+</plist>

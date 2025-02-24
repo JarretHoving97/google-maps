@@ -94,6 +94,7 @@ struct QuotedMessageView: View {
                     if let attachment = viewModel.mediaAttachments.first {
                         LazyLoadImage(source: attachment, width: 40, height: 40)
                             .clipShape(RoundedRectangle(cornerRadius: 4))
+                            .frame(width: 40, height: 40)
                     }
 
                     if !viewModel.messageText.isEmpty {

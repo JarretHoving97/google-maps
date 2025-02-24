@@ -239,7 +239,7 @@ extension ChannelAction {
             let profileAction = ChannelAction(
                 title: tr("custom.channel.action.profile.title"),
                 iconName: "chevron.right",
-                action: { RouteController.routeAction?(RouteInfo(route:  .profileRoute(id: userId), dismiss: true))},
+                action: { RouteController.routeAction?(RouteInfo(route: .profileRoute(id: userId), dismiss: true))},
                 confirmationPopup: nil,
                 isDestructive: false
             )
@@ -247,7 +247,7 @@ extension ChannelAction {
             let inviteAction = ChannelAction(
                 title: tr("custom.channel.action.invite.title"),
                 iconName: "chevron.right",
-                action: {RouteController.routeAction?(RouteInfo(route:  .profileInviteRoute(id: userId), dismiss: true))},
+                action: {RouteController.routeAction?(RouteInfo(route: .profileInviteRoute(id: userId), dismiss: true))},
                 confirmationPopup: nil,
                 isDestructive: false
             )

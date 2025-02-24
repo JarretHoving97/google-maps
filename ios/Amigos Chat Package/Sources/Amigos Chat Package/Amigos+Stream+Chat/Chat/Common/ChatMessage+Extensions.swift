@@ -2,6 +2,7 @@ import StreamChat
 import SwiftUI
 
 extension ChatMessage {
+
     var alignmentInBubble: HorizontalAlignment {
         .leading
     }
@@ -21,13 +22,5 @@ extension ChatMessage {
         }
 
         return output
-    }
-
-    var layoutKey: String? {
-        if let layoutKey = extraData["layoutKey"]?.stringValue {
-            return layoutKey
-        }
-
-        return nil
     }
 }

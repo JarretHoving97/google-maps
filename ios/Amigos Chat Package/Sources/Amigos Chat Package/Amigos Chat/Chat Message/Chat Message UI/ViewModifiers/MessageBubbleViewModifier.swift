@@ -11,9 +11,12 @@ struct MessageBubbleViewModifier: ViewModifier {
     let model: MessageBubbleModel
     let cornerRadius: CGFloat = 18
     let contentInsets: EdgeInsets
-    init(contentInsets: EdgeInsets, model: MessageBubbleModel) {
+    let hidden: Bool
+
+    init(contentInsets: EdgeInsets, hidden: Bool = false, model: MessageBubbleModel) {
         self.model = model
         self.contentInsets = contentInsets
+        self.hidden = hidden
     }
 
     private var corners: UIRectCorner {
@@ -30,7 +33,7 @@ struct MessageBubbleViewModifier: ViewModifier {
     func body(content: Content) -> some View {
         content
             .padding(contentInsets)
-            .background(background)
+            .background(background.opacity(hidden ? 0 : 1))
             .clipShape(
                 BubbleBackgroundShape(
                     cornerRadius: cornerRadius,

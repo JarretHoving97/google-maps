@@ -12,5 +12,4 @@ extension Data {
         let decoder = JSONDecoder()
         return try? decoder.decode(T.self, from: self)
     }
-    
 }

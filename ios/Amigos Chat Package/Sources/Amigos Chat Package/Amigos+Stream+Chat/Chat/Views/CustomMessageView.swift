@@ -219,7 +219,7 @@ public struct CustomStreamTextView: View {
 
     public var body: some View {
         if #available(iOS 15, *) {
-            LinkDetectionTextView(message: message)
+            CustomLinkDetectionTextView(message: message)
         } else {
             Text(message.adjustedText)
                 .foregroundColor(textColor(for: message))
@@ -230,7 +230,7 @@ public struct CustomStreamTextView: View {
 }
 
 @available(iOS 15, *)
-public struct LinkDetectionTextView: View {
+public struct CustomLinkDetectionTextView: View {
 
     @Injected(\.colors) var colors
     @Injected(\.fonts) var fonts

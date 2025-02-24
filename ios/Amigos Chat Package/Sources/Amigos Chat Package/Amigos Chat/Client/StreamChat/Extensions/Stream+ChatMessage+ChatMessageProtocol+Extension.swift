@@ -10,6 +10,14 @@ import StreamChat
 
 extension ChatMessage: ChatMessageProtocol {
 
+    public var layoutKey: String? {
+        if let layoutKey = extraData["layoutKey"]?.stringValue {
+            return layoutKey
+        }
+
+        return nil
+    }
+
     public var user: any Author {
         author
     }

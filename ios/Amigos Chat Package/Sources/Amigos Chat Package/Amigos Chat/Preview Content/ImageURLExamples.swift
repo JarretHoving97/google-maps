@@ -9,5 +9,7 @@ import Foundation
 
 enum ImageURLExamples {
 
-    static let portraitImageUrl = URL(string: "https://assets-dev.amigosapp.nl/activity-cover/examples/0633affb-0ed9-42d2-a75b-98194ffd6b0a.jpg")!
+    static let portraitImageUrl = URL(string: "https://assets-dev.amigosapp.nl/placeholder/1024x1024.webp")!
+
+    static let landscapeImageUrl = URL(string: "https://assets-dev.amigosapp.nl/placeholder/1792x1024.webp")!
 }

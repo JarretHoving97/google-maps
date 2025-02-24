@@ -6,17 +6,22 @@
 //
 
 import SwiftUI
+import StreamChatSwiftUI
 
 public struct MultiMediaView: View {
 
     var sources: [MediaAttachment]
     let isSentByCurrentUser: Bool
+    let user: LocalUser
     let width: CGFloat
 
-    init(sources: [MediaAttachment], isSentByCurrentUser: Bool = false, width: CGFloat = .messageWidth) {
+    @State private var selectedIndex: Int?
+
+    init(user: LocalUser, sources: [MediaAttachment], isSentByCurrentUser: Bool = false, width: CGFloat = .messageWidth) {
         self.sources = sources
         self.isSentByCurrentUser = isSentByCurrentUser
         self.width = width
+        self.user = user
     }
 
     public var body: some View {
@@ -104,14 +109,16 @@ public struct MultiMediaView: View {
                                 }
                             }
                         }
+                        .onTapGesture(perform: { mediaFileTapped(attachment: sources[3])})
                     }
                 }
             }
         }
         .background(isSentByCurrentUser ? Color(.purple) : Color.white)
+        .frame(width: width, height: height(width: width))
     }
 
-    ///  The computed height as 3/4 of the width.
+    ///  The computed height as 3/4 of the width
     private func height(width: CGFloat) -> CGFloat {
         3 * width / 4
     }
@@ -120,7 +127,7 @@ public struct MultiMediaView: View {
 
         Group {
             switch source.type {
-            case .image:
+            case .photo:
                 LazyLoadImage(
                     source: source,
                     width: width,
@@ -140,33 +147,52 @@ public struct MultiMediaView: View {
                 }
             }
         }
+        .contentShape(Rectangle())
+        .onTapGesture {
+            mediaFileTapped(attachment: source)
+        }
         .withUploadingStateIndicator(
             for: source.uploadingState,
             url: source.url
         )
+        .fullScreenCover(isPresented: $selectedIndex.toBoolBinding) {
+            GalleryView(
+                viewModel: GalleryViewModel(
+                    isShown: $selectedIndex.toBoolBinding,
+                    attachments: sources,
+                    author: user,
+                    selected: selectedIndex ?? 0
+                )
+            )
+        }
+    }
+
+    func mediaFileTapped(attachment: MediaAttachment) {
+        selectedIndex = sources.firstIndex(of: attachment) ?? 0
     }
 }
 
 #Preview {
     VStack {
         MultiMediaView(
-            sources: [
+            user: LocalUser(id: UUID(), name: "Ilon"), sources: [
                 MediaAttachment(
                     imageLoader: DefaultImageLoader(),
                     imageCDN: MockImageCDN(),
                     videoPreviewLoader: DefaultPreviewVideoLoader(),
                     url: ImageURLExamples.portraitImageUrl,
-                    type: .image, uploadingState: .init(localFileURL: ImageURLExamples.portraitImageUrl, state: .uploading(progress: 0.2)))
+                    type: .photo, uploadingState: .init(localFileURL: ImageURLExamples.portraitImageUrl, state: .uploading(progress: 0.2)))
             ], isSentByCurrentUser: true
         )
         MultiMediaView(
+            user: LocalUser(id: UUID(), name: "Ilon"),
             sources: [
                 MediaAttachment(
                     imageLoader: DefaultImageLoader(),
                     imageCDN: MockImageCDN(),
                     videoPreviewLoader: DefaultPreviewVideoLoader(),
                     url: ImageURLExamples.portraitImageUrl,
-                    type: .image,
+                    type: .photo,
                     uploadingState: .some(
                         UploadingState(localFileURL: ImageURLExamples.portraitImageUrl, state: .uploading(progress: 0.88))
                     )
@@ -176,19 +202,20 @@ public struct MultiMediaView: View {
                     imageCDN: MockImageCDN(),
                     videoPreviewLoader: DefaultPreviewVideoLoader(),
                     url: ImageURLExamples.portraitImageUrl,
-                    type: .image,
+                    type: .photo,
                     uploadingState: nil),
                 MediaAttachment(
                     imageLoader: DefaultImageLoader(),
                     imageCDN: MockImageCDN(),
                     videoPreviewLoader: DefaultPreviewVideoLoader(),
                     url: ImageURLExamples.portraitImageUrl,
-                    type: .image,
+                    type: .photo,
                     uploadingState: nil)
             ],
             isSentByCurrentUser: true
         )
         MultiMediaView(
+            user: LocalUser(id: UUID(), name: "Ilon"),
             sources: [
                 MediaAttachment(
                     imageLoader: DefaultImageLoader(),
@@ -203,20 +230,19 @@ public struct MultiMediaView: View {
                         )
                     )
                 ),
-
                 MediaAttachment(
                     imageLoader: DefaultImageLoader(),
                     imageCDN: MockImageCDN(),
                     videoPreviewLoader: DefaultPreviewVideoLoader(),
                     url: ImageURLExamples.portraitImageUrl,
-                    type: .image,
+                    type: .photo,
                     uploadingState: nil),
                 MediaAttachment(
                     imageLoader: DefaultImageLoader(),
                     imageCDN: MockImageCDN(),
                     videoPreviewLoader: DefaultPreviewVideoLoader(),
                     url: ImageURLExamples.portraitImageUrl,
-                    type: .image,
+                    type: .photo,
                     uploadingState: nil),
                 MediaAttachment(
                     imageLoader: DefaultImageLoader(),
@@ -225,7 +251,6 @@ public struct MultiMediaView: View {
                     url: VideoURLExamples.example1,
                     type: .video,
                     uploadingState: nil)
-
             ]
         )
     }

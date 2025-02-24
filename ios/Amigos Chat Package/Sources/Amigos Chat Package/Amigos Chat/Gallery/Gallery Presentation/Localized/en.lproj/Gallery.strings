@@ -1,0 +1,14 @@
+/*
+  Localizable.strings (en)
+  Amigos Chat Package
+
+  Created by Jarret on 17/02/2025.
+
+*/
+
+"gallery_select_attachments" = "Select";
+"gallery_select_every_attachment" = "Select all";
+"gallery_deselect_every_attachment" = "Deselect all";
+"gallery_select_trailing_button_title" = "Done";
+
+"gallery_amount_of_attachments" = "{NUMBER} items";

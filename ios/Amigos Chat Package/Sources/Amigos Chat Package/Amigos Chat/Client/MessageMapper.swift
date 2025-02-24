@@ -26,7 +26,8 @@ public class MessageMapper {
                 attachmentsMapper: attachmentsMapper
             ),
             isDeleted: remoteMessage.isDeleted,
-            attachments: attachmentsMapper.mapAttachmentsFactory(remoteMessage.attachments)
+            attachments: attachmentsMapper.mapAttachmentsFactory(remoteMessage.attachments),
+            layoutKey: remoteMessage.layoutKey
         )
     }
 }

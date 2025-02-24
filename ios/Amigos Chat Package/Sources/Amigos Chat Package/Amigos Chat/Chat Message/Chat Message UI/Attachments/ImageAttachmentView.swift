@@ -9,38 +9,57 @@ import SwiftUI
 
 public struct ImageAttachmentView: View {
 
+    @State private var aspectRatio: CGFloat? /// Store aspect ratio once the image is loaded
+
+    let author: LocalUser
     let loader: ImageLoader
     let imageCDN: ImageCDNhandler
     let attachment: ImageAttachment
     let width: CGFloat
 
-    init(attachment: ImageAttachment, loader: ImageLoader, imageCDN: ImageCDNhandler, width: CGFloat = .messageWidth) {
+    init(
+        author: LocalUser,
+        attachment: ImageAttachment,
+        loader: ImageLoader,
+        imageCDN: ImageCDNhandler,
+        width: CGFloat = .messageWidth
+    ) {
         self.attachment = attachment
         self.imageCDN = imageCDN
         self.loader = loader
         self.width = width
+        self.author = author
     }
 
     public var body: some View {
-        LazyLoadImage(
-            source: MediaAttachment(
-                imageLoader: loader,
-                imageCDN: imageCDN,
-                videoPreviewLoader: DefaultPreviewVideoLoader(),
-                url: attachment.imageUrl,
-                type: .image,
-                uploadingState: nil
-            ),
-            width: width,
-            height: height(width: width)
-        )
+        ZStack {
+            LazyLoadImage(
+                source: MediaAttachment(
+                    imageLoader: loader,
+                    imageCDN: imageCDN,
+                    videoPreviewLoader: DefaultPreviewVideoLoader(),
+                    url: attachment.imageUrl,
+                    type: .photo,
+                    uploadingState: nil
+                ),
+                width: width,
+                height: finalHeight(), /// Also default height while loading
+                onImageLoaded: { image in
+                    aspectRatio = image.size.width / image.size.height /// Extract aspect ratio
+                }
+            )
+        }
         .withUploadingStateIndicator(for: attachment.uploadingState, url: attachment.imageUrl)
+        .contentShape(Rectangle()) /// Needed to recognize tap gesture
     }
 
-    ///  The computed height as 3/4 of the width.
-    private func height(width: CGFloat) -> CGFloat {
-        3 * width / 4
-    }
+       /// Calculates the final height based on the aspect ratio and constraints.
+       private func finalHeight() -> CGFloat {
+           guard let aspectRatio = aspectRatio else { return 400 }
+
+           let calculatedHeight = width / aspectRatio
+           return min(calculatedHeight, 400)
+       }
 }
 
 #Preview {

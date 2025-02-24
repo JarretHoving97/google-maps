@@ -10,10 +10,12 @@ import Foundation
 public struct LocalUser {
     let id: UUID
     let name: String
+    let isModerator: Bool
 
-    public init(id: UUID, name: String) {
+    public init(id: UUID, name: String, isModerator: Bool = false) {
         self.id = id
         self.name = name
+        self.isModerator = isModerator
     }
 }
 
@@ -31,6 +33,8 @@ public struct Message {
 
     public let attachments: [LocalChatMessageAttachment]
 
+    public let layoutKey: String?
+
     public var quotedMessage: Message? {
         _quotedMessage?()
     }
@@ -44,7 +48,8 @@ public struct Message {
         message: String = "",
         quotedMessage: (() -> Message?)? = nil,
         isDeleted: Bool = false,
-        attachments: [LocalChatMessageAttachment] = []
+        attachments: [LocalChatMessageAttachment] = [],
+        layoutKey: String? = nil
 
     ) {
         self.id = id
@@ -54,6 +59,7 @@ public struct Message {
         self.attachments = attachments
         self._quotedMessage = quotedMessage
         self.user = user
+        self.layoutKey = layoutKey
     }
 }
 

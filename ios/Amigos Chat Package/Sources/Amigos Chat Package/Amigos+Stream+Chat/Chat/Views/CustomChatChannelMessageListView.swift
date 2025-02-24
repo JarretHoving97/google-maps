@@ -172,7 +172,6 @@ struct CustomChatChannelMessageListView<Factory: ViewFactory>: View {
         )
     }
 
-
     var reloadHeaderEmptyView: some View {
         ZStack {
             EmptyView()

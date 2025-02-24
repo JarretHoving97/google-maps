@@ -37,6 +37,14 @@ public class MessageViewModel {
         message.attachments.compactMap { $0.mediaAttachment(with: imageLoader, cdn: imageCDN, videoPreviewLoader: videoPreviewLoader) }
     }
 
+    var asSuperEmoji: Bool {
+        messageText.containsOnlyEmoji && message.text.count <= 3
+    }
+
+    var author: LocalUser {
+        return message.user
+    }
+
     let isFirst: Bool
 
     let forceLeftToRight: Bool
@@ -129,5 +137,16 @@ public extension MessageViewModel {
             isFirst: isFirst,
             forceLeftToRight: forceLeftToRight
         )
+    }
+}
+
+extension MessageViewModel {
+
+    var bubbleHidden: Bool {
+        return isDeleted || asSuperEmoji && quotedMessage == nil
+    }
+
+    var walkthroughType: MessageWalkthroughType? {
+        MessageWalkthroughType(rawValue: message.layoutKey ?? "")
     }
 }
