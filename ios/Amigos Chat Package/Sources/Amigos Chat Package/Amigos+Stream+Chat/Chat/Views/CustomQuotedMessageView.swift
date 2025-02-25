@@ -44,11 +44,11 @@ public struct CustomQuotedMessageView<Factory: ViewFactory>: View {
                         .padding(.bottom, 2)
                 }
 
-                if !quotedMessage.attachmentCounts.isEmpty {
+                if messageTypeResolver.hasCustomAttachment(message: quotedMessage) {
+                    factory.makeCustomAttachmentQuotedView(for: quotedMessage)
+                } else if !quotedMessage.attachmentCounts.isEmpty {
                     ZStack {
-                        if messageTypeResolver.hasCustomAttachment(message: quotedMessage) {
-                            factory.makeCustomAttachmentQuotedView(for: quotedMessage)
-                        } else if hasVoiceAttachments {
+                        if hasVoiceAttachments {
                             CustomVoiceRecordingPreview(
                                 voiceAttachment: quotedMessage.voiceRecordingAttachments[0].payload,
                                 foregroundStyleDark: isInComposer

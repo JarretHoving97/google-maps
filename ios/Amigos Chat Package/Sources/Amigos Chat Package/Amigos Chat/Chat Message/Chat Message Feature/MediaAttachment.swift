@@ -77,9 +77,6 @@ extension MediaAttachment: Equatable {
     static func == (lhs: MediaAttachment, rhs: MediaAttachment) -> Bool {
         lhs.url == rhs.url
     }
-}
-
-extension MediaAttachment {
 
     static func video(with url: URL, previewLoader: PreviewVideoLoader = DefaultPreviewVideoLoader()) -> MediaAttachment {
         return MediaAttachment(
@@ -90,15 +87,12 @@ extension MediaAttachment {
             type: .video
         )
     }
-}
-
-extension MediaAttachment {
-
+    
     enum MediaAttachmentError: Error {
         case convertingToDataFailed
         case itemProviderFailed
     }
-
+    
     func download() async throws -> Any {
         try await AttachmentDownloader.downloadShareableActivity(from: self)
     }

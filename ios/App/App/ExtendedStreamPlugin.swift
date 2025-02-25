@@ -234,6 +234,11 @@ extension ExtendedStreamPlugin {
             fatalError("Implementation error: No URL found in bridge config.")
         }
 
+        /// Setup Share location
+        CustomUIFactory.shareCurrentLocationView = ShareLocationMapView(
+            locationService: CoreLocationManager()
+        )
+
         /// setup keychain loader
         let keychainLoader = CAPKeyChainLoader()
         let config: BuildConfiguration = .create(for: url)

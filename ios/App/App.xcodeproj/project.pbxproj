@@ -9,7 +9,7 @@
 /* Begin PBXBuildFile section */
 		2FAD9763203C412B000D30F8 /* config.xml in Resources */ = {isa = PBXBuildFile; fileRef = 2FAD9762203C412B000D30F8 /* config.xml */; };
 		3110E7E1ADE214AC8F7C6A63 /* CapacitorTokenLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A3BFEAD36359B174E7FE592 /* CapacitorTokenLoader.swift */; };
-		315876F02D2FF95600DDA943 /* (null) in Resources */ = {isa = PBXBuildFile; };
+		315876F02D2FF95600DDA943 /* BuildFile in Resources */ = {isa = PBXBuildFile; };
 		3178DEB02D1033FB0084708F /* ExtendendStreamPlugin+ChatNavigationComposition+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3178DEAF2D1033A40084708F /* ExtendendStreamPlugin+ChatNavigationComposition+Extension.swift */; };
 		3178DEB32D105ECA0084708F /* NotificationHandler+CAP+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3178DEB22D105EA20084708F /* NotificationHandler+CAP+Extension.swift */; };
 		31B020D82CE25C6800198BDB /* NotificationHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31B020D72CE25C6700198BDB /* NotificationHandler.swift */; };
@@ -44,6 +44,7 @@
 		D793A0B82D478809008AAD5A /* AmigosChat in Frameworks */ = {isa = PBXBuildFile; productRef = D793A0B72D478809008AAD5A /* AmigosChat */; };
 		DF04072BB2FB3498AEE664F7 /* CurrentUserModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E58E14D133ABA03CF36A375 /* CurrentUserModel.swift */; };
 		EFCFF896C3A60B275773EBD5 /* ChatPushConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 987AB422F4757C09B4931227 /* ChatPushConfig.swift */; };
+		F5F144D9235724241F1D94C9 /* ShareLocationMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA7040E356CBD8481381C58D /* ShareLocationMapView.swift */; };
 		FE9E807327A2A43C00360DFF /* public in Resources */ = {isa = PBXBuildFile; fileRef = FE9E807227A2A43C00360DFF /* public */; };
 /* End PBXBuildFile section */
 
@@ -95,6 +96,7 @@
 		B62611874C1DB9F73AC618CE /* Pods_App.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_App.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D70765C1FC7C2F834D68B5F2 /* Pods-App.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-App.release.xcconfig"; path = "Target Support Files/Pods-App/Pods-App.release.xcconfig"; sourceTree = "<group>"; };
 		D740490C2D56322F00AAB2C1 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
+		EA7040E356CBD8481381C58D /* ShareLocationMapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareLocationMapView.swift; sourceTree = "<group>"; };
 		FE8E1DA3261F364A00AB9CB7 /* AppRelease.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = AppRelease.entitlements; sourceTree = "<group>"; };
 		FE9E807227A2A43C00360DFF /* public */ = {isa = PBXFileReference; lastKnownFileType = folder; path = public; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -205,6 +207,7 @@
 				987AB422F4757C09B4931227 /* ChatPushConfig.swift */,
 				ABE0716230DB7D590E949544 /* CurrentUserDelegate+StreamUserDelegate+Extension.swift */,
 				3178DEAF2D1033A40084708F /* ExtendendStreamPlugin+ChatNavigationComposition+Extension.swift */,
+				EA7040E356CBD8481381C58D /* ShareLocationMapView.swift */,
 			);
 			path = "App+Chat";
 			sourceTree = "<group>";
@@ -274,8 +277,6 @@
 				ko,
 			);
 			mainGroup = 504EC2FB1FED79650016851F;
-			packageReferences = (
-			);
 			productRefGroup = 504EC3051FED79650016851F /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -305,7 +306,7 @@
 				45B61B8F2BE4C8E700B2EC61 /* Poppins-Regular.ttf in Resources */,
 				FE9E807327A2A43C00360DFF /* public in Resources */,
 				45B61B8E2BE4C8E700B2EC61 /* Poppins-Medium.ttf in Resources */,
-				315876F02D2FF95600DDA943 /* (null) in Resources */,
+				315876F02D2FF95600DDA943 /* BuildFile in Resources */,
 				45B61B942BE4C8E700B2EC61 /* Poppins-BoldItalic.ttf in Resources */,
 				45B61B952BE4C8E700B2EC61 /* Poppins-SemiBold.ttf in Resources */,
 			);
@@ -411,6 +412,7 @@
 				DF04072BB2FB3498AEE664F7 /* CurrentUserModel.swift in Sources */,
 				8241647BA9E39D96D0026458 /* CAPKeychainLoader.swift in Sources */,
 				D740490D2D56323B00AAB2C1 /* MainViewController.swift in Sources */,
+				F5F144D9235724241F1D94C9 /* ShareLocationMapView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -9,7 +9,7 @@ import SwiftUI
 
 extension CGFloat {
 
-    static var messageWidth: CGFloat {
+    public static var messageWidth: CGFloat {
         UIScreen.main.bounds.width * 0.6
     }
 }
@@ -20,18 +20,21 @@ struct MessageView: View {
 
     @State private var selectedSingleAttachment: MediaAttachment?
 
-    private let defaultTextPadding = EdgeInsets(top: 8, leading: 16, bottom: 8, trailing: 16)
+    private let defaultTextPadding = EdgeInsets(
+        top: 8,
+        leading: 16,
+        bottom: 8,
+        trailing: 16
+    )
 
-    private let width: CGFloat
+    let maxWidth: CGFloat = .messageWidth
 
-    init(viewModel: MessageViewModel, width: CGFloat = .messageWidth) {
+    init(viewModel: MessageViewModel) {
         self.viewModel = viewModel
-        self.width = width
         viewModel.resolveMessageType()
     }
 
     var body: some View {
-
         if viewModel.isDeleted {
 
             LocalDeletedMessageView(
@@ -52,11 +55,15 @@ struct MessageView: View {
 
         } else {
             VStack(alignment: .leading, spacing: 0) {
-                quotedMessageView
-                mediaAttachmentView
-                walkthroughView
+                VStack(spacing: 6) {
+                    quotedMessageView
+                    sharedLoactionView
+                    mediaAttachmentView
+                    walkthroughView
+                }
                 messageTextView
             }
+
             .modifier(bubbleResolvedModifier)
             .fullScreenCover(isPresented: $selectedSingleAttachment.toBoolBinding) {
 
@@ -103,7 +110,9 @@ extension MessageView {
                         text: viewModel.messageText
                     )
                 )
-                /// when `attachmentsPadding` is zero. We need to add an other padding because we don't want the same padding when there are any attachments
+                .multilineTextAlignment(.leading)
+                .frame(alignment: .leading)
+                /// when `attachmentsPadding` is zero. We need to add an other padding because we don't want the same padding when there are any attachments or quoted messages
                 .padding(attachmentsPadding == EdgeInsets(.zero) ? defaultTextPadding : EdgeInsets(.zero))
             } else {
                 EmptyView()
@@ -117,6 +126,7 @@ extension MessageView {
                 QuotedMessageView(
                     viewModel: QuotedMessageViewModel(
                         message: message,
+                        isSentByCurrentUser: viewModel.isSentByCurrentUser,
                         imageLoader: viewModel.imageLoader,
                         imageCDN: viewModel.imageCDN,
                         videoPreviewLoader: viewModel.videoPreviewLoader
@@ -160,10 +170,15 @@ extension MessageView {
                     user: viewModel.author,
                     sources: viewModel.mediaAttachments,
                     isSentByCurrentUser: viewModel.isSentByCurrentUser,
-                    width: width
+                    width: maxWidth
+                )
+                .clipShape(
+                    RoundedRectangle(
+                        cornerRadius: attachmentsPadding != EdgeInsets(.zero) ? 18 : 0
+                    )
                 )
 
-            case .empty, .deleted:
+            default:
                 EmptyView()
             }
         }
@@ -178,7 +193,7 @@ extension MessageView {
                     attachment: image,
                     loader: viewModel.imageLoader,
                     imageCDN: viewModel.imageCDN,
-                    width: width
+                    width: maxWidth
                 )
                 .onTapGesture {
                     selectedSingleAttachment = viewModel.mediaAttachments.first
@@ -196,7 +211,7 @@ extension MessageView {
                     user: viewModel.author,
                     videoPreviewLoader: viewModel.videoPreviewLoader,
                     attachment: video,
-                    width: width
+                    width: maxWidth
                 )
                 .onTapGesture {
                     selectedSingleAttachment = viewModel.mediaAttachments.first
@@ -205,7 +220,6 @@ extension MessageView {
                 EmptyView()
             }
         }
-
     }
 
     private var bubbleResolvedModifier: ResolvedViewModifier {
@@ -220,12 +234,47 @@ extension MessageView {
 
     var attachmentsPadding: EdgeInsets {
         if viewModel.isDeleted ||
-           !viewModel.mediaAttachments.isEmpty ||
-           (viewModel.asSuperEmoji && viewModel.quotedMessage == nil) ||
+            !viewModel.mediaAttachments.isEmpty ||
+            (viewModel.asSuperEmoji && viewModel.quotedMessage == nil) ||
+            viewModel.locationAttachment != nil ||
             viewModel.walkthroughType != nil {
             return EdgeInsets(.zero)
         }
+
         return defaultTextPadding
+    }
+
+    var sharedLoactionView: some View {
+        Group {
+            if let location = viewModel.locationAttachment {
+                ShareLocationMessageView(
+                    viewModel: CustomShareLocationMessageViewModel(
+                        location: location,
+                        user: viewModel.author
+                    )
+                )
+
+                .clipShape(
+                    RoundedRectangle(
+                        cornerRadius: attachmentsPadding != EdgeInsets(
+                            .zero
+                        ) ? 18 : 0
+                    )
+                )
+
+                .overlay(
+                    RoundedRectangle(
+                        cornerRadius: attachmentsPadding != EdgeInsets(
+                            .zero
+                        ) ? 18 : 0
+                    )
+                    .stroke(
+                        .white,
+                        lineWidth: viewModel.isSentByCurrentUser ? 0.5 : 0
+                    )
+                )
+            }
+        }
     }
 }
 
@@ -247,7 +296,6 @@ extension MessageView {
                     ]
                 )
                 },
-
                 isDeleted: false,
                 attachments: [
                     .image(

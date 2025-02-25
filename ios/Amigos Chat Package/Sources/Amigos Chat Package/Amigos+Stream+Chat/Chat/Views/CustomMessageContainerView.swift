@@ -123,13 +123,12 @@ public struct CustomMessageContainerView<Factory: ViewFactory>: View {
                             reactionsShown: topReactionsShown
                         )
                     }
-
-                     MessageViewComposer.composeWith(
-                         with: message,
-                         isFirst: showsAllInfo,
-                         forceLeftToRight: false,
-                         width: contentWidth
-                     )
+                    
+                    MessageViewComposer.composeWith(
+                        with: message,
+                        isFirst: showsAllInfo,
+                        forceLeftToRight: false
+                    )
 
 //                   CustomMessageView(
 //                       factory: factory,

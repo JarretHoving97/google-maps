@@ -19,7 +19,8 @@ public class MessageMapper {
     public func map(_ remoteMessage: ChatMessageProtocol) -> Message {
         Message(
             id: UUID(uuidString: remoteMessage.id) ?? UUID(),
-            user: remoteMessage.user.toLocal(), isSentByCurrentUser: remoteMessage.isSentByCurrentUser,
+            user: remoteMessage.user.toLocal(),
+            isSentByCurrentUser: remoteMessage.isSentByCurrentUser,
             message: remoteMessage.text,
             quotedMessage: quotedMessageMapper.mapQuotedMessageFactory(
                 quotedMessage: remoteMessage.localQuotedMessage,

@@ -3,8 +3,8 @@ import StreamChat
 import SwiftUI
 import StreamChatSwiftUI
 
-/// View for the attachment picker.
 public struct CustomAttachmentPickerView<Factory: ViewFactory>: View {
+    @EnvironmentObject var viewModel: MessageComposerViewModel
 
     @Injected(\.colors) private var colors
     @Injected(\.fonts) private var fonts
@@ -14,6 +14,7 @@ public struct CustomAttachmentPickerView<Factory: ViewFactory>: View {
     @Binding var filePickerShown: Bool
     @Binding var cameraPickerShown: Bool
     @Binding var addedFileURLs: [URL]
+
     var onPickerStateChange: (AttachmentPickerState) -> Void
     var photoLibraryAssets: PHFetchResult<PHAsset>?
     var onAssetTap: (AddedAsset) -> Void
@@ -23,8 +24,12 @@ public struct CustomAttachmentPickerView<Factory: ViewFactory>: View {
     var cameraImageAdded: (AddedAsset) -> Void
     var askForAssetsAccessPermissions: () -> Void
 
+    /// custom
+    @State private var showShareLocaiton: Bool = false
+
     var isDisplayed: Bool
     var height: CGFloat
+    var popupHeight: CGFloat
 
     public init(
         viewFactory: Factory,
@@ -41,7 +46,8 @@ public struct CustomAttachmentPickerView<Factory: ViewFactory>: View {
         cameraImageAdded: @escaping (AddedAsset) -> Void,
         askForAssetsAccessPermissions: @escaping () -> Void,
         isDisplayed: Bool,
-        height: CGFloat
+        height: CGFloat,
+        popupHeight: CGFloat
     ) {
         self.viewFactory = viewFactory
         _selectedPickerState = selectedPickerState
@@ -58,6 +64,7 @@ public struct CustomAttachmentPickerView<Factory: ViewFactory>: View {
         self.askForAssetsAccessPermissions = askForAssetsAccessPermissions
         self.isDisplayed = isDisplayed
         self.height = height
+        self.popupHeight = popupHeight
     }
 
     func navigateToSuperAmigoWebView() {
@@ -66,69 +73,81 @@ public struct CustomAttachmentPickerView<Factory: ViewFactory>: View {
 
     public var body: some View {
         VStack(spacing: 0) {
-//            if ExtendedStreamPlugin.shared.superEntitlementStatus == SuperEntitlementStatus.Available {
-//                HStack(spacing: 8) {
-//                    Image("SuperIcon")
-//                        .resizable()
-//                        .scaledToFit()
-//                        .frame(height: 14)
-//                    
-//                    Text("custom.composer.attachment.super")
-//                        .font(.caption)
-//                }
-//                .padding(.top, 8)
-//                .onTapGesture(perform: navigateToSuperAmigoWebView)
-//            } else {
-                VStack(spacing: 0) {
-                    viewFactory.makeAttachmentSourcePickerView(
-                        selected: selectedPickerState,
-                        onPickerStateChange: onPickerStateChange
-                    )
+            viewFactory.makeAttachmentSourcePickerView(
+                selected: selectedPickerState,
+                onPickerStateChange: onPickerStateChange
+            )
+            .environmentObject(viewModel)
 
-                    if selectedPickerState == .photos {
-                        if let assets = photoLibraryAssets {
-                            let collection = PHFetchResultCollection(fetchResult: assets)
-                            if !collection.isEmpty {
-                                viewFactory.makePhotoAttachmentPickerView(
-                                    assets: collection,
-                                    onAssetTap: onAssetTap,
-                                    isAssetSelected: isAssetSelected
+            if selectedPickerState == .photos {
+                if let assets = photoLibraryAssets {
+                    let collection = PHFetchResultCollection(fetchResult: assets)
+                    if !collection.isEmpty {
+                        viewFactory.makePhotoAttachmentPickerView(
+                            assets: collection,
+                            onAssetTap: onAssetTap,
+                            isAssetSelected: isAssetSelected
+                        )
+                        .edgesIgnoringSafeArea(.bottom)
+                    } else {
+                        viewFactory.makeAssetsAccessPermissionView()
+                    }
+                } else {
+                    ProgressView()
+                }
+
+            } else if selectedPickerState == .files {
+                viewFactory.makeFilePickerView(
+                    filePickerShown: $filePickerShown,
+                    addedFileURLs: $addedFileURLs
+                )
+            } else if selectedPickerState == .camera {
+                viewFactory.makeCameraPickerView(
+                    selected: $selectedPickerState,
+                    cameraPickerShown: $cameraPickerShown,
+                    cameraImageAdded: cameraImageAdded
+                )
+            } else if selectedPickerState == .polls {
+                viewFactory.makeComposerPollView(
+                    channelController: viewModel.channelController,
+                    messageController: viewModel.messageController
+                )
+            } else if selectedPickerState == .custom, let shareLocationView = CustomUIFactory.shareCurrentLocationView {
+                // custom factory
+                viewFactory.makeCustomShareLocation(
+                    shareLocationView,
+                    locationPickerShown: $showShareLocaiton,
+                    onDissapear: {
+                        selectedPickerState = .photos
+                    },
+                    onShareLocation: { location in
+
+                        guard let coordinate = location?.coordinate else { return }
+
+                        onCustomAttachmentTap(CustomAttachment(
+                            id: UUID().uuidString,
+                            content: AnyAttachmentPayload(
+                                payload: LocationAttachmentPayload(
+                                    lat: coordinate.latitude,
+                                    lon: coordinate.longitude
                                 )
-                                .edgesIgnoringSafeArea(.bottom)
-                            } else {
-                                viewFactory.makeAssetsAccessPermissionView()
-                            }
-                        }
-
-                    } else if selectedPickerState == .files {
-                        viewFactory.makeFilePickerView(
-                            filePickerShown: $filePickerShown,
-                            addedFileURLs: $addedFileURLs
-                        )
-                    } else if selectedPickerState == .camera {
-                        viewFactory.makeCameraPickerView(
-                            selected: $selectedPickerState,
-                            cameraPickerShown: $cameraPickerShown,
-                            cameraImageAdded: cameraImageAdded
-                        )
-                    } else if selectedPickerState == .custom {
-                        viewFactory.makeCustomAttachmentView(
-                            addedCustomAttachments: addedCustomAttachments,
-                            onCustomAttachmentTap: onCustomAttachmentTap
-                        )
+                            )
+                        ))
                     }
-                }
-                .frame(height: height)
-                .background(Color(colors.background1))
-                .onChange(of: isDisplayed) { newValue in
-                    if newValue {
-                        askForAssetsAccessPermissions()
-                    }
-                }
-//            }
+                )
+            }
         }
-        .frame(height: isDisplayed ? nil : 0)
+        .frame(height: height)
+        .background(Color(colors.background1))
+        .onChange(of: isDisplayed) { newValue in
+            if newValue {
+                askForAssetsAccessPermissions()
+            }
+        }
         .accessibilityElement(children: .contain)
         .accessibilityIdentifier("AttachmentPickerView")
+
+        .offset(y: isDisplayed ? 0 : popupHeight)
+        .animation(.spring())
     }
 }

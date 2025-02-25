@@ -47,6 +47,17 @@ public struct CustomAttachmentSourcePickerView: View {
             )
             .accessibilityIdentifier("attachmentPickerCamera")
 
+            AttachmentPickerButton(
+                icon: UIImage(
+                    named: "amigosLocationPin",
+                    in: .module,
+                    with: nil
+                )!,
+                pickerType: .custom,
+                isSelected: selected == .custom,
+                onTap: onTap
+            )
+
             Spacer()
         }
         .padding(.horizontal, 16)

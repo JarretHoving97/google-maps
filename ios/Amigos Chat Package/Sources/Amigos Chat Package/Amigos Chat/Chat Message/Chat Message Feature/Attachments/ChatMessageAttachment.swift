@@ -7,12 +7,19 @@
 
 import Foundation
 
+public struct LocationAttachment: Equatable, Hashable {
+    let id: UUID
+    let latitudeDouble: Double
+    let longitudeDouble: Double
+}
+
 public enum LocalChatMessageAttachment: Hashable, Equatable {
 
     case image(ImageAttachment)
     case file(FileAttachment)
     case video(VideoAttachment)
     case link(LinkAttachment)
+    case location(LocationAttachment)
     case notsupported
 
     public func hash(into hasher: inout Hasher) {
@@ -29,6 +36,9 @@ public enum LocalChatMessageAttachment: Hashable, Equatable {
         case .link(let attachment):
             hasher.combine("link")
             hasher.combine(attachment)
+        case .location(let attachment):
+            hasher.combine("location")
+            hasher.combine(attachment)
         case .notsupported:
             hasher.combine("notsupported")
         }
@@ -43,6 +53,8 @@ public enum LocalChatMessageAttachment: Hashable, Equatable {
         case (.video(let lhsAttachment), .video(let rhsAttachment)):
             return lhsAttachment == rhsAttachment
         case (.link(let lhsAttachment), .link(let rhsAttachment)):
+            return lhsAttachment == rhsAttachment
+        case (.location(let lhsAttachment), .location(let rhsAttachment)):
             return lhsAttachment == rhsAttachment
         case (.notsupported, .notsupported):
             return true

@@ -52,6 +52,10 @@ extension AnyChatMessageAttachment: ChatMessageAttachmentProtocol {
 
             return .link(codable.toLocal())
 
+        case .location:
+            guard let codable = payload.decoded(to: CodableLocationAttachment.self) else { return .notsupported }
+
+            return .location(codable.toLocal())
         default:
             return .notsupported
         }

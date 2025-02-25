@@ -33,12 +33,24 @@ public class MessageViewModel {
         return message.videoAttachments
     }
 
+    public var locationAttachment: LocationAttachment? {
+        return message.location
+    }
+
     var mediaAttachments: [MediaAttachment] {
         message.attachments.compactMap { $0.mediaAttachment(with: imageLoader, cdn: imageCDN, videoPreviewLoader: videoPreviewLoader) }
     }
 
+
     var asSuperEmoji: Bool {
         messageText.containsOnlyEmoji && message.text.count <= 3
+    }
+
+    var hasAttachment: Bool {
+        return !imageAttachments.isEmpty ||
+            !videoAttachments.isEmpty ||
+            locationAttachment != nil ||
+            !mediaAttachments.isEmpty
     }
 
     var author: LocalUser {
@@ -55,7 +67,7 @@ public class MessageViewModel {
 
     let videoPreviewLoader: PreviewVideoLoader
 
-    public private(set) var attachmentType: AttachmentType = .empty
+    public private(set) var attachmentType: LocalAttachmentType = .empty
 
     private let messageResolver: AmigosMessageTypeResolving
 

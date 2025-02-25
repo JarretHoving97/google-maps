@@ -7,55 +7,14 @@
 
 import SwiftUI
 
-class QuotedMessageViewModel {
-
-    public var messageText: String {
-        message.text
-    }
-    public var isSentByCurrentUser: Bool {
-        return message.isSentByCurrentUser
-    }
-
-    public var isDeleted: Bool {
-        return message.isDeleted
-    }
-
-    public var author: String {
-        message.user.name
-    }
-
-    let imageLoader: ImageLoader
-
-    let imageCDN: ImageCDNhandler
-
-    let videoPreviewLoader: PreviewVideoLoader
-
-    private let message: Message
-
-    init(
-        message: Message,
-        imageLoader: ImageLoader = DefaultImageLoader(),
-        imageCDN: ImageCDNhandler = MockImageCDN(),
-        videoPreviewLoader: PreviewVideoLoader = DefaultPreviewVideoLoader()
-    ) {
-        self.imageLoader = imageLoader
-        self.imageCDN = imageCDN
-        self.videoPreviewLoader = videoPreviewLoader
-        self.message = message
-    }
-
-    var mediaAttachments: [MediaAttachment] {
-        message.attachments.compactMap { $0.mediaAttachment(with: imageLoader, cdn: imageCDN, videoPreviewLoader: videoPreviewLoader) }
-    }
-
-}
-
 struct QuotedMessageView: View {
 
     let viewModel: QuotedMessageViewModel
+    let maxWidth: CGFloat
 
-    init(viewModel: QuotedMessageViewModel) {
+    init(viewModel: QuotedMessageViewModel, maxWidth: CGFloat = .messageWidth) {
         self.viewModel = viewModel
+        self.maxWidth = maxWidth
     }
 
     var body: some View {
@@ -73,10 +32,10 @@ struct QuotedMessageView: View {
                 content
             }
             .padding(8)
-            .frame(alignment: .leading)
         }
-        .frame(alignment: .leading)
+        .frame(maxWidth: maxWidth, alignment: .leading)
         .background(.black.opacity(0.1))
+
     }
 
     private var content: some View {
@@ -97,8 +56,18 @@ struct QuotedMessageView: View {
                             .frame(width: 40, height: 40)
                     }
 
+                    if let location = viewModel.locationAttachment {
+                        QuotedLocationView(
+                            viewModel: QuotedLocationViewModel(
+                                locationAttachment: location,
+                                isSentByCurrentUser: viewModel.isSentByCurrentUser
+                            )
+                        )
+                    }
                     if !viewModel.messageText.isEmpty {
                         Text(viewModel.messageText)
+                            .frame(alignment: .leading)
+                            .multilineTextAlignment(.leading)
                             .font(.caption)
                             .foregroundStyle(.gray)
                             .lineLimit(3)
@@ -118,7 +87,7 @@ struct QuotedMessageView: View {
                 attachments: [
                     .image(ImageAttachment(imageUrl: ImageURLExamples.portraitImageUrl, uploadingState: .none))
                 ]
-            )
+            ), isSentByCurrentUser: true
         )
     )
 }
