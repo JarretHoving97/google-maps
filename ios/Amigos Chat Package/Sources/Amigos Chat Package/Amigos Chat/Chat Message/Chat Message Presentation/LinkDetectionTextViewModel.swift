@@ -29,7 +29,7 @@ class LinkDetectionTextViewModel: ObservableObject {
     var messageText: AttributedString {
 
         if isModerator {
-            return AttributedString(tr(text))
+            return AttributedString(NSAttributedString(string: tr(text), attributes: attributes))
         }
 
         if linkDetector.hasLinks(in: text) {
