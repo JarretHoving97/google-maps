@@ -20,6 +20,8 @@ struct MessageView: View {
 
     @State private var selectedSingleAttachment: MediaAttachment?
 
+    let onQuotedMessageTap: ((String) -> Void)?
+
     private let defaultTextPadding = EdgeInsets(
         top: 8,
         leading: 16,
@@ -29,9 +31,10 @@ struct MessageView: View {
 
     let maxWidth: CGFloat = .messageWidth
 
-    init(viewModel: MessageViewModel) {
+    init(viewModel: MessageViewModel, onQuotedMessageTap: ((String) -> Void)? = nil) {
         self.viewModel = viewModel
         viewModel.resolveMessageType()
+        self.onQuotedMessageTap = onQuotedMessageTap
     }
 
     var body: some View {
@@ -148,6 +151,9 @@ extension MessageView {
                     )
                 )
                 .fixedSize(horizontal: false, vertical: true)
+                .onTapGesture {
+                    onQuotedMessageTap?(message.id)
+                }
             } else {
                 EmptyView()
             }

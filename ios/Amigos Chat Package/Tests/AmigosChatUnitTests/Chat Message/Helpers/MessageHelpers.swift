@@ -18,7 +18,7 @@ func makeMessage(
 }
 
 func makeQuotedMessage(
-    id: UUID = UUID(),
+    id: String = UUID().uuidString,
     text: String = "",
     attachments: [LocalChatMessageAttachment] = []
 ) -> () -> Message {

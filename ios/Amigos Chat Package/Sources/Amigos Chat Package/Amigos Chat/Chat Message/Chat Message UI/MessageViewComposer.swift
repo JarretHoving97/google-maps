@@ -18,7 +18,8 @@ struct MessageViewComposer {
         forceLeftToRight: Bool,
         imageLoader: ImageLoader = NukeImageLoader(),
         imageCDN: ImageCDNhandler = StreamImageCDN(),
-        videoPreviewLoader: PreviewVideoLoader = DefaultPreviewVideoLoader()
+        videoPreviewLoader: PreviewVideoLoader = DefaultPreviewVideoLoader(),
+        onQuotedMessageTap: ((String) -> Void)? = nil
 
     ) -> MessageView {
 
@@ -31,6 +32,7 @@ struct MessageViewComposer {
             videoPreviewLoader: videoPreviewLoader,
             isFirst: isFirst
         )
-        return MessageView(viewModel: viewModel)
+
+        return MessageView(viewModel: viewModel, onQuotedMessageTap: onQuotedMessageTap)
     }
 }

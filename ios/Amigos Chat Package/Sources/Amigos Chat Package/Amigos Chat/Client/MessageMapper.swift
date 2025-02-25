@@ -18,7 +18,7 @@ public class MessageMapper {
 
     public func map(_ remoteMessage: ChatMessageProtocol) -> Message {
         Message(
-            id: UUID(uuidString: remoteMessage.id) ?? UUID(),
+            id: remoteMessage.id,
             user: remoteMessage.user.toLocal(),
             isSentByCurrentUser: remoteMessage.isSentByCurrentUser,
             message: remoteMessage.text,
@@ -41,7 +41,7 @@ struct QuotedMessageMapper {
 
             return {
                 Message(
-                    id: UUID(uuidString: quotedMessage.id) ?? UUID(),
+                    id: quotedMessage.id,
                     user: quotedMessage.user.toLocal(),
                     message: quotedMessage.text,
                     attachments: attachmentsMapper.mapAttachmentsFactory(quotedMessage.attachments)

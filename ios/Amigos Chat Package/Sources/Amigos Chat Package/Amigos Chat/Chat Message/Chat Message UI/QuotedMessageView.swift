@@ -18,16 +18,18 @@ struct QuotedMessageView: View {
     }
 
     var body: some View {
+        let color = colorByString(viewModel.author)
+
         HStack(spacing: 4) {
             Rectangle()
                 .frame(width: 5)
-                .foregroundStyle(Color.orange)
+                .foregroundStyle(color)
 
             VStack(alignment: .leading, spacing: 10) {
                 Text(viewModel.author)
                     .font(.caption)
                     .bold()
-                    .foregroundStyle(Color.orange)
+                    .foregroundStyle(color)
 
                 content
             }

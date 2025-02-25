@@ -21,7 +21,7 @@ public struct LocalUser {
 
 public struct Message {
 
-    public let id: UUID
+    public let id: String
 
     public let text: String
 
@@ -42,8 +42,8 @@ public struct Message {
     private let _quotedMessage: (() -> Message?)?
 
     public init(
-        id: UUID = UUID(),
-        user: LocalUser = LocalUser(id: UUID(), name: "Jarret"),
+        id: String = UUID().uuidString,
+        user: LocalUser = LocalUser(id: UUID(), name: ""),
         isSentByCurrentUser: Bool = false,
         message: String = "",
         quotedMessage: (() -> Message?)? = nil,
