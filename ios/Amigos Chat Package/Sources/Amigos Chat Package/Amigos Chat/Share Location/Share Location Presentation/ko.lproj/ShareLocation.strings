@@ -11,7 +11,7 @@
 
 "share_location_share_your_location_button_title" = "현재 위치 공유";
 
-"share_location_users_location_label" = "{USER_NAME}의 위치";
+"share_location_users_location_label" = "위치 - {USER_NAME}";
 
 "share_location_users_location_preview_label" = "귀하의 위치";
 

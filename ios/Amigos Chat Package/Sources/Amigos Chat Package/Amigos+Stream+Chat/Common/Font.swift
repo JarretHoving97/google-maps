@@ -25,6 +25,10 @@ extension Font {
 
         return Font.custom(fontName, size: size)
     }
+    
+    static var caption1: Font {
+        return .custom(size: 13, weight: .regular)
+    }
 }
 
 extension UIFont {

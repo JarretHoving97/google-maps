@@ -18,7 +18,7 @@
 
 "share_location_users_location_accuracy_label" = "Nauwkeurig tot {METERS_COUNT} meter";
 
-"share_location_users_location_accuracy_unknown_label" = "Nauwkeruigheid onbekend";
+"share_location_users_location_accuracy_unknown_label" = "Nauwkeurigheid onbekend";
 
 "share_location_grant_permission_label" = "Sta locatiegebruik toe";
 
@@ -30,6 +30,6 @@
 
 "share_location_permissions_not_determed_dialog_settings_button_title" = "Open instellingen";
 
-"share_location_ask_precise_permission_button_title" = "Schakel 'Exacte Locatie' in bij instellingen";
+"share_location_ask_precise_permission_button_title" = "Schakel 'Exacte Locatie' in via instellingen";
 
 "share_location_quoted_message_view_title" = "Locatie";

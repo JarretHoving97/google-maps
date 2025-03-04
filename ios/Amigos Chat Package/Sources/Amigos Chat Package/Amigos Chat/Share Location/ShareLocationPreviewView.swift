@@ -69,15 +69,15 @@ public struct ShareLocationPreviewView: View {
                 HStack {
                     Text(viewModel.shareUserLocationTitle)
                         .lineLimit(1)
-                        .font(Font.custom(size: 16, weight: .regular, style: .normal))
+                        .font(.caption1)
                         .frame(maxWidth: .infinity, alignment: .leading)
 
                     Image(.chevronRight)
                         .foregroundStyle(Color(.purple))
                 }
-                .padding(.horizontal, 10)
+                .padding(.horizontal, 16)
+                .padding(.vertical, 8)
             }
-            .frame(height: 50)
         }
     }
 }

@@ -11,7 +11,7 @@
 
 "share_location_share_your_location_button_title" = "Udostępnij swoją bieżącą lokalizację";
 
-"share_location_users_location_label" = "Lokalizacja użytkownika {USER_NAME}";
+"share_location_users_location_label" = "Lokalizacja - {USER_NAME}";
 
 "share_location_users_location_preview_label" = "Twoja lokalizacja";
 

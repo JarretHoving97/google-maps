@@ -60,7 +60,7 @@ struct MessageView: View {
             VStack(alignment: .leading, spacing: 0) {
                 VStack(spacing: 6) {
                     quotedMessageView
-                    sharedLoactionView
+                    sharedLocationView
                     mediaAttachmentView
                     walkthroughView
                 }
@@ -254,7 +254,7 @@ extension MessageView {
         return defaultTextPadding
     }
 
-    var sharedLoactionView: some View {
+    var sharedLocationView: some View {
         Group {
             if let location = viewModel.locationAttachment {
                 ShareLocationMessageView(
