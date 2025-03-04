@@ -47,7 +47,7 @@ struct LocationsPermissionsView: View {
                     .foregroundStyle(Color(.systemGray5))
                     .padding(EdgeInsets(top: 20, leading: 20, bottom: 0, trailing: 20))
 
-                AmiButtonRegular(viewModel.buttonTitle, action: action)
+                AmiButton(viewModel.buttonTitle, action: action)
                     .padding(EdgeInsets(top: 0, leading: 20, bottom: 20, trailing: 20))
                     .frame(height: 50)
             }

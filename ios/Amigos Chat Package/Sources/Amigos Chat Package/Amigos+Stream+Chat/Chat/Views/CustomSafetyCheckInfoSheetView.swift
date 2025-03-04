@@ -98,7 +98,7 @@ struct CustomSafetyCheckInfoSheetView: View {
 
             Spacer()
 
-            AmiButton("custom.iUnderstand") {
+            AmiButton(tr("custom.iUnderstand")) {
                 isPresented = false
             }
         }

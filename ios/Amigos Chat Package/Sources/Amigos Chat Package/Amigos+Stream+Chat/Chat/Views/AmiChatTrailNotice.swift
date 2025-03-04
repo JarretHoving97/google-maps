@@ -152,7 +152,7 @@ struct CustomChatTrialNoticeView: View {
 
             Spacer()
 
-            AmiButton("custom.becomeSuperAmigo") {
+            AmiButton(tr("custom.becomeSuperAmigo")) {
                 navigateToSuperAmigoWebView()
             }
                 .frame(maxWidth: .infinity)

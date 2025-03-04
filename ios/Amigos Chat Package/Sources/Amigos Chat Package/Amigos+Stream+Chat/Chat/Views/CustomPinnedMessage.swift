@@ -185,7 +185,7 @@ struct CustomEditPinnedMessageSheetView: View {
 
             Spacer()
 
-            AmiButton("custom.save", action: updatePinnedMessage)
+            AmiButton(tr("custom.save"), action: updatePinnedMessage)
         }
         .padding(.all, 16)
         .padding(.top, 24)

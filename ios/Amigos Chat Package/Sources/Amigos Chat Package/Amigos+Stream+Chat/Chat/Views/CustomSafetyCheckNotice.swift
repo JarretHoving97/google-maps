@@ -195,7 +195,7 @@ struct CustomNegativeSafetyCheckSheetView: View {
             Spacer()
 
             AmiButton(
-                "custom.save",
+                tr("custom.save"),
                 disabled: selectedSafetyCheckReason == nil
             ) {
                 updateChannel(.negative, $selectedSafetyCheckReason.wrappedValue)
