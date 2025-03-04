@@ -13,7 +13,7 @@
 
 "share_location_users_location_label" = "Ubicación de {USER_NAME}";
 
-"share_location_users_location_preview_label" = "Ubicación de {USER_NAME}";
+"share_location_users_location_preview_label" = "Tu ubicación";
 
 "share_location_users_location_accuracy_label" = "Precisión de {METERS_COUNT} metros";
 

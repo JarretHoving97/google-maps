@@ -11,11 +11,15 @@ import StreamChatSwiftUI
 class ShareLocationViewPreviewViewModel: ObservableObject {
 
     var location: LocationAttachmentPayload? {
-        addedCustomAttachments.first?.content as? LocationAttachmentPayload
+        addedCustomAttachments.first?.content.payload as? LocationAttachmentPayload
     }
 
     var shareUserLocationTitle: String {
         Localized.ShareLocation.usersLocationPreviewLabel(author: username)
+    }
+
+    var dialogTitle: String {
+        Localized.ShareLocation.chooseMapsDialogTitle
     }
 
     private let username: String

@@ -14,7 +14,7 @@
 
 "share_location_users_location_label" = "Locatie van {USER_NAME}";
 
-"share_location_users_location_preview_label" = "Locatie van {USER_NAME}";
+"share_location_users_location_preview_label" = "Jouw locatie";
 
 "share_location_users_location_accuracy_label" = "Nauwkeurig tot {METERS_COUNT} meter";
 

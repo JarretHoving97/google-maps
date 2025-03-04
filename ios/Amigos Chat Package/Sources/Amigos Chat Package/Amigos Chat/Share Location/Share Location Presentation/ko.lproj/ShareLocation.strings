@@ -13,7 +13,7 @@
 
 "share_location_users_location_label" = "{USER_NAME}의 위치";
 
-"share_location_users_location_preview_label" = "{USER_NAME}의 위치";
+"share_location_users_location_preview_label" = "귀하의 위치";
 
 "share_location_users_location_accuracy_label" = "{METERS_COUNT}미터 이내 정확";
 

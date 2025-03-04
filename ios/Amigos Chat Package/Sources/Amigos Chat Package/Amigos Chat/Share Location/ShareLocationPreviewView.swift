@@ -12,8 +12,8 @@ import CoreLocation
 public struct ShareLocationPreviewView: View {
 
     public typealias Attachment = CustomAttachment
-
-    @ObservedObject var viewModel: ShareLocationViewPreviewViewModel
+    @State private var presentShareSheet: Bool = false
+    @StateObject var viewModel: ShareLocationViewPreviewViewModel
 
     private var onCustomAttachmentTap: (Attachment) -> Void
 
@@ -23,29 +23,61 @@ public struct ShareLocationPreviewView: View {
         onCustomAttachmentTap: @escaping (Attachment) -> Void
     ) {
         self.onCustomAttachmentTap = onCustomAttachmentTap
-        _viewModel = ObservedObject(
-            initialValue: ShareLocationViewPreviewViewModel(
-                username: username,
-                addedCustomAttachments: addedCustomAttachments
-            )
-        )
+        _viewModel = StateObject(wrappedValue: ShareLocationViewPreviewViewModel(
+            username: username,
+            addedCustomAttachments: addedCustomAttachments
+        ))
     }
 
     public var body: some View {
-        ZStack {
-            Color(uiColor: UIColor(resource: .coolerGray))
-            HStack {
-                Text(viewModel.shareUserLocationTitle)
-                    .lineLimit(1)
-                    .font(.body)
-                    .frame(maxWidth: .infinity, alignment: .leading)
 
-                Image(.chevronRight)
-            }
-            .padding()
+        VStack {
+            usersLocationView
+                .onTapGesture {
+                    presentShareSheet.toggle()
+                }
         }
-        .roundWithBorder()
-        .frame(height: 60)
-        .padding(4)
+        .clipShape(
+            RoundedRectangle(
+                cornerRadius: 18
+            )
+        )
+
+        .shareLocationDialog(
+            isPresented: $presentShareSheet,
+            title: viewModel.dialogTitle,
+            latitude: viewModel.location?.latitudeDouble ?? 0,
+            longitude: viewModel.location?.longitudeDouble ?? 0
+        )
+    }
+
+    private var usersLocationView: some View {
+
+        VStack(spacing: 0) {
+            ZStack {
+                Color(.purple)
+                Image(systemName: "map")
+                    .resizable()
+                    .scaledToFit()
+                    .foregroundStyle(.white)
+                    .frame(width: 24, height: 24)
+
+            }
+            .frame(height: 60)
+            ZStack {
+                Color(uiColor: .white)
+                HStack {
+                    Text(viewModel.shareUserLocationTitle)
+                        .lineLimit(1)
+                        .font(Font.custom(size: 16, weight: .regular, style: .normal))
+                        .frame(maxWidth: .infinity, alignment: .leading)
+
+                    Image(.chevronRight)
+                        .foregroundStyle(Color(.purple))
+                }
+                .padding(.horizontal, 10)
+            }
+            .frame(height: 50)
+        }
     }
 }

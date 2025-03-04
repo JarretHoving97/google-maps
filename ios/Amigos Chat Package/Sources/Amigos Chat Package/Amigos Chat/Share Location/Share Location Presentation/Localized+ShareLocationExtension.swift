@@ -75,7 +75,6 @@ extension Localized {
                 bundle: bundle,
                 comment: "share location label from preview view before sending location to chat."
             )
-            .replacingOccurrences(of: "{USER_NAME}", with: author)
         }
 
         static var shareYourLocationLabel: String {
