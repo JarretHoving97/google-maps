@@ -171,6 +171,7 @@ let customMessageListConfig = MessageListConfig(
     ),
     messagePaddings: MessagePaddings(horizontal: 12),
     dateIndicatorPlacement: .messageList,
+    scrollingAnchor: .center,
     uniqueReactionsEnabled: true,
     markdownSupportEnabled: false
 )
