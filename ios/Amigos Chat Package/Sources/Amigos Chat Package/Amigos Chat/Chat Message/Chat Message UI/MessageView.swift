@@ -201,11 +201,13 @@ extension MessageView {
                     imageCDN: viewModel.imageCDN,
                     width: maxWidth
                 )
-                .onTapGesture {
-                    selectedSingleAttachment = viewModel.mediaAttachments.first
-                }
-            } else {
-                EmptyView()
+                .overlay(
+                    Color.clear
+                        .contentShape(Rectangle())
+                        .onTapGesture {
+                            selectedSingleAttachment = viewModel.mediaAttachments.first
+                        }
+                )
             }
         }
     }
@@ -219,11 +221,13 @@ extension MessageView {
                     attachment: video,
                     width: maxWidth
                 )
-                .onTapGesture {
-                    selectedSingleAttachment = viewModel.mediaAttachments.first
-                }
-            } else {
-                EmptyView()
+                .overlay(
+                    Color.clear
+                        .contentShape(Rectangle())
+                        .onTapGesture {
+                            selectedSingleAttachment = viewModel.mediaAttachments.first
+                        }
+                )
             }
         }
     }

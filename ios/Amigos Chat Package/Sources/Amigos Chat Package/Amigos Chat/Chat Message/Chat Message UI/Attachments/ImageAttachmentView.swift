@@ -11,8 +11,6 @@ public struct ImageAttachmentView: View {
 
     @State private var aspectRatio: CGFloat? /// Store aspect ratio once the image is loaded
 
-    @State private var showGallery: Bool = false
-
     let author: LocalUser
     let loader: ImageLoader
     let imageCDN: ImageCDNhandler
@@ -53,27 +51,7 @@ public struct ImageAttachmentView: View {
         }
         .frame(width: width, height: finalHeight())
         .contentShape(Rectangle()) /// needed to recognize tap gesture
-        .onTapGesture {
-            showGallery.toggle()
-        }
         .withUploadingStateIndicator(for: attachment.uploadingState, url: attachment.imageUrl)
-        .fullScreenCover(isPresented: $showGallery) {
-            GalleryView(
-                viewModel: GalleryViewModel(
-                    isShown: $showGallery,
-                    attachments: [
-                        MediaAttachment(
-                            imageLoader: loader,
-                            imageCDN: imageCDN,
-                            videoPreviewLoader: DefaultPreviewVideoLoader(),
-                            url: attachment.imageUrl,
-                            type: .photo
-                        )
-                    ],
-                    author: author
-                )
-            )
-        }
     }
 
    /// Calculates the final height based on the aspect ratio and constraints.

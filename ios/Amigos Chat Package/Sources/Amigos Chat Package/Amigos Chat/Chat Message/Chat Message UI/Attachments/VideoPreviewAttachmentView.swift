@@ -17,8 +17,6 @@ struct VideoPreviewAttachmentView: View {
     @State var previewImage: UIImage?
     @State var error: Error?
 
-    @State private var galleryPresented: Bool = false
-
     var ratio: CGFloat = 0.75
     let width: CGFloat
 
@@ -56,9 +54,6 @@ struct VideoPreviewAttachmentView: View {
             }
         }
         .frame(width: width, height: width * ratio)
-        .onTapGesture {
-            galleryPresented.toggle()
-        }
         .withUploadingStateIndicator(for: attachment.uploadingState, url: attachment.url)
         .onAppear {
             videoPreviewLoader.loadPreviewForVideo(at: attachment.url) { result in
@@ -69,15 +64,6 @@ struct VideoPreviewAttachmentView: View {
                     self.error = error
                 }
             }
-        }
-        .fullScreenCover(isPresented: $galleryPresented) {
-            GalleryView(
-                viewModel: GalleryViewModel(
-                    isShown: $galleryPresented,
-                    attachments: [.video(with: attachment.url)],
-                    author: user
-                )
-            )
         }
     }
 }
