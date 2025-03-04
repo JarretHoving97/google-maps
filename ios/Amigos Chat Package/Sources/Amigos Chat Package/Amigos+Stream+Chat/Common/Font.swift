@@ -40,6 +40,6 @@ extension UIFont {
     ) -> UIFont {
         let fontName: String = "Poppins-" + weight.rawValue + style.rawValue
 
-        return UIFont(name: fontName, size: size)!
+        return UIFont(name: fontName, size: size) ?? UIFont.systemFont(ofSize: size)
     }
 }

@@ -29,20 +29,28 @@ class LinkDetectionTextViewModel: ObservableObject {
     var messageText: AttributedString {
 
         if isModerator {
-            return AttributedString(NSAttributedString(string: tr(text), attributes: attributes))
+            return moderatorText(from: text)
         }
 
         if linkDetector.hasLinks(in: text) {
-           return linkify(for: text, attributes: attributes)
+            return linkify(for: text, attributes: attributes)
         }
 
         return AttributedString(NSAttributedString(string: text, attributes: attributes))
     }
 
-   private var attributes: [NSAttributedString.Key: Any] {
-       [
-        .foregroundColor: isSentByCurrentUser ? UIColor.white : UIColor.darkText,
-        .font: UIFont.caption1
+    private func moderatorText(from text: String) -> AttributedString {
+        if let markdownText = markdownAttributedString(from: text) {
+            return markdownText
+        }
+
+        return AttributedString(NSAttributedString(string: tr(text), attributes: attributes))
+    }
+
+    private var attributes: [NSAttributedString.Key: Any] {
+        [
+            .foregroundColor: isSentByCurrentUser ? UIColor.white : UIColor.darkText,
+            .font: UIFont.caption1
         ]
     }
 
@@ -67,7 +75,38 @@ class LinkDetectionTextViewModel: ObservableObject {
         return AttributedString(attributedText)
     }
 
-     func handleLinkTap(_ url: URL) {
+    /// Detects modern things like markdown links
+    func markdownAttributedString(from text: String) -> AttributedString? {
+        if var attString = try? AttributedString(markdown: text) {
+            /// add attributes to it
+            attString.font = UIFont.caption1
+            attString.foregroundColor = isSentByCurrentUser ? UIColor.white : UIColor.darkText
+
+            /// find range of links and modify text
+            detectMarkdownLinks(with: attString).forEach { range in
+                attString[range].foregroundColor = UIColor(.purple)
+                attString[range].underlineStyle = [.single]
+            }
+
+            return attString
+        }
+
+        return nil
+    }
+
+    private func detectMarkdownLinks(with text: AttributedString) -> [Range<AttributedString.Index>] {
+        var linkRanges: [Range<AttributedString.Index>] = []
+
+        text.runs.forEach { run in
+            if run.attributes.link != nil {
+                linkRanges.append(run.range)
+            }
+        }
+
+        return linkRanges
+    }
+
+    func handleLinkTap(_ url: URL) {
         let webViewURL = CurrentEnvironment.url
         if let webViewURL, url.host == webViewURL.host {
             RouteController.routeAction?(RouteInfo(route: .path(url.relativePath), dismiss: true))
