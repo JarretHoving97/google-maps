@@ -38,7 +38,7 @@ public struct CustomChatChannelListView<Factory: ViewFactory>: View {
         handleTabBarVisibility: Bool = true,
         embedInNavigationView: Bool = true
     ) {
-        let channelListVM = viewModel ?? ViewModelsFactory.makeChannelListViewModel(
+        let channelListVM = ChatChannelListViewModel(
             channelListController: channelListController,
             selectedChannelId: selectedChannelId
         )

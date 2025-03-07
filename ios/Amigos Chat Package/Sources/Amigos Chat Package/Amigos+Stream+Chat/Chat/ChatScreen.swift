@@ -98,7 +98,6 @@ public struct ChatScreen: View {
     var view: some View {
         ChatChannelsScreen(
             with: viewFactory,
-            viewModel: viewModel,
             chatViewModel: chatViewModel,
             channelListController: channelListController,
             onItemTapped: onItemTapped ?? { _ in }
