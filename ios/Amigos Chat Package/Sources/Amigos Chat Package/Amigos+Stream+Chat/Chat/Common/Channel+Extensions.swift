@@ -149,6 +149,8 @@ extension ChatChannel {
         case .voiceRecording:
             let defaultVoiceMessageText = tr("channel.item.voice-message")
             return "\(text.isEmpty ? defaultVoiceMessageText : text) 🎙️"
+        case .location:
+            return "\(text.isEmpty ? tr("channel.item.location") : text) 📍"
         default:
             return nil
         }

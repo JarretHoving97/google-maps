@@ -36,6 +36,7 @@
 "channel.item.unmute" = "Wyłącz wyciszenie";
 "channel.item.video" = "Wideo";
 "channel.item.voice-message" = "Wiadomość głosowa";
+"channel.item.location" = "Lokalizacja";
 "channel.name.and" = "i";
 "channel.name.andXMore" = "i %@ więcej";
 "channel.name.direct-message" = "użytkownik";

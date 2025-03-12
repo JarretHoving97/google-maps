@@ -36,6 +36,7 @@
 "channel.item.unmute" = "Stummschaltung aufheben";
 "channel.item.video" = "Video";
 "channel.item.voice-message" = "Sprachnachricht";
+"channel.item.location" = "Standort";
 "channel.name.and" = "und";
 "channel.name.andXMore" = "und %@ mehr";
 "channel.name.direct-message" = "Benutzer";

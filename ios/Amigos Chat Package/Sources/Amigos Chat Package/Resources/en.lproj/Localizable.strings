@@ -192,6 +192,7 @@
 "channel.item.photo" = "Photo";
 "channel.item.video" = "Video";
 "channel.item.voice-message" = "Voice Message";
+"channel.item.location" = "Location";
 
 // Custom
 "custom.contact" = "Contact";
