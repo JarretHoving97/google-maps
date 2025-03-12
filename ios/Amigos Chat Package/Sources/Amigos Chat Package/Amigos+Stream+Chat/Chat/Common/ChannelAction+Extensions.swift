@@ -38,7 +38,7 @@ extension ChannelAction {
             }
         }
 
-        if !channel.isDirectMessageChannel {
+        if case .activity = channel.relatedConceptType {
             let memberRole = channel.membership?.memberRole
             let hasCapability = channel.ownCapabilities.contains(.leaveChannel)
             let isActiveActivity = channel.extraData["activityIsActive"]?.numberValue == 1
@@ -46,7 +46,6 @@ extension ChannelAction {
             let isAllowedToLeaveChannel =
                 hasCapability &&
                 (
-
                     memberRole == .channelMember ||
                     memberRole == .coOrganizer ||
                     (channel.isCurrentUserOrganizer && isActiveActivity)
@@ -62,7 +61,7 @@ extension ChannelAction {
 
                 actions.append(leaveAction)
             }
-        } else {
+        } else if case .standard = channel.relatedConceptType {
             let archiveAction = archiveChat(
                 for: channel,
                 chatClient: chatClient,
@@ -235,7 +234,7 @@ extension ChannelAction {
         let otherUser = channel.lastActiveMembers
             .first(where: { $0.id != chatClient.currentUserId })
 
-        if channel.isDirectMessageChannel, let userId = otherUser?.id {
+        if case .standard = channel.relatedConceptType, let userId = otherUser?.id {
             let profileAction = ChannelAction(
                 title: tr("custom.channel.action.profile.title"),
                 iconName: "chevron.right",
@@ -255,9 +254,20 @@ extension ChannelAction {
             return [profileAction, inviteAction]
         }
 
-        if !channel.isDirectMessageChannel {
-            let activityId = channel.cid.id
+        if case .mixer(let mixerId) = channel.relatedConceptType {
+            // @TODO: Add custom.channel.action.mixer.title translation
+            let viewAction = ChannelAction(
+                title: tr("custom.channel.action.activity.title"),
+                iconName: "chevron.right",
+                action: {RouteController.routeAction?(RouteInfo(route: .mixerRoute(id: mixerId), dismiss: true))},
+                confirmationPopup: nil,
+                isDestructive: false
+            )
 
+            return [viewAction]
+        }
+
+        if case .activity(let activityId) = channel.relatedConceptType {
             let viewAction = ChannelAction(
                 title: tr("custom.channel.action.activity.title"),
                 iconName: "chevron.right",

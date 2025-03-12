@@ -8,7 +8,31 @@ public struct CustomSystemMessageView: View {
     @Injected(\.fonts) private var fonts
     @Injected(\.colors) private var colors
 
-    var message: ChatMessage
+    private let messageMapper = MessageMapper()
+
+    let viewModel: MessageViewModel
+
+    let message: ChatMessage
+
+    public init(message: ChatMessage) {
+        self.message = message
+        self.viewModel = MessageViewModel(message: messageMapper.map(message))
+    }
+
+    public var body: some View {
+        if let type = viewModel.layoutMessageType, case .anonymous = type {
+            AnonymousSystemMessageView(message: message)
+        } else {
+            DefaultSystemMessageView(message: message)
+        }
+    }
+}
+
+public struct DefaultSystemMessageView: View {
+    @Injected(\.fonts) private var fonts
+    @Injected(\.colors) private var colors
+
+    let message: ChatMessage
 
     public init(message: ChatMessage) {
         self.message = message

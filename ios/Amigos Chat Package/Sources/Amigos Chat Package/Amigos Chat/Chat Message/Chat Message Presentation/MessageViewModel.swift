@@ -146,7 +146,7 @@ extension MessageViewModel {
         return isDeleted || asSuperEmoji && quotedMessage == nil
     }
 
-    var walkthroughType: MessageWalkthroughType? {
-        MessageWalkthroughType(rawValue: message.layoutKey ?? "")
+    var layoutMessageType: LayoutMessageType? {
+        LayoutMessageType(rawValue: message.layoutKey ?? "")
     }
 }
