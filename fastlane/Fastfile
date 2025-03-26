@@ -5,6 +5,7 @@ platform :ios do
   lane :internal do
     # set xcode (build tools) version
     xcodes(version: "15.4", select_for_current_build_only: true)
+    sh("swift --version")
     # generate auth token
     app_store_connect_api_key(
       issuer_id: ENV["ISSUER_ID"],
@@ -82,6 +83,6 @@ platform :android do
     # return version
 
     # For now, return the latest version manually.
-    return "1.9.16"
+    return "1.9.17"
   end
 end

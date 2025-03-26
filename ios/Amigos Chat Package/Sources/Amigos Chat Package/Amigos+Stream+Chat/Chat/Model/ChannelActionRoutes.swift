@@ -12,6 +12,7 @@ public enum ChannelRoute: Equatable {
     case profileRoute(id: String)
     case profileInviteRoute(id: String)
     case activityRoute(id: String)
+    case mixerRoute(id: String)
     case inviteToActivityRoute(id: String)
     case manageActivityParticipantsRoute(id: String)
 
@@ -36,6 +37,9 @@ public enum ChannelRoute: Equatable {
         case .activityRoute(let id):
             "/activity/\(id)"
 
+        case .mixerRoute(let id):
+            "/mixer/\(id)"
+            
         case .inviteToActivityRoute(let id):
             "/activity/\(id)/invite"
 

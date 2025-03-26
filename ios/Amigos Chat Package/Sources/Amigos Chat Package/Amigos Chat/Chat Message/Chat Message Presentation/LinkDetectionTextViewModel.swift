@@ -7,7 +7,6 @@
 
 import SwiftUI
 
-@MainActor
 class LinkDetectionTextViewModel: ObservableObject {
 
     @Published var tappedUrl: URL?

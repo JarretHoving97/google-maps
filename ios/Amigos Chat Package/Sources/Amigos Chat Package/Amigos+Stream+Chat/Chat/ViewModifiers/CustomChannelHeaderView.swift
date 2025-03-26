@@ -56,11 +56,16 @@ public struct CustomChatChannelHeader<Factory: ViewFactory>: View {
 
         var route: ChannelRoute?
 
-        if channel.isDirectMessageChannel, let userId = otherUser?.id {
-            route = .profileRoute(id: userId)
-        } else if !channel.isDirectMessageChannel {
-            let activityId = channel.cid.id
+        if case .mixer(let mixerId) = channel.relatedConceptType {
+            route = .mixerRoute(id: mixerId)
+        }
+
+        if case .activity(let activityId) = channel.relatedConceptType {
             route = .activityRoute(id: activityId)
+        }
+
+        if case .standard = channel.relatedConceptType, let userId = otherUser?.id {
+            route = .profileRoute(id: userId)
         }
 
         if let route {

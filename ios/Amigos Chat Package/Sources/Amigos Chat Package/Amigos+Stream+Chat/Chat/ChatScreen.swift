@@ -96,11 +96,12 @@ public struct ChatScreen: View {
     }
 
     var view: some View {
-        ChatChannelsScreen(
-            with: viewFactory,
-            chatViewModel: chatViewModel,
-            channelListController: channelListController,
-            onItemTapped: onItemTapped ?? { _ in }
+        CustomChatChannelListView(
+            viewFactory: viewFactory,
+            viewModel: viewModel,
+            title: chatViewModel.title,
+            onItemTap: onItemTapped,
+            embedInNavigationView: false
         )
         .toolbar {
             ToolbarItem(placement: .topBarLeading) {

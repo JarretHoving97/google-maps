@@ -50,16 +50,16 @@ class GalleryViewModel: ObservableObject {
         if selectedIndices.count == attachments.count {
             selectedIndices.removeAll()
         } else {
-            selectedIndices = attachments.indices.map(\.self)
+            selectedIndices = attachments.indices.map {$0}
         }
     }
 
     func downloadSelectedAttachments() async {
+        Task { @MainActor in
+            downloading = true
+        }
 
-        Task { @MainActor in downloading = true }
-
-        var downloadedAttachments = [Any]()
-
+        let downloadedAttachmentsActor = DownloadedAttachmentsActor()
         let selectedAttachments = selectedIndices.map { attachments[$0] }
 
         await withTaskGroup(of: Void.self) { group in
@@ -67,14 +67,14 @@ class GalleryViewModel: ObservableObject {
                 group.addTask {
                     do {
                         let data = try await attachment.download()
-                        downloadedAttachments.append(data)
-
+                        await downloadedAttachmentsActor.append(data: data)
                     } catch {
                         print("Error downloading attachment: \(String(describing: error))")
                     }
                 }
             }
         }
+        let downloadedAttachments = await downloadedAttachmentsActor.getAttachments()
 
         Task { @MainActor in
             downloading = false
@@ -110,5 +110,21 @@ extension GalleryViewModel {
 
     var doneLabel: String {
         return Localized.Gallery.doneTrailingButtonLabel
+    }
+}
+
+// MARK: Actors
+extension GalleryViewModel {
+
+    actor DownloadedAttachmentsActor {
+        private var attachments = [Any]()
+
+        func append(data: Any) {
+            attachments.append(data)
+        }
+
+        func getAttachments() -> [Any] {
+            return attachments
+        }
     }
 }
