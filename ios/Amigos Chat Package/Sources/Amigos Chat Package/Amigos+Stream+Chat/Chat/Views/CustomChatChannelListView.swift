@@ -15,7 +15,7 @@ public struct CustomChatChannelListView<Factory: ViewFactory>: View {
     @Injected(\.colors) private var colors
     @Injected(\.utils) private var utils
 
-    @StateObject private var viewModel: ChatChannelListViewModel
+    @ObservedObject private var viewModel: ChatChannelListViewModel
     @State private var tabBar: UITabBar?
 
     private let viewFactory: Factory
@@ -30,22 +30,14 @@ public struct CustomChatChannelListView<Factory: ViewFactory>: View {
 
     public init(
         viewFactory: Factory = DefaultViewFactory.shared,
-        viewModel: ChatChannelListViewModel? = nil,
-        channelListController: ChatChannelListController? = nil,
+        viewModel: ChatChannelListViewModel,
         title: String = "",
         onItemTap: ((ChatChannel) -> Void)? = nil,
         selectedChannelId: String? = nil,
         handleTabBarVisibility: Bool = true,
         embedInNavigationView: Bool = true
     ) {
-        let channelListVM = ChatChannelListViewModel(
-            channelListController: channelListController,
-            selectedChannelId: selectedChannelId
-        )
-
-        _viewModel = StateObject(
-            wrappedValue: channelListVM
-        )
+        self.viewModel = viewModel
         self.viewFactory = viewFactory
         self.title = title
         self.handleTabBarVisibility = handleTabBarVisibility
@@ -54,7 +46,7 @@ public struct CustomChatChannelListView<Factory: ViewFactory>: View {
             self.onItemTap = onItemTap
         } else {
             self.onItemTap = { channel in
-                channelListVM.selectedChannel = channel.channelSelectionInfo
+                viewModel.selectedChannel = channel.channelSelectionInfo
             }
         }
     }
@@ -137,11 +129,6 @@ public struct CustomChatChannelListView<Factory: ViewFactory>: View {
     }
 }
 
-extension CustomChatChannelListView where Factory == DefaultViewFactory {
-    public init() {
-        self.init(viewFactory: DefaultViewFactory.shared)
-    }
-}
 
 public struct ChatChannelListContentView<Factory: ViewFactory>: View {
 
