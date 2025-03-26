@@ -2,7 +2,41 @@ import StreamChat
 import StreamChatSwiftUI
 import SwiftUI
 
+enum ChatChannelRelatedConceptType: Equatable {
+    case mixer(id: String)
+    case activity(id: String)
+    case standard
+}
+
 extension ChatChannel {
+
+    var relatedConceptType: ChatChannelRelatedConceptType {
+        if isDirectMessageChannel {
+            return .standard
+        }
+
+        if let mixerId = extraData["mixerId"]?.stringValue {
+            return .mixer(id: mixerId)
+        }
+
+        return .activity(id: cid.id)
+    }
+
+    var mixerId: String? {
+        if isDirectMessageChannel {
+            return nil
+        }
+
+        return extraData["mixerId"]?.stringValue
+    }
+
+    var activityId: String? {
+        if isDirectMessageChannel || mixerId != nil {
+            return nil
+        }
+
+        return cid.id
+    }
 
     var otherUser: ChatChannelMember? {
         let currentUserId = UserProvider.shared.id

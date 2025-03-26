@@ -95,10 +95,9 @@ struct MessageView: View {
 extension MessageView {
 
     private var walkthroughView: some View {
-
         Group {
-            if let type = viewModel.walkthroughType {
-                AmiMessageWalkthrough(type: type)
+            if let type = viewModel.layoutMessageType, case let .messageWalkthrough(messageWalkthroughType) = type {
+                AmiMessageWalkthrough(type: messageWalkthroughType)
             }
         }
     }
@@ -247,7 +246,7 @@ extension MessageView {
             !viewModel.mediaAttachments.isEmpty ||
             (viewModel.asSuperEmoji && viewModel.quotedMessage == nil) ||
             viewModel.locationAttachment != nil ||
-            viewModel.walkthroughType != nil {
+            viewModel.layoutMessageType != nil {
             return EdgeInsets(.zero)
         }
 
