@@ -26,9 +26,11 @@ import com.whoisup.app.components.AmiButtonLabel
 import com.whoisup.app.components.AmiSimpleMenu
 import com.whoisup.app.components.TextColor
 import com.whoisup.app.stream.extensions.AmiParticipantRole
+import com.whoisup.app.stream.extensions.ChatChannelRelatedConceptType
 import com.whoisup.app.stream.extensions.amiParticipantRole
 import com.whoisup.app.stream.extensions.isDirectMessageChannel
 import com.whoisup.app.stream.extensions.isSupportTeamMember
+import com.whoisup.app.stream.extensions.relatedConceptType
 import com.whoisup.app.ui.theme.CustomTheme
 import io.getstream.chat.android.client.ChatClient
 import io.getstream.chat.android.client.extensions.isMutedFor
@@ -266,11 +268,23 @@ internal fun channelOptions(
         }
     }
 
-    if (!selectedChannel.isDirectMessageChannel()) {
+    val conceptType = selectedChannel.relatedConceptType
+
+    if (conceptType is ChatChannelRelatedConceptType.Mixer) {
+        options += ChannelOptionItemState(
+            title = stringResource(id = R.string.custom_channel_action_mixer_title),
+            callback = {
+                val route = "/mixer/${conceptType.id}"
+                ExtendedStreamPlugin.shared?.notifyNavigateToListeners(route, false, true)
+            }
+        )
+    }
+
+    if (conceptType is ChatChannelRelatedConceptType.Activity) {
         options += ChannelOptionItemState(
             title = stringResource(id = R.string.custom_channel_action_activity_title),
             callback = {
-                val route = "/activity/${selectedChannel.id}"
+                val route = "/activity/${conceptType.id}"
                 ExtendedStreamPlugin.shared?.notifyNavigateToListeners(route, false, true)
             }
         )
@@ -283,7 +297,7 @@ internal fun channelOptions(
                 options += ChannelOptionItemState(
                     title = stringResource(id = R.string.custom_channel_action_inviteAmigos_title),
                     callback = {
-                        val route = "/activity/${selectedChannel.id}/invite"
+                        val route = "/activity/${conceptType.id}/invite"
                         ExtendedStreamPlugin.shared?.notifyNavigateToListeners(route, false, true)
                     }
                 )
@@ -292,7 +306,7 @@ internal fun channelOptions(
             options += ChannelOptionItemState(
                 title = stringResource(id = R.string.custom_channel_action_manageParticipants_title),
                 callback = {
-                    val route = "/manage-activity/${selectedChannel.id}/participants"
+                    val route = "/manage-activity/${conceptType.id}/participants"
                     ExtendedStreamPlugin.shared?.notifyNavigateToListeners(route, false, true)
                 }
             )
@@ -319,7 +333,7 @@ internal fun channelOptions(
 
     // START: leave channel action
 
-    if (!selectedChannel.isDirectMessageChannel()) {
+    if (conceptType is ChatChannelRelatedConceptType.Activity) {
         val hasCapability = selectedChannel.ownCapabilities.contains(ChannelCapabilities.LEAVE_CHANNEL)
 
         val isAllowedToLeaveChannel =
