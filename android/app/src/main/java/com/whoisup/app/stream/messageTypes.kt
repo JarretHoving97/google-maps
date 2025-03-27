@@ -7,6 +7,7 @@ enum class MessageTranslationKeyEnum(val value: String) {
 }
 
 enum class MessageLayoutKeyEnum(val value: String) {
+    Anonymous("anonymous"),
     Onboarding("onboarding"),
     HowToHost("how_to_host"),
     HowToJoin("how_to_join")

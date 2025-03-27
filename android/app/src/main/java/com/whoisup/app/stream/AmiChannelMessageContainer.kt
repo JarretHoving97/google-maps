@@ -30,11 +30,20 @@ fun AmiChannelMessageContainer(
         is ThreadDateSeparatorItemState -> {
             /* we're not using threaded messages */
         }
-        is SystemMessageItemState -> AmiChannelSystemMessage(
-            systemMessageState = messageListItemState,
-            currentUser = currentUser,
-            onUserAvatarClick = onUserAvatarClick
-        )
+        is SystemMessageItemState -> {
+            val layoutKey = messageListItemState.message.extraData["layoutKey"] as? String
+            if (layoutKey == MessageLayoutKeyEnum.Anonymous.value) {
+                AmiChannelAnonymousSystemMessage(
+                    systemMessageState = messageListItemState,
+                )
+            } else {
+                AmiChannelSystemMessage(
+                    systemMessageState = messageListItemState,
+                    currentUser = currentUser,
+                    onUserAvatarClick = onUserAvatarClick
+                )
+            }
+        }
         is MessageItemState -> {
             AmiChannelMessageItem(
                 messageItem = messageListItemState,
