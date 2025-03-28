@@ -7,8 +7,10 @@ public class AmigosChatClient: AmigosChatClientProtocol {
 
     enum AmigosClientError: Swift.Error {
         case implementationFailed
-        case unauthorized
+        case unauthenticated
     }
+
+    public let userStore = UserStore(suiteName: "amigos.chat.user")
 
     public typealias loginInfo = LoginInfo
 
@@ -28,9 +30,8 @@ public class AmigosChatClient: AmigosChatClientProtocol {
 
     private let userDelegate: CurrentChatUserControllerDelegate
 
-    public var clientConfigured: Bool {
-        ChatControllers.channelListController != nil &&
-        chatClient?.currentUserId != nil
+    public var isConfigured: Bool {
+        ChatControllers.channelListController != nil
     }
 
     public init(
@@ -70,26 +71,62 @@ public class AmigosChatClient: AmigosChatClientProtocol {
         ChatControllers.configureClient(client: chatClient)
     }
 
+    func verifyUserStore(userId: String) -> Bool {
+        guard let token = KeychainController.jwtLoader?.getValueFromKeychain(key: "jwt") else {
+            return false
+        }
+
+        let jwt = JWT(token: token)
+
+        return jwt.sub == userId
+    }
+
+    public func ensureAuthentication() async throws {
+        guard chatClient?.currentUserId == nil else {
+            // We are logged in, all good.
+            return
+        }
+
+        guard let userData = userStore.retrieve(), verifyUserStore(userId: userData.id) else {
+            // The cache is empty or either invalid.
+            return
+        }
+
+        try await login(
+            with: LoginInfo(
+                id: userData.id,
+                name: userData.name,
+                imageUrl: URL(string: userData.imageUrl)
+            )
+        )
+    }
+
     /// login and start receiving events and loaders
     public func login(with info: LoginInfo) async throws {
+        guard let chatClient else {
+            throw AmigosClientError.implementationFailed
+        }
 
-        try await chatClient?.connectUser(
+        try await chatClient.connectUser(
             userInfo: UserInfo(
                 id: info.id,
                 name: info.name,
                 imageURL: info.imageUrl
-
             ),
             tokenProvider: streamTokenProvider()
         )
 
-        guard let user = chatClient?.currentUserId else {
-            throw AmigosClientError.unauthorized
+        guard let user = chatClient.currentUserId else {
+            throw AmigosClientError.unauthenticated
         }
 
-        guard let chatClient else {
-            throw AmigosClientError.implementationFailed
-        }
+        userStore.store(
+            info: .init(
+                id: info.id,
+                imageUrl: info.imageUrl?.absoluteString ?? "",
+                name: info.name
+            )
+        )
 
         /// setup user controller
         let userController = chatClient.currentUserController()
@@ -117,6 +154,7 @@ public class AmigosChatClient: AmigosChatClientProtocol {
     public func logout() async {
         pushConfig.removeDeviceToken()
         await chatClient?.logout()
+        userStore.clear()
     }
 
     public func addDeviceToken(_ token: String) {
