@@ -48,12 +48,11 @@ public class ExtendedStreamPlugin: CAPPlugin, CAPBridgedPlugin {
 
     private func createChat(model: ChatPresentationModel? = nil) {
 
-        guard ExtendedStreamPlugin.chatClient.clientConfigured else { return }
+        guard ExtendedStreamPlugin.chatClient.isConfigured else { return }
 
         DispatchQueue.main.async { [weak self] in
 
             guard let self else { return }
-            guard chatNavigationController == nil else { return }
 
             let navigation = self.composeNavigation(model: model)
             self.chatNavigationController = navigation
@@ -71,7 +70,9 @@ public class ExtendedStreamPlugin: CAPPlugin, CAPBridgedPlugin {
 
         Task {
             do {
-                try await ExtendedStreamPlugin.chatClient?.login(with: AmigosChatClient.LoginInfo(id: userId, name: name ?? "", imageUrl: URL(string: avatarUrl)))
+                try await ExtendedStreamPlugin.chatClient?.login(
+                    with: AmigosChatClient.LoginInfo(id: userId, name: name ?? "", imageUrl: URL(string: avatarUrl))
+                )
             } catch {
                 print(error.localizedDescription)
             }
@@ -89,30 +90,48 @@ public class ExtendedStreamPlugin: CAPPlugin, CAPBridgedPlugin {
     }
 
     @objc func openChannels(_ call: CAPPluginCall) {
-        guard ExtendedStreamPlugin.chatClient.clientConfigured else { return }
+        Task {
+            do {
+                try await ensureAuthentication()
 
-        if let channel = call.getString("channelId"), !channel.isEmpty {
-            let channelInfo = ChatPresentationModel(
-                channel: ChannelInfo(channelId: channel)
-            )
+                if let channel = call.getString("channelId"), !channel.isEmpty {
+                    let channelInfo = ChatPresentationModel(
+                        channel: ChannelInfo(channelId: channel)
+                    )
 
-            initializeViewController(model: channelInfo)
-        } else {
-            initializeViewController()
+                    initializeViewController(model: channelInfo)
+                } else {
+                    initializeViewController()
+                }
+
+                call.resolve()
+
+            } catch {
+                print("❌ error opening channel: \(error.localizedDescription)")
+            }
         }
-
-        call.resolve()
     }
 
     @objc func openChannel(_ call: CAPPluginCall) {
-        guard let channelId = call.getString("channelId") else { return }
-        initializeViewController(
-            model: ChatPresentationModel(
-                channel: ChannelInfo(channelId: channelId)
-            )
-        )
 
-        call.resolve()
+        Task {
+            do {
+                guard let channelId = call.getString("channelId") else { return }
+
+                try await ensureAuthentication()
+
+                initializeViewController(
+                    model: ChatPresentationModel(
+                        channel: ChannelInfo(channelId: channelId)
+                    )
+                )
+
+                call.resolve()
+            } catch {
+                print("❌ error opening channels: \(error.localizedDescription)")
+            }
+        }
+
     }
 
     @objc func dismiss() {
@@ -224,6 +243,10 @@ public class ExtendedStreamPlugin: CAPPlugin, CAPBridgedPlugin {
             return nil
         }
     }
+
+    func ensureAuthentication() async throws {
+        try await Self.chatClient.ensureAuthentication()
+    }
 }
 
 extension ExtendedStreamPlugin {
@@ -240,7 +263,7 @@ extension ExtendedStreamPlugin {
         )
 
         /// setup keychain loader
-        let keychainLoader = CAPKeyChainLoader()
+        let keychainLoader = CAPKeychainLoader()
         let config: BuildConfiguration = .create(for: url)
 
         /// set translation handler

@@ -92,6 +92,7 @@
     <string name="custom_channel_action_activity_title">Obejrzyj aktywność</string>
     <string name="custom_channel_action_inviteAmigos_title">Zaproś amigos</string>
     <string name="custom_channel_action_manageParticipants_title">Zarządzaj uczestnikami</string>
+    <string name="custom_channel_action_mixer_title">Przyjęcie aktywność</string>
 
     <!-- Channel List -->
     <string name="stream_compose_channel_list_you">Ty</string>

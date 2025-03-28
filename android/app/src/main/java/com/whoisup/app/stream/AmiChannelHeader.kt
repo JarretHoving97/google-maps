@@ -38,8 +38,10 @@ import com.whoisup.app.components.AmiAvatar
 import com.whoisup.app.components.AmiBackButton
 import com.whoisup.app.components.AmiIconButton
 import com.whoisup.app.components.UserForAmiAvatar
+import com.whoisup.app.stream.extensions.ChatChannelRelatedConceptType
 import com.whoisup.app.stream.extensions.isDirectMessageChannel
 import com.whoisup.app.stream.extensions.isSupportTeamMember
+import com.whoisup.app.stream.extensions.relatedConceptType
 import com.whoisup.app.ui.theme.CustomTheme
 import io.getstream.chat.android.client.ChatClient
 import io.getstream.chat.android.compose.ui.theme.ChatTheme
@@ -117,17 +119,30 @@ fun AmiChannelHeader(
                 Column(
                     modifier = Modifier
                         .weight(1f)
-                        .then(if (channel.isDirectMessageChannel()) {
-                            Modifier
-                        } else {
-                            Modifier.clickable(
-                                indication = null,
-                                interactionSource = remember { MutableInteractionSource() },
-                                onClick = {
-                                    val route = "/activity/${channel.id}"
-                                    ExtendedStreamPlugin.shared?.notifyNavigateToListeners(route, false, true)
-                                }
-                            )
+                        .then(when (val conceptType = channel.relatedConceptType) {
+                            is ChatChannelRelatedConceptType.Activity -> {
+                                Modifier.clickable(
+                                    indication = null,
+                                    interactionSource = remember { MutableInteractionSource() },
+                                    onClick = {
+                                        val route = "/activity/${conceptType.id}"
+                                        ExtendedStreamPlugin.shared?.notifyNavigateToListeners(route, false, true)
+                                    }
+                                )
+                            }
+                            is ChatChannelRelatedConceptType.Mixer -> {
+                                Modifier.clickable(
+                                    indication = null,
+                                    interactionSource = remember { MutableInteractionSource() },
+                                    onClick = {
+                                        val route = "/mixer/${conceptType.id}"
+                                        ExtendedStreamPlugin.shared?.notifyNavigateToListeners(route, false, true)
+                                    }
+                                )
+                            }
+                            else -> {
+                                Modifier
+                            }
                         })
                 ) {
                     BasicText(
@@ -202,21 +217,20 @@ fun AmiChannelHeader(
             AmiInviteUser(otherUser = otherUser)
         }
 
-        val mainHost = if (listViewModel.channel.isDirectMessageChannel()) {
-            null
-        } else {
-            listViewModel.channel.createdBy
+
+        if (listViewModel.channel.relatedConceptType is ChatChannelRelatedConceptType.Activity) {
+            val mainHost = listViewModel.channel.createdBy
             // It would be nice if we could do something like the following.
             // But we don't have any guarantees that the main host will be present in the `channel.members` list
             // listViewModel.channel.members.firstOrNull {
             //     it.amiParticipantRole == AmiParticipantRole.Organizer
             // }
-        }
 
-        if (mainHost != null && mainHost.id != currentUser?.id) {
-            Divider()
+            if (mainHost.id != currentUser?.id) {
+                Divider()
 
-            AmiChatWithHost(mainHost = mainHost)
+                AmiChatWithHost(mainHost = mainHost)
+            }
         }
 
         Divider()

@@ -38,9 +38,11 @@ import com.whoisup.app.components.AmiButton
 import com.whoisup.app.components.AmiEmptyContent
 import com.whoisup.app.components.AmiPinnedMessage
 import com.whoisup.app.stream.extensions.AmiParticipantRole
+import com.whoisup.app.stream.extensions.ChatChannelRelatedConceptType
 import com.whoisup.app.stream.extensions.amiParticipantRole
 import com.whoisup.app.stream.extensions.isDirectMessageChannel
 import com.whoisup.app.stream.extensions.isSupportTeamMember
+import com.whoisup.app.stream.extensions.relatedConceptType
 import com.whoisup.app.ui.theme.CustomTheme
 import io.getstream.chat.android.compose.ui.components.SimpleDialog
 import io.getstream.chat.android.compose.viewmodel.messages.AttachmentsPickerViewModel
@@ -166,9 +168,9 @@ fun AmiChannelScreen(
                     myMember?.amiParticipantRole == AmiParticipantRole.Organizer
 
                 val isAllowedToUpdatePinnedMessage =
-                    !listViewModel.channel.isDirectMessageChannel() &&
+                    listViewModel.channel.relatedConceptType is ChatChannelRelatedConceptType.Activity &&
                     (
-                        isMainHost||
+                        isMainHost ||
                         myMember?.amiParticipantRole == AmiParticipantRole.PseudoOrganizer
                     )
 

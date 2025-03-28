@@ -90,6 +90,7 @@
     <string name="custom_channel_action_activity_title">활동 보기</string>
     <string name="custom_channel_action_inviteAmigos_title">친구 초대</string>
     <string name="custom_channel_action_manageParticipants_title">참가자 관리</string>
+    <string name="custom_channel_action_mixer_title">음료 보기</string>
 
     <!-- Channel List -->
     <string name="stream_compose_channel_list_you">귀하</string>

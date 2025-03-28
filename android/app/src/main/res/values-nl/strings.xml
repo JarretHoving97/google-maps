@@ -90,6 +90,7 @@
     <string name="custom_channel_action_activity_title">Activiteit bekijken</string>
     <string name="custom_channel_action_inviteAmigos_title">Amigos uitnodigen</string>
     <string name="custom_channel_action_manageParticipants_title">Deelnemers beheren</string>
+    <string name="custom_channel_action_mixer_title">Borrel bekijken</string>
 
     <!-- Channel List -->
     <string name="stream_compose_channel_list_you">Jij</string>

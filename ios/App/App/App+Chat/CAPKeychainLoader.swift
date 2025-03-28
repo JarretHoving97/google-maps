@@ -2,7 +2,7 @@ import Foundation
 import SwiftKeychainWrapper
 import Amigos_Chat_Package
 
-class CAPKeyChainLoader: KeychainLoader {
+class CAPKeychainLoader: KeychainLoader {
 
     private let keychain = KeychainWrapper.init(serviceName: "cap_sec")
 

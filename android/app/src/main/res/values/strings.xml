@@ -106,6 +106,7 @@
     <string name="custom_channel_action_activity_title">View activity</string>
     <string name="custom_channel_action_inviteAmigos_title">Invite amigos</string>
     <string name="custom_channel_action_manageParticipants_title">Manage participants</string>
+    <string name="custom_channel_action_mixer_title">View drink</string>
 
     <!-- Channel List -->
     <string name="stream_compose_channel_list_you">You</string>
