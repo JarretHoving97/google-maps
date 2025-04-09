@@ -507,10 +507,3 @@ extension CustomUIFactory: ViewFactory {
         CustomEmptyMessagesView(channel: channel)
     }
 }
-
-extension ViewFactory {
-
-    public func makeChannelHeaderViewModifier(for channel: ChatChannel) -> CustomChannelHeaderView<Self> {
-        CustomChannelHeaderView(viewFactory: self, channel: channel)
-    }
-}

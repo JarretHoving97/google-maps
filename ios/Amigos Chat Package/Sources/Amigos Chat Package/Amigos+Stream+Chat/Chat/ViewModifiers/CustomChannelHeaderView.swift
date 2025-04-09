@@ -6,6 +6,8 @@ import StreamChat
 import SwiftUI
 import StreamChatSwiftUI
 
+public typealias onMoreTappedAction = ((ChatChannel) -> Void)
+
 /// The default channel header.
 public struct CustomChatChannelHeader<Factory: ViewFactory>: View {
     @Injected(\.fonts) private var fonts
@@ -14,8 +16,6 @@ public struct CustomChatChannelHeader<Factory: ViewFactory>: View {
     @Injected(\.chatClient) private var chatClient
 
     @Environment(\.presentationMode) var presentationMode
-
-    @EnvironmentObject private var chatViewModel: ChatViewModel
 
     private var currentUserId: String {
         chatClient.currentUserId ?? ""
@@ -39,16 +39,20 @@ public struct CustomChatChannelHeader<Factory: ViewFactory>: View {
     @Binding public var isActive: Bool
     @State var mood: Mood?
 
+    private var onMoreTapped: onMoreTappedAction
+
     public init(
         viewFactory: Factory,
         channel: ChatChannel,
         headerImage: UIImage,
-        isActive: Binding<Bool>
+        isActive: Binding<Bool>,
+        onMoreTapped: @escaping onMoreTappedAction
     ) {
         self.viewFactory = viewFactory
         self.channel = channel
         self.headerImage = headerImage
         _isActive = isActive
+        self.onMoreTapped = onMoreTapped
 
     }
 
@@ -143,7 +147,10 @@ public struct CustomChatChannelHeader<Factory: ViewFactory>: View {
                         .frame(minWidth: 1, idealWidth: 1, maxHeight: .infinity)
                         .overlay(Color("Grey Light"))
                 }
-                CustomChatChannelHeaderMoreButtonView(channel: channel)
+                CustomChatChannelHeaderMoreButtonView(
+                    onMoreTapped: { onMoreTapped(channel) },
+                    channel: channel
+                )
             }
         }
     }
@@ -158,19 +165,27 @@ public struct CustomChannelHeaderView<Factory: ViewFactory>: View {
     public var viewFactory: Factory
     public var channel: ChatChannel
 
-    public init(viewFactory: Factory, channel: ChatChannel) {
+    private var onMoreTapped: onMoreTappedAction
+
+    public init(
+        viewFactory: Factory,
+        channel: ChatChannel,
+        onMoreTapped: @escaping onMoreTappedAction
+    ) {
         self.viewFactory = viewFactory
         self.channel = channel
+        self.onMoreTapped = onMoreTapped
     }
 
     public var body: some View {
-            CustomChatChannelHeader(
-                viewFactory: viewFactory,
-                channel: channel,
-                headerImage: channelHeaderLoader.image(for: channel),
-                isActive: $isActive
-            )
-            .frame(maxWidth: .infinity, minHeight: 60, maxHeight: 60)
+        CustomChatChannelHeader(
+            viewFactory: viewFactory,
+            channel: channel,
+            headerImage: channelHeaderLoader.image(for: channel),
+            isActive: $isActive,
+            onMoreTapped: onMoreTapped
+        )
+        .frame(maxWidth: .infinity, minHeight: 60, maxHeight: 60)
     }
 }
 

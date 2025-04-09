@@ -29,7 +29,7 @@ public struct CustomAttachmentTypeContainer<Content: View>: View {
     @Injected(\.fonts) var fonts
     @Injected(\.colors) private var colors
 
-    @EnvironmentObject var currentChannelInfo: CurrentChannelInfo
+    @Environment(\.showConsentMediaInGroupChannel) var showConsentMediaInGroupChannel
 
     var content: () -> Content
 
@@ -40,7 +40,7 @@ public struct CustomAttachmentTypeContainer<Content: View>: View {
     public var body: some View {
         VStack(spacing: 0) {
 
-            if !currentChannelInfo.isDirectMessageChannel {
+            if !showConsentMediaInGroupChannel {
                 consentMediaToUseForStoriesView
             } else {
                 Color(colors.background)

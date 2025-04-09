@@ -110,10 +110,7 @@ struct CustomPinnedMessage: View {
                 .padding(.all, 12)
                 .onTapGesture(perform: showEditPinnedMessageSheet)
             }
-            .chatSheetPresentation(
-                isPresented: $isEditModalPresented,
-                detents: [.medium()]
-            ) {
+            .mediumDetentSheet(isPresented: $isEditModalPresented) {
                 CustomEditPinnedMessageSheetView(
                     isPresented: $isEditModalPresented,
                     channel: channel,
