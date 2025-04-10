@@ -87,12 +87,12 @@ extension MediaAttachment: Equatable {
             type: .video
         )
     }
-    
+
     enum MediaAttachmentError: Error {
         case convertingToDataFailed
         case itemProviderFailed
     }
-    
+
     func download() async throws -> Any {
         try await AttachmentDownloader.downloadShareableActivity(from: self)
     }

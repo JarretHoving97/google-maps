@@ -21,7 +21,6 @@ public struct MultiMediaView: View {
     let width: CGFloat
 
     @State private var selectedIndex: Int?
-    
     @StateObject private var viewModel = MultiMedaViewModel()
 
     init(user: LocalUser, sources: [MediaAttachment], isSentByCurrentUser: Bool = false, width: CGFloat = .messageWidth) {
@@ -35,6 +34,7 @@ public struct MultiMediaView: View {
         let spacing: CGFloat = 2
 
         Group {
+
             if sources.count == 1 {
                 imageView(
                     with: sources[0],
@@ -132,28 +132,29 @@ public struct MultiMediaView: View {
 
     @ViewBuilder func imageView(with source: MediaAttachment, width: CGFloat, height: CGFloat) -> some View {
 
-        Group {
-            switch source.type {
-            case .photo:
-                LazyLoadImage(
-                    source: source,
-                    width: width,
-                    height: height
-                )
-
-            case .video:
-                ZStack {
+            ZStack {
+                Color(.secondarySystemBackground)
+                switch source.type {
+                case .photo:
                     LazyLoadImage(
                         source: source,
                         width: width,
                         height: height
                     )
-                    VStack {
-                        VideoPlayIcon()
+
+                case .video:
+                    ZStack {
+                        LazyLoadImage(
+                            source: source,
+                            width: width,
+                            height: height
+                        )
+                        VStack {
+                            VideoPlayIcon()
+                        }
                     }
                 }
             }
-        }
         .contentShape(Rectangle())
         .onTapGesture {
             mediaFileTapped(attachment: source)

@@ -7,46 +7,64 @@
 
 import SwiftUI
 
-struct LazyLoadImage: View {
+class LazyLoadImageViewModel: ObservableObject {
+    @Published var image: UIImage?
+    @Published var error: Error?
 
-    @State private var image: UIImage?
-    @State private var error: Error?
+    func loadImage(from source: MediaAttachment, resize: Bool, preferredSize: CGSize) {
+        guard image == nil else { return }
+
+        source.generateThumbnail(
+            resize: resize,
+            preferredSize: preferredSize,
+            uploadingState: source.uploadingState
+        ) { result in
+            DispatchQueue.main.async {
+                switch result {
+                case let .success(image):
+                    self.image = image
+                case let .failure(error):
+                    self.error = error
+                }
+            }
+        }
+    }
+}
+
+struct LazyLoadImage: View, Equatable {
+    @StateObject private var loader = LazyLoadImageViewModel()
 
     let source: MediaAttachment
-
     var shouldSetFrame: Bool = true
     var resize: Bool = true
     let width: CGFloat
     let height: CGFloat
-
     var onImageLoaded: (UIImage) -> Void = { _ in /* Default implementation. */ }
+
+    static func == (lhs: LazyLoadImage, rhs: LazyLoadImage) -> Bool {
+        lhs.source.url == rhs.source.url &&
+        lhs.width == rhs.width &&
+        lhs.height == rhs.height
+    }
 
     var body: some View {
         ZStack {
-            if let image = image {
+            Color(.secondarySystemBackground)
+            if let image = loader.image {
                 imageView(for: image)
-            } else if error == nil {
-                ZStack {
-                    Color(.grey)
-                    ProgressView()
-                        .progressViewStyle(CircularProgressViewStyle(tint: Color.white))
-                }
+            } else if loader.error == nil {
+                ProgressView()
+                    .progressViewStyle(CircularProgressViewStyle(tint: Color.white))
             }
         }
+        .animation(.easeIn(duration: 0.1), value: loader.image)
         .onAppear {
-            guard image == nil else { return }
-
-            source.generateThumbnail(
-                resize: resize,
-                preferredSize: CGSize(width: width, height: height), uploadingState: source.uploadingState) { result in
-                    switch result {
-                    case let .success(image):
-                        self.image = image
-                        onImageLoaded(image)
-                    case let .failure(error):
-                        self.error = error
-                    }
-                }
+            loader.loadImage(from: source, resize: resize, preferredSize: CGSize(width: width, height: height))
+        }
+        .onChange(of: loader.image) { newImage in
+            if let newImage = newImage {
+                onImageLoaded(newImage)
+            }
         }
     }
 

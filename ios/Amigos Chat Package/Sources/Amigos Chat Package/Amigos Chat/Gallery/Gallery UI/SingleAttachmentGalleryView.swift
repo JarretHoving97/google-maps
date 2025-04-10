@@ -10,14 +10,14 @@ import AVKit
 
 struct SingleAttachmentGalleryView: View {
 
-    @ObservedObject var viewModel: SingleAttachmentViewModel
+    @StateObject var viewModel: SingleAttachmentViewModel
 
     @Binding var isPresented: Bool
 
     var animation: Namespace.ID
 
     init(isPresented: Binding<Bool>, viewModel: SingleAttachmentViewModel, animation: Namespace.ID = Namespace().wrappedValue) {
-        self.viewModel = viewModel
+        self._viewModel = StateObject(wrappedValue: viewModel)
         self.animation = animation
         _isPresented = isPresented
 
@@ -122,6 +122,7 @@ extension SingleAttachmentGalleryView {
             if let player = viewModel.player {
                 VideoPlayer(player: player)
                     .onAppear {
+                        try? AVAudioSession.sharedInstance().setCategory(.playback, options: [])
                         player.play()
                     }
                     .onDisappear {

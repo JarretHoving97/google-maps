@@ -9,12 +9,15 @@ import SwiftUI
 
 public struct ShareLocationMessageView: View {
 
-    private var viewModel: CustomShareLocationMessageViewModel
-    private let width: CGFloat
-    @State private var presentShareSheet: Bool = false
+    @StateObject private var viewModel: CustomShareLocationMessageViewModel
 
-    public init(viewModel: CustomShareLocationMessageViewModel, width: CGFloat = .messageWidth) {
-        self.viewModel = viewModel
+    private let width: CGFloat
+
+    public init(
+        viewModel: CustomShareLocationMessageViewModel,
+        width: CGFloat = .messageWidth
+    ) {
+        self._viewModel = StateObject(wrappedValue: viewModel)
         self.width = width
     }
 
@@ -22,13 +25,13 @@ public struct ShareLocationMessageView: View {
 
         VStack {
             usersLocationView
-                .onTapGesture {
-                    presentShareSheet.toggle()
-                }
         }
         .frame(maxWidth: width, alignment: .leading)
+        .onTapGesture {
+            viewModel.presentShareSheet.toggle()
+        }
         .shareLocationDialog(
-            isPresented: $presentShareSheet,
+            isPresented: $viewModel.presentShareSheet,
             title: viewModel.dialogTitle,
             latitude: viewModel.latitude,
             longitude: viewModel.longitude

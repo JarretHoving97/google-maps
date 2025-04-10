@@ -16,9 +16,7 @@ extension CGFloat {
 
 struct MessageView: View {
 
-    let viewModel: MessageViewModel
-
-    @State private var selectedSingleAttachment: MediaAttachment?
+    @ObservedObject private var viewModel: MessageViewModel
 
     let onQuotedMessageTap: ((String) -> Void)?
 
@@ -68,13 +66,13 @@ struct MessageView: View {
             }
 
             .modifier(bubbleResolvedModifier)
-            .fullScreenCover(isPresented: $selectedSingleAttachment.toBoolBinding) {
+            .fullScreenCover(isPresented: $viewModel.selectedSingleAttachment.toBoolBinding) {
 
                 SingleAttachmentGalleryView(
-                    isPresented: $selectedSingleAttachment.toBoolBinding,
+                    isPresented: $viewModel.selectedSingleAttachment.toBoolBinding,
                     viewModel: SingleAttachmentViewModel(
                         author: viewModel.author,
-                        attachment: selectedSingleAttachment!
+                        attachment: viewModel.selectedSingleAttachment!
                     )
                 )
             }
@@ -204,7 +202,7 @@ extension MessageView {
                     Color.clear
                         .contentShape(Rectangle())
                         .onTapGesture {
-                            selectedSingleAttachment = viewModel.mediaAttachments.first
+                            viewModel.selectedSingleAttachment = viewModel.mediaAttachments.first
                         }
                 )
             }
@@ -224,7 +222,7 @@ extension MessageView {
                     Color.clear
                         .contentShape(Rectangle())
                         .onTapGesture {
-                            selectedSingleAttachment = viewModel.mediaAttachments.first
+                            viewModel.selectedSingleAttachment = viewModel.mediaAttachments.first
                         }
                 )
             }
@@ -254,6 +252,7 @@ extension MessageView {
     }
 
     var sharedLocationView: some View {
+        
         Group {
             if let location = viewModel.locationAttachment {
                 ShareLocationMessageView(

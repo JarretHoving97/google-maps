@@ -7,7 +7,9 @@
 
 import Foundation
 
-public class MessageViewModel {
+public class MessageViewModel: ObservableObject {
+
+    @Published var selectedSingleAttachment: MediaAttachment?
 
     public var messageText: String {
         message.text
@@ -40,7 +42,6 @@ public class MessageViewModel {
     var mediaAttachments: [MediaAttachment] {
         message.attachments.compactMap { $0.mediaAttachment(with: imageLoader, cdn: imageCDN, videoPreviewLoader: videoPreviewLoader) }
     }
-
 
     var asSuperEmoji: Bool {
         messageText.containsOnlyEmoji && message.text.count <= 3

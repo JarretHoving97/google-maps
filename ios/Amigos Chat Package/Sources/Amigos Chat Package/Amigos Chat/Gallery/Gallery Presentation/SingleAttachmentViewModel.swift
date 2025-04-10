@@ -12,23 +12,10 @@ import AVKit
 class SingleAttachmentViewModel: ObservableObject {
 
     let author: LocalUser
-
     let attachment: MediaAttachment
 
     @Published var attachmentToShare: Any?
-
-    var player: AVPlayer? {
-
-        if case .video = attachment.type {
-            let player = AVPlayer(url: attachment.url)
-            /// hides broadcast button
-            player.allowsExternalPlayback = false
-
-            return player
-        }
-
-        return nil
-    }
+    @Published var player: AVPlayer?
 
     var type: MediaAttachmentType {
         return attachment.type
@@ -37,6 +24,15 @@ class SingleAttachmentViewModel: ObservableObject {
     init(author: LocalUser, attachment: MediaAttachment) {
         self.author = author
         self.attachment = attachment
+        configurePlayer()
+    }
+
+    private func configurePlayer() {
+        if case .video = attachment.type {
+            let player = AVPlayer(url: attachment.url)
+            player.allowsExternalPlayback = false
+            self.player = player
+        }
     }
 
     @MainActor

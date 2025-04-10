@@ -8,7 +8,9 @@ import Foundation
 import MobileCoreServices
 import SwiftUI
 
-public class CustomShareLocationMessageViewModel {
+public class CustomShareLocationMessageViewModel: ObservableObject {
+
+    @Published var presentShareSheet: Bool = false
 
     struct ShareLocationOption: Hashable {
         let name: String
