@@ -267,6 +267,7 @@
 "custom.channel.action.profile.title" = "Profiel bekijken";
 "custom.channel.action.invite.title" = "Uitnodigen";
 "custom.channel.action.activity.title" = "Activiteit bekijken";
+"custom.channel.action.mixer.title" = "Borrel bekijken";
 "custom.channel.action.inviteAmigos.title" = "Vrienden uitnodigen";
 "custom.channel.action.manageParticipants.title" = "Deelnemers beheren";
 

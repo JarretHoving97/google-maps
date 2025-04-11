@@ -58,7 +58,7 @@ public struct CustomChatChannelView<Factory: ViewFactory>: View, KeyboardReadabl
         ZStack {
             if let channel = viewModel.channel {
                 VStack(spacing: 0) {
-                    if !channel.isDirectMessageChannel && !channel.isCurrentUserOrganizer {
+                    if case .activity = channel.relatedConceptType, !channel.isCurrentUserOrganizer {
                         chatWithHostView
                     }
                     CustomChatChannelMessageListView(

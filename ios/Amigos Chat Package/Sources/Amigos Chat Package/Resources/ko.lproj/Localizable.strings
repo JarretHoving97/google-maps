@@ -100,6 +100,7 @@
 "current-selection" = "%d 중 %d";
 "custom.becomeSuperAmigo" = "슈퍼 친구 되기";
 "custom.channel.action.activity.title" = "활동 보기";
+"custom.channel.action.mixer.title" = "음료 보기";
 "custom.channel.action.archive.confirmation-body" = "정말로 채팅을 삭제하시겠습니까?";
 "custom.channel.action.archive.confirmation-confirm" = "삭제";
 "custom.channel.action.archive.title" = "채팅 삭제";
