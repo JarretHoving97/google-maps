@@ -20,7 +20,7 @@ struct PreviewVideoView: View {
             Image(uiImage: previewImage)
                 .resizable()
                 .scaledToFill()
-                .clipped()
+                .aspectRatio(contentMode: .fit)
                 .allowsHitTesting(false)
         } else {
             ZStack {
@@ -56,20 +56,19 @@ struct VideoPlayerPreviewView: View {
     var body: some View {
         VStack {
             ZStack {
-
                 PreviewVideoView(attachment: attachment)
 
                 ZStack {
                     Circle()
                         .fill(Color(.white))
-                        .frame(width: 68, height: 68)
+                        .frame(width: 80, height: 80)
+                        .modifier(ShadowModifier())
 
                     Image(systemName: "play.fill")
                         .resizable()
-                        .frame(width: 30, height: 30)
+                        .frame(width: 32, height: 32)
                         .foregroundStyle(.black)
                         .padding(.leading, 8)
-
                 }
             }
         }

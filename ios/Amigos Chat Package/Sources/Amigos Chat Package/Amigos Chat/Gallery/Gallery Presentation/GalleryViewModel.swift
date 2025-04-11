@@ -104,10 +104,6 @@ extension GalleryViewModel {
         return Localized.Gallery.attachmentsSelectedLabel(attachments: selectedAttachments)
     }
 
-    var attachmentsLabel: String {
-        return Localized.Gallery.attachmentsSharedLabel(count: attachments.count)
-    }
-
     var doneLabel: String {
         return Localized.Gallery.doneTrailingButtonLabel
     }

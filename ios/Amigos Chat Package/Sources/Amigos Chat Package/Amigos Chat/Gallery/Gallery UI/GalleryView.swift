@@ -20,6 +20,7 @@ struct GalleryView: View {
 
     var body: some View {
         scrollableContent
+            .background(Color("Grey Light"))
             .overlay {
                 if presentedAttachment != nil {
                     attachmentDetailView
@@ -28,51 +29,55 @@ struct GalleryView: View {
             .animation(.spring(response: 0.5, dampingFraction: 0.7), value: presentedAttachment)
     }
 
+    let dividerHeight: CGFloat = 16
+
     private var scrollableContent: some View {
         GeometryReader { reader in
-            ZStack {
-                VStack {
-                    headerView
-                        .frame(height: 30)
-                    ScrollViewReader { proxy in
-                        ScrollView {
-                            VStack(spacing: 0) {
-                                ForEach(0..<viewModel.attachments.count, id: \.self) { index in
-                                    let attachment = viewModel.attachments[index]
-                                    attachmentView(
-                                        for: attachment,
-                                        onImageLoaded: {_ in },
-                                        width: reader.size.width,
-                                        height: reader.size.height
-                                        )
-                                        .onTapGesture {
-                                            withAnimation(.spring(response: 0.5, dampingFraction: 0.7)) {
-                                                presentedAttachment = attachment
-                                            }
+            VStack(spacing: 0) {
+                headerView
 
-                                        }
+                Divider()
+                    .frame(height: 2)
+                    .overlay(Color("Grey Light"))
 
-                                    .tag(index)
-                                    .overlay {
-                                        selectableOverlay(index: index)
+                ScrollViewReader { proxy in
+                    ScrollView {
+                        VStack(spacing: 0) {
+                            ForEach(0..<viewModel.attachments.count, id: \.self) { index in
+                                let attachment = viewModel.attachments[index]
+                                attachmentView(
+                                    for: attachment,
+                                    width: reader.size.width,
+                                    height: reader.size.height - dividerHeight
+                                )
+                                .onTapGesture {
+                                    withAnimation(.spring(response: 0.5, dampingFraction: 0.7)) {
+                                        presentedAttachment = attachment
                                     }
                                 }
+                                .tag(index)
+                                .overlay {
+                                    selectableOverlay(index: index)
+                                }
+
+                                Divider()
+                                    .frame(height: dividerHeight)
+                                    .overlay(Color("Grey Light"))
                             }
                         }
-                        .onAppear {
-                            proxy.scrollTo(viewModel.selected, anchor: .top)
-                        }
+                    }
+                    .onAppear {
+                        proxy.scrollTo(viewModel.selected, anchor: .top)
                     }
                 }
-                .ignoresSafeArea(edges: [.bottom])
-                .statusBarHidden(false)
+            }
 
-                VStack {
-                    Spacer()
-                    footerView
-                        .background(.white)
-                        .offset(y: viewModel.showSelectedState ? 0 : 80)
-                }
+            VStack {
+                Spacer()
+
+                footerView
+                    .background(.white)
+                    .offset(y: viewModel.showSelectedState ? 0 : 80)
             }
         }
     }
@@ -90,48 +95,41 @@ struct GalleryView: View {
 
     @ViewBuilder func attachmentView(
         for attachment: MediaAttachment,
-        onImageLoaded: @escaping ((UIImage) -> Void),
         width: CGFloat,
         height: CGFloat
     ) -> some View {
-        VStack {
-            if attachment.type == .photo {
-                VStack {
-                    Spacer()
+        VStack(spacing: 0) {
+            VStack {
+                Spacer()
+
+                if attachment.type == .photo {
                     LazyLoadImage(
                         source: attachment,
                         shouldSetFrame: false,
                         resize: true,
                         width: width,
-                        height: height,
-                        onImageLoaded: onImageLoaded
+                        height: height
                     )
                     .aspectRatio(contentMode: .fit)
-                    Spacer()
+                } else {
+                    VideoPlayerPreviewView(
+                        attachment: attachment,
+                        author: viewModel.author
+                    )
                 }
-                .frame(
-                    width: width,
-                    height: height
-                )
-                .background(Color.gray.opacity(0.2))
-            } else {
-                VideoPlayerPreviewView(
-                    attachment: attachment,
-                    author: viewModel.author
-                )
-                .frame(
-                    width: width,
-                    height: height
-                )
+                Spacer()
             }
-
-            Divider()
+            .frame(
+                width: width,
+                height: height
+            )
+            .background(Color("Grey Light"))
         }
         .matchedGeometryEffect(id: attachment.url, in: animation, isSource: true)
     }
 
     private var headerView: some View {
-        Group {
+        VStack(spacing: 0) {
             if viewModel.showSelectedState {
                 selectedHeaderView
                     .matchedGeometryEffect(id: "header-animation", in: animation, isSource: true)
@@ -139,6 +137,8 @@ struct GalleryView: View {
                 regularHeaderView
             }
         }
+        .frame(height: 44)
+        .background(Color.white)
         .animation(nil, value: viewModel.showSelectedState)
     }
 
@@ -171,7 +171,7 @@ struct GalleryView: View {
     }
 
     private var selectedHeaderView: some View {
-        ZStack {
+        HStack {
             HStack {
                 Button {
                     viewModel.toggleSelectAllAttachments()
@@ -179,7 +179,6 @@ struct GalleryView: View {
                     Text(viewModel.selectAllItemsLabel)
                         .font(.body)
                 }
-                .padding()
                 .foregroundStyle(Color(.purple))
 
                 Spacer()
@@ -189,33 +188,38 @@ struct GalleryView: View {
 
             HStack {
                 Spacer()
-                Button(viewModel.doneLabel) {
+
+                Button {
                     withAnimation(.spring(response: 0.4)) {
                         viewModel.selectedIndices.removeAll()
                         viewModel.showSelectedState = false
                     }
+                } label: {
+                    Text(viewModel.doneLabel)
+                        .font(.subheadline)
+                        .foregroundColor(Color("Purple"))
                 }
-                .font(Font.custom(size: 16, weight: .semiBold))
-                .foregroundColor(Color(.darkText))
-                .padding()
+                .buttonStyle(.bordered)
+                .controlSize(.mini)
             }
         }
+        .padding(.horizontal, 16)
     }
 
     private var regularHeaderView: some View {
-        ZStack {
+        HStack {
             HStack {
                 Button {
                     viewModel.isShown = false
                 } label: {
                     Image(systemName: "xmark")
-                        .resizable()
+                        .customizable()
                         .frame(width: 16, height: 16)
+                        .font(.system(size: 16, weight: .medium))
                         .foregroundStyle(Color(.purple))
                 }
-
                 .frame(width: 20, height: 20)
-                .padding(.horizontal, 26)
+
                 Spacer()
             }
 
@@ -224,64 +228,43 @@ struct GalleryView: View {
             HStack {
                 Spacer()
 
-                Menu {
-                    Button {
-                        withAnimation(.spring(response: 0.4)) {
-                            viewModel.showSelectedState.toggle()
-                        }
-
-                    } label: {
-                        Label(viewModel.selectAttachmentsLabel, systemImage: "checkmark.circle")
-
+                Button {
+                    withAnimation(.spring(response: 0.4)) {
+                        viewModel.showSelectedState.toggle()
                     }
                 } label: {
-                    ZStack {
-                        Image(systemName: "ellipsis")
-                            .resizable()
-                            .foregroundStyle(Color(.purple))
-                            .frame(width: 20, height: 4)
-
-                    }
-                    .frame(width: 20, height: 20)
-
+                    Text(viewModel.selectAttachmentsLabel)
+                        .font(.subheadline)
+                        .foregroundColor(Color("Purple"))
                 }
-
-                .padding(.horizontal, 26)
-                .foregroundColor(Color(.darkText))
-
+                .buttonStyle(.bordered)
+                .controlSize(.mini)
             }
         }
-
+        .padding(.horizontal, 16)
     }
 
     private var titleView: some View {
-        VStack {
-            Text(viewModel.author.name)
-                .font(Font.custom(size: 16, weight: .medium))
-
-            Text(viewModel.attachmentsLabel)
-                .font(Font.custom(size: 10, weight: .regular))
-        }
+        Text(viewModel.author.name)
+            .font(.headline)
+            .foregroundStyle(Color("Grey Dark"))
     }
 
     private var footerView: some View {
-        HStack(alignment: .center) {
-
+        HStack {
             Button(action: {
                 Task {
                     await viewModel.downloadSelectedAttachments()
                 }
-
             }, label: {
                 Image(systemName: "square.and.arrow.up")
                     .customizable()
-                    .frame(width: 18, height: 22)
+                    .frame(width: 20, height: 20)
+                    .font(.system(size: 16, weight: .medium))
+                    .foregroundStyle(Color("Purple"))
             })
-            .padding(.horizontal, 20)
-            .padding(.vertical, 10)
-            .foregroundColor(Color(.darkText))
             .disabled(viewModel.selectedIndices.count == 0)
-            .opacity(viewModel.selectedIndices.count > 0 ?  1 : 0.6)
+            .opacity(viewModel.selectedIndices.count > 0 ?  1 : 0.3)
             .sheet(isPresented: $viewModel.presentActivitySheet) {
                 ShareActivityView(activityItems: viewModel.shareableContent)
             }
@@ -289,15 +272,18 @@ struct GalleryView: View {
             Spacer()
 
             Text(viewModel.selectedItemsLabel)
-                .font(Font.custom(size: 16, weight: .regular))
+                .font(.body)
+                .foregroundColor(Color("Grey Dark"))
                 .opacity(viewModel.attachments.count > 1 ? 1 : 0)
 
             Spacer()
 
-            Spacer()
-
+            // Keeps the text centered
+            Color.clear
+                .frame(width: 20)
         }
-        .foregroundColor(Color(.darkText))
+        .padding(.horizontal, 16)
+        .frame(height: 44)
     }
 }
 

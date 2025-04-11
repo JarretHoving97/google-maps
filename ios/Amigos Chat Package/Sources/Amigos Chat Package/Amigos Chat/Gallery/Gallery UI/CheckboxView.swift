@@ -17,20 +17,22 @@ struct CheckboxView: View {
 
     var body: some View {
         ZStack {
-            Circle()
-                .fill(Color.white.opacity(0.6))
-            Circle()
-                .stroke(Color(.lightGray), lineWidth: 2)
+            RoundedRectangle(cornerRadius: 4)
+                .fill(checked ? Color("Purple") : Color.white)
+
+            RoundedRectangle(cornerRadius: 4)
+                .stroke(checked ? Color("Purple") : Color("Grey Light"), lineWidth: 2)
 
             if checked {
-                Circle()
-                    .fill(.white)
-                Image(systemName: "checkmark.circle.fill")
+                Image("Check")
+                    .renderingMode(.template)
                     .resizable()
-                    .foregroundStyle(Color(.purple))
+                    .scaledToFit()
+                    .frame(width: 20, height: 20)
+                    .foregroundColor(Color.white)
             }
         }
-        .frame(width: 26, height: 26, alignment: .center)
+        .frame(width: 24, height: 24, alignment: .center)
     }
 }
 

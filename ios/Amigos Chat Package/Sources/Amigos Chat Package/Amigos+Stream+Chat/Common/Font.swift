@@ -25,9 +25,17 @@ extension Font {
 
         return Font.custom(fontName, size: size)
     }
-    
+
+    static var body: Font {
+        Font.custom(size: 15, weight: ThemeFontWeight.regular)
+    }
+
     static var caption1: Font {
         return .custom(size: 13, weight: .regular)
+    }
+
+    static var subheadline: Font {
+        Font.custom(size: 14, weight: ThemeFontWeight.medium)
     }
 }
 
