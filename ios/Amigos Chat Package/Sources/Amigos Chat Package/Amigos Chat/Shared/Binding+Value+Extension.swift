@@ -58,3 +58,15 @@ extension Binding where Value == URL? {
         }
     }
 }
+
+extension Binding where Value == SingleAttachmentType? {
+    var toBoolBinding: Binding<Bool> {
+        Binding<Bool>.init {
+            self.wrappedValue != nil
+        } set: { value in
+            if !value {
+                self.wrappedValue = nil
+            }
+        }
+    }
+}

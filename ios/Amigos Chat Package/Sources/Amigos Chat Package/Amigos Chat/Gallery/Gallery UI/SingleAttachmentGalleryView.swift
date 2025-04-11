@@ -16,7 +16,11 @@ struct SingleAttachmentGalleryView: View {
 
     var animation: Namespace.ID
 
-    init(isPresented: Binding<Bool>, viewModel: SingleAttachmentViewModel, animation: Namespace.ID = Namespace().wrappedValue) {
+    init(
+        isPresented: Binding<Bool>,
+        viewModel: SingleAttachmentViewModel,
+        animation: Namespace.ID = Namespace().wrappedValue
+    ) {
         self._viewModel = StateObject(wrappedValue: viewModel)
         self.animation = animation
         _isPresented = isPresented

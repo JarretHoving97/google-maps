@@ -92,3 +92,17 @@ extension LocalChatMessageAttachment {
         }
     }
 }
+
+extension LocalChatMessageAttachment {
+
+    func toSingleMediaAttachmentType() -> SingleAttachmentType? {
+        switch self {
+        case let .image(image):
+            return .image(image)
+        case let .video(video):
+            return .video(video)
+        default:
+            return nil
+        }
+    }
+}

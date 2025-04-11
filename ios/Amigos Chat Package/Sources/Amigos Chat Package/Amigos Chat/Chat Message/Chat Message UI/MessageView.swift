@@ -66,16 +66,6 @@ struct MessageView: View {
             }
 
             .modifier(bubbleResolvedModifier)
-            .fullScreenCover(isPresented: $viewModel.selectedSingleAttachment.toBoolBinding) {
-
-                SingleAttachmentGalleryView(
-                    isPresented: $viewModel.selectedSingleAttachment.toBoolBinding,
-                    viewModel: SingleAttachmentViewModel(
-                        author: viewModel.author,
-                        attachment: viewModel.selectedSingleAttachment!
-                    )
-                )
-            }
         }
     }
 
@@ -161,11 +151,8 @@ extension MessageView {
         Group {
             switch viewModel.attachmentType {
 
-            case .image:
-                singleImageView
-
-            case .video:
-                singleVideoPreviewView
+            case .image, .video:
+                singleMediaAttachmentView
 
             case .multimedia:
 
@@ -187,44 +174,10 @@ extension MessageView {
         }
     }
 
-    /// safely unwrap image attachments, otherwise don't show any view
-    private var singleImageView: some View {
+    private var singleMediaAttachmentView: some View {
         Group {
-            if let image = viewModel.imageAttachments.first {
-                ImageAttachmentView(
-                    author: viewModel.author,
-                    attachment: image,
-                    loader: viewModel.imageLoader,
-                    imageCDN: viewModel.imageCDN,
-                    width: maxWidth
-                )
-                .overlay(
-                    Color.clear
-                        .contentShape(Rectangle())
-                        .onTapGesture {
-                            viewModel.selectedSingleAttachment = viewModel.mediaAttachments.first
-                        }
-                )
-            }
-        }
-    }
-
-    private var singleVideoPreviewView: some View {
-        Group {
-            if let video = viewModel.videoAttachments.first {
-                VideoPreviewAttachmentView(
-                    user: viewModel.author,
-                    videoPreviewLoader: viewModel.videoPreviewLoader,
-                    attachment: video,
-                    width: maxWidth
-                )
-                .overlay(
-                    Color.clear
-                        .contentShape(Rectangle())
-                        .onTapGesture {
-                            viewModel.selectedSingleAttachment = viewModel.mediaAttachments.first
-                        }
-                )
+            if let viewData = viewModel.singleMediaAttachment {
+                SingleMediaAttachmentView(viewModel: viewData)
             }
         }
     }
@@ -252,7 +205,7 @@ extension MessageView {
     }
 
     var sharedLocationView: some View {
-        
+
         Group {
             if let location = viewModel.locationAttachment {
                 ShareLocationMessageView(

@@ -9,8 +9,6 @@ import Foundation
 
 public class MessageViewModel: ObservableObject {
 
-    @Published var selectedSingleAttachment: MediaAttachment?
-
     public var messageText: String {
         message.text
     }
@@ -37,6 +35,18 @@ public class MessageViewModel: ObservableObject {
 
     public var locationAttachment: LocationAttachment? {
         return message.location
+    }
+
+    public var singleMediaAttachment: SingleMediaAttachmentViewModel? {
+        guard let attachment = message.attachments.first, let singleMediaAttachment = attachment.toSingleMediaAttachmentType() else { return nil }
+
+        return SingleMediaAttachmentViewModel(
+            attachment: singleMediaAttachment,
+            author: author,
+            videoPreviewLoader: videoPreviewLoader,
+            imageLoader: imageLoader,
+            imageCDN: imageCDN
+        )
     }
 
     var mediaAttachments: [MediaAttachment] {
