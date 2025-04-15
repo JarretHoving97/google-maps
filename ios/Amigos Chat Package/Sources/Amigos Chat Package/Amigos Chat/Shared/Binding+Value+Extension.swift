@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-extension Binding where Value == Any? {
+extension Binding where Value == LocalFileActivityItemSource? {
 
     var toBoolBinding: Binding<Bool> {
         Binding<Bool>.init {

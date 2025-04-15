@@ -93,7 +93,8 @@ extension MediaAttachment: Equatable {
         case itemProviderFailed
     }
 
-    func download() async throws -> Any {
-        try await AttachmentDownloader.downloadShareableActivity(from: self)
+    func download() async throws -> LocalFileActivityItemSource {
+        let localURL = try await AttachmentDownloader.downloadShareableActivity(from: self)
+        return LocalFileActivityItemSource(url: localURL)
     }
 }

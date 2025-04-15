@@ -14,7 +14,7 @@ class SingleAttachmentViewModel: ObservableObject {
     let author: LocalUser
     let attachment: MediaAttachment
 
-    @Published var attachmentToShare: Any?
+    @Published var attachmentToShare: LocalFileActivityItemSource?
     @Published var player: AVPlayer?
 
     var type: MediaAttachmentType {
@@ -38,7 +38,8 @@ class SingleAttachmentViewModel: ObservableObject {
     @MainActor
     func downloadAttachment() async {
         do {
-            attachmentToShare = try await AttachmentDownloader.downloadShareableActivity(from: attachment)
+            let url = try await AttachmentDownloader.downloadShareableActivity(from: attachment)
+            attachmentToShare = LocalFileActivityItemSource(url: url)
         } catch {
             print("Failed downloading attachment: \(error.localizedDescription)")
         }

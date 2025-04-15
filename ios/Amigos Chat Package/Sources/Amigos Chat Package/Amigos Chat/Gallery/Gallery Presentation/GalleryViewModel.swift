@@ -23,7 +23,7 @@ class GalleryViewModel: ObservableObject {
 
     @Published var presentActivitySheet: Bool = false
 
-    @Published var shareableContent = [Any]()
+    @Published var shareableContent = [LocalFileActivityItemSource]()
 
     @Binding var isShown: Bool
 
@@ -113,13 +113,13 @@ extension GalleryViewModel {
 extension GalleryViewModel {
 
     actor DownloadedAttachmentsActor {
-        private var attachments = [Any]()
+        private var attachments = [LocalFileActivityItemSource]()
 
-        func append(data: Any) {
+        func append(data: LocalFileActivityItemSource) {
             attachments.append(data)
         }
 
-        func getAttachments() -> [Any] {
+        func getAttachments() -> [LocalFileActivityItemSource] {
             return attachments
         }
     }
