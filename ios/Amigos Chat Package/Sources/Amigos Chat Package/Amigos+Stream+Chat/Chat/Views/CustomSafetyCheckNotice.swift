@@ -90,6 +90,13 @@ struct CustomSafetyCheckNotice: View {
                 HStack {
                     AmiSafetyCheckIcon()
                         .frame(width: 16, height: 16)
+                        .mediumDetentSheet(isPresented: $isSafetyCheckInfoSheetPresented) {
+                            CustomSafetyCheckInfoSheetView(
+                                isPresented: $isSafetyCheckInfoSheetPresented,
+                                channel: channel,
+                                variant: SafetyCheckInfoVariant.sender
+                            )
+                        }
                 }
                 .frame(width: 32, height: 32)
                 .background(Color("Purple"))
@@ -107,9 +114,18 @@ struct CustomSafetyCheckNotice: View {
                     .layoutPriority(-1)
 
                 HStack(spacing: 8) {
+
                     AmiThumbButton(positive: false) {
                         isNegativeSafetyCheckSheetPresented = true
                     }
+                    .mediumDetentSheet(isPresented: $isNegativeSafetyCheckSheetPresented) {
+                        CustomNegativeSafetyCheckSheetView(
+                            isPresented: $isNegativeSafetyCheckSheetPresented,
+                            updatedSafetyCheckState: $updatedSafetyCheckState,
+                            updateChannel: updateChannel
+                        )
+                    }
+
 
                     AmiThumbButton(positive: true) {
                         updateChannel(.positive)
@@ -122,30 +138,6 @@ struct CustomSafetyCheckNotice: View {
             .clipShape(RoundedRectangle(cornerRadius: 12))
             .modifier(ShadowModifier())
             .padding(.all, 12)
-
-            // 2 sheet modifiers seems to behave weird sometimes.
-
-            Text("").hidden().chatSheetPresentation(
-                isPresented: $isNegativeSafetyCheckSheetPresented,
-                detents: [.medium()]
-            ) {
-                CustomNegativeSafetyCheckSheetView(
-                    isPresented: $isNegativeSafetyCheckSheetPresented,
-                    updatedSafetyCheckState: $updatedSafetyCheckState,
-                    updateChannel: updateChannel
-                )
-            }
-
-            Text("").hidden().chatSheetPresentation(
-                isPresented: $isSafetyCheckInfoSheetPresented,
-                detents: [.medium()]
-            ) {
-                CustomSafetyCheckInfoSheetView(
-                    isPresented: $isSafetyCheckInfoSheetPresented,
-                    channel: channel,
-                    variant: SafetyCheckInfoVariant.sender
-                )
-            }
         }
     }
 }
@@ -195,7 +187,7 @@ struct CustomNegativeSafetyCheckSheetView: View {
             Spacer()
 
             AmiButton(
-                "custom.save",
+                tr("custom.save"),
                 disabled: selectedSafetyCheckReason == nil
             ) {
                 updateChannel(.negative, $selectedSafetyCheckReason.wrappedValue)

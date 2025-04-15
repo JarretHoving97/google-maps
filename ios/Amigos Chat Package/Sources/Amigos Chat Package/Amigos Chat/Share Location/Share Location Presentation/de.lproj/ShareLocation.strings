@@ -1,0 +1,34 @@
+/*
+  ShareLocation.strings
+  App
+
+  Created by Jarret on 03/12/2024.
+*/
+
+"share_location_toolbar_title" = "Standort teilen";
+
+"share_location_choose_maps_dialog_title" = "Standort teilen";
+
+"share_location_share_your_location_button_title" = "Aktuellen Standort teilen";
+
+"share_location_users_location_label" = "Standort von {USER_NAME}";
+
+"share_location_users_location_preview_label" =  "Dein Standort"
+
+"share_location_users_location_accuracy_label" = "Genau bis auf {METERS_COUNT} Meter";
+
+"share_location_users_location_accuracy_unknown_label" = "Genauigkeit unbekannt";
+
+"share_location_grant_permission_label" = "Standortzugriff erlauben";
+
+"share_location_choose_maps_apple_title" = "Karten";
+
+"share_location_choose_maps_google_title" = "Google Maps";
+
+"share_location_permissions_not_determed_dialog_title" = "Um deinen aktuellen Standort mit anderen zu teilen, benötigen wir Zugriff. Öffne die App-Einstellungen und erlaube den Standortzugriff.";
+
+"share_location_permissions_not_determed_dialog_settings_button_title" = "Einstellungen öffnen";
+
+"share_location_ask_precise_permission_button_title" = "Aktiviere 'Genauer Standort' in den Einstellungen";
+
+"share_location_quoted_message_view_title" = "Standort";

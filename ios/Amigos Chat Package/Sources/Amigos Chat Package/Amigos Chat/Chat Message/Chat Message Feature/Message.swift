@@ -21,7 +21,7 @@ public struct LocalUser {
 
 public struct Message {
 
-    public let id: UUID
+    public let id: String
 
     public let text: String
 
@@ -42,8 +42,8 @@ public struct Message {
     private let _quotedMessage: (() -> Message?)?
 
     public init(
-        id: UUID = UUID(),
-        user: LocalUser = LocalUser(id: UUID(), name: "Jarret"),
+        id: String = UUID().uuidString,
+        user: LocalUser = LocalUser(id: UUID(), name: ""),
         isSentByCurrentUser: Bool = false,
         message: String = "",
         quotedMessage: (() -> Message?)? = nil,
@@ -81,6 +81,9 @@ public extension Message {
         return attachments(payloadType: LinkAttachment.self)
     }
 
+    var location: LocationAttachment? {
+        return attachments(payloadType: LocationAttachment.self).first
+    }
 }
 
 extension Message: Equatable, Hashable {
@@ -117,6 +120,8 @@ extension Message: Equatable, Hashable {
             case .video(let attachment) where payloadType == VideoAttachment.self:
                 return attachment as? Payload
             case .link(let attachment) where payloadType == LinkAttachment.self:
+                return attachment as? Payload
+            case .location(let attachment) where payloadType == LocationAttachment.self:
                 return attachment as? Payload
             default:
                 return nil

@@ -7,7 +7,7 @@
 
 import Foundation
 
-public class MessageViewModel {
+public class MessageViewModel: ObservableObject {
 
     public var messageText: String {
         message.text
@@ -33,12 +33,35 @@ public class MessageViewModel {
         return message.videoAttachments
     }
 
+    public var locationAttachment: LocationAttachment? {
+        return message.location
+    }
+
+    public var singleMediaAttachment: SingleMediaAttachmentViewModel? {
+        guard let attachment = message.attachments.first, let singleMediaAttachment = attachment.toSingleMediaAttachmentType() else { return nil }
+
+        return SingleMediaAttachmentViewModel(
+            attachment: singleMediaAttachment,
+            author: author,
+            videoPreviewLoader: videoPreviewLoader,
+            imageLoader: imageLoader,
+            imageCDN: imageCDN
+        )
+    }
+
     var mediaAttachments: [MediaAttachment] {
         message.attachments.compactMap { $0.mediaAttachment(with: imageLoader, cdn: imageCDN, videoPreviewLoader: videoPreviewLoader) }
     }
 
     var asSuperEmoji: Bool {
         messageText.containsOnlyEmoji && message.text.count <= 3
+    }
+
+    var hasAttachment: Bool {
+        return !imageAttachments.isEmpty ||
+            !videoAttachments.isEmpty ||
+            locationAttachment != nil ||
+            !mediaAttachments.isEmpty
     }
 
     var author: LocalUser {
@@ -55,7 +78,7 @@ public class MessageViewModel {
 
     let videoPreviewLoader: PreviewVideoLoader
 
-    public private(set) var attachmentType: AttachmentType = .empty
+    public private(set) var attachmentType: LocalAttachmentType = .empty
 
     private let messageResolver: AmigosMessageTypeResolving
 

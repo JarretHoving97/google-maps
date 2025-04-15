@@ -227,45 +227,6 @@ extension CustomUIFactory: ViewFactory {
     }
 
 //    typealias AttachmentPickerViewType = CustomAttachmentPickerView
-
-    public func makeAttachmentPickerView(
-        attachmentPickerState: Binding<AttachmentPickerState>,
-        filePickerShown: Binding<Bool>,
-        cameraPickerShown: Binding<Bool>,
-        addedFileURLs: Binding<[URL]>,
-        onPickerStateChange: @escaping (AttachmentPickerState) -> Void,
-        photoLibraryAssets: PHFetchResult<PHAsset>?,
-        onAssetTap: @escaping (AddedAsset) -> Void,
-        onCustomAttachmentTap: @escaping (CustomAttachment) -> Void,
-        isAssetSelected: @escaping (String) -> Bool,
-        addedCustomAttachments: [CustomAttachment],
-        cameraImageAdded: @escaping (AddedAsset) -> Void,
-        askForAssetsAccessPermissions: @escaping () -> Void,
-        isDisplayed: Bool,
-        height: CGFloat,
-        popupHeight: CGFloat
-    ) -> some View {
-        CustomAttachmentPickerView(
-            viewFactory: self,
-            selectedPickerState: attachmentPickerState,
-            filePickerShown: filePickerShown,
-            cameraPickerShown: cameraPickerShown,
-            addedFileURLs: addedFileURLs,
-            onPickerStateChange: onPickerStateChange,
-            photoLibraryAssets: photoLibraryAssets,
-            onAssetTap: onAssetTap,
-            onCustomAttachmentTap: onCustomAttachmentTap,
-            isAssetSelected: isAssetSelected,
-            addedCustomAttachments: addedCustomAttachments,
-            cameraImageAdded: cameraImageAdded,
-            askForAssetsAccessPermissions: askForAssetsAccessPermissions,
-            isDisplayed: isDisplayed,
-            height: height
-        )
-        .offset(y: isDisplayed ? 0 : popupHeight)
-        .animation(.spring)
-    }
-
     public typealias RecordingView = CustomRecordingView
 
     public func makeComposerRecordingView(
@@ -544,12 +505,5 @@ extension CustomUIFactory: ViewFactory {
         colors: ColorPalette
     ) -> CustomEmptyMessagesView {
         CustomEmptyMessagesView(channel: channel)
-    }
-}
-
-public extension ViewFactory {
-
-    func makeChannelHeaderViewModifier(for channel: ChatChannel) -> CustomChannelHeaderView<Self> {
-        CustomChannelHeaderView(viewFactory: self, channel: channel)
     }
 }

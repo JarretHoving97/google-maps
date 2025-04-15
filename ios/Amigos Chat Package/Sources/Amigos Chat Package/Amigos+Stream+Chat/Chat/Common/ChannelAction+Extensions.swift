@@ -255,9 +255,8 @@ extension ChannelAction {
         }
 
         if case .mixer(let mixerId) = channel.relatedConceptType {
-            // @TODO: Add custom.channel.action.mixer.title translation
             let viewAction = ChannelAction(
-                title: tr("custom.channel.action.activity.title"),
+                title: tr("custom.channel.action.mixer.title"),
                 iconName: "chevron.right",
                 action: {RouteController.routeAction?(RouteInfo(route: .mixerRoute(id: mixerId), dismiss: true))},
                 confirmationPopup: nil,

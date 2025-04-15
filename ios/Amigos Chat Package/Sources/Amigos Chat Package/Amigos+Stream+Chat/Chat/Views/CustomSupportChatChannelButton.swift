@@ -8,7 +8,7 @@ struct CustomSupportChatChannelButton: View {
 
     var body: some View {
         VStack {
-            AmiButton("custom.contact", fluid: true, action: navigateToFaqWebView)
+            AmiButton(tr("custom.contact"), fluid: true, action: navigateToFaqWebView)
         }
         .padding(.all, 16)
     }

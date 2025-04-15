@@ -13,7 +13,11 @@ public class ChatChannelsViewControllerComposer {
 
     private init() {}
 
-    public static func composeWith(viewFactory: CustomUIFactory, routeAction: @escaping routeAction, onBackButtonTapped: (() -> Void)?) -> UIHostingController<ChatScreen> {
+    public static func composeWith(
+        viewFactory: CustomUIFactory,
+        routeAction: @escaping routeAction,
+        onBackButtonTapped: (() -> Void)?
+    ) -> UIHostingController<ChatScreen> {
 
         RouteController.setupRouteAction(action: routeAction)
 

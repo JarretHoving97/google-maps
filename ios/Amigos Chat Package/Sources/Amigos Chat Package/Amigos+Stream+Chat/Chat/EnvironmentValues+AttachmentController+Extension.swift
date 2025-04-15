@@ -19,3 +19,14 @@ extension EnvironmentValues {
         set { self[AttachmentControllerKey.self] = newValue }
     }
 }
+
+struct ShowConsentMediaKey: EnvironmentKey {
+    static var defaultValue: Bool = false
+}
+
+extension EnvironmentValues {
+    var showConsentMediaInGroupChannel: Bool {
+        get { self[ShowConsentMediaKey.self] }
+        set { self[ShowConsentMediaKey.self] = newValue }
+    }
+}

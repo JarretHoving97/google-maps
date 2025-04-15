@@ -124,20 +124,10 @@ public struct CustomMessageContainerView<Factory: ViewFactory>: View {
                         )
                     }
 
-//                    MessageViewComposer.composeWith(
-//                        with: message,
-//                        isFirst: showsAllInfo,
-//                        forceLeftToRight: false,
-//                        width: contentWidth
-//                    )
-
-                    CustomMessageView(
-                       factory: factory,
-                       channel: channel,
-                       message: message,
-                       contentWidth: contentWidth,
-                       isFirst: showsAllInfo,
-                       scrolledId: $scrolledId
+                    MessageViewComposer.composeWith(
+                        with: message,
+                        isFirst: showsAllInfo,
+                        forceLeftToRight: false
                     )
                     .overlay(
                         ZStack {
@@ -166,6 +156,11 @@ public struct CustomMessageContainerView<Factory: ViewFactory>: View {
                                 })
                         }
                     )
+                    .onTapGesture(count: 2) {
+                        if messageListConfig.doubleTapOverlayEnabled {
+                            handleGestureForMessage(showsMessageActions: true)
+                        }
+                    }
                     .onLongPressGesture(minimumDuration: 0.2, maximumDistance: 20) {
                         if !message.isDeleted {
                             handleGestureForMessage(showsMessageActions: true)
@@ -212,14 +207,16 @@ public struct CustomMessageContainerView<Factory: ViewFactory>: View {
                     .accessibilityElement(children: .contain)
                     .accessibilityIdentifier("MessageView")
 
-                    if message.replyCount > 0 && !isInThread {
-                        factory.makeMessageRepliesView(
-                            channel: channel,
-                            message: message,
-                            replyCount: message.replyCount
-                        )
-                        .accessibilityElement(children: .contain)
-                        .accessibility(identifier: "MessageRepliesView")
+                    if !isInThread {
+                        if message.replyCount > 0 {
+                            factory.makeMessageRepliesView(
+                                channel: channel,
+                                message: message,
+                                replyCount: message.replyCount
+                            )
+                            .accessibilityElement(children: .contain)
+                            .accessibility(identifier: "MessageRepliesView")
+                        }
                     }
 
                     if bottomReactionsShown {
@@ -268,21 +265,13 @@ public struct CustomMessageContainerView<Factory: ViewFactory>: View {
                 }
                 .overlay(
                     offsetX > 0 ?
-                        VStack {
-                            Spacer()
-
-                            HStack {
-                                Image(systemName: "arrowshape.turn.up.left.fill")
-                                    .renderingMode(.template)
-                                    .resizable()
-                                    .scaledToFit()
-                                    .frame(width: 16, height: 16)
-                                    .foregroundColor(Color("Grey"))
-
-                                Spacer()
-                            }
-
-                            Spacer()
+                        TopLeftView {
+                            Image(systemName: "arrowshape.turn.up.left.fill")
+                                .renderingMode(.template)
+                                .resizable()
+                                .scaledToFit()
+                                .frame(width: 16, height: 16)
+                                .foregroundColor(Color("Grey"))
                         }
                         .offset(x: computeReplyIconOffset)
                         .opacity(computeReplyIconOpacity)

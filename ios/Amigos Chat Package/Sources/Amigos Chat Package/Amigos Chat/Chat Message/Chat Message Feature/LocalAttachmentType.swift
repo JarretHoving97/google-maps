@@ -7,10 +7,11 @@
 
 import Foundation
 
-public enum AttachmentType: Equatable {
+public enum LocalAttachmentType: Equatable {
     case empty
     case deleted
     case image
     case video
     case multimedia
+    case location
 }

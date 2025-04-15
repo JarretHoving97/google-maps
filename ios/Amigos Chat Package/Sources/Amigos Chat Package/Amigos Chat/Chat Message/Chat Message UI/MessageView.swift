@@ -9,29 +9,33 @@ import SwiftUI
 
 extension CGFloat {
 
-    static var messageWidth: CGFloat {
+    public static var messageWidth: CGFloat {
         UIScreen.main.bounds.width * 0.6
     }
 }
 
 struct MessageView: View {
 
-    let viewModel: MessageViewModel
+    @ObservedObject private var viewModel: MessageViewModel
 
-    @State private var selectedSingleAttachment: MediaAttachment?
+    let onQuotedMessageTap: ((String) -> Void)?
 
-    private let defaultTextPadding = EdgeInsets(top: 8, leading: 16, bottom: 8, trailing: 16)
+    private let defaultTextPadding = EdgeInsets(
+        top: 8,
+        leading: 16,
+        bottom: 8,
+        trailing: 16
+    )
 
-    private let width: CGFloat
+    let maxWidth: CGFloat = .messageWidth
 
-    init(viewModel: MessageViewModel, width: CGFloat = .messageWidth) {
+    init(viewModel: MessageViewModel, onQuotedMessageTap: ((String) -> Void)? = nil) {
         self.viewModel = viewModel
-        self.width = width
         viewModel.resolveMessageType()
+        self.onQuotedMessageTap = onQuotedMessageTap
     }
 
     var body: some View {
-
         if viewModel.isDeleted {
 
             LocalDeletedMessageView(
@@ -52,22 +56,16 @@ struct MessageView: View {
 
         } else {
             VStack(alignment: .leading, spacing: 0) {
-                quotedMessageView
-                mediaAttachmentView
-                walkthroughView
+                VStack(spacing: 6) {
+                    quotedMessageView
+                    sharedLocationView
+                    mediaAttachmentView
+                    walkthroughView
+                }
                 messageTextView
             }
-            .modifier(bubbleResolvedModifier)
-            .fullScreenCover(isPresented: $selectedSingleAttachment.toBoolBinding) {
 
-                SingleAttachmentGalleryView(
-                    isPresented: $selectedSingleAttachment.toBoolBinding,
-                    viewModel: SingleAttachmentViewModel(
-                        author: viewModel.author,
-                        attachment: selectedSingleAttachment!
-                    )
-                )
-            }
+            .modifier(bubbleResolvedModifier)
         }
     }
 
@@ -102,7 +100,9 @@ extension MessageView {
                         text: viewModel.messageText
                     )
                 )
-                /// when `attachmentsPadding` is zero. We need to add an other padding because we don't want the same padding when there are any attachments
+                .multilineTextAlignment(.leading)
+                .frame(alignment: .leading)
+                /// when `attachmentsPadding` is zero. We need to add an other padding because we don't want the same padding when there are any attachments or quoted messages
                 .padding(attachmentsPadding == EdgeInsets(.zero) ? defaultTextPadding : EdgeInsets(.zero))
             } else {
                 EmptyView()
@@ -116,6 +116,7 @@ extension MessageView {
                 QuotedMessageView(
                     viewModel: QuotedMessageViewModel(
                         message: message,
+                        isSentByCurrentUser: viewModel.isSentByCurrentUser,
                         imageLoader: viewModel.imageLoader,
                         imageCDN: viewModel.imageCDN,
                         videoPreviewLoader: viewModel.videoPreviewLoader
@@ -137,6 +138,9 @@ extension MessageView {
                     )
                 )
                 .fixedSize(horizontal: false, vertical: true)
+                .onTapGesture {
+                    onQuotedMessageTap?(message.id)
+                }
             } else {
                 EmptyView()
             }
@@ -147,11 +151,8 @@ extension MessageView {
         Group {
             switch viewModel.attachmentType {
 
-            case .image:
-                singleImageView
-
-            case .video:
-                singleVideoPreviewView
+            case .image, .video:
+                singleMediaAttachmentView
 
             case .multimedia:
 
@@ -159,52 +160,26 @@ extension MessageView {
                     user: viewModel.author,
                     sources: viewModel.mediaAttachments,
                     isSentByCurrentUser: viewModel.isSentByCurrentUser,
-                    width: width
+                    width: maxWidth
+                )
+                .clipShape(
+                    RoundedRectangle(
+                        cornerRadius: attachmentsPadding != EdgeInsets(.zero) ? 18 : 0
+                    )
                 )
 
-            case .empty, .deleted:
+            default:
                 EmptyView()
             }
         }
     }
 
-    /// safely unwrap image attachments, otherwise don't show any view
-    private var singleImageView: some View {
+    private var singleMediaAttachmentView: some View {
         Group {
-            if let image = viewModel.imageAttachments.first {
-                ImageAttachmentView(
-                    author: viewModel.author,
-                    attachment: image,
-                    loader: viewModel.imageLoader,
-                    imageCDN: viewModel.imageCDN,
-                    width: width
-                )
-                .onTapGesture {
-                    selectedSingleAttachment = viewModel.mediaAttachments.first
-                }
-            } else {
-                EmptyView()
+            if let viewData = viewModel.singleMediaAttachment {
+                SingleMediaAttachmentView(viewModel: viewData)
             }
         }
-    }
-
-    private var singleVideoPreviewView: some View {
-        Group {
-            if let video = viewModel.videoAttachments.first {
-                VideoPreviewAttachmentView(
-                    user: viewModel.author,
-                    videoPreviewLoader: viewModel.videoPreviewLoader,
-                    attachment: video,
-                    width: width
-                )
-                .onTapGesture {
-                    selectedSingleAttachment = viewModel.mediaAttachments.first
-                }
-            } else {
-                EmptyView()
-            }
-        }
-
     }
 
     private var bubbleResolvedModifier: ResolvedViewModifier {
@@ -221,10 +196,46 @@ extension MessageView {
         if viewModel.isDeleted ||
             !viewModel.mediaAttachments.isEmpty ||
             (viewModel.asSuperEmoji && viewModel.quotedMessage == nil) ||
+            viewModel.locationAttachment != nil ||
             viewModel.layoutMessageType != nil {
             return EdgeInsets(.zero)
         }
+
         return defaultTextPadding
+    }
+
+    var sharedLocationView: some View {
+
+        Group {
+            if let location = viewModel.locationAttachment {
+                ShareLocationMessageView(
+                    viewModel: CustomShareLocationMessageViewModel(
+                        location: location,
+                        user: viewModel.author
+                    )
+                )
+
+                .clipShape(
+                    RoundedRectangle(
+                        cornerRadius: attachmentsPadding != EdgeInsets(
+                            .zero
+                        ) ? 18 : 0
+                    )
+                )
+
+                .overlay(
+                    RoundedRectangle(
+                        cornerRadius: attachmentsPadding != EdgeInsets(
+                            .zero
+                        ) ? 18 : 0
+                    )
+                    .stroke(
+                        .white,
+                        lineWidth: viewModel.isSentByCurrentUser ? 0.5 : 0
+                    )
+                )
+            }
+        }
     }
 }
 
@@ -246,7 +257,6 @@ extension MessageView {
                     ]
                 )
                 },
-
                 isDeleted: false,
                 attachments: [
                     .image(

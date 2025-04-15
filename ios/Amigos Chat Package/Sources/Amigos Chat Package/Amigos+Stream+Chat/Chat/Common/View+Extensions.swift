@@ -24,18 +24,4 @@ extension View {
     func flippedUpsideDown() -> some View {
         modifier(FlippedUpsideDown())
     }
-
-    func chatSheetPresentation<Content>(
-         isPresented: Binding<Bool>,
-         detents: [UISheetPresentationController.Detent],
-         content: () -> Content
-    ) -> some View where Content: View {
-         modifier(
-             CustomSheetViewModifier(
-                 isPresented: isPresented,
-                 detents: detents,
-                 sheetContent: content
-             )
-         )
-     }
 }

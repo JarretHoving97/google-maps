@@ -39,19 +39,6 @@ extension Localized {
             return resultString
         }
 
-        static func attachmentsSharedLabel(count: Int) -> String {
-            NSLocalizedString(
-                "gallery_amount_of_attachments",
-                tableName: table,
-                bundle: bundle,
-                comment: "Label indicating how many attachments have been shared"
-            )
-            .replacingOccurrences(
-                of: "{NUMBER}",
-                with: "\(count)"
-            )
-        }
-
         static var doneTrailingButtonLabel: String {
             NSLocalizedString(
                 "gallery_select_trailing_button_title",

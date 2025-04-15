@@ -17,12 +17,15 @@ struct VideoPreviewAttachmentView: View {
     @State var previewImage: UIImage?
     @State var error: Error?
 
-    @State private var galleryPresented: Bool = false
-
     var ratio: CGFloat = 0.75
     let width: CGFloat
 
-    init(user: LocalUser, videoPreviewLoader: PreviewVideoLoader, attachment: VideoAttachment, width: CGFloat = UIScreen.main.bounds.size.width * 0.68) {
+    init(
+        user: LocalUser,
+        videoPreviewLoader: PreviewVideoLoader,
+        attachment: VideoAttachment,
+        width: CGFloat = UIScreen.main.bounds.size.width * 0.68
+    ) {
         self.user = user
         self.videoPreviewLoader = videoPreviewLoader
         self.attachment = attachment
@@ -31,26 +34,26 @@ struct VideoPreviewAttachmentView: View {
 
     var body: some View {
         ZStack {
+            Color(.secondarySystemBackground)
             if let previewImage = previewImage {
                 Image(uiImage: previewImage)
                     .resizable()
                     .scaledToFill()
-                    .clipped()
                     .allowsHitTesting(false)
+                    .frame(width: width, height: width * ratio)
+                    .clipped()
 
                 if width > 64 {
                     VStack {
                         VideoPlayIcon()
                     }
-                    .frame(width: width, height: width * ratio)
                     .contentShape(Rectangle())
                     .clipped()
                 }
             } else if error != nil {
-                Color(.secondarySystemBackground)
+               EmptyView()
             } else {
                 ZStack {
-                    Color(.secondarySystemBackground)
                     ProgressView()
                 }
             }
@@ -67,6 +70,7 @@ struct VideoPreviewAttachmentView: View {
                 }
             }
         }
+        .animation(.easeIn, value: previewImage)
     }
 }
 

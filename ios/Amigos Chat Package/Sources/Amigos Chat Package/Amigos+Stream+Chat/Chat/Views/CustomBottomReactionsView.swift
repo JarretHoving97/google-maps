@@ -76,11 +76,11 @@ struct CustomBottomReactionsView: View {
                     isReactionsUsersSheetPresented = true
                 }
             )
-            .chatSheetPresentation(
-                isPresented: $isReactionsUsersSheetPresented,
-                detents: [.medium()]
-            ) {
-                CustomReactionsUsersSheetView(isPresented: $isReactionsUsersSheetPresented, viewModel: viewModel)
+            .mediumDetentSheet(isPresented: $isReactionsUsersSheetPresented) {
+                CustomReactionsUsersSheetView(
+                    isPresented: $isReactionsUsersSheetPresented,
+                    viewModel: viewModel
+                )
             }
     }
 

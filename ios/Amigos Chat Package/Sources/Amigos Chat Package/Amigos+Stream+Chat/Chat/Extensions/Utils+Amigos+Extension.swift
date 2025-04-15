@@ -11,6 +11,7 @@ import StreamChatSwiftUI
 public extension Utils {
     static var amigosUtils: Utils {
         Utils(
+            messageTypeResolver: LocationMessageTypeResolver(),
             commandsConfig: CustomCommandsConfig(),
             messageListConfig: customMessageListConfig,
             composerConfig: ComposerConfig(

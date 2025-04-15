@@ -53,45 +53,47 @@ extension ExtendedStreamPlugin {
         }
     }
 
-    func routeToChannel(with channel: ChannelInfo, loadChannel: Bool = true, animated: Bool = true) {
+    func routeToChannel(
+        with channel: ChannelInfo,
+        loadChannel: Bool = true,
+        animated: Bool = true
+    ) {
+
+        guard let client = ExtendedStreamPlugin.chatClient.chatClient else { return }
 
         DispatchQueue.main.async { [weak chatNavigationController, weak self] in
+            guard let self, let chatNavigationController, let channelController = try? client.channelController(for: ChannelId(cid: channel.channelId)) else { return }
 
-            guard let self, let chatNavigationController, let detailViewController = ChatViewControllerComposer.composeWith(
-                chatClient: ExtendedStreamPlugin.chatClient.chatClient!,
-                with: channel.channelId,
+            let detailViewController = ChatViewControllerComposer.lazyLoadCompose(
+                viewFactory: CustomUIFactory(),
+                viewModel: ChatChannelScreenViewModel(isDirectMessageChannel: channelController.channel?.isDirectMessageChannel ?? false),
+                channelController: channelController,
                 routeHandler: routeAction(),
                 messageId: channel.messageId,
-                in: chatNavigationController,
-                loadChannel: loadChannel,
-                onWillMoveToParent: adaptOnWillMoveToParent()
-            ) else { return }
+                navigation: chatNavigationController
+            )
 
             chatNavigationController.pushViewController(detailViewController, animated: animated)
         }
     }
 
-    private func adapRouteToChannel(messageId: String? = nil, with navigationController: UINavigationController) -> ((ChatChannel) -> Void) {
+    private func adapRouteToChannel(
+        messageId: String? = nil,
+        with navigationController: UINavigationController
+    ) -> ((ChatChannel) -> Void) {
 
         return { [ weak navigationController, weak self] chatChannel in
             guard let self, let navigationController else { return }
 
             guard let detailViewController = ChatViewControllerComposer.composeWith(
                 chatClient: ExtendedStreamPlugin.chatClient.chatClient!,
-                with: chatChannel.id,
+                chatChannel: chatChannel,
                 routeHandler: routeAction(),
                 messageId: messageId,
                 in: navigationController,
-                loadChannel: false,
                 onWillMoveToParent: adaptOnWillMoveToParent()
             ) else { return }
 
-            ChatViewControllerComposer.setChannelHeader(
-                with: CustomUIFactory(),
-                channel: chatChannel,
-                for: detailViewController,
-                in: navigationController
-            )
             navigationController.pushViewController(detailViewController, animated: true)
             notifyNavigateToListeners(route: "/channels/\(chatChannel.id)", dismiss: false)
         }
@@ -163,6 +165,8 @@ extension ExtendedStreamPlugin {
 
     private func buildStack(with channel: ChannelInfo) -> UINavigationController {
 
+        guard let client = ExtendedStreamPlugin.chatClient.chatClient, let channelController = try? client.channelController(for: ChannelId(cid: channel.channelId)) else { return UINavigationController() }
+
         let navigationController = UINavigationController()
         navigationController.navigationBar.prefersLargeTitles = true
         navigationController.navigationBar.prefersLargeTitles = true
@@ -176,13 +180,13 @@ extension ExtendedStreamPlugin {
 
         channelViewController.rootView.onItemTapped = adapRouteToChannel(with: navigationController)
 
-        let chatViewController = ChatViewControllerComposer.composeWith(
-            chatClient: ExtendedStreamPlugin.chatClient.chatClient!,
-            with: channel.channelId,
+        let chatViewController = ChatViewControllerComposer.lazyLoadCompose(
+            viewFactory: CustomUIFactory(),
+            viewModel: ChatChannelScreenViewModel(isDirectMessageChannel: channelController.channel?.isDirectMessageChannel ?? false),
+            channelController: channelController,
             routeHandler: routeAction(),
             messageId: channel.messageId,
-            in: navigationController,
-            loadChannel: true,
+            navigation: navigationController,
             onWillMoveToParent: adaptOnWillMoveToParent()
         )
 

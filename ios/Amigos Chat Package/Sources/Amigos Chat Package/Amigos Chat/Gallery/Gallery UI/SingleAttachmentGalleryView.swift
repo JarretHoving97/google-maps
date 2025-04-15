@@ -10,14 +10,18 @@ import AVKit
 
 struct SingleAttachmentGalleryView: View {
 
-    @ObservedObject var viewModel: SingleAttachmentViewModel
+    @StateObject var viewModel: SingleAttachmentViewModel
 
     @Binding var isPresented: Bool
 
     var animation: Namespace.ID
 
-    init(isPresented: Binding<Bool>, viewModel: SingleAttachmentViewModel, animation: Namespace.ID = Namespace().wrappedValue) {
-        self.viewModel = viewModel
+    init(
+        isPresented: Binding<Bool>,
+        viewModel: SingleAttachmentViewModel,
+        animation: Namespace.ID = Namespace().wrappedValue
+    ) {
+        self._viewModel = StateObject(wrappedValue: viewModel)
         self.animation = animation
         _isPresented = isPresented
 
@@ -30,7 +34,6 @@ struct SingleAttachmentGalleryView: View {
                 .zIndex(1)
             mediaView
                 .matchedGeometryEffect(id: viewModel.attachment.url, in: animation)
-                .ignoresSafeArea(edges: [.bottom])
         }
         .background(Color.black)
         .statusBarHidden(false)
@@ -46,46 +49,43 @@ extension SingleAttachmentGalleryView {
 
     private var headerView: some View {
         HStack {
-
-            HStack {
-
-                Button {
-                    isPresented.toggle()
-                } label: {
-                    Image(systemName: "xmark")
-                        .resizable()
-                        .frame(width: 16, height: 16)
-                        .foregroundStyle(Color(.white))
-                }
-                .frame(width: 20, height: 20)
-                .padding(.horizontal, 26)
-
-                Spacer()
-
-                VStack {
-                    Text(viewModel.author.name)
-                        .font(Font.custom(size: 16, weight: .medium))
-                        .foregroundStyle(.white)
-                }
-
-                Spacer()
-
-                Button {
-                    Task {
-                        await viewModel.downloadAttachment()
-                    }
-
-                } label: {
-                    Image(systemName: "square.and.arrow.up")
-                        .foregroundStyle(.white)
-                        .frame(width: 16, height: 20)
-
-                }
-                .padding(.horizontal, 26)
+            Button {
+                isPresented.toggle()
+            } label: {
+                Image(systemName: "xmark")
+                    .customizable()
+                    .frame(width: 16, height: 16)
+                    .font(.system(size: 16, weight: .medium))
+                    .foregroundStyle(Color(.white))
             }
+            .frame(width: 20, height: 20)
+            .padding(.horizontal, 16)
+
+            Spacer()
+
+            Text(viewModel.author.name)
+                .font(.headline)
+                .foregroundStyle(.white)
+
+            Spacer()
+
+            Button {
+                Task {
+                    await viewModel.downloadAttachment()
+                }
+            } label: {
+                Image(systemName: "square.and.arrow.up")
+                    .customizable()
+                    .frame(width: 20, height: 20)
+                    .font(.system(size: 16, weight: .medium))
+                    .foregroundStyle(Color(.white))
+                    .padding(.top, -2)
+            }
+            .frame(width: 20, height: 20)
+            .padding(.horizontal, 16)
         }
-        .frame(height: 30)
-        .background(Color.black.opacity(0.4))
+        .frame(height: 44)
+        .background(Color.black.opacity(0.6))
     }
 
     private var mediaView: some View {
@@ -102,18 +102,18 @@ extension SingleAttachmentGalleryView {
 
     private var zoomableImageView: some View {
         VStack {
-                ZoomableScrollView {
-                    LazyLoadImage(
-                        source: viewModel.attachment,
-                        shouldSetFrame: false,
-                        resize: true,
-                        width: UIScreen.main.bounds.size.width,
-                        height: UIScreen.main.bounds.size.height
-                    )
+            ZoomableScrollView {
+                LazyLoadImage(
+                    source: viewModel.attachment,
+                    shouldSetFrame: false,
+                    resize: true,
+                    width: UIScreen.main.bounds.size.width,
+                    height: UIScreen.main.bounds.size.height
+                )
 
-                    .aspectRatio(contentMode: .fit)
-                    .frame(maxWidth: .infinity, maxHeight: .infinity)
-                }
+                .aspectRatio(contentMode: .fit)
+                .frame(maxWidth: .infinity, maxHeight: .infinity)
+            }
         }
     }
 
@@ -122,6 +122,7 @@ extension SingleAttachmentGalleryView {
             if let player = viewModel.player {
                 VideoPlayer(player: player)
                     .onAppear {
+                        try? AVAudioSession.sharedInstance().setCategory(.playback, options: [])
                         player.play()
                     }
                     .onDisappear {

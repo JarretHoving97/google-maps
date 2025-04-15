@@ -110,10 +110,7 @@ struct CustomPinnedMessage: View {
                 .padding(.all, 12)
                 .onTapGesture(perform: showEditPinnedMessageSheet)
             }
-            .chatSheetPresentation(
-                isPresented: $isEditModalPresented,
-                detents: [.medium()]
-            ) {
+            .mediumDetentSheet(isPresented: $isEditModalPresented) {
                 CustomEditPinnedMessageSheetView(
                     isPresented: $isEditModalPresented,
                     channel: channel,
@@ -185,7 +182,7 @@ struct CustomEditPinnedMessageSheetView: View {
 
             Spacer()
 
-            AmiButton("custom.save", action: updatePinnedMessage)
+            AmiButton(tr("custom.save"), action: updatePinnedMessage)
         }
         .padding(.all, 16)
         .padding(.top, 24)

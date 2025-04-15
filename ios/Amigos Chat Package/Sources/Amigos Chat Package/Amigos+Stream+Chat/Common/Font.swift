@@ -25,6 +25,18 @@ extension Font {
 
         return Font.custom(fontName, size: size)
     }
+
+    static var body: Font {
+        Font.custom(size: 15, weight: ThemeFontWeight.regular)
+    }
+
+    static var caption1: Font {
+        return .custom(size: 13, weight: .regular)
+    }
+
+    static var subheadline: Font {
+        Font.custom(size: 14, weight: ThemeFontWeight.medium)
+    }
 }
 
 extension UIFont {
@@ -40,6 +52,6 @@ extension UIFont {
     ) -> UIFont {
         let fontName: String = "Poppins-" + weight.rawValue + style.rawValue
 
-        return UIFont(name: fontName, size: size)!
+        return UIFont(name: fontName, size: size) ?? UIFont.systemFont(ofSize: size)
     }
 }

@@ -16,10 +16,10 @@ struct MessageViewComposer {
         with message: ChatMessageProtocol,
         isFirst: Bool,
         forceLeftToRight: Bool,
-        width: CGFloat = .messageWidth,
         imageLoader: ImageLoader = NukeImageLoader(),
         imageCDN: ImageCDNhandler = StreamImageCDN(),
-        videoPreviewLoader: PreviewVideoLoader = DefaultPreviewVideoLoader()
+        videoPreviewLoader: PreviewVideoLoader = DefaultPreviewVideoLoader(),
+        onQuotedMessageTap: ((String) -> Void)? = nil
 
     ) -> MessageView {
 
@@ -32,6 +32,7 @@ struct MessageViewComposer {
             videoPreviewLoader: videoPreviewLoader,
             isFirst: isFirst
         )
-        return MessageView(viewModel: viewModel, width: width)
+
+        return MessageView(viewModel: viewModel, onQuotedMessageTap: onQuotedMessageTap)
     }
 }

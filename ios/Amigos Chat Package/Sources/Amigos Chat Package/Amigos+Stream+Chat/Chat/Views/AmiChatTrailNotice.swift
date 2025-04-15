@@ -98,14 +98,12 @@ public struct AmiChatTrialNoticeView: View {
                 .onTapGesture {
                     isChatTrialNoticeSheetPresented = true
                 }
-                .chatSheetPresentation(
-                    isPresented: $isChatTrialNoticeSheetPresented,
-                    detents: [.medium()]
-                ) {
-                    CustomChatTrialNoticeView(
-                        isPresented: $isChatTrialNoticeSheetPresented,
-                        remainingTrialDays: remainingDays
-                    )
+                .mediumDetentSheet(
+                    isPresented: $isChatTrialNoticeSheetPresented) {
+                        CustomChatTrialNoticeView(
+                            isPresented: $isChatTrialNoticeSheetPresented,
+                            remainingTrialDays: remainingDays
+                        )
                 }
             }
             .padding(.horizontal, 8)
@@ -152,7 +150,7 @@ struct CustomChatTrialNoticeView: View {
 
             Spacer()
 
-            AmiButton("custom.becomeSuperAmigo") {
+            AmiButton(tr("custom.becomeSuperAmigo")) {
                 navigateToSuperAmigoWebView()
             }
                 .frame(maxWidth: .infinity)

@@ -40,7 +40,7 @@ struct RemoteToLocalMessageMapperTests {
 
         let result = sut.map(mockMessage)
 
-        #expect(result.id == UUID(uuidString: mockMessage.id))
+        #expect(result.id == mockMessage.id)
         #expect(result.isSentByCurrentUser == mockMessage.isSentByCurrentUser)
         #expect(result.text == mockMessage.text)
         #expect(result.isDeleted == mockMessage.isDeleted)

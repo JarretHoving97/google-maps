@@ -151,7 +151,7 @@ struct ChatMessageIntegrationTests {
 
     private func assertMessageType(
         _ sut: MessageViewModel,
-        expectedAttachmentType: AttachmentType,
+        expectedAttachmentType: LocalAttachmentType,
         expectedMessageText: String? = nil,
         expectedQuotedMessage: Message? = nil
     ) {

@@ -14,7 +14,7 @@ enum AttachmentDownloader {
         case itemProviderFailed
     }
 
-    static func downloadShareableActivity(from attachment: MediaAttachment) async throws -> Any {
+    static func downloadShareableActivity(from attachment: MediaAttachment) async throws -> URL {
         switch attachment.type {
         case .photo:
             try await downloadPhoto(from: attachment.url, imageLoader: attachment.imageLoader, imageCDN: attachment.imageCDN)
@@ -23,7 +23,7 @@ enum AttachmentDownloader {
         }
     }
 
-    private static func downloadPhoto(from url: URL, imageLoader: ImageLoader, imageCDN: ImageCDNhandler) async throws -> Any {
+    private static func downloadPhoto(from url: URL, imageLoader: ImageLoader, imageCDN: ImageCDNhandler) async throws -> URL {
         let image = try await imageLoader.loadImageAsync(
             url: url,
             imageCDN: imageCDN,
@@ -44,12 +44,10 @@ enum AttachmentDownloader {
             throw Error.itemProviderFailed
         }
 
-        itemProvider.suggestedName = "image.jpeg"
-
-        return itemProvider
+        return tempURL
     }
 
-    private static func downloadVideo(from url: URL) async throws -> Any {
+    private static func downloadVideo(from url: URL) async throws -> URL {
         let request = URLRequest(url: url)
 
         let (localURL, response) = try await URLSession.shared.download(for: request)
@@ -67,8 +65,6 @@ enum AttachmentDownloader {
             throw Error.itemProviderFailed
         }
 
-        itemProvider.suggestedName = "video.mp4"
-
-        return itemProvider
+        return tempURL
     }
 }

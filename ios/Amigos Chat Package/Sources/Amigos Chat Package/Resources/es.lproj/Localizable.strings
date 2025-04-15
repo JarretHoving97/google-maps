@@ -36,6 +36,7 @@
 "channel.item.unmute" = "Desactivar silencio";
 "channel.item.video" = "Vídeo";
 "channel.item.voice-message" = "Mensaje de voz";
+"channel.item.location" = "Ubicación";
 "channel.name.and" = "y";
 "channel.name.andXMore" = "y %@ más";
 "channel.name.direct-message" = "usuario";
@@ -99,6 +100,7 @@
 "current-selection" = "%d de %d";
 "custom.becomeSuperAmigo" = "Conviértete en Super amigo";
 "custom.channel.action.activity.title" = "Ver actividad";
+"custom.channel.action.mixer.title" = "Ver aperitivo";
 "custom.channel.action.archive.confirmation-body" = "¿Estás seguro de que quieres eliminar el chat?";
 "custom.channel.action.archive.confirmation-confirm" = "Eliminar";
 "custom.channel.action.archive.title" = "Eliminar chat";

@@ -17,7 +17,6 @@ struct LinkDetectionTextView: View {
 
     public var body: some View {
         Text(viewModel.messageText)
-
             .environment(\.openURL, OpenURLAction { url in
                 switch url.scheme?.lowercased() {
                 case "http", "https":
@@ -42,4 +41,16 @@ struct LinkDetectionTextView: View {
                 Text(viewModel.tappedUrl?.absoluteString ?? "")
             }
     }
+}
+
+#Preview {
+    LinkDetectionTextView(
+        viewModel: LinkDetectionTextViewModel(
+            isSentByCurrentUser: false,
+            isModerator: true,
+            text: "This is a [Markdown link](https://example.com)"
+        )
+    )
+
+    .frame(width: UIScreen.main.bounds.size.width * 0.6)
 }

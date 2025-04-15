@@ -8,6 +8,11 @@
 import SwiftUI
 import StreamChatSwiftUI
 
+class MultiMedaViewModel: ObservableObject {
+    @Published var showMediaGallery: Bool = false
+    @Published var selectedIndex: Int = 0
+}
+
 public struct MultiMediaView: View {
 
     var sources: [MediaAttachment]
@@ -16,6 +21,7 @@ public struct MultiMediaView: View {
     let width: CGFloat
 
     @State private var selectedIndex: Int?
+    @StateObject private var viewModel = MultiMedaViewModel()
 
     init(user: LocalUser, sources: [MediaAttachment], isSentByCurrentUser: Bool = false, width: CGFloat = .messageWidth) {
         self.sources = sources
@@ -28,6 +34,7 @@ public struct MultiMediaView: View {
         let spacing: CGFloat = 2
 
         Group {
+
             if sources.count == 1 {
                 imageView(
                     with: sources[0],
@@ -125,28 +132,29 @@ public struct MultiMediaView: View {
 
     @ViewBuilder func imageView(with source: MediaAttachment, width: CGFloat, height: CGFloat) -> some View {
 
-        Group {
-            switch source.type {
-            case .photo:
-                LazyLoadImage(
-                    source: source,
-                    width: width,
-                    height: height
-                )
-
-            case .video:
-                ZStack {
+            ZStack {
+                Color(.secondarySystemBackground)
+                switch source.type {
+                case .photo:
                     LazyLoadImage(
                         source: source,
                         width: width,
                         height: height
                     )
-                    VStack {
-                        VideoPlayIcon()
+
+                case .video:
+                    ZStack {
+                        LazyLoadImage(
+                            source: source,
+                            width: width,
+                            height: height
+                        )
+                        VStack {
+                            VideoPlayIcon()
+                        }
                     }
                 }
             }
-        }
         .contentShape(Rectangle())
         .onTapGesture {
             mediaFileTapped(attachment: source)
@@ -155,13 +163,13 @@ public struct MultiMediaView: View {
             for: source.uploadingState,
             url: source.url
         )
-        .fullScreenCover(isPresented: $selectedIndex.toBoolBinding) {
+        .fullScreenCover(isPresented: $viewModel.showMediaGallery) {
             GalleryView(
                 viewModel: GalleryViewModel(
-                    isShown: $selectedIndex.toBoolBinding,
+                    isShown: $viewModel.showMediaGallery,
                     attachments: sources,
                     author: user,
-                    selected: selectedIndex ?? 0
+                    selected: viewModel.selectedIndex
                 )
             )
         }
@@ -169,6 +177,10 @@ public struct MultiMediaView: View {
 
     func mediaFileTapped(attachment: MediaAttachment) {
         selectedIndex = sources.firstIndex(of: attachment) ?? 0
+        viewModel.selectedIndex = sources.firstIndex(of: attachment) ?? 0
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+            viewModel.showMediaGallery.toggle()
+        }
     }
 }
 

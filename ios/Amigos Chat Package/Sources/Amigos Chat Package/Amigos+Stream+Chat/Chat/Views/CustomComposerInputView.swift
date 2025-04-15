@@ -108,8 +108,34 @@ public struct CustomComposerInputView<Factory: ViewFactory>: View, KeyboardReada
                     isInComposer: true,
                     scrolledId: .constant(nil)
                 )
+                .animation(.default, value: quotedMessage)
                 .overlay(alignment: .topTrailing) {
                     Button(action: removeQuotedMessage) {
+                        Image(systemName: "multiply")
+                            .renderingMode(.template)
+                            .resizable()
+                            .scaledToFit()
+                            .frame(width: 8, height: 8)
+                            .foregroundColor(Color.white)
+                            .padding(8)
+                            .contentShape(Rectangle())
+                    }
+                    .frame(width: 16, height: 16)
+                    .background(Color("Red"))
+                    .clipShape(Circle())
+                }
+            }
+
+            if !addedCustomAttachments.isEmpty {
+                factory.makeCustomAttachmentPreviewView(
+                    addedCustomAttachments: addedCustomAttachments,
+                    onCustomAttachmentTap: onCustomAttachmentTap
+                )
+                .animation(.default, value: addedCustomAttachments)
+                .overlay(alignment: .topTrailing) {
+                    Button {
+                        viewModel.addedCustomAttachments.removeAll()
+                    } label: {
                         Image(systemName: "multiply")
                             .renderingMode(.template)
                             .resizable()
@@ -131,7 +157,7 @@ public struct CustomComposerInputView<Factory: ViewFactory>: View, KeyboardReada
                     onDiscardAttachment: removeAttachmentWithId
                 )
                 .transition(.scale)
-                .animation(.default)
+                .animation(.default, value: addedAssets)
             }
 
             if !addedFileURLs.isEmpty {
@@ -153,13 +179,6 @@ public struct CustomComposerInputView<Factory: ViewFactory>: View, KeyboardReada
                 )
                 .padding(.trailing, 8)
                 .padding(.top, 8)
-            }
-
-            if !addedCustomAttachments.isEmpty {
-                factory.makeCustomAttachmentPreviewView(
-                    addedCustomAttachments: addedCustomAttachments,
-                    onCustomAttachmentTap: onCustomAttachmentTap
-                )
             }
 
             HStack {

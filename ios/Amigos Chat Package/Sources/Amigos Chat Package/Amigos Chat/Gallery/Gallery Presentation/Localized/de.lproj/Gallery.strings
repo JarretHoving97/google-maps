@@ -10,5 +10,3 @@
 "gallery_select_every_attachment" = "Alle auswählen";
 "gallery_deselect_every_attachment" = "Alle abwählen";
 "gallery_select_trailing_button_title" = "Fertig";
-
-"gallery_amount_of_attachments" = "{NUMBER} Elemente";

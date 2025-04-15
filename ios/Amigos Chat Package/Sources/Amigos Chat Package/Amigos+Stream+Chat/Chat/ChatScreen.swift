@@ -2,62 +2,62 @@ import SwiftUI
 import StreamChat
 import StreamChatSwiftUI
 
-/// Injecting through `@EnvironmentObject` to get `isDirectMessageChannel` state
-class CurrentChannelInfo: ObservableObject {
+public class ChatChannelScreenViewModel: ObservableObject {
 
-    @Published private var channel: ChatChannel?
+    @Published private(set) var popOver: PopoverType?
 
-    init(channel: ChatChannel?) {
-        self.channel = channel
+    let isDirectMessageChannel: Bool
+
+    public init(isDirectMessageChannel: Bool) {
+        self.isDirectMessageChannel = isDirectMessageChannel
     }
 
-    var isDirectMessageChannel: Bool {
-        channel?.isDirectMessageChannel ?? false
+    @MainActor
+    public func set(popOver: PopoverType?) {
+        self.popOver = popOver
+    }
+}
+
+public enum PopoverType: Equatable {
+
+    case moreActions(ChatChannel)
+    case error(Error)
+
+    public static func == (lhs: PopoverType, rhs: PopoverType) -> Bool {
+        switch (lhs, rhs) {
+        case (.moreActions(let lhsChannel), .moreActions(let rhsChannel)):
+            return lhsChannel.id == rhsChannel.id
+        default:
+            return false
+        }
     }
 }
 
 /// Screen component for the chat channel view.
 public struct ChatChannelScreen: View {
 
-    @StateObject var currentChannelInfo: CurrentChannelInfo
+    @StateObject var viewModel: ChatChannelScreenViewModel
 
     public var chatChannelController: ChatChannelController
-    @ObservedObject var viewModel: ChatChannelListViewModel
+
     var onDidLoadChannel: ((ChatChannel) -> Void)?
+
+    var onChatWithHostTapped: ((String?) -> Void)?
 
     private let viewFactory: CustomUIFactory
 
     private var messageId: String?
 
-    var onChatWithHostTapped: ((String?) -> Void)?
-
-    init(with viewFactory: CustomUIFactory, chatChannelController: ChatChannelController, viewModel: ChatChannelListViewModel, messageId: String?) {
+    public init(
+        with viewFactory: CustomUIFactory,
+        chatChannelController: ChatChannelController,
+        viewModel: ChatChannelScreenViewModel,
+        messageId: String?
+    ) {
         self.chatChannelController = chatChannelController
-        self.viewModel = viewModel
         self.messageId = messageId
         self.viewFactory = viewFactory
-        _currentChannelInfo = StateObject(wrappedValue: CurrentChannelInfo(channel: chatChannelController.channel))
-    }
-
-    @ViewBuilder
-    private func customViewOverlay() -> some View {
-        switch viewModel.customChannelPopupType {
-        case let .moreActions(channel):
-            viewFactory.makeMoreChannelActionsView(
-                for: channel,
-                swipedChannelId: $viewModel.swipedChannelId
-            ) {
-                withAnimation {
-                    viewModel.customChannelPopupType = nil
-                    viewModel.swipedChannelId = nil
-                }
-            } onError: { error in
-                viewModel.showErrorPopup(error)
-            }
-            .edgesIgnoringSafeArea(.bottom)
-        default:
-            EmptyView()
-        }
+        self._viewModel = StateObject(wrappedValue: viewModel)
     }
 
     public var body: some View {
@@ -68,9 +68,30 @@ public struct ChatChannelScreen: View {
             onDidLoadChannel: onDidLoadChannel,
             onChatWithHostTapped: onChatWithHostTapped
         )
-        .environmentObject(currentChannelInfo)
         .environment(\.attachmentController, AttachmentEnvironmentController())
-        .overlay(viewModel.customAlertShown ? customViewOverlay() : nil)
+        .environment(\.showConsentMediaInGroupChannel, viewModel.isDirectMessageChannel)
+        .overlay(customViewOverlay(popOver: viewModel.popOver).ignoresSafeArea(edges: [.top]))
+        .animation(.easeInOut, value: viewModel.popOver)
+    }
+
+    @ViewBuilder
+    private func customViewOverlay(popOver: PopoverType?) -> some View {
+        switch viewModel.popOver {
+        case let .moreActions(channel):
+            viewFactory.makeMoreChannelActionsView(
+                for: channel,
+                swipedChannelId: .constant(nil)
+            ) {
+                withAnimation {
+                    viewModel.set(popOver: nil)
+                }
+            } onError: { error in
+                viewModel.set(popOver: .error(error))
+            }
+
+        default:
+            EmptyView()
+        }
     }
 }
 
@@ -84,10 +105,17 @@ public struct ChatScreen: View {
     private var channelListController: ChatChannelListController
 
     public var onItemTapped: ((ChatChannel) -> Void)?
+
     private let onBackButtonTapped: (() -> Void)?
+
     private let viewFactory: CustomUIFactory
 
-    init(with viewFactory: CustomUIFactory, channelListController: ChatChannelListController, chatViewModel: ChatViewModel, onBackButtonTapped: (() -> Void)?) {
+    init(
+        with viewFactory: CustomUIFactory,
+        channelListController: ChatChannelListController,
+        chatViewModel: ChatViewModel,
+        onBackButtonTapped: (() -> Void)?
+    ) {
         self.chatViewModel = chatViewModel
         self.onBackButtonTapped = onBackButtonTapped
         self.viewFactory = viewFactory
@@ -95,7 +123,7 @@ public struct ChatScreen: View {
         _viewModel = StateObject(wrappedValue: ChatChannelListViewModel(channelListController: channelListController))
     }
 
-    var view: some View {
+    public var body: some View {
         CustomChatChannelListView(
             viewFactory: viewFactory,
             viewModel: viewModel,
@@ -103,6 +131,7 @@ public struct ChatScreen: View {
             onItemTap: onItemTapped,
             embedInNavigationView: false
         )
+        .environment(\.font, Font.custom(size: 15, weight: .regular))
         .toolbar {
             ToolbarItem(placement: .topBarLeading) {
                 Button {
@@ -119,12 +148,6 @@ public struct ChatScreen: View {
                 UNUserNotificationCenter.resetAppBadge()
             }
         }
-    }
 
-    public var body: some View {
-        view
-            .environmentObject(viewModel)
-            .environmentObject(chatViewModel)
-            .environment(\.font, Font.custom(size: 15, weight: .regular))
     }
 }

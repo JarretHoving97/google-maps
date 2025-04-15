@@ -11,17 +11,14 @@ import StreamChat
 
 struct CustomChatChannelHeaderMoreButtonView: View {
 
-    @EnvironmentObject private var viewModel: ChatChannelListViewModel
+    var onMoreTapped: (() -> Void)
 
     public let channel: ChatChannel
 
     var body: some View {
         HeaderButtonView(iconSystemName: "ellipsis", leading: false) {
             resignFirstResponder()
-
-            withAnimation {
-                viewModel.onMoreTapped(channel: channel)
-            }
+            onMoreTapped()
         }
     }
 }

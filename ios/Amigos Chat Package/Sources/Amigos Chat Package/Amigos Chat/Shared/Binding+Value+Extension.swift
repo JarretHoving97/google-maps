@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-extension Binding where Value == Any? {
+extension Binding where Value == LocalFileActivityItemSource? {
 
     var toBoolBinding: Binding<Bool> {
         Binding<Bool>.init {
@@ -48,6 +48,18 @@ extension Binding where Value == MediaAttachment? {
 
 extension Binding where Value == URL? {
 
+    var toBoolBinding: Binding<Bool> {
+        Binding<Bool>.init {
+            self.wrappedValue != nil
+        } set: { value in
+            if !value {
+                self.wrappedValue = nil
+            }
+        }
+    }
+}
+
+extension Binding where Value == SingleAttachmentType? {
     var toBoolBinding: Binding<Bool> {
         Binding<Bool>.init {
             self.wrappedValue != nil

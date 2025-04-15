@@ -31,10 +31,7 @@ public struct CustomEmptyMessagesView: View {
                 .onTapGesture {
                     isSafetyCheckInfoSheetPresented = true
                 }
-                .chatSheetPresentation(
-                    isPresented: $isSafetyCheckInfoSheetPresented,
-                    detents: [.medium()]
-                ) {
+                .mediumDetentSheet(isPresented: $isSafetyCheckInfoSheetPresented) {
                     CustomSafetyCheckInfoSheetView(
                         isPresented: $isSafetyCheckInfoSheetPresented,
                         channel: channel,

@@ -10,5 +10,3 @@
 "gallery_select_every_attachment" = "모두 선택";
 "gallery_deselect_every_attachment" = "모두 선택 해제";
 "gallery_select_trailing_button_title" = "완료";
-
-"gallery_amount_of_attachments" = "{NUMBER}개 항목";

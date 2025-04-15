@@ -14,66 +14,90 @@ public class ChatViewControllerComposer {
 
     private init() {}
 
-    /// - Parameter loadChannel: decides to set a callback that receives channel information to set channel information in the navigation view. (Set this to true if you need to open a channel directly)
     /// - Parameter chatClient: Chat object from stream API
     /// - Parameter channelId: unique Id so we can create a `ChatChannelController`
     /// - Parameter NavigationController: So we can add the Stream header in the title view.
+    /// - Parameter routeHandler: inject route handling to communicate with the host app.
+    /// - Parameter messageId: if we want to scroll to a specific message.
+    /// - Parameter channelCreationService: Service to create a channel if it doesn't exist.
+    /// - Parameter onWillMoveToParent: callback when the viewcontroller is about to move to parent.
     public static func composeWith(
         chatClient: ChatClient,
-        with channelId: String?,
+        chatChannel: ChatChannel,
         routeHandler: @escaping routeAction,
         messageId: String?,
         channelCreationService: ChannelCreationService = RemoteFindOrCreateChannelService(),
         in navigationController: UINavigationController,
-        loadChannel: Bool,
         onWillMoveToParent: ((UIViewController?) -> Void)? = nil
     ) -> UIHostingController<ChatChannelScreen>? {
 
-        if let channelId, let object = try? ChannelId(cid: channelId), let channelController = ChatControllers.channelListController {
+        // Create detail viewcontroller to be shown
+        RouteController.setupRouteAction(action: routeHandler)
 
-            let channelViewController = composeWith(
-                viewFactory: CustomUIFactory(),
-                channelController: chatClient.channelController(for: object),
-                channelListController: channelController,
-                routeHandler: routeHandler,
-                messageId: messageId,
-                navigation: navigationController,
-                loadChannel: loadChannel,
-                onWillMoveToParent: onWillMoveToParent
-            )
+        let viewModel = ChatChannelScreenViewModel(
+            isDirectMessageChannel: chatChannel.isDirectMessageChannel
+        )
 
-            channelViewController.rootView.onChatWithHostTapped = adaptOnChatWithHostTapped(
-                client: chatClient,
-                routeHandler: routeHandler,
-                loader: MainTheadDispatchDecorator(decoratee: channelCreationService),
+        let channelController = chatClient.channelController(for: chatChannel.cid)
+
+        let channelView = ChatChannelScreen(
+            with: CustomUIFactory(),
+            chatChannelController: channelController,
+            viewModel: viewModel,
+            messageId: messageId
+        )
+
+        let viewController = CustomHostingController(rootView: channelView)
+
+        viewController.onWillMoveToParent = onWillMoveToParent
+
+        // set navigation view if we have channeldata
+        ChatNavigationHeaderComposer.setChannelHeader(
+            with: CustomUIFactory(),
+            viewModel: viewModel,
+            channel: chatChannel,
+            for: viewController,
+            in: navigationController,
+            onMoreTapped: adaptOnMoreTapped(
+                viewModel: viewModel,
                 in: navigationController
             )
+        )
+        // Handle chat with host navigation
+        viewController.rootView.onChatWithHostTapped = adaptOnChatWithHostTapped(
+            client: chatClient,
+            routeHandler: routeHandler,
+            loader: MainTheadDispatchDecorator(decoratee: channelCreationService),
+            in: navigationController
+        )
 
-            channelViewController.navigationItem.largeTitleDisplayMode = .never
+        viewController.navigationItem.largeTitleDisplayMode = .never
 
-            return channelViewController
-        }
+        return viewController
 
-        return nil
     }
 
-    static private func composeWith(
+    ///  - Parameter viewFactory: CustomUIFactory to create the vieww with Stream UI.
+    ///  - Parameter viewModel: ViewModel for the chat channel screen.
+    ///  - Parameter channelController: Channel controller to load and observe channel data.
+    ///  - Parameter routeHandler: inject route handling to communicate with the host app.
+    ///  - Parameter messageId: if we want to scroll to a specific message.
+    ///  - Parameter navigation: NavigationController to push the viewcontroller.
+    ///  - Parameter onWillMoveToParent: callback when the viewcontroller is about to move to parent.
+    ///
+    ///  - Note: This method is useful when we want to show the chat screen first and load the channel data later.
+    static public func lazyLoadCompose(
         viewFactory: CustomUIFactory,
+        viewModel: ChatChannelScreenViewModel,
         channelController: ChatChannelController,
-        channelListController: ChatChannelListController,
         routeHandler: @escaping routeAction,
         messageId: String?,
-        channelCreationService: ChannelCreationService = RemoteFindOrCreateChannelService(),
         navigation: UINavigationController,
-        loadChannel: Bool = true,
         onWillMoveToParent: ((UIViewController?) -> Void)? = nil
     ) -> UIHostingController<ChatChannelScreen> {
 
         RouteController.setupRouteAction(action: routeHandler)
 
-        let viewModel = ChatChannelListViewModel(
-            channelListController: channelListController
-        )
         let channelView = ChatChannelScreen(
             with: viewFactory,
             chatChannelController: channelController,
@@ -82,172 +106,105 @@ public class ChatViewControllerComposer {
         )
 
         let viewController = CustomHostingController(rootView: channelView)
+
         viewController.onWillMoveToParent = onWillMoveToParent
 
-        if loadChannel {
-            viewController.rootView.onDidLoadChannel = adaptChannelToHeaderHandler(
-                viewFactory: viewFactory,
-                for: viewController,
-                channelCreationService: channelCreationService,
+        viewController.rootView.onDidLoadChannel = adaptChannelToHeaderHandler(
+            viewFactory: viewFactory,
+            viewModel: viewModel,
+            for: viewController,
+            in: navigation,
+            onMoreTapped: adaptOnMoreTapped(
+                viewModel: viewModel,
                 in: navigation
             )
-        }
+        )
 
         return viewController
-    }
-
-    public static func setChannelHeader(
-        with viewFactory: CustomUIFactory,
-        channel: ChatChannel,
-        showBackButtonInHeader: Bool = false,
-        for detailViewController: UIHostingController<ChatChannelScreen>,
-        in navigationController: UINavigationController
-    ) {
-
-        let titleView = createTitleHeaderView(
-            with: viewFactory,
-            channel: channel,
-            viewModel: detailViewController.rootView.viewModel,
-            showBackButtonInHeader: showBackButtonInHeader
-        )
-        detailViewController.navigationItem.titleView = titleView
-        detailViewController.navigationItem.titleView?.layoutIfNeeded()
-
-        detailViewController.rootView.onDidLoadChannel = { [weak detailViewController] channel in
-            guard let detailViewController else { return }
-
-            let titleView = createTitleHeaderView(
-                with: viewFactory,
-                channel: channel,
-                viewModel: detailViewController.rootView.viewModel,
-                showBackButtonInHeader: showBackButtonInHeader
-            )
-            detailViewController.navigationItem.titleView = titleView
-            detailViewController.navigationItem.titleView?.layoutIfNeeded()
-        }
-    }
-
-    private static func createTitleHeaderView(
-        with viewFactory: CustomUIFactory,
-        channel: ChatChannel,
-        viewModel: ChatChannelListViewModel,
-        showBackButtonInHeader: Bool = false
-    ) -> UIView {
-        let channelView = CustomChannelHeaderView(
-              viewFactory: CustomUIFactory(),
-              channel: channel
-          )
-        .environmentObject(viewModel)
-
-        let chatTitleView = UIHostingController(
-            rootView: channelView
-        ).view!
-
-        let width = UIScreen.main.bounds.width
-
-        // title view container
-        let titleView = UIView()
-
-        titleView.backgroundColor = .white
-        titleView.frame = CGRect(x: 0, y: 0, width: width, height: 50)
-
-        // create a backbutton
-        let backButton = UIButton()
-        backButton.setImage(UIImage(named: "amiBackButton"), for: .normal)
-        backButton.addTarget(self, action: #selector(customBackAction), for: .touchUpInside)
-
-        titleView.hstack(backButton.withWidth(30), chatTitleView.withWidth(width), spacing: showBackButtonInHeader ? 10 : 0)
-
-        /// show the back button when the current view is the `Root viewcontroller` of the `UINavigationcontroller` and the current view has no back button for it's self.
-         /// We show the backbutton in this case when we present the chat as root view. (which has no backbutton by default)
-        backButton.isHidden = !showBackButtonInHeader
-
-        return titleView
-
-    }
-
-    @objc private static func customBackAction() {
-        RouteController.headerDismissButtonAction?(.dismiss)
     }
 }
 
 // MARK: Adaptors
 extension ChatViewControllerComposer {
 
-    private static func routeToChannel(
-        viewFactory: CustomUIFactory,
-        chatClient: ChatClient,
+    static private func adaptOnChatWithHostTapped(
+        client: ChatClient,
         routeHandler: @escaping routeAction,
-        messageId: String?,
-        with navigationController: UINavigationController
-    ) -> ((ChatChannel) -> Void) {
-
-        return { [ weak navigationController] chatChannel in
-            guard let navigationController else { return }
-
-            guard let detailViewController = composeWith(
-                chatClient: chatClient,
-                with: chatChannel.id,
-                routeHandler: routeHandler,
-                messageId: messageId,
-                in: navigationController,
-                loadChannel: false
-            ) else { return }
-
-            ChatViewControllerComposer.setChannelHeader(
-                with: viewFactory,
-                channel: chatChannel,
-                for: detailViewController,
-                in: navigationController
-            )
-            navigationController.pushViewController(detailViewController, animated: true)
-        }
-    }
-
-    static private func adaptOnChatWithHostTapped(client: ChatClient, routeHandler: @escaping routeAction, loader: ChannelCreationService, in navigation: UINavigationController) -> ((String?) -> Void) {
+        loader: ChannelCreationService,
+        in navigation: UINavigationController
+    ) -> ((String?) -> Void) {
 
         return { user in
             guard let user else { return }
 
             loader.load(for: user) { result in
-                if case let .success(channel) = result {
+                if case let .success(channel) = result, let channelId = try? ChannelId(cid: channel) {
 
-                    let channelView = composeWith(
-                        chatClient: client,
-                        with: channel,
+                    let viewModel = ChatChannelScreenViewModel(isDirectMessageChannel: true)
+
+                    let channelView = lazyLoadCompose(
+                        viewFactory: CustomUIFactory(),
+                        viewModel: viewModel,
+                        channelController: client.channelController(for: channelId),
                         routeHandler: routeHandler,
                         messageId: nil,
-                        in: navigation,
-                        loadChannel: true
-                    )!
+                        navigation: navigation
+                    )
                     navigation.pushViewController(channelView, animated: true)
                 }
             }
         }
     }
 
-    static func adaptChannelToHeaderHandler(
+    /// - Note: The action will set new channel information to the navigation title view.
+    /// - Parameters: viewFactory: CustomUIFactory
+    /// - Parameters: viewModel: ChatChannelScreenViewModel
+    /// - Parameters: detailViewController: UIHostingController<ChatChannelScreen>
+    /// - Parameters: channelCreationService: ChannelCreationService to create a channel if it doesn't exist.
+    static private func adaptChannelToHeaderHandler(
         viewFactory: CustomUIFactory,
+        viewModel: ChatChannelScreenViewModel,
         for detailViewController: UIHostingController<ChatChannelScreen>,
-        channelCreationService: ChannelCreationService,
-        in navigation: UINavigationController
+        in navigation: UINavigationController,
+        onMoreTapped: @escaping onMoreTappedAction
     ) -> ((ChatChannel) -> Void) {
+
         return { [weak navigation] channel in
             guard let navigation, navigation.navigationItem.titleView == nil else { return }
             let showBackButtonInHeader = navigation.viewControllers.count <= 1
-            setChannelHeader(
+            ChatNavigationHeaderComposer.setChannelHeader(
                 with: viewFactory,
+                viewModel: viewModel,
                 channel: channel,
                 showBackButtonInHeader: showBackButtonInHeader,
                 for: detailViewController,
-                in: navigation
+                in: navigation,
+                onMoreTapped: onMoreTapped
             )
+        }
+    }
+
+    /// - Note: The action will set the viewModel's popOver to .moreActions
+    /// - Note: The action will be triggered when the more button is tapped.
+    /// - Parameters: viewModel: ChatChannelScreenViewModel
+    /// - Parameters: navigation: UINavigationController
+    /// - Returns: onMoreTappedAction
+    private static func adaptOnMoreTapped(
+        viewModel: ChatChannelScreenViewModel,
+        in navigation: UINavigationController
+    ) -> onMoreTappedAction {
+        return { [weak viewModel] channel in
+            guard let viewModel else { return }
+            Task {
+                await viewModel.set(popOver: .moreActions(channel))
+            }
         }
     }
 }
 
 // MARK: Decorators
 
+/// Decorator to dispatch completion on main thread.
 final class MainTheadDispatchDecorator<T> {
     private let decoratee: T
 
@@ -264,6 +221,7 @@ final class MainTheadDispatchDecorator<T> {
     }
 }
 
+/// Decorate ChannelCreationService to dispatch on main thread.
 extension MainTheadDispatchDecorator: ChannelCreationService where T == ChannelCreationService {
 
     func load(for user: String, completion: @escaping FindOrCreateChannelResult) {

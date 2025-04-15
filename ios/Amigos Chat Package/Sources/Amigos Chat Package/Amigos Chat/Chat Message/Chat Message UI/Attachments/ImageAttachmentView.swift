@@ -49,17 +49,18 @@ public struct ImageAttachmentView: View {
                 }
             )
         }
+        .frame(width: width, height: finalHeight())
+        .contentShape(Rectangle()) /// needed to recognize tap gesture
         .withUploadingStateIndicator(for: attachment.uploadingState, url: attachment.imageUrl)
-        .contentShape(Rectangle()) /// Needed to recognize tap gesture
     }
 
-       /// Calculates the final height based on the aspect ratio and constraints.
-       private func finalHeight() -> CGFloat {
-           guard let aspectRatio = aspectRatio else { return 400 }
+   /// Calculates the final height based on the aspect ratio and constraints.
+   private func finalHeight() -> CGFloat {
+       guard let aspectRatio = aspectRatio else { return 400 }
 
-           let calculatedHeight = width / aspectRatio
-           return min(calculatedHeight, 400)
-       }
+       let calculatedHeight = width / aspectRatio
+       return min(calculatedHeight, 400)
+   }
 }
 
 #Preview {

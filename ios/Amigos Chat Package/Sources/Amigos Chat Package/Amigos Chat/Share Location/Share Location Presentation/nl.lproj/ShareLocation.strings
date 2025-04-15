@@ -1,0 +1,35 @@
+/* 
+  ShareLocation.strings
+  App
+
+  Created by Jarret on 03/12/2024.
+  
+*/
+
+"share_location_toolbar_title" = "Locatie delen";
+
+"share_location_choose_maps_dialog_title" = "Locatie delen";
+
+"share_location_share_your_location_button_title" = "Jouw huidige locatie delen";
+
+"share_location_users_location_label" = "Locatie van {USER_NAME}";
+
+"share_location_users_location_preview_label" = "Jouw locatie";
+
+"share_location_users_location_accuracy_label" = "Nauwkeurig tot {METERS_COUNT} meter";
+
+"share_location_users_location_accuracy_unknown_label" = "Nauwkeurigheid onbekend";
+
+"share_location_grant_permission_label" = "Sta locatiegebruik toe";
+
+"share_location_choose_maps_apple_title" = "Kaarten";
+
+"share_location_choose_maps_google_title" = "Google Maps";
+
+"share_location_permissions_not_determed_dialog_title" = "Om je huidige locatie te delen met anderen hebben we toegang nodig. Open instellingen van de app en sta de locatie permissie toe";
+
+"share_location_permissions_not_determed_dialog_settings_button_title" = "Open instellingen";
+
+"share_location_ask_precise_permission_button_title" = "Schakel 'Exacte Locatie' in via instellingen";
+
+"share_location_quoted_message_view_title" = "Locatie";
