@@ -8,35 +8,59 @@
 import AVKit
 import SwiftUI
 
-struct PreviewVideoView: View {
+class LazyLoadVideoPreviewViewModel: ObservableObject {
+    @Published var image: UIImage?
+    @Published var error: Error?
 
-    let attachment: MediaAttachment
+    private let attachment: MediaAttachment
 
-    @State var previewImage: UIImage?
-    @State var error: Error?
+    init(attachment: MediaAttachment) {
+        self.attachment = attachment
+    }
 
-    var body: some View {
-        if let previewImage = previewImage {
-            Image(uiImage: previewImage)
-                .resizable()
-                .scaledToFill()
-                .aspectRatio(contentMode: .fit)
-                .allowsHitTesting(false)
-        } else {
-            ZStack {
-                Color(.secondarySystemBackground)
-                ProgressView()
-            }
-            .onAppear {
-                attachment.videoPreviewLoader.loadPreviewForVideo(at: attachment.url) { result in
-                    switch result {
-                    case let .success(image):
-                        self.previewImage = image
-                    case let .failure(error):
-                        self.error = error
-                    }
+    func loadPreviewImage() {
+        guard image == nil else { return }
+
+        attachment.videoPreviewLoader.loadPreviewForVideo(at: attachment.url) { result in
+            DispatchQueue.main.async {
+                switch result {
+                case let .success(image):
+                    self.image = image
+                case let .failure(error):
+                    self.error = error
                 }
             }
+        }
+    }
+}
+
+struct PreviewVideoView: View {
+
+    @StateObject var previewImageLoader: LazyLoadVideoPreviewViewModel
+
+    init(attachment: MediaAttachment) {
+        _previewImageLoader = StateObject(wrappedValue: LazyLoadVideoPreviewViewModel(attachment: attachment))
+    }
+
+    var body: some View {
+        Group {
+            if let previewImage = previewImageLoader.image {
+                Image(uiImage: previewImage)
+                    .resizable()
+                    .scaledToFill()
+                    .aspectRatio(contentMode: .fit)
+                    .allowsHitTesting(false)
+            } else {
+                ZStack {
+                    Color(.secondarySystemBackground)
+                    ProgressView()
+                }
+
+            }
+        }
+        .onAppear {
+            previewImageLoader.loadPreviewImage()
+
         }
     }
 }
@@ -45,8 +69,6 @@ struct VideoPlayerPreviewView: View {
 
     let attachment: MediaAttachment
     let author: LocalUser
-
-    @State private var loadedImage: UIImage?
 
     init(attachment: MediaAttachment, author: LocalUser) {
         self.attachment = attachment

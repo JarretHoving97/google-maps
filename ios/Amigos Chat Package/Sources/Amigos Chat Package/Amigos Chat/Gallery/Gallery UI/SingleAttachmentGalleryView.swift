@@ -33,7 +33,7 @@ struct SingleAttachmentGalleryView: View {
                 .matchedGeometryEffect(id: "header-animation", in: animation)
                 .zIndex(1)
             mediaView
-                .matchedGeometryEffect(id: viewModel.attachment.url, in: animation)
+                .matchedTransitionSourceIfAvailable(sourceID: viewModel.attachment.url, animation: animation)
         }
         .background(Color.black)
         .statusBarHidden(false)
@@ -103,16 +103,16 @@ extension SingleAttachmentGalleryView {
     private var zoomableImageView: some View {
         VStack {
             ZoomableScrollView {
-                LazyLoadImage(
-                    source: viewModel.attachment,
-                    shouldSetFrame: false,
-                    resize: true,
-                    width: UIScreen.main.bounds.size.width,
-                    height: UIScreen.main.bounds.size.height
-                )
-
-                .aspectRatio(contentMode: .fit)
-                .frame(maxWidth: .infinity, maxHeight: .infinity)
+                if let image = viewModel.image {
+                    Image(uiImage: image)
+                        .resizable()
+                        .scaledToFill()
+                        .aspectRatio(contentMode: .fit)
+                        .allowsHitTesting(false)
+                        .scaleEffect(1.0001) // Needed because of SwiftUI sometimes incorrectly displaying landscape images.
+                        .clipped()
+                        .frame(maxWidth: .infinity, maxHeight: .infinity)
+                }
             }
         }
     }
