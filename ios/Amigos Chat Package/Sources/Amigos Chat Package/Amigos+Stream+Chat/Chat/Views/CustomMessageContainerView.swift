@@ -127,7 +127,10 @@ public struct CustomMessageContainerView<Factory: ViewFactory>: View {
                     MessageViewComposer.composeWith(
                         with: message,
                         isFirst: showsAllInfo,
-                        forceLeftToRight: false
+                        forceLeftToRight: false,
+                        onQuotedMessageTap: { id in
+                            scrolledId = id
+                        }
                     )
                     .overlay(
                         ZStack {
