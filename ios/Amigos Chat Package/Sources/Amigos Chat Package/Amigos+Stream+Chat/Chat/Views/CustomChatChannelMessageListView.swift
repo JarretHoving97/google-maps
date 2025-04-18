@@ -2,6 +2,13 @@ import SwiftUI
 import StreamChat
 import StreamChatSwiftUI
 
+extension ChatChannelViewModel {
+
+    var canSendMessage: Bool {
+        channelController.channel?.canSendMessage ?? true
+    }
+}
+
 struct CustomChatChannelMessageListView<Factory: ViewFactory>: View {
 
     @Injected(\.colors) private var colors
@@ -132,10 +139,8 @@ struct CustomChatChannelMessageListView<Factory: ViewFactory>: View {
                     editedMessage: $viewModel.editedMessage,
                     onMessageSent: viewModel.scrollToLastMessage
                 )
-                .opacity((
-                    utils.messageListConfig.messagePopoverEnabled && messageDisplayInfo != nil && !viewModel
-                        .reactionsShown && viewModel.channel?.isFrozen == false
-                ) ? 0 : 1)
+                .disabled(isInputDisabled)
+                .opacity(isInputDisabled ? 0.4 : 1)
             }
 
             NavigationLink(
@@ -179,5 +184,9 @@ struct CustomChatChannelMessageListView<Factory: ViewFactory>: View {
         .onAppear {
             onReloadChannelHeader?(channel)
         }
+    }
+    
+    var isInputDisabled: Bool {
+        !viewModel.canSendMessage
     }
 }

@@ -15,7 +15,7 @@ class GalleryViewModel: ObservableObject {
 
     @Published var selected: Int
 
-    @Published var loadedImages = [Int: UIImage]()
+    @Published var loadedImages = [URL: UIImage]()
 
     @Published var selectedIndices: [Int] = []
 

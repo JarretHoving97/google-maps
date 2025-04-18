@@ -16,6 +16,6 @@ extension NukeImageLoader: ImageLoader {
     }
 
     public func loadImage(url: URL?, imageCDN: any ImageCDNhandler, resize: Bool, preferredSize: CGSize?, completion: @escaping ((Result<UIImage, any Error>) -> Void)) {
-        loadImage(url: url, imageCDN: imageCDN as! ImageCDN, completion: completion)
+        loadImage(url: url, imageCDN: imageCDN as! ImageCDN, resize: resize, preferredSize: preferredSize, completion: completion)
     }
 }

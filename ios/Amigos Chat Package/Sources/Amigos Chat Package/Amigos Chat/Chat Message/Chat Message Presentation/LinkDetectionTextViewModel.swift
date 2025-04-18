@@ -76,7 +76,10 @@ class LinkDetectionTextViewModel: ObservableObject {
 
     /// Detects modern things like markdown links
     func markdownAttributedString(from text: String) -> AttributedString? {
-        if var attString = try? AttributedString(markdown: text) {
+        if var attString = try? AttributedString(
+            markdown: text,
+            options: AttributedString.MarkdownParsingOptions(interpretedSyntax: .inlineOnlyPreservingWhitespace)
+        ) {
             /// add attributes to it
             attString.font = UIFont.caption1
             attString.foregroundColor = isSentByCurrentUser ? UIColor.white : UIColor.darkText

@@ -9,72 +9,71 @@ import SwiftUI
 
 struct GalleryView: View {
 
-    @ObservedObject private var viewModel: GalleryViewModel
+    @StateObject private var viewModel: GalleryViewModel
     @State private var presentedAttachment: MediaAttachment?
-
     @Namespace private var animation
 
     init(viewModel: GalleryViewModel) {
-        self.viewModel = viewModel
+        self._viewModel = StateObject(wrappedValue: viewModel)
     }
 
     var body: some View {
         scrollableContent
             .background(Color("Grey Light"))
-            .overlay {
-                if presentedAttachment != nil {
-                    attachmentDetailView
-                }
+            .fullScreenCover(isPresented: $presentedAttachment.toBoolBinding) {
+                SingleAttachmentGalleryView(
+                    isPresented: $presentedAttachment.toBoolBinding,
+                    viewModel: SingleAttachmentViewModel(
+                        author: viewModel.author,
+                        attachment: presentedAttachment!,
+                        image: viewModel.loadedImages[presentedAttachment!.url]
+                    ),
+                    animation: animation
+                )
+                    .navigationTransitionIfAvailable(
+                        sourceID: presentedAttachment!.url,
+                        animation: animation
+                    )
             }
-            .animation(.spring(response: 0.5, dampingFraction: 0.7), value: presentedAttachment)
     }
 
-    let dividerHeight: CGFloat = 16
-
     private var scrollableContent: some View {
-        GeometryReader { reader in
+        ZStack {
             VStack(spacing: 0) {
                 headerView
-
-                Divider()
-                    .frame(height: 2)
-                    .overlay(Color("Grey Light"))
-
-                ScrollViewReader { proxy in
-                    ScrollView {
-                        VStack(spacing: 0) {
-                            ForEach(0..<viewModel.attachments.count, id: \.self) { index in
-                                let attachment = viewModel.attachments[index]
-                                attachmentView(
-                                    for: attachment,
-                                    width: reader.size.width,
-                                    height: reader.size.height - dividerHeight
-                                )
-                                .onTapGesture {
-                                    withAnimation(.spring(response: 0.5, dampingFraction: 0.7)) {
-                                        presentedAttachment = attachment
-                                    }
+                /*  ScrollViewReader { proxy in */
+                ScrollView {
+                    VStack(spacing: 16) {
+                        ForEach(0..<viewModel.attachments.count, id: \.self) { index in
+                            let attachment = viewModel.attachments[index]
+                            attachmentView(
+                                for: attachment,
+                                onImageLoad: { [weak viewModel] image in
+                                    guard viewModel?.loadedImages[attachment.url] == nil else { return }
+                                    viewModel?.loadedImages[attachment.url] = image
                                 }
-                                .tag(index)
-                                .overlay {
-                                    selectableOverlay(index: index)
-                                }
-
-                                Divider()
-                                    .frame(height: dividerHeight)
-                                    .overlay(Color("Grey Light"))
+                            )
+                            .matchedTransitionSourceIfAvailable(
+                                sourceID: attachment.url,
+                                animation: animation
+                            )
+                            .onTapGesture {
+                                presentedAttachment = attachment
+                            }
+                            .tag(index)
+                            .overlay {
+                                selectableOverlay(index: index)
                             }
                         }
-                    }
-                    .onAppear {
-                        proxy.scrollTo(viewModel.selected, anchor: .top)
+                        .frame(maxWidth: .infinity, maxHeight: .infinity)
                     }
                 }
+                .frame(maxWidth: .infinity, maxHeight: .infinity)
+                // footerheight is 44
+                .padding(.bottom, viewModel.showSelectedState ? 44 : 0)
             }
-
             VStack {
                 Spacer()
-
                 footerView
                     .background(.white)
                     .offset(y: viewModel.showSelectedState ? 0 : 80)
@@ -95,37 +94,28 @@ struct GalleryView: View {
 
     @ViewBuilder func attachmentView(
         for attachment: MediaAttachment,
-        width: CGFloat,
-        height: CGFloat
+        onImageLoad: @escaping (UIImage) -> Void
     ) -> some View {
         VStack(spacing: 0) {
             VStack {
-                Spacer()
-
                 if attachment.type == .photo {
-                    LazyLoadImage(
-                        source: attachment,
-                        shouldSetFrame: false,
-                        resize: true,
-                        width: width,
-                        height: height
+                    GalleryImageView(
+                        author: LocalUser(id: UUID(), name: "Ilon"),
+                        attachment: ImageAttachment(imageUrl: attachment.url, uploadingState: nil),
+                        loader: attachment.imageLoader,
+                        imageCDN: attachment.imageCDN
                     )
-                    .aspectRatio(contentMode: .fit)
+
                 } else {
                     VideoPlayerPreviewView(
                         attachment: attachment,
                         author: viewModel.author
                     )
                 }
-                Spacer()
             }
-            .frame(
-                width: width,
-                height: height
-            )
+            .frame(maxWidth: .infinity)
             .background(Color("Grey Light"))
         }
-        .matchedGeometryEffect(id: attachment.url, in: animation, isSource: true)
     }
 
     private var headerView: some View {
@@ -320,4 +310,84 @@ struct GalleryView: View {
             author: LocalUser(id: UUID(), name: "Ilon")
         )
     )
+}
+
+class GalleryImageViewViewModel: ObservableObject {
+    @Published var aspectRatio: CGFloat?
+    @Published var maxWidth: CGFloat
+    @Published var maxHeight: CGFloat
+
+    let loader: ImageLoader
+    let imageCDN: ImageCDNhandler
+    let attachment: ImageAttachment
+
+    init(
+        aspectRatio: CGFloat? = nil,
+        maxWidth: CGFloat,
+        maxHeight: CGFloat,
+        loader: ImageLoader,
+        imageCDN: ImageCDNhandler,
+        attachment: ImageAttachment
+    ) {
+        self.aspectRatio = aspectRatio
+        self.maxWidth = maxWidth
+        self.maxHeight = maxHeight
+        self.loader = loader
+        self.imageCDN = imageCDN
+        self.attachment = attachment
+    }
+}
+
+public struct GalleryImageView: View {
+
+    @StateObject var viewModel: GalleryImageViewViewModel
+
+    init(
+        author: LocalUser,
+        attachment: ImageAttachment,
+        loader: ImageLoader,
+        imageCDN: ImageCDNhandler,
+        maxHeight: CGFloat = UIScreen.main.bounds.size.height * 0.8, // 80% of screen height
+        maxWidth: CGFloat = UIScreen.main.bounds.size.width
+    ) {
+        _viewModel = StateObject(
+            wrappedValue: GalleryImageViewViewModel(
+                maxWidth: maxWidth,
+                maxHeight: maxHeight,
+                loader: loader,
+                imageCDN: imageCDN,
+                attachment: attachment
+            )
+        )
+    }
+
+    public var body: some View {
+        ZStack {
+            LazyLoadImage(
+                source: MediaAttachment(
+                    imageLoader: viewModel.loader,
+                    imageCDN:  viewModel.imageCDN,
+                    videoPreviewLoader: DefaultPreviewVideoLoader(),
+                    url: viewModel.attachment.imageUrl,
+                    type: .photo,
+                    uploadingState: nil
+                ),
+                shouldSetFrame: false,
+                resize: false,
+                width: 0,
+                height: 0,
+                onImageLoaded: { image in
+                    guard viewModel.aspectRatio == nil else { return }
+                    viewModel.aspectRatio = image.size.width / image.size.height
+                }
+            )
+
+        }
+        .aspectRatio(contentMode: .fit)
+        .frame(
+            width: min(viewModel.maxWidth, (viewModel.aspectRatio ?? 1) * viewModel.maxHeight), /// Constrain width
+            height: min(viewModel.maxHeight, viewModel.maxWidth / (viewModel.aspectRatio ?? 1)) /// Constrain height
+        )
+        .contentShape(Rectangle()) /// Needed to recognize tap gesture
+    }
 }

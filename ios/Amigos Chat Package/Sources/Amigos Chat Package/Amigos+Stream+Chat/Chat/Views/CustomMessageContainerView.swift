@@ -127,7 +127,10 @@ public struct CustomMessageContainerView<Factory: ViewFactory>: View {
                     MessageViewComposer.composeWith(
                         with: message,
                         isFirst: showsAllInfo,
-                        forceLeftToRight: false
+                        forceLeftToRight: false,
+                        onQuotedMessageTap: { id in
+                            scrolledId = id
+                        }
                     )
                     .overlay(
                         ZStack {
@@ -173,7 +176,7 @@ public struct CustomMessageContainerView<Factory: ViewFactory>: View {
                             coordinateSpace: .local
                         )
                         .updating($offset) { (value, gestureState, _) in
-                            if message.isDeleted /* || !channel.config.repliesEnabled */ {
+                            if message.isDeleted || !channel.config.quotesEnabled /* || !channel.config.repliesEnabled */ {
                                 return
                             }
                             // Using updating since onEnded is not called if the gesture is canceled.

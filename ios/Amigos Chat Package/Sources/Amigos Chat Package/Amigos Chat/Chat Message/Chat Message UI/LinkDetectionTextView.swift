@@ -48,7 +48,7 @@ struct LinkDetectionTextView: View {
         viewModel: LinkDetectionTextViewModel(
             isSentByCurrentUser: false,
             isModerator: true,
-            text: "This is a [Markdown link](https://example.com)"
+            text: "**Thank you!** Please visit our [website](https://example.com)  \nThis is second line"
         )
     )
 
