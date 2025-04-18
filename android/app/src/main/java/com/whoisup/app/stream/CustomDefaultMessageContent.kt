@@ -7,7 +7,6 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clipToBounds
 import androidx.compose.ui.unit.dp
@@ -15,11 +14,8 @@ import com.whoisup.app.R
 import com.whoisup.app.components.AmiClickableText
 import com.whoisup.app.stream.extensions.isSupportTeamMember
 import com.whoisup.app.ui.theme.CustomTheme
-import io.getstream.chat.android.compose.state.mediagallerypreview.MediaGalleryPreviewResultType
-import io.getstream.chat.android.compose.ui.attachments.content.MessageAttachmentsContent
 import io.getstream.chat.android.compose.viewmodel.messages.MessageComposerViewModel
 import io.getstream.chat.android.compose.viewmodel.messages.MessageListViewModel
-import io.getstream.chat.android.ui.common.state.messages.Reply
 import io.getstream.chat.android.ui.common.state.messages.list.MessageItemState
 
 @OptIn(ExperimentalFoundationApi::class)
@@ -57,31 +53,10 @@ internal fun CustomDefaultMessageContent(
             }
         }
 
-        MessageAttachmentsContent(
+        CustomMessageAttachmentsContent(
             message = messageItem.message,
-            onLongItemClick = { listViewModel.selectMessage(it) },
-            onMediaGalleryPreviewResult = remember(composerViewModel, listViewModel) {
-                {
-                    when (it?.resultType) {
-                        MediaGalleryPreviewResultType.QUOTE -> {
-                            val message2 = listViewModel.getMessageById(it.messageId)
-
-                            if (message2 != null) {
-                                composerViewModel.performMessageAction(Reply(messageItem.message))
-                            }
-                        }
-
-                        MediaGalleryPreviewResultType.SHOW_IN_CHAT -> {
-                            listViewModel.scrollToMessage(
-                                messageId = it.messageId,
-                                parentMessageId = it.parentMessageId,
-                            )
-                        }
-
-                        null -> Unit
-                    }
-                }
-            },
+            listViewModel = listViewModel,
+            composerViewModel = composerViewModel
         )
 
         val layoutKey = messageItem.message.extraData["layoutKey"] as? String

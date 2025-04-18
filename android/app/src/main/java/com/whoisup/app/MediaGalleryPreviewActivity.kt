@@ -44,7 +44,6 @@ import androidx.compose.ui.zIndex
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import com.whoisup.app.components.AmiBackButton
-import com.whoisup.app.stream.CustomChatTheme
 import com.whoisup.app.stream.MediaGalleryPreviewActivityState
 import com.whoisup.app.stream.PlayButton
 import com.whoisup.app.stream.toMediaGalleryPreviewActivityState
@@ -125,44 +124,49 @@ class MediaGalleryPreviewActivity : AppCompatActivity() {
 
         setContent {
             CustomTheme {
-                CustomChatTheme {
-                    val message = mediaGalleryPreviewViewModel.message
+                val message = mediaGalleryPreviewViewModel.message
 
-                    if (message.isDeleted()) {
-                        finish()
-                        return@CustomChatTheme
-                    }
+                if (message.isDeleted()) {
+                    finish()
+                    return@CustomTheme
+                }
 
-                    Box(modifier = Modifier.fillMaxSize()) {
+                Box(modifier = Modifier.fillMaxSize()) {
+                    Column(
+                        modifier = Modifier
+                            .fillMaxSize()
+                            .background(CustomTheme.colorScheme.background)
+                    ) {
                         Column(
                             modifier = Modifier
-                                .fillMaxSize()
+                                .zIndex(10f)
                                 .background(CustomTheme.colorScheme.background)
                         ) {
-                            Column(
+                            Row(
                                 modifier = Modifier
-                                    .zIndex(10f)
-                                    .background(CustomTheme.colorScheme.background)
+                                    .fillMaxWidth()
+                                    .padding(8.dp),
+                                // horizontalArrangement = Arrangement.SpaceBetween,
+                                verticalAlignment = Alignment.CenterVertically,
                             ) {
-                                Row(
-                                    modifier = Modifier
-                                        .fillMaxWidth()
-                                        .padding(8.dp),
-                                    // horizontalArrangement = Arrangement.SpaceBetween,
-                                    verticalAlignment = Alignment.CenterVertically,
-                                ) {
-                                    AmiBackButton(onBackClick = { finish() })
-                                }
-
-                                Box(
-                                    modifier = Modifier
-                                        .height(2.dp)
-                                        .fillMaxWidth()
-                                        .background(CustomTheme.colorScheme.surfaceHard)
-                                )
+                                AmiBackButton(onBackClick = { finish() })
                             }
 
-                            MediaGalleryPreviewContentWrapper(message, attachmentPosition)
+                            Box(
+                                modifier = Modifier
+                                    .height(2.dp)
+                                    .fillMaxWidth()
+                                    .background(CustomTheme.colorScheme.surfaceHard)
+                            )
+                        }
+
+
+                        val filteredAttachments = message.attachments.filter {
+                            it.isImage() || it.isVideo()
+                        }
+
+                        if (filteredAttachments.isNotEmpty()) {
+                            MediaGalleryPreviewContentWrapper(filteredAttachments, message, attachmentPosition)
                         }
                     }
                 }
@@ -170,36 +174,24 @@ class MediaGalleryPreviewActivity : AppCompatActivity() {
         }
     }
 
-    /**
-     * Wraps the content of the screen in a composable that represents the top and bottom bars and the
-     * image and video previews.
-     *
-     * @param message The message to show the attachments from.
-     * @param initialAttachmentPosition The initial pager position, based on the attachment preview
-     * the user clicked on.
-     */
     @OptIn(ExperimentalFoundationApi::class)
     @Composable
     private fun MediaGalleryPreviewContentWrapper(
+        attachments: List<Attachment>,
         message: Message,
         initialAttachmentPosition: Int,
     ) {
-        // Filters out any link attachments. Pass this value along to all children
-        // Composables that read message attachments to prevent inconsistent state.
-        val filteredAttachments = message.attachments.filter { attachment ->
-//            !attachment.hasLink() // @TODO: this is marked internal for some reason
-            true
-        }
-
         val startingPosition =
-            if (initialAttachmentPosition !in filteredAttachments.indices) 0 else initialAttachmentPosition
+            if (initialAttachmentPosition !in attachments.indices) 0 else initialAttachmentPosition
 
         val scaffoldState = rememberScaffoldState()
-        val pagerState = rememberPagerState(initialPage = startingPosition, pageCount = { filteredAttachments.size })
+        val pagerState = rememberPagerState(
+            initialPage = startingPosition,
+            pageCount = { attachments.size })
         val coroutineScope = rememberCoroutineScope()
 
         if (message.id.isNotEmpty()) {
-            MediaPreviewContent(pagerState, filteredAttachments) {
+            MediaPreviewContent(pagerState, attachments) {
                 coroutineScope.launch {
                     scaffoldState.snackbarHostState.showSnackbar(
                         message = getString(io.getstream.chat.android.compose.R.string.stream_ui_message_list_video_display_error),

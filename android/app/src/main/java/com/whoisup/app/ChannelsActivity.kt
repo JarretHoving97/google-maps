@@ -7,7 +7,6 @@ import androidx.activity.compose.setContent
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import com.whoisup.app.stream.AmiChannelsScreen
-import com.whoisup.app.stream.CustomChatTheme
 import com.whoisup.app.ui.theme.CustomTheme
 import io.getstream.chat.android.client.ChatClient
 import io.getstream.chat.android.models.InitializationState
@@ -30,36 +29,34 @@ class ChannelsActivity : BaseComponentActivity() {
             CustomTheme {
                 when (clientInitialisationState) {
                     InitializationState.COMPLETE -> {
-                        CustomChatTheme {
-                            AmiChannelsScreen(
-                                onChannelClick = { channel ->
+                        AmiChannelsScreen(
+                            onChannelClick = { channel ->
+                                ExtendedStreamPlugin.shared?.notifyNavigateToListeners(
+                                    "/channels/${channel.cid}",
+                                    false,
+                                    false
+                                )
+                                startActivity(ChannelActivity.getIntent(this, channel.cid))
+                            },
+                            onMessageClick = { message ->
+                                message.channelInfo?.cid?.let { cid ->
                                     ExtendedStreamPlugin.shared?.notifyNavigateToListeners(
-                                        "/channels/${channel.cid}",
+                                        "/channels/${cid}",
                                         false,
                                         false
                                     )
-                                    startActivity(ChannelActivity.getIntent(this, channel.cid))
-                                },
-                                onMessageClick = { message ->
-                                    message.channelInfo?.cid?.let { cid ->
-                                        ExtendedStreamPlugin.shared?.notifyNavigateToListeners(
-                                            "/channels/${cid}",
-                                            false,
-                                            false
-                                        )
-                                        startActivity(ChannelActivity.getIntent(this, cid, message.id))
-                                    }
-                                },
-                                onBackClick = {
-                                    ExtendedStreamPlugin.shared?.notifyNavigateBackListeners()
-                                    finish()
-                                },
-                                onBecomeSuperClick = {
-                                    val route = "/super-amigo"
-                                    ExtendedStreamPlugin.shared?.notifyNavigateToListeners(route, false, true)
-                                },
-                            )
-                        }
+                                    startActivity(ChannelActivity.getIntent(this, cid, message.id))
+                                }
+                            },
+                            onBackClick = {
+                                ExtendedStreamPlugin.shared?.notifyNavigateBackListeners()
+                                finish()
+                            },
+                            onBecomeSuperClick = {
+                                val route = "/super-amigo"
+                                ExtendedStreamPlugin.shared?.notifyNavigateToListeners(route, false, true)
+                            },
+                        )
                     }
 
                     InitializationState.INITIALIZING -> {

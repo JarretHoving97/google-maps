@@ -1,6 +1,5 @@
 package com.whoisup.app.stream
 
-import androidx.activity.compose.ManagedActivityResultLauncher
 import androidx.compose.material.LocalContentColor
 import androidx.compose.material.ripple.RippleAlpha
 import androidx.compose.material.ripple.RippleTheme
@@ -8,8 +7,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.Immutable
 import androidx.compose.ui.graphics.Color
 import com.whoisup.app.ui.theme.CustomTheme
-import io.getstream.chat.android.compose.state.mediagallerypreview.MediaGalleryPreviewResult
-import io.getstream.chat.android.compose.ui.messages.attachments.factory.AttachmentsPickerTabFactories
 import io.getstream.chat.android.compose.ui.theme.ChatTheme
 import io.getstream.chat.android.compose.ui.theme.StreamColors
 
@@ -33,17 +30,10 @@ private object CustomStreamRippleTheme : RippleTheme {
 }
 
 @Composable
-fun CustomChatTheme(
-    mediaGalleryPreviewLauncher: (ManagedActivityResultLauncher<MediaGalleryPreviewContract.Input, MediaGalleryPreviewResult?>)? = null,
-    content: @Composable () -> Unit
-) {
+fun CustomChatTheme(content: @Composable () -> Unit) {
     ChatTheme(
         reactionIconFactory = AmiReactionIconFactory(),
-        attachmentFactories = attachmentFactories(mediaGalleryPreviewLauncher),
-        attachmentsPickerTabFactories = AttachmentsPickerTabFactories.defaultFactories(
-            filesTabEnabled = false,
-            pollEnabled = false
-        ),
+        attachmentsPickerTabFactories = attachmentsPickerTabFactories(),
         colors = StreamColors.defaultColors().copy(
             primaryAccent = CustomTheme.colorScheme.primary
         ),

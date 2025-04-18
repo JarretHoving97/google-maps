@@ -25,15 +25,13 @@ import com.whoisup.app.helpers.customLinkify
 import com.whoisup.app.helpers.customLinkifyWithMarkdown
 import com.whoisup.app.stream.extensions.isSupportTeamMember
 import com.whoisup.app.ui.theme.CustomTheme
-import io.getstream.chat.android.client.utils.attachment.isImage
-import io.getstream.chat.android.client.utils.attachment.isVideo
 import io.getstream.chat.android.client.utils.message.isDeleted
 import io.getstream.chat.android.client.utils.message.isSystem
 import io.getstream.chat.android.models.Message
 
 data class MessagePreview(val annotatedString: AnnotatedString, val inlineContentMap: Map<String, InlineTextContent>)
 
-private class AttachmentContent(@DrawableRes val iconId: Int, val description: String)
+class AttachmentContent(@DrawableRes val iconId: Int, val description: String)
 
 @Composable
 fun formatSystemMessageText(
@@ -84,23 +82,8 @@ fun formatMessagePreview(
         } else if (message.isSystem()) {
             append(formatSystemMessageText(message))
         } else {
-            val attachmentContent = message.attachments.firstOrNull()?.let { attachment ->
-                if (attachment.isImage()) {
-                    AttachmentContent(
-                        iconId = R.drawable.attachment_photo,
-                        description = stringResource(id = R.string.custom_attachment_tag_photo)
-                    )
-                } else if (attachment.isVideo()) {
-                    AttachmentContent(
-                        iconId = R.drawable.attachment_video,
-                        description = stringResource(id = R.string.custom_attachment_tag_video)
-                    )
-                } else {
-                    AttachmentContent(
-                        iconId = R.drawable.attachment_file,
-                        description = stringResource(id = R.string.custom_attachment_tag_file)
-                    )
-                }
+            val attachmentContent = findFirstAttachmentWithFactory(message)?.let {
+                it.factory.previewText.invoke(it.attachment)
             }
 
             if (attachmentContent != null) {

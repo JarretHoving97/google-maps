@@ -7,7 +7,8 @@ import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.wrapContentHeight
+import androidx.compose.foundation.lazy.LazyRow
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.text.BasicText
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
@@ -19,12 +20,10 @@ import com.whoisup.app.components.AmiIconButton
 import com.whoisup.app.components.AmiTextField
 import com.whoisup.app.components.DcIcon
 import com.whoisup.app.ui.theme.CustomTheme
-import io.getstream.chat.android.compose.ui.theme.ChatTheme
 import io.getstream.chat.android.compose.viewmodel.messages.MessageComposerViewModel
 import io.getstream.chat.android.compose.viewmodel.messages.MessageListViewModel
 import io.getstream.chat.android.models.Attachment
 import io.getstream.chat.android.models.ChannelCapabilities
-import io.getstream.chat.android.models.Message
 import io.getstream.chat.android.ui.common.state.messages.Edit
 import io.getstream.chat.android.ui.common.state.messages.Reply
 import io.getstream.chat.android.ui.common.state.messages.composer.MessageComposerState
@@ -126,17 +125,20 @@ fun AmiChannelComposerInput(
             }
 
             AnimatedVisibility(visible = attachments.isNotEmpty() && activeAction !is Edit) {
-                Box(modifier = Modifier.padding(paddingValues)) {
-                    val previewFactory =
-                        ChatTheme.attachmentFactories.firstOrNull { it.canHandle(attachments) }
+                LazyRow(
+                    modifier = Modifier
+                        .padding(paddingValues)
+                        .fillMaxWidth(),
+                ) {
+                    items(attachments) { attachment ->
+                        val previewFactory =
+                            CustomTheme.attachmentFactories.firstOrNull { it.canHandle(attachment) }
 
-                    previewFactory?.previewContent?.invoke(
-                        Modifier
-                            .fillMaxWidth()
-                            .wrapContentHeight(),
-                        attachments,
-                        onAttachmentRemoved,
-                    )
+                        previewFactory?.previewContent?.invoke(
+                            attachment,
+                            onAttachmentRemoved,
+                        )
+                    }
                 }
             }
         }

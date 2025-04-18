@@ -22,7 +22,6 @@ import androidx.compose.ui.unit.dp
 import com.whoisup.app.R
 import com.whoisup.app.helpers.getColorByHashingString
 import com.whoisup.app.ui.theme.CustomTheme
-import io.getstream.chat.android.compose.ui.attachments.content.QuotedMessageAttachmentContent
 import io.getstream.chat.android.models.Message
 import io.getstream.chat.android.models.User
 
@@ -110,10 +109,7 @@ fun CustomQuotedMessageContent(
         }
 
         if (message.attachments.isNotEmpty()) {
-            QuotedMessageAttachmentContent(
-                message = message,
-                onLongItemClick = {},
-            )
+            CustomQuotedMessageAttachmentContent(message = message)
         }
     }
 }
