@@ -9,6 +9,7 @@ import androidx.compose.foundation.text.BasicText
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.whoisup.app.ExtendedStreamPlugin
@@ -19,11 +20,13 @@ import io.getstream.chat.android.models.User
 
 @Composable
 fun AmiInviteUser(otherUser: User) {
+    val context = LocalContext.current
+
     Row(
         modifier = Modifier
             .clickable(onClick = {
                 val route = "/profile/${otherUser.id}/invite"
-                ExtendedStreamPlugin.shared?.notifyNavigateToListeners(route, false, true)
+                ExtendedStreamPlugin.notifyNavigateToListeners(context, route, true)
             })
             .fillMaxWidth()
             .padding(12.dp),

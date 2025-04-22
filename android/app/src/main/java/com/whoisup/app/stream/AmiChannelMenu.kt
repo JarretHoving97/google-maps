@@ -17,6 +17,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.ViewModel
@@ -246,6 +247,8 @@ internal fun channelOptions(
 
     val activityIsActive = selectedChannel.extraData["activityIsActive"] as? Int ?: 1
 
+    val context = LocalContext.current
+
     // START: navigation actions
 
     if (otherUser != null) {
@@ -253,7 +256,7 @@ internal fun channelOptions(
             title = stringResource(id = R.string.custom_channel_action_profile_title),
             callback = {
                 val route = "/profile/${otherUser.id}"
-                ExtendedStreamPlugin.shared?.notifyNavigateToListeners(route, false, true)
+                ExtendedStreamPlugin.notifyNavigateToListeners(context, route, true)
             }
         )
 
@@ -262,7 +265,7 @@ internal fun channelOptions(
                 title = stringResource(id = R.string.custom_channel_action_invite_title),
                 callback = {
                     val route = "/profile/${otherUser.id}/invite"
-                    ExtendedStreamPlugin.shared?.notifyNavigateToListeners(route, false, true)
+                    ExtendedStreamPlugin.notifyNavigateToListeners(context, route, true)
                 }
             )
         }
@@ -275,7 +278,7 @@ internal fun channelOptions(
             title = stringResource(id = R.string.custom_channel_action_mixer_title),
             callback = {
                 val route = "/mixer/${conceptType.id}"
-                ExtendedStreamPlugin.shared?.notifyNavigateToListeners(route, false, true)
+                ExtendedStreamPlugin.notifyNavigateToListeners(context, route, true)
             }
         )
     }
@@ -285,7 +288,7 @@ internal fun channelOptions(
             title = stringResource(id = R.string.custom_channel_action_activity_title),
             callback = {
                 val route = "/activity/${conceptType.id}"
-                ExtendedStreamPlugin.shared?.notifyNavigateToListeners(route, false, true)
+                ExtendedStreamPlugin.notifyNavigateToListeners(context, route, true)
             }
         )
 
@@ -298,7 +301,7 @@ internal fun channelOptions(
                     title = stringResource(id = R.string.custom_channel_action_inviteAmigos_title),
                     callback = {
                         val route = "/activity/${conceptType.id}/invite"
-                        ExtendedStreamPlugin.shared?.notifyNavigateToListeners(route, false, true)
+                        ExtendedStreamPlugin.notifyNavigateToListeners(context, route, true)
                     }
                 )
             }
@@ -307,7 +310,7 @@ internal fun channelOptions(
                 title = stringResource(id = R.string.custom_channel_action_manageParticipants_title),
                 callback = {
                     val route = "/manage-activity/${conceptType.id}/participants"
-                    ExtendedStreamPlugin.shared?.notifyNavigateToListeners(route, false, true)
+                    ExtendedStreamPlugin.notifyNavigateToListeners(context, route, true)
                 }
             )
         }

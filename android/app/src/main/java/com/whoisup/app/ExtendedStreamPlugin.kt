@@ -1,5 +1,7 @@
 package com.whoisup.app
 
+import android.app.Activity
+import android.content.Context
 import android.content.Intent
 import android.webkit.WebView
 import com.getcapacitor.JSObject
@@ -23,6 +25,18 @@ enum class SuperEntitlementStatus {
 class ExtendedStreamPlugin : Plugin() {
     override fun load() {
         shared = this
+    }
+
+    override fun handleOnNewIntent(data: Intent) {
+        super.handleOnNewIntent(data)
+        val bundle = data.extras
+        if (bundle != null && bundle.containsKey("extended_stream_navigate_to")) {
+            val jsObject = JSObject()
+            if (bundle.containsKey("route")) {
+                jsObject.put("route", bundle.getString("route"))
+            }
+            notifyListeners("navigateTo", jsObject, true)
+        }
     }
 
     var locale: Locale? = null
@@ -116,29 +130,6 @@ class ExtendedStreamPlugin : Plugin() {
         call.resolve()
     }
 
-    fun notifyNavigateToListeners(route: String, replace: Boolean, dismiss: Boolean) {
-        val jsObject = JSObject()
-        jsObject.put("route", route)
-        jsObject.put("replace", replace)
-        notifyListeners("navigateTo", jsObject)
-
-        if (dismiss) {
-            // finish()
-            // finishAffinity()
-            val intent = Intent(
-                bridge.context,
-                MainActivity::class.java
-            )
-            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
-            intent.putExtra("EXIT", true)
-            bridge.context.startActivity(intent)
-        }
-    }
-
-    fun notifyNavigateBackListeners() {
-        notifyListeners("navigateBack", JSObject())
-    }
-
     fun notifyUnreadCountsListeners(channelUnreadCount: Int?, messageUnreadCount: Int?) {
         val jsObject = JSObject()
         if (channelUnreadCount != null) {
@@ -179,5 +170,55 @@ class ExtendedStreamPlugin : Plugin() {
     companion object {
         var shared: ExtendedStreamPlugin? = null
             private set
+
+        fun notifyNavigateToListeners(context: Context, route: String, dismiss: Boolean) {
+            if (shared != null) {
+                // If the webview has been started,
+                // notify the webview where to navigate
+                shared?.let {
+                    val jsObject = JSObject()
+                    jsObject.put("route", route)
+                    it.notifyListeners("navigateTo", jsObject)
+
+                    if (dismiss) {
+                        // finish()
+                        // finishAffinity()
+                        val intent = Intent(context, MainActivity::class.java)
+                        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+                        intent.putExtra("EXIT", true)
+                        context.startActivity(intent)
+                    }
+                }
+            } else {
+                // Otherwise, let's see what we can do
+                if (dismiss) {
+                    // If we mean to close the task anyways, we can bring up the `MainActivity`.
+                    // We still lose the stack history before this then.
+                    // But we'll live with it, because it shouldn't happen too much.
+                    context.startActivity(Intent(context, MainActivity::class.java).apply {
+                        putExtra("extended_stream_navigate_to", true)
+                        putExtra("route", route)
+                    })
+                } else {
+                    // We can't really do much here,
+                    // because starting the `MainActivity` here would mess with our stack history.
+                    // We could end up with something like this for example: `ChannelsActivity` -> `ChannelActivity(id: '1')` -> `MainActivity` -> `ChannelActivity(id: '2')`
+                    // Then after navigating back from `ChannelActivity(id: '2')` it would start the `MainActivity` instead of `ChannelActivity(id: '1')`
+                }
+            }
+        }
+
+        fun notifyNavigateBackListeners(activity: Activity) {
+            if (shared != null) {
+                // If the webview has been started,
+                // notify the webview that is has to navigate back (either in the background or not)
+                shared?.notifyListeners("navigateBack", JSObject())
+            } else if (activity.isTaskRoot) {
+                // Otherwise, only if this is the task root (it was the first activity to be started),
+                // start the MainActivity (webview).
+                // Otherwise the app would be closed (which would be pretty much fine as well, but this feels better/possibly less bounce)
+                activity.startActivity(Intent(activity, MainActivity::class.java))
+            }
+        }
     }
 }

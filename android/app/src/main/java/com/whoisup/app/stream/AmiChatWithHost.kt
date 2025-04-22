@@ -34,9 +34,9 @@ fun AmiChatWithHost(mainHost: User) {
             .clickable(onClick = {
                 coroutineScope.launch(Dispatchers.Default) {
                     findOrCreateChat(context, mainHost.id)?.let { channelId ->
-                        ExtendedStreamPlugin.shared?.notifyNavigateToListeners(
+                        ExtendedStreamPlugin.notifyNavigateToListeners(
+                            context,
                             "/channels/${channelId}",
-                            false,
                             false
                         )
                         context.startActivity(ChannelActivity.getIntent(context, channelId))

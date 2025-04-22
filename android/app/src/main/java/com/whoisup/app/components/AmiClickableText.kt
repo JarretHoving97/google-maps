@@ -69,7 +69,7 @@ fun AmiClickableText(
                         if (INTERNAL_APP_HOSTS.contains(url.host)) {
                             val origin = url.protocol + "://" + url.authority
                             val fullPath = url.toString().replaceFirst(origin, "").takeIf { it.isNotBlank() } ?: "/"
-                            ExtendedStreamPlugin.shared?.notifyNavigateToListeners(fullPath, false, true)
+                            ExtendedStreamPlugin.notifyNavigateToListeners(context, fullPath, true)
                         } else {
                             context.startActivity(
                                 Intent(

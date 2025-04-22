@@ -80,6 +80,7 @@ fun AmiChannelHeader(
     singleChannelViewModel: SingleChannelViewModel,
     onBackClick: () -> Unit,
 ) {
+    val context = LocalContext.current
     val channel = listViewModel.channel
     val currentUser by listViewModel.user.collectAsState()
 
@@ -126,7 +127,7 @@ fun AmiChannelHeader(
                                     interactionSource = remember { MutableInteractionSource() },
                                     onClick = {
                                         val route = "/activity/${conceptType.id}"
-                                        ExtendedStreamPlugin.shared?.notifyNavigateToListeners(route, false, true)
+                                        ExtendedStreamPlugin.notifyNavigateToListeners(context, route, true)
                                     }
                                 )
                             }
@@ -136,7 +137,7 @@ fun AmiChannelHeader(
                                     interactionSource = remember { MutableInteractionSource() },
                                     onClick = {
                                         val route = "/mixer/${conceptType.id}"
-                                        ExtendedStreamPlugin.shared?.notifyNavigateToListeners(route, false, true)
+                                        ExtendedStreamPlugin.notifyNavigateToListeners(context, route, true)
                                     }
                                 )
                             }

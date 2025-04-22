@@ -6,6 +6,7 @@ import android.os.Bundle
 import androidx.activity.compose.setContent
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.ui.platform.LocalContext
 import com.whoisup.app.stream.AmiChannelScreen
 import com.whoisup.app.ui.theme.CustomTheme
 import io.getstream.chat.android.client.ChatClient
@@ -16,10 +17,12 @@ class ChannelActivity : BaseComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        val activity = this
+
         val channelId = intent.getStringExtra(KEY_CHANNEL_ID)
 
         if (channelId.isNullOrBlank()) {
-            ExtendedStreamPlugin.shared?.notifyNavigateBackListeners()
+            ExtendedStreamPlugin.notifyNavigateBackListeners(activity)
             finish()
             return
         }
@@ -28,6 +31,8 @@ class ChannelActivity : BaseComponentActivity() {
 
         setContent {
             val clientInitialisationState by ChatClient.instance().clientState.initializationState.collectAsState()
+
+            val context = LocalContext.current
 
             CustomTheme {
                 when (clientInitialisationState) {
@@ -42,12 +47,12 @@ class ChannelActivity : BaseComponentActivity() {
                             // re-enable this
                             // statefulStreamMediaRecorder = StatefulStreamMediaRecorder(streamMediaRecorder = ChatTheme.streamMediaRecorder),
                             onBackClick = {
-                                ExtendedStreamPlugin.shared?.notifyNavigateBackListeners()
+                                ExtendedStreamPlugin.notifyNavigateBackListeners(activity)
                                 finish()
                             },
                             onUserAvatarClick = {
                                 val route = "/profile/${it}"
-                                ExtendedStreamPlugin.shared?.notifyNavigateToListeners(route, false, true)
+                                ExtendedStreamPlugin.notifyNavigateToListeners(context, route, true)
                             },
                             onWalkthroughClick = {
                                 val route = if (it.isNullOrBlank()) {
@@ -55,15 +60,15 @@ class ChannelActivity : BaseComponentActivity() {
                                 } else {
                                     "/walkthrough/$it"
                                 }
-                                ExtendedStreamPlugin.shared?.notifyNavigateToListeners(route, false, true)
+                                ExtendedStreamPlugin.notifyNavigateToListeners(context, route, true)
                             },
                             onBecomeSuperClick = {
                                 val route = "/super-amigo"
-                                ExtendedStreamPlugin.shared?.notifyNavigateToListeners(route, false, true)
+                                ExtendedStreamPlugin.notifyNavigateToListeners(context, route, true)
                             },
                             onContactSupportClick = {
                                 val route = "/faq"
-                                ExtendedStreamPlugin.shared?.notifyNavigateToListeners(route, false, true)
+                                ExtendedStreamPlugin.notifyNavigateToListeners(context, route, true)
                             },
                         )
                     }
