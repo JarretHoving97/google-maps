@@ -1,0 +1,141 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <!-- Global -->
+    <string name="global_becomeSuperAmigo">Légy Szuper amigo</string>
+    <string name="global_confirm">Megerősítés</string>
+    <string name="global_contact">Kapcsolat</string>
+    <string name="global_iUnderstand">Értem</string>
+    <string name="global_save">Mentés</string>
+    <string name="global_wasUpFor">%1$s ideig volt fent</string>
+    <string name="global_isUpFor">%1$s ideje van fent</string>
+
+    <!-- Channels Screen -->
+    <string name="AmiChannelsScreen_title">Csevegések</string>
+
+    <!-- Channel Screen -->
+    <string name="AmiChannelScreen_emptyState_safetyCheck">Amikor elindítasz egy csevegést, az üzeneteidet a fogadó fél áttekintheti</string>
+    <string name="AmiChannelScreen_emptyState_group">Még nincsenek üzenetek ebben a csevegésben. Kezdj el beszélgetni!</string>
+
+    <!-- System Messages -->
+    <string name="AmiChannelSystemMessage_AttendenceReminder">Az esemény 24 órán belül kezdődik. Számítok rád.</string>
+    <string name="AmiChannelSystemMessage_GroupChatCreated">Én vagyok %1$s, az esemény házigazdája. Mutatkozz be a csevegésben is.</string>
+    <string name="AmiChannelSystemMessage_GroupChatJoined">Én is megyek!</string>
+
+    <!-- AmiPinnedMessage -->
+    <string name="AmiPinnedMessage_final_placeholder">Itt adhatsz meg részleteket (például címet), hogy mindenki könnyen megtalálja.</string>
+    <string name="AmiPinnedMessage_final_title">Rögzített üzenet</string>
+    <string name="AmiPinnedMessageModal_input_placeholder">Írd be ide a részleteket (például címet), hogy mindenki könnyen megtalálja.</string>
+    <string name="AmiPinnedMessageModal_title">Esemény részleteinek megadása</string>
+
+    <!-- Safety Check Info Modal -->
+    <string name="SafetyCheckInfoModal_title">Biztonsági ellenőrzés</string>
+    <string name="SafetyCheckInfoModal_sender_subtitle">%1$s indította ezt a csevegést, kérjük, ellenőrizd, hogy az Amigos-t rendeltetésszerűen használja-e:</string>
+    <string name="SafetyCheckInfoModal_sender_examples_join">Olyan emberekkel találkozni, akik ugyanarra vágynak, mint te</string>
+    <string name="SafetyCheckInfoModal_sender_examples_host">Tevékenységek szervezése (együtt)</string>
+    <string name="SafetyCheckInfoModal_receiver_subtitle">Csak az Amigos rendeltetésszerű használatára használd.</string>
+    <string name="SafetyCheckInfoModal_receiver_examples_join">Olyan emberekkel találkozni, akik ugyanarra vágynak, mint te</string>
+    <string name="SafetyCheckInfoModal_receiver_examples_host">Tevékenységek szervezése (együtt)</string>
+    <string name="SafetyCheckInfoModal_receiver_examples_other">Ha más célra használod az Amigos-t, eltávolítanak a platformról</string>
+
+    <!-- AmiChatSuperPowerOnlyNotice -->
+    <string name="AmiChatSuperPowerOnlyNotice_body">Csak a házigazdák és Szuper amigók indíthatnak csevegést.\nKoppints ide, és légy Szuper amigo.</string>
+
+    <!-- AmiChatWithHost -->
+    <string name="AmiChatWithHost_body">Csevegés a házigazdával</string>
+
+    <!-- AmiChatTrialNotice -->
+    <plurals name="AmiChatTrialNotice_title">
+        <item quantity="one">Indíts ingyenes csevegést egy napig helyi alapítóként</item>
+        <item quantity="other">Indíts ingyenes csevegést %s napig helyi alapítóként</item>
+    </plurals>
+    <string name="AmiChatTrialNotice_dialog_title">Indíts ingyenes csevegést %s napig</string>
+    <string name="AmiChatTrialNotice_dialog_body">Helyi alapítóként az első %s napban ingyen indíthatsz csevegést. Szeretnél utána is csevegni? Légy Szuper amigo.</string>
+
+    <!-- AmiAttachmentsPicker -->
+    <string name="AmiAttachmentsPicker_mediaUsedForStoriesConsent">A csoportos csevegésben lévő média megosztható az Amigos alkalmazásban történetek formájában.</string>
+    <string name="AttachmentsPickerMenu_superOnly_body">Légy Szuper amigo, hogy képeket és videókat küldhess</string>
+    <string name="AttachmentsPickerMenu_superOnly_title">Csak a Szuper amigók küldhetnek képeket és videókat</string>
+
+    <!-- Attachment Tags -->
+    <string name="custom_attachment_tag_photo">Fénykép</string>
+    <string name="custom_attachment_tag_video">Videó</string>
+    <string name="custom_attachment_tag_file">Fájl</string>
+
+    <!-- Safety Check -->
+    <string name="custom_safetyCheck_notice_title">Biztonsági ellenőrzés: %s rendeltetésszerűen használja az Amigos-t?</string>
+    <string name="custom_safetyCheck_review_sheet_title">Nem megfelelő csevegéshasználat</string>
+    <string name="custom_safetyCheck_review_sheet_subtitle">Add meg itt, miért gondolod így.</string>
+    <string name="custom_safetyCheck_review_sheet_tip">Ha túl sok negatív értékelést kap, ez az amigo blokkolva lesz.</string>
+    <string name="custom_safetyCheck_review_sheet_option_commercial">Kereskedelmi célú használat</string>
+    <string name="custom_safetyCheck_review_sheet_option_dating">Társkereső alkalmazásként használja</string>
+    <string name="custom_safetyCheck_review_sheet_option_inappropriateLanguage">Nem megfelelő nyelvezet</string>
+    <string name="custom_safetyCheck_review_sheet_option_spam">Spam</string>
+    <string name="custom_safetyCheck_review_sheet_option_other">Egyéb</string>
+
+    <!-- Selected Channel Menu -->
+    <string name="custom_channel_action_leave_title">Esemény elhagyása és csevegés törlése</string>
+    <string name="custom_channel_action_leave_confirmation_body">Biztosan el akarod hagyni ezt az eseményt és törölni a csevegést?</string>
+    <string name="custom_channel_action_leave_confirmation_confirm">Kilépés és törlés</string>
+    <string name="custom_channel_action_archive_title">Csevegés törlése</string>
+    <string name="custom_channel_action_archive_confirmation_body">Biztosan törölni akarod ezt a csevegést?</string>
+    <string name="custom_channel_action_archive_confirmation_confirm">Törlés</string>
+    <string name="custom_channel_action_mute_title">Értesítések némítása</string>
+    <string name="custom_channel_action_unmute_title">Értesítések visszakapcsolása</string>
+    <string name="custom_channel_action_profile_title">Profil megtekintése</string>
+    <string name="custom_channel_action_invite_title">Meghívás</string>
+    <string name="custom_channel_action_activity_title">Esemény megtekintése</string>
+    <string name="custom_channel_action_inviteAmigos_title">Amigók meghívása</string>
+    <string name="custom_channel_action_manageParticipants_title">Résztvevők kezelése</string>
+    <string name="custom_channel_action_mixer_title">Ital megtekintése</string>
+
+    <!-- Channel List -->
+    <string name="stream_compose_channel_list_you">Te</string>
+    <string name="stream_compose_channel_list_empty_channels">Itt jelennek meg a közted és más amigók közötti csevegések</string>
+    <string name="stream_compose_channel_list_empty_search_results">Nincs találat erre: „%1$s”</string>
+
+    <!-- Common -->
+    <string name="stream_compose_ok">OK</string>
+    <string name="stream_compose_cancel">Mégse</string>
+
+    <!-- Message List Header -->
+    <plurals name="stream_compose_message_list_header_typing_users">
+        <item quantity="one">%s ír</item>
+        <item quantity="other">%s és még %d írnak</item>
+    </plurals>
+
+    <!-- Message List -->
+    <string name="stream_compose_message_list_footnote_edited">Szerkesztve</string>
+    <string name="stream_compose_message_list_unread_separator_zero">olvasatlan üzenetek</string>
+    <plurals name="stream_compose_message_list_unread_separator">
+        <item quantity="zero">@string/stream_compose_message_list_unread_separator_zero</item>
+        <item quantity="one">%s olvasatlan üzenet</item>
+        <item quantity="other">%s olvasatlan üzenet</item>
+    </plurals>
+    <string name="stream_compose_message_list_unsupported_attachment">Nem támogatott csatolmány</string>
+
+    <!-- Selected Message Menu -->
+    <string name="stream_compose_resend_message">Újraküldés</string>
+    <string name="stream_compose_reply">Válasz</string>
+    <string name="stream_compose_mark_as_unread">Megjelölés olvasatlanként</string>
+    <string name="stream_compose_copy_message">Üzenet másolása</string>
+    <string name="stream_compose_edit_message">Üzenet szerkesztése</string>
+    <string name="stream_compose_delete_message">Üzenet törlése</string>
+
+    <!-- Message Action Prompts -->
+    <string name="stream_compose_delete_message_title">Üzenet törlése</string>
+    <string name="stream_compose_delete_message_text">Biztosan törölni akarod ezt az üzenetet?</string>
+
+    <!-- Message Composer -->
+    <string name="stream_compose_message_composer_error_message_length">A maximális üzenethossz (%1$d) túllépve.</string>
+    <string name="stream_compose_message_composer_error_file_size">A fájl túl nagy – max. %1$s.</string>
+    <string name="stream_compose_message_composer_error_attachment_count">A csatolmányok maximális száma (%1$d) túllépve.</string>
+    <string name="stream_compose_message_composer_error_sending_links_not_allowed">Linkek küldése nem engedélyezett ebben a csevegésben.</string>
+    <string name="stream_compose_message_composer_file_not_supported">A fájltípus nem támogatott</string>
+
+    <string name="stream_compose_message_label">Üzenet küldése</string>
+    <string name="stream_compose_cannot_send_messages_label">Nem küldhetsz üzeneteket ebben a csevegésben</string>
+    <string name="stream_compose_recent_files">Legutóbbi fájlok</string>
+    <string name="stream_compose_message_deleted">Üzenet törölve</string>
+    <string name="stream_compose_download">Letöltés</string>
+    <string name="stream_compose_grant_permission">Engedély megadása</string>
+</resources>

@@ -1,0 +1,143 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <!-- Global -->
+    <string name="global_becomeSuperAmigo">Süper amigo ol</string>
+    <string name="global_confirm">Onayla</string>
+    <string name="global_contact">İletişim</string>
+    <string name="global_iUnderstand">Anladım</string>
+    <string name="global_save">Kaydet</string>
+    <string name="global_wasUpFor">%1$s için uygundu</string>
+    <string name="global_isUpFor">%1$s için uygun</string>
+
+    <!-- Channels Screen -->
+    <string name="AmiChannelsScreen_title">Sohbetler</string>
+
+    <!-- Channel Screen -->
+    <string name="AmiChannelScreen_emptyState_safetyCheck">Bir sohbete başladığınızda, mesajlarınız alıcı tarafından incelenebilir</string>
+    <string name="AmiChannelScreen_emptyState_group">Bu sohbette henüz mesaj yok. İlk adımı atmak ister misin?</string>
+
+    <!-- System Messages -->
+    <string name="AmiChannelSystemMessage_AttendenceReminder">Etkinlik 24 saat içinde başlayacak. Sana güveniyorum.</string>
+    <string name="AmiChannelSystemMessage_GroupChatCreated">Ben %1$s, bu etkinliğin ev sahibiyim. Sohbette kendini tanıtmaktan çekinme.</string>
+    <string name="AmiChannelSystemMessage_GroupChatJoined">Ben de geliyorum!</string>
+
+    <!-- AmiPinnedMessage -->
+    <string name="AmiPinnedMessage_final_placeholder">Buraya adres gibi detayları ekleyebilirsin, böylece herkes kolayca bulabilir.</string>
+    <string name="AmiPinnedMessage_final_title">Sabitlenmiş mesaj</string>
+    <string name="AmiPinnedMessageModal_input_placeholder">Detayları (örneğin adres) buraya gir, böylece herkes kolayca bulabilir.</string>
+    <string name="AmiPinnedMessageModal_title">Etkinlik detaylarını gir</string>
+
+    <!-- Safety Check Info Modal -->
+    <string name="SafetyCheckInfoModal_title">Güvenlik Kontrolü</string>
+    <!-- Sender -->
+    <string name="SafetyCheckInfoModal_sender_subtitle">%1$s bu sohbeti başlattığı için, %1$s\'nin Amigos\'u amacına uygun kullanıp kullanmadığını gözden geçirmeni istiyoruz:</string>
+    <string name="SafetyCheckInfoModal_sender_examples_join">Seninle aynı amaçta olanlarla buluşmak için</string>
+    <string name="SafetyCheckInfoModal_sender_examples_host">Etkinlik düzenlemek için (birlikte)</string>
+    <!-- Receiver -->
+    <string name="SafetyCheckInfoModal_receiver_subtitle">Amigos\'u sadece amacına uygun kullan.</string>
+    <string name="SafetyCheckInfoModal_receiver_examples_join">Seninle aynı amaçta olanlarla buluşmak için</string>
+    <string name="SafetyCheckInfoModal_receiver_examples_host">Etkinlik düzenlemek için (birlikte)</string>
+    <string name="SafetyCheckInfoModal_receiver_examples_other">Amigos\'u başka amaçlarla kullanırsan platformdan çıkarılırsın</string>
+
+    <!-- AmiChatSuperPowerOnlyNotice -->
+    <string name="AmiChatSuperPowerOnlyNotice_body">Sadece ev sahipleri ve Süper amigolar sohbet başlatabilir.\nBuraya tıkla ve Süper amigo ol.</string>
+
+    <!-- AmiChatWithHost -->
+    <string name="AmiChatWithHost_body">Ev sahibiyle sohbet et</string>
+
+    <!-- AmiChatTrialNotice -->
+    <plurals name="AmiChatTrialNotice_title">
+        <item quantity="one">Yerel kurucu olarak bir gün ücretsiz sohbet başlat</item>
+        <item quantity="other">Yerel kurucu olarak %s gün ücretsiz sohbet başlat</item>
+    </plurals>
+    <string name="AmiChatTrialNotice_dialog_title">%s gün boyunca ücretsiz sohbet başlat</string>
+    <string name="AmiChatTrialNotice_dialog_body">Yerel kurucu olarak ilk %s gün sohbetleri ücretsiz başlatabilirsin. Sonrasında da sohbet başlatmak ister misin? Süper amigo ol.</string>
+
+    <!-- AmiAttachmentsPicker -->
+    <string name="AmiAttachmentsPicker_mediaUsedForStoriesConsent">Grup sohbetindeki medya, Amigos uygulamasında hikayeler aracılığıyla paylaşılabilir.</string>
+    <string name="AttachmentsPickerMenu_superOnly_body">Fotoğraf ve video göndermek için Süper amigo ol</string>
+    <string name="AttachmentsPickerMenu_superOnly_title">Sadece Süper amigolar fotoğraf ve video gönderebilir</string>
+
+    <!-- Attachment Tags -->
+    <string name="custom_attachment_tag_photo">Fotoğraf</string>
+    <string name="custom_attachment_tag_video">Video</string>
+    <string name="custom_attachment_tag_file">Dosya</string>
+
+    <!-- Safety Check -->
+    <string name="custom_safetyCheck_notice_title">Güvenlik Kontrolü: %s Amigos\'u amacına uygun mu kullanıyor?</string>
+    <string name="custom_safetyCheck_review_sheet_title">Sohbetin yanlış kullanımı</string>
+    <string name="custom_safetyCheck_review_sheet_subtitle">Neden böyle düşündüğünü burada belirt.</string>
+    <string name="custom_safetyCheck_review_sheet_tip">Çok fazla olumsuz Güvenlik Kontrolü alan amigo engellenir.</string>
+    <string name="custom_safetyCheck_review_sheet_option_commercial">Ticari amaçlarla kullanıyor</string>
+    <string name="custom_safetyCheck_review_sheet_option_dating">Arkadaşlık/dating uygulaması olarak kullanıyor</string>
+    <string name="custom_safetyCheck_review_sheet_option_inappropriateLanguage">Uygunsuz dil</string>
+    <string name="custom_safetyCheck_review_sheet_option_spam">Spam</string>
+    <string name="custom_safetyCheck_review_sheet_option_other">Diğer</string>
+
+    <!-- Selected Channel Menu -->
+    <string name="custom_channel_action_leave_title">Etkinlikten ayrıl ve sohbeti sil</string>
+    <string name="custom_channel_action_leave_confirmation_body">Bu etkinlikten ayrılıp sohbeti silmek istediğine emin misin?</string>
+    <string name="custom_channel_action_leave_confirmation_confirm">Ayrıl ve sil</string>
+    <string name="custom_channel_action_archive_title">Sohbeti sil</string>
+    <string name="custom_channel_action_archive_confirmation_body">Bu sohbeti silmek istediğine emin misin?</string>
+    <string name="custom_channel_action_archive_confirmation_confirm">Sil</string>
+    <string name="custom_channel_action_mute_title">Bildirimleri sessize al</string>
+    <string name="custom_channel_action_unmute_title">Bildirimleri aç</string>
+    <string name="custom_channel_action_profile_title">Profili görüntüle</string>
+    <string name="custom_channel_action_invite_title">Davet et</string>
+    <string name="custom_channel_action_activity_title">Etkinliği görüntüle</string>
+    <string name="custom_channel_action_inviteAmigos_title">Amigoları davet et</string>
+    <string name="custom_channel_action_manageParticipants_title">Katılımcıları yönet</string>
+    <string name="custom_channel_action_mixer_title">İçeceği görüntüle</string>
+
+    <!-- Channel List -->
+    <string name="stream_compose_channel_list_you">Sen</string>
+    <string name="stream_compose_channel_list_empty_channels">Senin ve diğer amigoların arasındaki sohbetler burada görüntülenir</string>
+    <string name="stream_compose_channel_list_empty_search_results">"%1$s" için sonuç bulunamadı</string>
+
+    <!-- Common -->
+    <string name="stream_compose_ok">Tamam</string>
+    <string name="stream_compose_cancel">İptal</string>
+
+    <!-- Message List Header -->
+    <plurals name="stream_compose_message_list_header_typing_users">
+        <item quantity="one">%s yazıyor</item>
+        <item quantity="other">%s ve %d kişi yazıyor</item>
+    </plurals>
+
+    <!-- Message List -->
+    <string name="stream_compose_message_list_footnote_edited">Düzenlendi</string>
+    <string name="stream_compose_message_list_unread_separator_zero">okunmamış mesaj</string>
+    <plurals name="stream_compose_message_list_unread_separator">
+        <item quantity="zero">@string/stream_compose_message_list_unread_separator_zero</item>
+        <item quantity="one">%s okunmamış mesaj</item>
+        <item quantity="other">%s okunmamış mesaj</item>
+    </plurals>
+    <string name="stream_compose_message_list_unsupported_attachment">Desteklenmeyen ek</string>
+
+    <!-- Selected Message Menu -->
+    <string name="stream_compose_resend_message">Yeniden gönder</string>
+    <string name="stream_compose_reply">Yanıtla</string>
+    <string name="stream_compose_mark_as_unread">Okunmamış olarak işaretle</string>
+    <string name="stream_compose_copy_message">Mesajı kopyala</string>
+    <string name="stream_compose_edit_message">Mesajı düzenle</string>
+    <string name="stream_compose_delete_message">Mesajı sil</string>
+
+    <!-- Message Action Prompts -->
+    <string name="stream_compose_delete_message_title">Mesajı sil</string>
+    <string name="stream_compose_delete_message_text">Bu mesajı silmek istediğine emin misin?</string>
+
+    <!-- Message Composer -->
+    <string name="stream_compose_message_composer_error_message_length">Maksimum mesaj uzunluğu (%1$d) aşıldı.</string>
+    <string name="stream_compose_message_composer_error_file_size">Dosya çok büyük - maksimum %1$s.</string>
+    <string name="stream_compose_message_composer_error_attachment_count">Maksimum ek sayısı (%1$d) aşıldı.</string>
+    <string name="stream_compose_message_composer_error_sending_links_not_allowed">Bu sohbette bağlantı göndermek yasak.</string>
+    <string name="stream_compose_message_composer_file_not_supported">Dosya türü desteklenmiyor</string>
+
+    <string name="stream_compose_message_label">Bir mesaj gönder</string>
+    <string name="stream_compose_cannot_send_messages_label">Bu sohbette mesaj gönderemezsin</string>
+    <string name="stream_compose_recent_files">Son dosyalar</string>
+    <string name="stream_compose_message_deleted">Mesaj silindi</string>
+    <string name="stream_compose_download">İndir</string>
+    <string name="stream_compose_grant_permission">İzin ver</string>
+</resources>

@@ -1,0 +1,143 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <!-- Global -->
+    <string name="global_becomeSuperAmigo">Torne-se Super amigo</string>
+    <string name="global_confirm">Confirmar</string>
+    <string name="global_contact">Contato</string>
+    <string name="global_iUnderstand">Entendi</string>
+    <string name="global_save">Salvar</string>
+    <string name="global_wasUpFor">Estava disponível para %1$s</string>
+    <string name="global_isUpFor">Está disponível para %1$s</string>
+
+    <!-- Channels Screen -->
+    <string name="AmiChannelsScreen_title">Chats</string>
+
+    <!-- Channel Screen -->
+    <string name="AmiChannelScreen_emptyState_safetyCheck">Ao iniciar um chat, suas mensagens podem ser revisadas pelo destinatário</string>
+    <string name="AmiChannelScreen_emptyState_group">Ainda não há mensagens neste chat. Quer quebrar o gelo?</string>
+
+    <!-- System Messages -->
+    <string name="AmiChannelSystemMessage_AttendenceReminder">A atividade começará em 24 horas. Estou contando com você.</string>
+    <string name="AmiChannelSystemMessage_GroupChatCreated">Eu sou %1$s, o anfitrião desta atividade. Apresente-se no chat também.</string>
+    <string name="AmiChannelSystemMessage_GroupChatJoined">Eu também vou!</string>
+
+    <!-- AmiPinnedMessage -->
+    <string name="AmiPinnedMessage_final_placeholder">Aqui você pode adicionar detalhes (como o endereço) para que todos possam encontrar facilmente.</string>
+    <string name="AmiPinnedMessage_final_title">Mensagem fixada</string>
+    <string name="AmiPinnedMessageModal_input_placeholder">Preencha os detalhes (como o endereço) aqui para que todos possam encontrar facilmente.</string>
+    <string name="AmiPinnedMessageModal_title">Insira os detalhes da atividade</string>
+
+    <!-- Safety Check Info Modal -->
+    <string name="SafetyCheckInfoModal_title">Verificação de Segurança</string>
+    <!-- Sender -->
+    <string name="SafetyCheckInfoModal_sender_subtitle">Como %1$s iniciou este chat, pedimos que você verifique se %1$s está usando o Amigos para o propósito correto:</string>
+    <string name="SafetyCheckInfoModal_sender_examples_join">Para juntar pessoas que querem o mesmo que você</string>
+    <string name="SafetyCheckInfoModal_sender_examples_host">Para organizar atividades (juntos)</string>
+    <!-- Receiver -->
+    <string name="SafetyCheckInfoModal_receiver_subtitle">Use o Amigos apenas para o propósito correto.</string>
+    <string name="SafetyCheckInfoModal_receiver_examples_join">Para juntar pessoas que querem o mesmo que você</string>
+    <string name="SafetyCheckInfoModal_receiver_examples_host">Para organizar atividades (juntos)</string>
+    <string name="SafetyCheckInfoModal_receiver_examples_other">Se você usar o Amigos para outros fins, será removido da plataforma</string>
+
+    <!-- AmiChatSuperPowerOnlyNotice -->
+    <string name="AmiChatSuperPowerOnlyNotice_body">Apenas anfitriões e Super amigos podem iniciar um chat.\nToque aqui e torne-se Super amigo.</string>
+
+    <!-- AmiChatWithHost -->
+    <string name="AmiChatWithHost_body">Conversar com o anfitrião</string>
+
+    <!-- AmiChatTrialNotice -->
+    <plurals name="AmiChatTrialNotice_title">
+        <item quantity="one">Inicie chats gratuitamente por um dia como fundador local</item>
+        <item quantity="other">Inicie chats gratuitamente por %s dias como fundador local</item>
+    </plurals>
+    <string name="AmiChatTrialNotice_dialog_title">Inicie chats gratuitamente por %s dias</string>
+    <string name="AmiChatTrialNotice_dialog_body">Como fundador local, você pode iniciar chats gratuitamente nos primeiros %s dias. Quer continuar iniciando chats depois disso? Torne-se Super amigo.</string>
+
+    <!-- AmiAttachmentsPicker -->
+    <string name="AmiAttachmentsPicker_mediaUsedForStoriesConsent">A mídia em um chat em grupo pode ser compartilhada no app Amigos via stories.</string>
+    <string name="AttachmentsPickerMenu_superOnly_body">Torne-se Super amigo para enviar fotos e vídeos</string>
+    <string name="AttachmentsPickerMenu_superOnly_title">Apenas Super amigos podem enviar fotos e vídeos</string>
+
+    <!-- Attachment Tags -->
+    <string name="custom_attachment_tag_photo">Foto</string>
+    <string name="custom_attachment_tag_video">Vídeo</string>
+    <string name="custom_attachment_tag_file">Arquivo</string>
+
+    <!-- Safety Check -->
+    <string name="custom_safetyCheck_notice_title">Verificação de Segurança: %s está usando o Amigos corretamente?</string>
+    <string name="custom_safetyCheck_review_sheet_title">Uso inadequado do chat</string>
+    <string name="custom_safetyCheck_review_sheet_subtitle">Indique aqui o motivo.</string>
+    <string name="custom_safetyCheck_review_sheet_tip">Ao receber muitas avaliações negativas, este amigo será bloqueado.</string>
+    <string name="custom_safetyCheck_review_sheet_option_commercial">Usando para fins comerciais</string>
+    <string name="custom_safetyCheck_review_sheet_option_dating">Usando como aplicativo de namoro</string>
+    <string name="custom_safetyCheck_review_sheet_option_inappropriateLanguage">Linguagem inadequada</string>
+    <string name="custom_safetyCheck_review_sheet_option_spam">Spam</string>
+    <string name="custom_safetyCheck_review_sheet_option_other">Outro</string>
+
+    <!-- Selected Channel Menu -->
+    <string name="custom_channel_action_leave_title">Sair da atividade e remover chat</string>
+    <string name="custom_channel_action_leave_confirmation_body">Tem certeza de que deseja sair desta atividade e remover este chat?</string>
+    <string name="custom_channel_action_leave_confirmation_confirm">Sair e remover</string>
+    <string name="custom_channel_action_archive_title">Remover chat</string>
+    <string name="custom_channel_action_archive_confirmation_body">Tem certeza de que deseja remover este chat?</string>
+    <string name="custom_channel_action_archive_confirmation_confirm">Remover</string>
+    <string name="custom_channel_action_mute_title">Silenciar notificações</string>
+    <string name="custom_channel_action_unmute_title">Ativar notificações</string>
+    <string name="custom_channel_action_profile_title">Ver perfil</string>
+    <string name="custom_channel_action_invite_title">Convidar</string>
+    <string name="custom_channel_action_activity_title">Ver atividade</string>
+    <string name="custom_channel_action_inviteAmigos_title">Convidar amigos</string>
+    <string name="custom_channel_action_manageParticipants_title">Gerenciar participantes</string>
+    <string name="custom_channel_action_mixer_title">Ver bebida</string>
+
+    <!-- Channel List -->
+    <string name="stream_compose_channel_list_you">Você</string>
+    <string name="stream_compose_channel_list_empty_channels">Os chats entre você e outros amigos serão exibidos aqui</string>
+    <string name="stream_compose_channel_list_empty_search_results">Nenhum resultado para \"%1$s\"</string>
+
+    <!-- Common -->
+    <string name="stream_compose_ok">OK</string>
+    <string name="stream_compose_cancel">Cancelar</string>
+
+    <!-- Message List Header -->
+    <plurals name="stream_compose_message_list_header_typing_users">
+        <item quantity="one">%s está digitando</item>
+        <item quantity="other">%s e mais %d estão digitando</item>
+    </plurals>
+
+    <!-- Message List -->
+    <string name="stream_compose_message_list_footnote_edited">Editado</string>
+    <string name="stream_compose_message_list_unread_separator_zero">mensagens não lidas</string>
+    <plurals name="stream_compose_message_list_unread_separator">
+        <item quantity="zero">@string/stream_compose_message_list_unread_separator_zero</item>
+        <item quantity="one">%s mensagem não lida</item>
+        <item quantity="other">%s mensagens não lidas</item>
+    </plurals>
+    <string name="stream_compose_message_list_unsupported_attachment">Anexo não suportado</string>
+
+    <!-- Selected Message Menu -->
+    <string name="stream_compose_resend_message">Reenviar</string>
+    <string name="stream_compose_reply">Responder</string>
+    <string name="stream_compose_mark_as_unread">Marcar como não lida</string>
+    <string name="stream_compose_copy_message">Copiar mensagem</string>
+    <string name="stream_compose_edit_message">Editar mensagem</string>
+    <string name="stream_compose_delete_message">Excluir mensagem</string>
+
+    <!-- Message Action Prompts -->
+    <string name="stream_compose_delete_message_title">Excluir mensagem</string>
+    <string name="stream_compose_delete_message_text">Tem certeza de que deseja excluir esta mensagem?</string>
+
+    <!-- Message Composer -->
+    <string name="stream_compose_message_composer_error_message_length">Tamanho máximo da mensagem (%1$d) excedido.</string>
+    <string name="stream_compose_message_composer_error_file_size">Arquivo muito grande - máximo %1$s.</string>
+    <string name="stream_compose_message_composer_error_attachment_count">Número máximo de anexos (%1$d) excedido.</string>
+    <string name="stream_compose_message_composer_error_sending_links_not_allowed">O envio de links não é permitido neste chat.</string>
+    <string name="stream_compose_message_composer_file_not_supported">Tipo de arquivo não suportado</string>
+
+    <string name="stream_compose_message_label">Envie uma mensagem</string>
+    <string name="stream_compose_cannot_send_messages_label">Você não pode enviar mensagens neste chat</string>
+    <string name="stream_compose_recent_files">Arquivos recentes</string>
+    <string name="stream_compose_message_deleted">Mensagem excluída</string>
+    <string name="stream_compose_download">Baixar</string>
+    <string name="stream_compose_grant_permission">Conceder permissão</string>
+</resources>

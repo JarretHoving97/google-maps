@@ -1,0 +1,143 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <!-- Global -->
+    <string name="global_becomeSuperAmigo">Devenez Super amigo</string>
+    <string name="global_confirm">Confirmer</string>
+    <string name="global_contact">Contact</string>
+    <string name="global_iUnderstand">Je comprends</string>
+    <string name="global_save">Enregistrer</string>
+    <string name="global_wasUpFor">Était partant pour %1$s</string>
+    <string name="global_isUpFor">Est partant pour %1$s</string>
+
+    <!-- Channels Screen -->
+    <string name="AmiChannelsScreen_title">Discussions</string>
+
+    <!-- Channel Screen -->
+    <string name="AmiChannelScreen_emptyState_safetyCheck">Lorsque vous commencez une discussion, vos messages peuvent être consultés par le destinataire</string>
+    <string name="AmiChannelScreen_emptyState_group">Il n’y a pas encore de messages dans cette discussion. Vous voulez briser la glace ?</string>
+
+    <!-- System Messages -->
+    <string name="AmiChannelSystemMessage_AttendenceReminder">L’activité commencera dans 24 heures. Je compte sur vous.</string>
+    <string name="AmiChannelSystemMessage_GroupChatCreated">Je suis %1$s, l’hôte de cette activité. Allez-y, présentez-vous aussi dans la discussion.</string>
+    <string name="AmiChannelSystemMessage_GroupChatJoined">J’y vais aussi !</string>
+
+    <!-- AmiPinnedMessage -->
+    <string name="AmiPinnedMessage_final_placeholder">Ici, vous pouvez ajouter des détails (comme l’adresse) pour que tout le monde puisse facilement la trouver.</string>
+    <string name="AmiPinnedMessage_final_title">Message épinglé</string>
+    <string name="AmiPinnedMessageModal_input_placeholder">Remplissez ici les détails (comme l’adresse) pour que tout le monde puisse facilement la trouver.</string>
+    <string name="AmiPinnedMessageModal_title">Entrez les détails de l’activité</string>
+
+    <!-- Safety Check Info Modal -->
+    <string name="SafetyCheckInfoModal_title">Vérification de sécurité</string>
+    <string name="SafetyCheckInfoModal_sender_subtitle">Parce que %1$s a démarré cette discussion, nous vous demandons de vérifier si %1$s utilise Amigos comme prévu :</string>
+    <string name="SafetyCheckInfoModal_sender_examples_join">Pour rejoindre des personnes partantes pour la même chose que vous</string>
+    <string name="SafetyCheckInfoModal_sender_examples_host">Pour organiser des activités (ensemble)</string>
+    <string name="SafetyCheckInfoModal_receiver_subtitle">N’utilisez Amigos que pour son usage prévu.</string>
+    <string name="SafetyCheckInfoModal_receiver_examples_join">Pour rejoindre des personnes partantes pour la même chose que vous</string>
+    <string name="SafetyCheckInfoModal_receiver_examples_host">Pour organiser des activités (ensemble)</string>
+    <string name="SafetyCheckInfoModal_receiver_examples_other">Si vous utilisez Amigos à d’autres fins, vous serez retiré de la plateforme</string>
+
+    <!-- AmiChatSuperPowerOnlyNotice -->
+    <string name="AmiChatSuperPowerOnlyNotice_body">Seuls les hôtes et les Super amigos peuvent démarrer une discussion.\nAppuyez ici et devenez Super amigo.</string>
+
+    <!-- AmiChatWithHost -->
+    <string name="AmiChatWithHost_body">Discuter avec l’hôte</string>
+
+    <!-- AmiChatTrialNotice -->
+    <plurals name="AmiChatTrialNotice_title">
+        <item quantity="one">Démarrez des discussions gratuitement pendant %s jour en tant que fondateur local</item>
+        <item quantity="many">Démarrez des discussions gratuitement pendant %s jours en tant que fondateur local</item>
+        <item quantity="other">Démarrez des discussions gratuitement pendant %s jours en tant que fondateur local</item>
+    </plurals>
+    <string name="AmiChatTrialNotice_dialog_title">Démarrez des discussions gratuitement pendant %s jours</string>
+    <string name="AmiChatTrialNotice_dialog_body">En tant que fondateur local, vous pouvez démarrer des discussions gratuitement les %s premiers jours. Vous voulez continuer à démarrer des discussions après ? Devenez Super amigo.</string>
+
+    <!-- AmiAttachmentsPicker -->
+    <string name="AmiAttachmentsPicker_mediaUsedForStoriesConsent">Les médias dans une discussion de groupe peuvent être partagés dans l’application Amigos via des stories.</string>
+    <string name="AttachmentsPickerMenu_superOnly_body">Devenez Super amigo pour envoyer des photos et vidéos</string>
+    <string name="AttachmentsPickerMenu_superOnly_title">Seuls les Super amigos peuvent envoyer des photos et vidéos</string>
+
+    <!-- Attachment Tags -->
+    <string name="custom_attachment_tag_photo">Photo</string>
+    <string name="custom_attachment_tag_video">Vidéo</string>
+    <string name="custom_attachment_tag_file">Fichier</string>
+
+    <!-- Safety Check -->
+    <string name="custom_safetyCheck_notice_title">Vérification de sécurité : Est-ce que %s utilise Amigos comme prévu ?</string>
+    <string name="custom_safetyCheck_review_sheet_title">Mauvaise utilisation du chat</string>
+    <string name="custom_safetyCheck_review_sheet_subtitle">Indiquez ici pourquoi vous le pensez.</string>
+    <string name="custom_safetyCheck_review_sheet_tip">Après trop de vérifications négatives, cet amigo sera bloqué.</string>
+    <string name="custom_safetyCheck_review_sheet_option_commercial">Utilisation à des fins commerciales</string>
+    <string name="custom_safetyCheck_review_sheet_option_dating">Utilisation comme application de rencontres</string>
+    <string name="custom_safetyCheck_review_sheet_option_inappropriateLanguage">Langage inapproprié</string>
+    <string name="custom_safetyCheck_review_sheet_option_spam">Spam</string>
+    <string name="custom_safetyCheck_review_sheet_option_other">Autre</string>
+
+    <!-- Selected Channel Menu -->
+    <string name="custom_channel_action_leave_title">Quitter l’activité et supprimer la discussion</string>
+    <string name="custom_channel_action_leave_confirmation_body">Êtes-vous sûr de vouloir quitter cette activité et supprimer cette discussion ?</string>
+    <string name="custom_channel_action_leave_confirmation_confirm">Quitter et supprimer</string>
+    <string name="custom_channel_action_archive_title">Supprimer la discussion</string>
+    <string name="custom_channel_action_archive_confirmation_body">Êtes-vous sûr de vouloir supprimer cette discussion ?</string>
+    <string name="custom_channel_action_archive_confirmation_confirm">Supprimer</string>
+    <string name="custom_channel_action_mute_title">Désactiver les notifications</string>
+    <string name="custom_channel_action_unmute_title">Réactiver les notifications</string>
+    <string name="custom_channel_action_profile_title">Voir le profil</string>
+    <string name="custom_channel_action_invite_title">Inviter</string>
+    <string name="custom_channel_action_activity_title">Voir l’activité</string>
+    <string name="custom_channel_action_inviteAmigos_title">Inviter des amigos</string>
+    <string name="custom_channel_action_manageParticipants_title">Gérer les participants</string>
+    <string name="custom_channel_action_mixer_title">Voir la boisson</string>
+
+    <!-- Channel List -->
+    <string name="stream_compose_channel_list_you">Vous</string>
+    <string name="stream_compose_channel_list_empty_channels">Les discussions entre vous et d’autres amigos s’affichent ici</string>
+    <string name="stream_compose_channel_list_empty_search_results">Aucun résultat pour \"%1$s\"</string>
+
+    <!-- Common -->
+    <string name="stream_compose_ok">OK</string>
+    <string name="stream_compose_cancel">Annuler</string>
+
+    <!-- Message List Header -->
+    <plurals name="stream_compose_message_list_header_typing_users">
+        <item quantity="one">%s est en train d’écrire</item>
+        <item quantity="many">%s et %d autres sont en train d’écrire</item>
+        <item quantity="other">%s et %d autres sont en train d’écrire</item>
+    </plurals>
+
+    <!-- Message List -->
+    <string name="stream_compose_message_list_footnote_edited">Modifié</string>
+    <string name="stream_compose_message_list_unread_separator_zero">messages non lus</string>
+    <plurals name="stream_compose_message_list_unread_separator">
+        <item quantity="one">%s message non lu</item>
+        <item quantity="many">%s messages non lus</item>
+        <item quantity="other">%s messages non lus</item>
+    </plurals>
+    <string name="stream_compose_message_list_unsupported_attachment">Pièce jointe non prise en charge</string>
+
+    <!-- Selected Message Menu -->
+    <string name="stream_compose_resend_message">Renvoyer</string>
+    <string name="stream_compose_reply">Répondre</string>
+    <string name="stream_compose_mark_as_unread">Marquer comme non lu</string>
+    <string name="stream_compose_copy_message">Copier le message</string>
+    <string name="stream_compose_edit_message">Modifier le message</string>
+    <string name="stream_compose_delete_message">Supprimer le message</string>
+
+    <!-- Message Action Prompts -->
+    <string name="stream_compose_delete_message_title">Supprimer le message</string>
+    <string name="stream_compose_delete_message_text">Êtes-vous sûr de vouloir supprimer ce message ?</string>
+
+    <!-- Message Composer -->
+    <string name="stream_compose_message_composer_error_message_length">Longueur maximale du message (%1$d) dépassée.</string>
+    <string name="stream_compose_message_composer_error_file_size">Fichier trop volumineux - max %1$s.</string>
+    <string name="stream_compose_message_composer_error_attachment_count">Nombre maximal de pièces jointes (%1$d) dépassé.</string>
+    <string name="stream_compose_message_composer_error_sending_links_not_allowed">L’envoi de liens n’est pas autorisé dans cette discussion.</string>
+    <string name="stream_compose_message_composer_file_not_supported">Type de fichier non pris en charge</string>
+
+    <string name="stream_compose_message_label">Envoyer un message</string>
+    <string name="stream_compose_cannot_send_messages_label">Vous ne pouvez pas envoyer de messages dans cette discussion</string>
+    <string name="stream_compose_recent_files">Fichiers récents</string>
+    <string name="stream_compose_message_deleted">Message supprimé</string>
+    <string name="stream_compose_download">Télécharger</string>
+    <string name="stream_compose_grant_permission">Accorder la permission</string>
+</resources>
