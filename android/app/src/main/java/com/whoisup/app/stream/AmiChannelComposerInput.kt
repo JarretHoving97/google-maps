@@ -43,7 +43,6 @@ fun AmiChannelComposerInput(
     }
 
     val (value, attachments, activeAction) = messageComposerState
-    val canSendMessage = messageComposerState.ownCapabilities.contains(ChannelCapabilities.SEND_MESSAGE)
 
     val placeholder =
         if (messageComposerState.ownCapabilities.contains(ChannelCapabilities.SEND_MESSAGE)) {
@@ -55,7 +54,6 @@ fun AmiChannelComposerInput(
     AmiTextField(
         value = value,
         onValueChange = onValueChange,
-        // enabled = canSendMessage, // @TODO(1)
         placeholder = placeholder,
         modifier = modifier,
         maxLines = 5,
