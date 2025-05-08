@@ -10,11 +10,9 @@ import SwiftUI
 struct QuotedMessageView: View {
 
     let viewModel: QuotedMessageViewModel
-    let maxWidth: CGFloat
 
-    init(viewModel: QuotedMessageViewModel, maxWidth: CGFloat = .messageWidth) {
+    init(viewModel: QuotedMessageViewModel) {
         self.viewModel = viewModel
-        self.maxWidth = maxWidth
     }
 
     var body: some View {
@@ -35,9 +33,6 @@ struct QuotedMessageView: View {
             }
             .padding(8)
         }
-        .frame(maxWidth: maxWidth, alignment: .leading)
-        .background(.black.opacity(0.1))
-
     }
 
     private var content: some View {
