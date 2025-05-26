@@ -9,7 +9,7 @@ import StreamChat
 import Foundation
 
 extension AttachmentType {
-    static let location = Self(rawValue: "geolocation")
+    public static let location = Self(rawValue: "geolocation")
 }
 
 public struct LocationAttachmentPayload: AttachmentPayload {

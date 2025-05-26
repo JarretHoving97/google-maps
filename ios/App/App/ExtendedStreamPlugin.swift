@@ -280,8 +280,7 @@ extension ExtendedStreamPlugin {
             self?.notifyNavigateBackToListeners(dismiss: routeInfo.dismiss)
         }
 
-        /// create client
-        ExtendedStreamPlugin.chatClient = AmigosChatClient(
+        let client = AmigosChatClient(
             config: .init(
                 environment: config,
                 isLocalStorageEnabled: true,
@@ -296,12 +295,18 @@ extension ExtendedStreamPlugin {
             pushConfig: StreamPushConfig(),
             userDelegate: CurrentUserModel(
                 onDidChangeUnreadCount: { unreadCount in
-                 ExtendedStreamPlugin.shared.notifyUnreadCounts(
-                     channelUnreadCount: unreadCount.channels,
-                     messageUnreadCount: unreadCount.messages
-                 )
-                }),
-            keychainLoader: keychainLoader
+                    ExtendedStreamPlugin.shared.notifyUnreadCounts(
+                        channelUnreadCount: unreadCount.channels,
+                        messageUnreadCount: unreadCount.messages
+                    )
+                }
+            ),
+            keychainLoader: keychainLoader,
+            jwtTokenStore: LocalChatJWTtokenStore(),
+            apiKeyStore: LocalChatApiKeyStore()
         )
+
+        /// create client
+        ExtendedStreamPlugin.chatClient = client
     }
 }
