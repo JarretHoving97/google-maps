@@ -3,18 +3,24 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 54;
+	objectVersion = 77;
 	objects = {
 
 /* Begin PBXBuildFile section */
-		2D445478A41A060101B76A25 /* Pods_Amigos.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2310EDFDD10933B81CE88904 /* Pods_Amigos.framework */; };
+		2D493B40E1B7A3A0E35F19BD /* Pods_Amigos.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 48822AA27B06A141DA02D04F /* Pods_Amigos.framework */; };
 		2FAD9763203C412B000D30F8 /* config.xml in Resources */ = {isa = PBXBuildFile; fileRef = 2FAD9762203C412B000D30F8 /* config.xml */; };
 		3110E7E1ADE214AC8F7C6A63 /* CapacitorTokenLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A3BFEAD36359B174E7FE592 /* CapacitorTokenLoader.swift */; };
 		315876F02D2FF95600DDA943 /* BuildFile in Resources */ = {isa = PBXBuildFile; };
+		316829482DBA38DA00E9FD9D /* NotificationService.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 316829412DBA38DA00E9FD9D /* NotificationService.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		316829512DBA394B00E9FD9D /* AmigosChat in Frameworks */ = {isa = PBXBuildFile; productRef = 316829502DBA394B00E9FD9D /* AmigosChat */; };
 		3178DEB02D1033FB0084708F /* ExtendendStreamPlugin+ChatNavigationComposition+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3178DEAF2D1033A40084708F /* ExtendendStreamPlugin+ChatNavigationComposition+Extension.swift */; };
 		3178DEB32D105ECA0084708F /* NotificationHandler+CAP+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3178DEB22D105EA20084708F /* NotificationHandler+CAP+Extension.swift */; };
+		31A5E6642DC36A0400C19433 /* LocalChatTokenStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31A5E6632DC369F800C19433 /* LocalChatTokenStore.swift */; };
+		31A5E66F2DC380A700C19433 /* LocalChatApiKeyStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31A5E66E2DC380A300C19433 /* LocalChatApiKeyStore.swift */; };
 		31B020D82CE25C6800198BDB /* NotificationHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31B020D72CE25C6700198BDB /* NotificationHandler.swift */; };
 		31B020DA2CE25C8600198BDB /* LaunchAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31B020D92CE25C8300198BDB /* LaunchAction.swift */; };
+		31EE02162DE48F13006DDC42 /* AmigosShared in Frameworks */ = {isa = PBXBuildFile; productRef = 31EE02152DE48F13006DDC42 /* AmigosShared */; };
+		31EE02182DE48F4B006DDC42 /* AmigosShared in Frameworks */ = {isa = PBXBuildFile; productRef = 31EE02172DE48F4B006DDC42 /* AmigosShared */; };
 		3D0E8A4A25F65E9B0039E3FC /* FacebookOAuth2Handler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D0E8A4925F65E9B0039E3FC /* FacebookOAuth2Handler.swift */; };
 		3DE196A726307EF100994AB9 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3DE196A626307EF100994AB9 /* GoogleService-Info.plist */; };
 		4511D14428CB7D99001961E4 /* ExtendedBranchPlugin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4511D14328CB7D99001961E4 /* ExtendedBranchPlugin.swift */; };
@@ -48,15 +54,43 @@
 		FE9E807327A2A43C00360DFF /* public in Resources */ = {isa = PBXBuildFile; fileRef = FE9E807227A2A43C00360DFF /* public */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		316829462DBA38DA00E9FD9D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 504EC2FC1FED79650016851F /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 316829402DBA38DA00E9FD9D;
+			remoteInfo = NotificationService;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		316829132DB90D4F00E9FD9D /* Embed Foundation Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				316829482DBA38DA00E9FD9D /* NotificationService.appex in Embed Foundation Extensions */,
+			);
+			name = "Embed Foundation Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
 		1374B7E8AE3D71FB4C1EE1EA /* CAPKeychainLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CAPKeychainLoader.swift; sourceTree = "<group>"; };
 		1A3BFEAD36359B174E7FE592 /* CapacitorTokenLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CapacitorTokenLoader.swift; sourceTree = "<group>"; };
-		2310EDFDD10933B81CE88904 /* Pods_Amigos.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Amigos.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		288CFD35D914FE59CC0CD026 /* Pods-Amigos.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Amigos.release.xcconfig"; path = "Target Support Files/Pods-Amigos/Pods-Amigos.release.xcconfig"; sourceTree = "<group>"; };
 		2E58E14D133ABA03CF36A375 /* CurrentUserModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrentUserModel.swift; sourceTree = "<group>"; };
 		2FAD9762203C412B000D30F8 /* config.xml */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = config.xml; sourceTree = "<group>"; };
+		316829052DB90D4F00E9FD9D /* UserNotifications.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UserNotifications.framework; path = System/Library/Frameworks/UserNotifications.framework; sourceTree = SDKROOT; };
+		316829072DB90D4F00E9FD9D /* UserNotificationsUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UserNotificationsUI.framework; path = System/Library/Frameworks/UserNotificationsUI.framework; sourceTree = SDKROOT; };
+		316829412DBA38DA00E9FD9D /* NotificationService.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = NotificationService.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		3178DEAF2D1033A40084708F /* ExtendendStreamPlugin+ChatNavigationComposition+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ExtendendStreamPlugin+ChatNavigationComposition+Extension.swift"; sourceTree = "<group>"; };
 		3178DEB22D105EA20084708F /* NotificationHandler+CAP+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NotificationHandler+CAP+Extension.swift"; sourceTree = "<group>"; };
+		31A5E6632DC369F800C19433 /* LocalChatTokenStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalChatTokenStore.swift; sourceTree = "<group>"; };
+		31A5E66E2DC380A300C19433 /* LocalChatApiKeyStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalChatApiKeyStore.swift; sourceTree = "<group>"; };
 		31B020D72CE25C6700198BDB /* NotificationHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationHandler.swift; sourceTree = "<group>"; };
 		31B020D92CE25C8300198BDB /* LaunchAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchAction.swift; sourceTree = "<group>"; };
 		3D0E8A4925F65E9B0039E3FC /* FacebookOAuth2Handler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FacebookOAuth2Handler.swift; sourceTree = "<group>"; };
@@ -85,6 +119,7 @@
 		45B61B8B2BE4C8E700B2EC61 /* Poppins-SemiBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Poppins-SemiBold.ttf"; sourceTree = "<group>"; };
 		45DDDB7128DC526D002BFCE9 /* ExtendedFacebookPlugin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtendedFacebookPlugin.swift; sourceTree = "<group>"; };
 		45DDDB7328DC527A002BFCE9 /* ExtendedFacebookPlugin.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ExtendedFacebookPlugin.m; sourceTree = "<group>"; };
+		48822AA27B06A141DA02D04F /* Pods_Amigos.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Amigos.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		50379B222058CBB4000EE86E /* capacitor.config.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = capacitor.config.json; sourceTree = "<group>"; };
 		504EC3041FED79650016851F /* Amigos.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Amigos.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		504EC3071FED79650016851F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -92,24 +127,53 @@
 		504EC30E1FED79650016851F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		504EC3111FED79650016851F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		504EC3131FED79650016851F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		5CA3C1995500D8E91FB7772D /* Pods-App.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-App.debug.xcconfig"; path = "Target Support Files/Pods-App/Pods-App.debug.xcconfig"; sourceTree = "<group>"; };
 		987AB422F4757C09B4931227 /* ChatPushConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatPushConfig.swift; sourceTree = "<group>"; };
 		ABE0716230DB7D590E949544 /* CurrentUserDelegate+StreamUserDelegate+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CurrentUserDelegate+StreamUserDelegate+Extension.swift"; sourceTree = "<group>"; };
 		D37AEC20C1B4531B05D5DC81 /* Pods-Amigos.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Amigos.debug.xcconfig"; path = "Target Support Files/Pods-Amigos/Pods-Amigos.debug.xcconfig"; sourceTree = "<group>"; };
-		D70765C1FC7C2F834D68B5F2 /* Pods-App.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-App.release.xcconfig"; path = "Target Support Files/Pods-App/Pods-App.release.xcconfig"; sourceTree = "<group>"; };
 		D740490C2D56322F00AAB2C1 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		EA7040E356CBD8481381C58D /* ShareLocationMapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareLocationMapView.swift; sourceTree = "<group>"; };
 		FE8E1DA3261F364A00AB9CB7 /* AppRelease.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = AppRelease.entitlements; sourceTree = "<group>"; };
 		FE9E807227A2A43C00360DFF /* public */ = {isa = PBXFileReference; lastKnownFileType = folder; path = public; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		316829492DBA38DA00E9FD9D /* Exceptions for "NotificationService" folder in "NotificationService" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Info.plist,
+			);
+			target = 316829402DBA38DA00E9FD9D /* NotificationService */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
+
+/* Begin PBXFileSystemSynchronizedRootGroup section */
+		316829422DBA38DA00E9FD9D /* NotificationService */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				316829492DBA38DA00E9FD9D /* Exceptions for "NotificationService" folder in "NotificationService" target */,
+			);
+			path = NotificationService;
+			sourceTree = "<group>";
+		};
+/* End PBXFileSystemSynchronizedRootGroup section */
+
 /* Begin PBXFrameworksBuildPhase section */
+		3168293E2DBA38DA00E9FD9D /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				316829512DBA394B00E9FD9D /* AmigosChat in Frameworks */,
+				31EE02162DE48F13006DDC42 /* AmigosShared in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		504EC3011FED79650016851F /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 				D793A0B82D478809008AAD5A /* AmigosChat in Frameworks */,
-				2D445478A41A060101B76A25 /* Pods_Amigos.framework in Frameworks */,
+				31EE02182DE48F4B006DDC42 /* AmigosShared in Frameworks */,
+				2D493B40E1B7A3A0E35F19BD /* Pods_Amigos.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -119,12 +183,19 @@
 		2202CC72E50A5C7B7789ED71 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				5CA3C1995500D8E91FB7772D /* Pods-App.debug.xcconfig */,
-				D70765C1FC7C2F834D68B5F2 /* Pods-App.release.xcconfig */,
 				D37AEC20C1B4531B05D5DC81 /* Pods-Amigos.debug.xcconfig */,
 				288CFD35D914FE59CC0CD026 /* Pods-Amigos.release.xcconfig */,
 			);
 			path = Pods;
+			sourceTree = "<group>";
+		};
+		31A5E6702DC3811800C19433 /* Store */ = {
+			isa = PBXGroup;
+			children = (
+				31A5E66E2DC380A300C19433 /* LocalChatApiKeyStore.swift */,
+				31A5E6632DC369F800C19433 /* LocalChatTokenStore.swift */,
+			);
+			path = Store;
 			sourceTree = "<group>";
 		};
 		31B020D62CE25C3400198BDB /* NotificationHandler */ = {
@@ -158,6 +229,7 @@
 			isa = PBXGroup;
 			children = (
 				504EC3061FED79650016851F /* App */,
+				316829422DBA38DA00E9FD9D /* NotificationService */,
 				504EC3051FED79650016851F /* Products */,
 				2202CC72E50A5C7B7789ED71 /* Pods */,
 				FFF9CFE96C36CF04DBF4EF19 /* Frameworks */,
@@ -168,6 +240,7 @@
 			isa = PBXGroup;
 			children = (
 				504EC3041FED79650016851F /* Amigos.app */,
+				316829412DBA38DA00E9FD9D /* NotificationService.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -175,6 +248,7 @@
 		504EC3061FED79650016851F /* App */ = {
 			isa = PBXGroup;
 			children = (
+				BE870E5FFB84E7BF36B5F28A /* App+Chat */,
 				31B020D62CE25C3400198BDB /* NotificationHandler */,
 				45B61B812BE4C8C700B2EC61 /* Fonts */,
 				FE9E807227A2A43C00360DFF /* public */,
@@ -197,7 +271,6 @@
 				45DDDB7128DC526D002BFCE9 /* ExtendedFacebookPlugin.swift */,
 				45DDDB7328DC527A002BFCE9 /* ExtendedFacebookPlugin.m */,
 				4511D14528CB7F9C001961E4 /* App-Bridging-Header.h */,
-				BE870E5FFB84E7BF36B5F28A /* App+Chat */,
 			);
 			path = App;
 			sourceTree = "<group>";
@@ -205,6 +278,7 @@
 		BE870E5FFB84E7BF36B5F28A /* App+Chat */ = {
 			isa = PBXGroup;
 			children = (
+				31A5E6702DC3811800C19433 /* Store */,
 				1374B7E8AE3D71FB4C1EE1EA /* CAPKeychainLoader.swift */,
 				2E58E14D133ABA03CF36A375 /* CurrentUserModel.swift */,
 				1A3BFEAD36359B174E7FE592 /* CapacitorTokenLoader.swift */,
@@ -219,7 +293,9 @@
 		FFF9CFE96C36CF04DBF4EF19 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				2310EDFDD10933B81CE88904 /* Pods_Amigos.framework */,
+				316829052DB90D4F00E9FD9D /* UserNotifications.framework */,
+				316829072DB90D4F00E9FD9D /* UserNotificationsUI.framework */,
+				48822AA27B06A141DA02D04F /* Pods_Amigos.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -227,6 +303,30 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		316829402DBA38DA00E9FD9D /* NotificationService */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 3168294A2DBA38DA00E9FD9D /* Build configuration list for PBXNativeTarget "NotificationService" */;
+			buildPhases = (
+				3168293D2DBA38DA00E9FD9D /* Sources */,
+				3168293E2DBA38DA00E9FD9D /* Frameworks */,
+				3168293F2DBA38DA00E9FD9D /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			fileSystemSynchronizedGroups = (
+				316829422DBA38DA00E9FD9D /* NotificationService */,
+			);
+			name = NotificationService;
+			packageProductDependencies = (
+				316829502DBA394B00E9FD9D /* AmigosChat */,
+				31EE02152DE48F13006DDC42 /* AmigosShared */,
+			);
+			productName = NotificationService;
+			productReference = 316829412DBA38DA00E9FD9D /* NotificationService.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
 		504EC3031FED79650016851F /* Amigos */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 504EC3161FED79650016851F /* Build configuration list for PBXNativeTarget "Amigos" */;
@@ -238,14 +338,17 @@
 				31194AFE2CFF5A6A00E008D4 /* ShellScript */,
 				59321AE5034EAB7C2C0BC59A /* [CP] Embed Pods Frameworks */,
 				965E003822A444BA436952E8 /* [CP] Copy Pods Resources */,
+				316829132DB90D4F00E9FD9D /* Embed Foundation Extensions */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				316829472DBA38DA00E9FD9D /* PBXTargetDependency */,
 			);
 			name = Amigos;
 			packageProductDependencies = (
 				D793A0B72D478809008AAD5A /* AmigosChat */,
+				31EE02172DE48F4B006DDC42 /* AmigosShared */,
 			);
 			productName = App;
 			productReference = 504EC3041FED79650016851F /* Amigos.app */;
@@ -257,9 +360,12 @@
 		504EC2FC1FED79650016851F /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 1520;
+				LastSwiftUpdateCheck = 1630;
 				LastUpgradeCheck = 0920;
 				TargetAttributes = {
+					316829402DBA38DA00E9FD9D = {
+						CreatedOnToolsVersion = 16.2;
+					};
 					504EC3031FED79650016851F = {
 						CreatedOnToolsVersion = 9.2;
 						LastSwiftMigration = 1340;
@@ -268,7 +374,6 @@
 				};
 			};
 			buildConfigurationList = 504EC2FF1FED79650016851F /* Build configuration list for PBXProject "App" */;
-			compatibilityVersion = "Xcode 8.0";
 			developmentRegion = nl;
 			hasScannedForEncodings = 0;
 			knownRegions = (
@@ -281,16 +386,25 @@
 				ko,
 			);
 			mainGroup = 504EC2FB1FED79650016851F;
+			preferredProjectObjectVersion = 77;
 			productRefGroup = 504EC3051FED79650016851F /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
 				504EC3031FED79650016851F /* Amigos */,
+				316829402DBA38DA00E9FD9D /* NotificationService */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		3168293F2DBA38DA00E9FD9D /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		504EC3021FED79650016851F /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -364,10 +478,10 @@
 			buildActionMask = 2147483647;
 			files = (
 			);
-			inputPaths = (
+			inputFileListPaths = (
 			);
 			name = "[CP] Embed Pods Frameworks";
-			outputPaths = (
+			outputFileListPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -379,10 +493,10 @@
 			buildActionMask = 2147483647;
 			files = (
 			);
-			inputPaths = (
+			inputFileListPaths = (
 			);
 			name = "[CP] Copy Pods Resources";
-			outputPaths = (
+			outputFileListPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -392,6 +506,13 @@
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		3168293D2DBA38DA00E9FD9D /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		504EC3001FED79650016851F /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -399,6 +520,7 @@
 				4525C7872BEA2AA700DC197F /* BranchDeepLinks.swift in Sources */,
 				504EC3081FED79650016851F /* AppDelegate.swift in Sources */,
 				45DDDB7228DC526D002BFCE9 /* ExtendedFacebookPlugin.swift in Sources */,
+				31A5E66F2DC380A700C19433 /* LocalChatApiKeyStore.swift in Sources */,
 				504EC3081FED79650016851F /* AppDelegate.swift in Sources */,
 				31B020DA2CE25C8600198BDB /* LaunchAction.swift in Sources */,
 				3178DEB32D105ECA0084708F /* NotificationHandler+CAP+Extension.swift in Sources */,
@@ -411,6 +533,7 @@
 				31B020D82CE25C6800198BDB /* NotificationHandler.swift in Sources */,
 				45DDDB7428DC527A002BFCE9 /* ExtendedFacebookPlugin.m in Sources */,
 				3110E7E1ADE214AC8F7C6A63 /* CapacitorTokenLoader.swift in Sources */,
+				31A5E6642DC36A0400C19433 /* LocalChatTokenStore.swift in Sources */,
 				507AA1A4E46266322DBCCD73 /* CurrentUserDelegate+StreamUserDelegate+Extension.swift in Sources */,
 				EFCFF896C3A60B275773EBD5 /* ChatPushConfig.swift in Sources */,
 				DF04072BB2FB3498AEE664F7 /* CurrentUserModel.swift in Sources */,
@@ -421,6 +544,14 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		316829472DBA38DA00E9FD9D /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 316829402DBA38DA00E9FD9D /* NotificationService */;
+			targetProxy = 316829462DBA38DA00E9FD9D /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		504EC30B1FED79650016851F /* Main.storyboard */ = {
@@ -448,6 +579,84 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		3168294B2DBA38DA00E9FD9D /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CODE_SIGN_ENTITLEMENTS = NotificationService/NotificationService.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = G3578K4W58;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = NotificationService/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = NotificationService;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MARKETING_VERSION = 1.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = com.whoisup.app.NotificationService;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		3168294C2DBA38DA00E9FD9D /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CODE_SIGN_ENTITLEMENTS = NotificationService/NotificationService.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = G3578K4W58;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = NotificationService/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = NotificationService;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MARKETING_VERSION = 1.0;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = com.whoisup.app.NotificationService;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
 		504EC3141FED79650016851F /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -577,7 +786,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.9.18;
+				MARKETING_VERSION = 1.9.19;
 				OTHER_SWIFT_FLAGS = "$(inherited) \"-D\" \"COCOAPODS\" \"-DDEBUG\"";
 				PRODUCT_BUNDLE_IDENTIFIER = com.whoisup.app;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -607,7 +816,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.9.18;
+				MARKETING_VERSION = 1.9.19;
 				PRODUCT_BUNDLE_IDENTIFIER = com.whoisup.app;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -621,6 +830,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		3168294A2DBA38DA00E9FD9D /* Build configuration list for PBXNativeTarget "NotificationService" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				3168294B2DBA38DA00E9FD9D /* Debug */,
+				3168294C2DBA38DA00E9FD9D /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		504EC2FF1FED79650016851F /* Build configuration list for PBXProject "App" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
@@ -642,6 +860,18 @@
 /* End XCConfigurationList section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		316829502DBA394B00E9FD9D /* AmigosChat */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = AmigosChat;
+		};
+		31EE02152DE48F13006DDC42 /* AmigosShared */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = AmigosShared;
+		};
+		31EE02172DE48F4B006DDC42 /* AmigosShared */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = AmigosShared;
+		};
 		D793A0B72D478809008AAD5A /* AmigosChat */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = AmigosChat;

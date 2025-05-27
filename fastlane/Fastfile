@@ -4,7 +4,7 @@ platform :ios do
   desc "Build and upload to TestFlight for internal testing"
   lane :internal do
     # set xcode (build tools) version
-    xcodes(version: "15.4", select_for_current_build_only: true)
+    xcodes(version: "16.2", select_for_current_build_only: true)
     sh("swift --version")
     # generate auth token
     app_store_connect_api_key(
@@ -83,6 +83,6 @@ platform :android do
     # return version
 
     # For now, return the latest version manually.
-    return "1.9.18"
+    return "1.9.19"
   end
 end

@@ -14,8 +14,7 @@ struct NavigationTransitionModifier: ViewModifier {
     func body(content: Content) -> some View {
         if #available(iOS 18.0, *) {
             content
-                // with the xcode 16 version we can make use of this API
-                /* .navigationTransition(.zoom(sourceID: sourceID, in: animation)) */
+                .navigationTransition(.zoom(sourceID: sourceID, in: animation))
         } else {
             content
         }
@@ -29,8 +28,7 @@ struct MatchedTransitionSourceModifier: ViewModifier {
     func body(content: Content) -> some View {
         if #available(iOS 18.0, *) {
             content
-                // with the xcode 16 version we can make use of this API
-               /* .matchedTransitionSource(id: sourceID, in: animation) */
+                .matchedTransitionSource(id: sourceID, in: animation)
         } else {
             content
         }

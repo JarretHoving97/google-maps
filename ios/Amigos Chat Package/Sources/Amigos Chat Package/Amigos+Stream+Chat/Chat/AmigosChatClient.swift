@@ -10,6 +10,14 @@ public class AmigosChatClient: AmigosChatClientProtocol {
         case unauthenticated
     }
 
+    /// For sharing current jwt token across modules
+    /// used for `NotificationService` etc.
+    private var jwtTokenStore: TokenStoreProtocol?
+
+    /// For sharing current api token across modules
+    /// used for `NotificationService` etc.
+    private var apiKeyStore: TokenStoreProtocol?
+
     public let userStore = UserStore(suiteName: "amigos.chat.user")
 
     public typealias loginInfo = LoginInfo
@@ -39,13 +47,16 @@ public class AmigosChatClient: AmigosChatClientProtocol {
         tokenProvider: TokenProvider,
         pushConfig: ChatPushConfig,
         userDelegate: CurrentChatUserControllerDelegate,
-        keychainLoader: KeychainLoader
+        keychainLoader: KeychainLoader,
+        jwtTokenStore: TokenStoreProtocol? = nil,
+        apiKeyStore: TokenStoreProtocol? = nil
     ) {
         self.config = config
         self.tokenProvider = tokenProvider
+        self.jwtTokenStore = jwtTokenStore
+        self.apiKeyStore = apiKeyStore
         self.pushConfig = pushConfig
         self.userDelegate = userDelegate
-
         /// initialze client
         var streamClientConfig = ChatClientConfig(apiKey: APIKey(config.apiKey))
         streamClientConfig.isLocalStorageEnabled = config.isLocalStorageEnabled
@@ -67,8 +78,12 @@ public class AmigosChatClient: AmigosChatClientProtocol {
             apiUrl: URL(string: config.environment.amigosApiUrl)!,
             url: (URL(string: config.environment.env)!)
         )
+        
         KeychainController.setJwtLoader(keychainLoader)
         ChatControllers.configureClient(client: chatClient)
+
+        // store api key in shared module
+        apiKeyStore?.set(config.apiKey)
     }
 
     func verifyUserStore(userId: String) -> Bool {
@@ -162,11 +177,20 @@ public class AmigosChatClient: AmigosChatClientProtocol {
     }
 
     private func streamTokenProvider() -> (@escaping (Result<Token, Error>) -> Void) -> Void {
-        return  { [weak self] completion in
+        return { [weak self, jwtTokenStore] completion in
             self?.tokenProvider.loadToken { result in
                 let mappedResult = result.flatMap { localToken in
-                    Result { try localToken.toStreamChatToken() }
+                    Result {
+                        let streamToken = try localToken.toStreamChatToken()
+                        jwtTokenStore?.set(streamToken.rawValue) // Store the token
+                        return streamToken
+                    }
                 }
+
+                if case .failure = mappedResult {
+                    jwtTokenStore?.set(nil) // Clear the token on failure
+                }
+
                 completion(mappedResult)
             }
         }

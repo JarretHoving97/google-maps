@@ -101,9 +101,9 @@ extension MessageView {
                     )
                 )
                 .multilineTextAlignment(.leading)
-                .frame(alignment: .leading)
                 /// when `attachmentsPadding` is zero. We need to add an other padding because we don't want the same padding when there are any attachments or quoted messages
                 .padding(attachmentsPadding == EdgeInsets(.zero) ? defaultTextPadding : EdgeInsets(.zero))
+                .frame(width: viewModel.hasAttachment ? maxWidth : nil, alignment: .leading)
             } else {
                 EmptyView()
             }
@@ -122,14 +122,16 @@ extension MessageView {
                         videoPreviewLoader: viewModel.videoPreviewLoader
                     )
                 )
+                .frame(maxWidth: viewModel.hasAttachment ? maxWidth : .infinity, alignment: .leading)
+                .background(.black.opacity(0.1))
                 .clipShape(RoundedRectangle(cornerRadius: 18))
                 /// custom padding calculation
                 .padding(
                     attachmentsPadding == EdgeInsets(.zero) ? EdgeInsets(
-                        top: 4,
-                        leading: 4,
-                        bottom: 4,
-                        trailing: 2
+                        top: 0,
+                        leading: 0,
+                        bottom: 2,
+                        trailing: 0
                     ) :  EdgeInsets(
                         top: -2,
                         leading: -10,
@@ -141,8 +143,6 @@ extension MessageView {
                 .onTapGesture {
                     onQuotedMessageTap?(message.id)
                 }
-            } else {
-                EmptyView()
             }
         }
     }
