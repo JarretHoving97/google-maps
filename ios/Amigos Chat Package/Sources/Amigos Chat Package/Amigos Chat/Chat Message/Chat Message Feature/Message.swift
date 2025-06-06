@@ -11,11 +11,13 @@ public struct LocalUser {
     let id: UUID
     let name: String
     let isModerator: Bool
+    var imageUrl: URL?
 
-    public init(id: UUID, name: String, isModerator: Bool = false) {
+    public init(id: UUID, name: String, imageUrl: URL? = nil, isModerator: Bool = false) {
         self.id = id
         self.name = name
         self.isModerator = isModerator
+        self.imageUrl = imageUrl
     }
 }
 
@@ -33,6 +35,8 @@ public struct Message {
 
     public let attachments: [LocalChatMessageAttachment]
 
+    public let reactions: [ReactionType: Int]
+
     public let layoutKey: String?
 
     public var quotedMessage: Message? {
@@ -41,15 +45,22 @@ public struct Message {
 
     private let _quotedMessage: (() -> Message?)?
 
+    public var localState: LocalState?
+
+    let createdAt: Date
+
     public init(
         id: String = UUID().uuidString,
-        user: LocalUser = LocalUser(id: UUID(), name: ""),
+        user: LocalUser = LocalUser(id: UUID(), name: "", imageUrl: nil),
         isSentByCurrentUser: Bool = false,
         message: String = "",
         quotedMessage: (() -> Message?)? = nil,
+        reactions: [ReactionType: Int] = [:],
         isDeleted: Bool = false,
         attachments: [LocalChatMessageAttachment] = [],
-        layoutKey: String? = nil
+        layoutKey: String? = nil,
+        localState: LocalState? = nil,
+        createdAt: Date = Date()
 
     ) {
         self.id = id
@@ -57,9 +68,12 @@ public struct Message {
         self.text = message
         self.isDeleted = isDeleted
         self.attachments = attachments
+        self.reactions = reactions
         self._quotedMessage = quotedMessage
         self.user = user
         self.layoutKey = layoutKey
+        self.localState = localState
+        self.createdAt = createdAt
     }
 }
 

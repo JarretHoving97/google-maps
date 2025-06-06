@@ -136,6 +136,7 @@ public struct CustomReactionsOverlayView<Factory: ViewFactory>: View {
                                 message: viewModel.message,
                                 contentRect: messageDisplayInfo.frame,
                                 onReactionTap: { reaction in
+                                    
                                     dismissReactionsOverlay {
                                         viewModel.reactionTapped(reaction)
                                     }

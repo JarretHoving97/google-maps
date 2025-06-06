@@ -144,21 +144,6 @@ extension CustomUIFactory: ViewFactory {
         )
     }
 
-    public func makeBottomReactionsView(
-        message: ChatMessage,
-        showsAllInfo: Bool,
-        onTap: @escaping () -> Void,
-        onLongPress: @escaping () -> Void
-    ) -> some View {
-        CustomBottomReactionsView(
-            message: message,
-            showsAllInfo: showsAllInfo,
-            onTap: onLongPress,
-            onLongPress: onLongPress
-        )
-        .id(message.reactionScoresId)
-    }
-
     public typealias LeadingComposerViewType = CustomAttachmentPickerTypeView
 
     public func makeLeadingComposerView(
@@ -252,35 +237,6 @@ extension CustomUIFactory: ViewFactory {
 
     public func makeComposerRecordingTipView() -> CustomRecordingTipView {
         CustomRecordingTipView()
-    }
-
-    // MARK: Message-related Views
-
-    public typealias MessageContainerViewType = CustomMessageContainerView<CustomUIFactory>
-
-    public func makeMessageContainerView(
-        channel: ChatChannel,
-        message: ChatMessage,
-        width: CGFloat?,
-        showsAllInfo: Bool,
-        isInThread: Bool,
-        scrolledId: Binding<String?>,
-        quotedMessage: Binding<ChatMessage?>,
-        onLongPress: @escaping (StreamChatSwiftUI.MessageDisplayInfo) -> Void,
-        isLast: Bool
-    ) -> CustomMessageContainerView<CustomUIFactory> {
-        CustomMessageContainerView(
-            factory: self,
-            channel: channel,
-            message: message,
-            width: width,
-            showsAllInfo: showsAllInfo,
-            isInThread: isInThread,
-            isLast: isLast,
-            scrolledId: scrolledId,
-            quotedMessage: quotedMessage,
-            onLongPress: onLongPress
-        )
     }
 
     public typealias MessageDateViewType = CustomMessageDateView

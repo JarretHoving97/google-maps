@@ -167,6 +167,7 @@ struct CustomChatChannelMessageListView<Factory: ViewFactory>: View {
                     viewModel.reactionsShown = false
                     messageDisplayInfo = nil
                 }, onActionExecuted: { actionInfo in
+
                     viewModel.messageActionExecuted(actionInfo)
                     messageDisplayInfo = nil
                 }

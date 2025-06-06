@@ -22,13 +22,24 @@ public class MessageMapper {
             user: remoteMessage.user.toLocal(),
             isSentByCurrentUser: remoteMessage.isSentByCurrentUser,
             message: remoteMessage.text,
-            quotedMessage: quotedMessageMapper.mapQuotedMessageFactory(
-                quotedMessage: remoteMessage.localQuotedMessage,
-                attachmentsMapper: attachmentsMapper
-            ),
+            quotedMessage: quotedMessageMapper
+                .mapQuotedMessageFactory(
+                    quotedMessage: remoteMessage.localQuotedMessage,
+                    attachmentsMapper: attachmentsMapper
+                ),
+            reactions: Dictionary(
+                uniqueKeysWithValues: remoteMessage.reactions.map { (ReactionType(rawValue: $0.key), $0.value)}),
             isDeleted: remoteMessage.isDeleted,
-            attachments: attachmentsMapper.mapAttachmentsFactory(remoteMessage.attachments),
-            layoutKey: remoteMessage.layoutKey
+            attachments: attachmentsMapper
+                .mapAttachmentsFactory(
+                    remoteMessage.attachments
+                ),
+            layoutKey: remoteMessage.layoutKey,
+            localState: Message
+                .LocalState(
+                    rawValue: remoteMessage.sendingState ?? ""
+                ),
+            createdAt: remoteMessage.createdAt
         )
     }
 }
@@ -44,6 +55,7 @@ struct QuotedMessageMapper {
                     id: quotedMessage.id,
                     user: quotedMessage.user.toLocal(),
                     message: quotedMessage.textContent ?? "",
+                    reactions: Dictionary(uniqueKeysWithValues: quotedMessage.reactions.map { (ReactionType(rawValue: $0.key), $0.value)}),
                     isDeleted: quotedMessage.isDeleted,
                     attachments: attachmentsMapper.mapAttachmentsFactory(quotedMessage.attachments)
                 )

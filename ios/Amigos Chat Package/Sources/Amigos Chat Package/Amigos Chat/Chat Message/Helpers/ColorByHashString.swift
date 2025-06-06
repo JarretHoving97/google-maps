@@ -7,7 +7,6 @@
 
 import SwiftUI
 
-
 func colorByString(_ str: String) -> Color {
     let colors: [Color] = [
         Color(red: 0xE5/255, green: 0x1C/255, blue: 0x23/255),

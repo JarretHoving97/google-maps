@@ -39,6 +39,7 @@ struct LazyLoadImage: View, Equatable {
     var resize: Bool = true
     let width: CGFloat
     let height: CGFloat
+
     var onImageLoaded: (UIImage) -> Void = { _ in /* Default implementation. */ }
 
     static func == (lhs: LazyLoadImage, rhs: LazyLoadImage) -> Bool {

@@ -17,6 +17,9 @@ public protocol ChatMessageProtocol {
     var isDeleted: Bool { get }
     var attachments: [ChatMessageAttachmentProtocol] { get }
     var layoutKey: String? { get }
+    var sendingState: String? { get }
+    var createdAt: Date { get }
+    var reactions: [String: Int] { get }
     var textContent: String? { get }
 }
 
@@ -28,13 +31,19 @@ public protocol ChatMessageAttachmentProtocol {
 public protocol Author {
     var userId: UUID { get }
     var name: String? { get }
+    var imageURL: URL? { get }
     var role: any AnyRole { get }
 }
 
 extension Author {
 
     func toLocal() -> LocalUser {
-        LocalUser(id: userId, name: name ?? "", isModerator: role.rawValue == "moderator" )
+        LocalUser(
+            id: userId,
+            name: name ?? "",
+            imageUrl: imageURL,
+            isModerator: role.rawValue == "moderator"
+        )
     }
 }
 

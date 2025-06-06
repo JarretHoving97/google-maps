@@ -50,11 +50,17 @@ public class MessageViewModel: ObservableObject {
     }
 
     var mediaAttachments: [MediaAttachment] {
-        message.attachments.compactMap { $0.mediaAttachment(with: imageLoader, cdn: imageCDN, videoPreviewLoader: videoPreviewLoader) }
+        return _mediaAttachments
     }
 
+    private lazy var _mediaAttachments: [MediaAttachment] = {
+        return message.attachments.compactMap {
+            $0.mediaAttachment(with: imageLoader, cdn: imageCDN, videoPreviewLoader: videoPreviewLoader)
+        }
+    }()
+
     var asSuperEmoji: Bool {
-        messageText.containsOnlyEmoji && message.text.count <= 3
+        messageText.containsOnlyEmoji && message.text.count <= 3 && !hasAttachment
     }
 
     var hasAttachment: Bool {

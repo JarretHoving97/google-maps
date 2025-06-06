@@ -2,11 +2,18 @@ import StreamChat
 import SwiftUI
 import StreamChatSwiftUI
 
+class CustomMessageListViewModel: ObservableObject {
+    @Published var showReactionsSheet: Bool = false
+    @Published var reactionsForMessage: ChatMessage?
+}
+
 public struct CustomMessageListView<Factory: ViewFactory>: View {
 
     @Injected(\.utils) private var utils
     @Injected(\.chatClient) private var chatClient
     @Injected(\.colors) private var colors
+
+    @StateObject private var viewModel = CustomMessageListViewModel()
 
     private let firstMessageKey = "firstMessage"
     private let lastMessageKey = "lastMessage"
@@ -83,8 +90,8 @@ public struct CustomMessageListView<Factory: ViewFactory>: View {
         channel: ChatChannel
     ) -> Bool {
         guard channel.memberCount > 2
-            && !message.isSentByCurrentUser
-            && (lastInGroupHeaderSize > 0) else {
+                && !message.isSentByCurrentUser
+                && (lastInGroupHeaderSize > 0) else {
             return false
         }
         let groupInfo = messagesGroupingInfo[message.id] ?? []
@@ -117,28 +124,17 @@ public struct CustomMessageListView<Factory: ViewFactory>: View {
         return groupInfo.contains(firstMessageKey) == true
     }
 
-    private func handleLongPress(messageDisplayInfo: MessageDisplayInfo) {
-        if keyboardShown {
-            resignFirstResponder()
-            let updatedFrame = CGRect(
-                x: messageDisplayInfo.frame.origin.x,
-                y: messageDisplayInfo.frame.origin.y,
-                width: messageDisplayInfo.frame.width,
-                height: messageDisplayInfo.frame.height
-            )
+    private func handleLongPress(message: ChatMessage, frame: CGRect) {
+        resignFirstResponder()
 
-            let updatedDisplayInfo = MessageDisplayInfo(
-                message: messageDisplayInfo.message,
-                frame: updatedFrame,
-                contentWidth: messageDisplayInfo.contentWidth,
-                isFirst: messageDisplayInfo.isFirst,
-                keyboardWasShown: true
-            )
-
-            onLongPress(updatedDisplayInfo)
-        } else {
-            onLongPress(messageDisplayInfo)
-        }
+        let updatedDisplayInfo = MessageDisplayInfo(
+            message: message,
+            frame: frame,
+            contentWidth: frame.width,
+            isFirst: showsAllData(for: message),
+            keyboardWasShown: true
+        )
+        onLongPress(updatedDisplayInfo)
     }
 
     public var body: some View {
@@ -150,18 +146,54 @@ public struct CustomMessageListView<Factory: ViewFactory>: View {
             messageIsFirstUnread &&
             !isMessageThread
             let showsLastInGroupInfo = showsLastInGroupInfo(for: message, channel: channel)
-            factory.makeMessageContainerView(
-                channel: channel,
-                message: message,
-                width: width,
-                showsAllInfo: showsAllData(for: message),
-                isInThread: isMessageThread,
-                scrolledId: $scrolledId,
-                quotedMessage: $quotedMessage,
-                onLongPress: handleLongPress(messageDisplayInfo:),
-                isLast: !showsLastInGroupInfo && message == messages.last
+
+            var isRead: Bool {
+                // Check if the current user has read the message
+                let readUsers = channel.readUsers(currentUserId: chatClient.currentUserId, message: message)
+                return readUsers.contains(where: { $0.id == chatClient.currentUserId })
+            }
+
+            var isReadByAll: Bool {
+                // Filter out current user from last active members
+                let readUsers = channel.readUsers(currentUserId: chatClient.currentUserId, message: message)
+                let memberIds = channel.lastActiveMembers.map(\.id).filter { $0 != message.author.id }
+                return memberIds.allSatisfy { memberId in
+                    readUsers.contains(where: { $0.id == memberId })
+                }
+            }
+
+            MessageContainerComposer.compose(
+                with: message,
+                width: width ?? .messageWidth,
+                showsAllinfo: showsAllData(for: message),
+                isLast: !showsLastInGroupInfo && message == messages.last,
+                isDirectMessageChat: channel.isDirectMessageChannel,
+                isRead: isRead,
+                isReadByAll: isReadByAll,
+                onQuotedMessageTap: { id in scrolledId = id },
+                onMessageReply: { quoteMessage(message: message) },
+                onReactionsTap: { id in
+                    viewModel.reactionsForMessage = messages.first(where: {$0.id == id})
+                },
+                onLongPress: { frame in
+                    handleLongPress(message: message, frame: frame)
+                }
             )
+            .padding(
+                .top,
+                messageDate != nil ?
+                offsetForDateIndicator(
+                    showsLastInGroupInfo: showsLastInGroupInfo,
+                    showUnreadSeparator: showUnreadSeparator
+                ) :
+                    additionalTopPadding(
+                        showsLastInGroupInfo: showsLastInGroupInfo,
+                        showUnreadSeparator: showUnreadSeparator
+                    )
+            )
+
             .onAppear {
+
                 if index == nil {
                     index = messageListDateUtils.index(for: message, in: messages)
                 }
@@ -181,6 +213,17 @@ public struct CustomMessageListView<Factory: ViewFactory>: View {
                         showUnreadSeparator: showUnreadSeparator
                     )
             )
+
+            .onAppear {
+
+                if index == nil {
+                    index = messageListDateUtils.index(for: message, in: messages)
+                }
+                if let index = index {
+                    onMessageAppear(index, scrollDirection)
+                }
+            }
+
             .overlay(
                 (messageDate != nil || showsLastInGroupInfo || showUnreadSeparator) ?
                 VStack(spacing: 0) {
@@ -215,5 +258,34 @@ public struct CustomMessageListView<Factory: ViewFactory>: View {
             .animation(nil, value: messageDate != nil)
         }
         .id(listId)
+        .sheet(isPresented: $viewModel.reactionsForMessage.toBoolBinding) {
+            CustomReactionsUsersSheetView(
+                isPresented: $viewModel.reactionsForMessage.toBoolBinding,
+                viewModel: ReactionsOverlayViewModel(
+                    message:  viewModel.reactionsForMessage!
+                )
+            )
+        }
+    }
+
+    private func quoteMessage(message: ChatMessage) {
+        // prevents from haptic feedback spamming
+        if self.quotedMessage != message {
+            triggerHapticFeedback(style: .medium)
+        }
+        self.quotedMessage = message
+    }
+}
+
+// MARK: - Temporary extension as we need to get rid of `ChatMessage` in the future`
+extension Binding where Value == ChatMessage? {
+    var toBoolBinding: Binding<Bool> {
+        Binding<Bool>.init {
+            self.wrappedValue != nil
+        } set: { value in
+            if !value {
+                self.wrappedValue = nil
+            }
+        }
     }
 }

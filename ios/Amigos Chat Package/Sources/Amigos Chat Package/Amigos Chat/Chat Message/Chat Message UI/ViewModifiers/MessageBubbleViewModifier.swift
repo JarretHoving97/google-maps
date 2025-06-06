@@ -36,7 +36,7 @@ struct MessageBubbleViewModifier: ViewModifier {
             .background(background.opacity(hidden ? 0 : 1))
             .clipShape(
                 BubbleBackgroundShape(
-                    cornerRadius: cornerRadius,
+                    cornerRadius: !hidden ? cornerRadius : 0,
                     corners: corners
                 )
             )

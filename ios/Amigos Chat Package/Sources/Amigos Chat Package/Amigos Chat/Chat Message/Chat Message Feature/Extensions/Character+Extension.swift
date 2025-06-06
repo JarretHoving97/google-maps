@@ -5,7 +5,6 @@
 //  Created by Jarret on 19/02/2025.
 //
 
-
 extension Character {
     /// Returns whether the character is an emoji
     ///

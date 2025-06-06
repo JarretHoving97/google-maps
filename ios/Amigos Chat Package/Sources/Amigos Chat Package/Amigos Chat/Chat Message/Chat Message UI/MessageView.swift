@@ -27,19 +27,24 @@ struct MessageView: View {
         trailing: 16
     )
 
-    let maxWidth: CGFloat = .messageWidth
+    let maxWidth: CGFloat
 
-    init(viewModel: MessageViewModel, onQuotedMessageTap: ((String) -> Void)? = nil) {
+    init(
+        viewModel: MessageViewModel,
+        maxWidth: CGFloat = .messageWidth,
+        onQuotedMessageTap: ((String) -> Void)? = nil
+    ) {
         self.viewModel = viewModel
-        viewModel.resolveMessageType()
         self.onQuotedMessageTap = onQuotedMessageTap
+        self.maxWidth = maxWidth
+        viewModel.resolveMessageType()
     }
 
     var body: some View {
         if viewModel.isDeleted {
 
             LocalDeletedMessageView(
-                isRightAligned: viewModel.isFirst,
+                isRightAligned: viewModel.isSentByCurrentUser,
                 isSentByCurrentUser: viewModel.isSentByCurrentUser
             )
             .modifier(bubbleResolvedModifier)
@@ -140,6 +145,7 @@ extension MessageView {
                     )
                 )
                 .fixedSize(horizontal: false, vertical: true)
+
                 .onTapGesture {
                     onQuotedMessageTap?(message.id)
                 }
@@ -177,7 +183,10 @@ extension MessageView {
     private var singleMediaAttachmentView: some View {
         Group {
             if let viewData = viewModel.singleMediaAttachment {
-                SingleMediaAttachmentView(viewModel: viewData)
+                SingleMediaAttachmentView(
+                    viewModel: viewData,
+                    maxWidth: maxWidth
+                )
             }
         }
     }
@@ -212,14 +221,15 @@ extension MessageView {
                     viewModel: CustomShareLocationMessageViewModel(
                         location: location,
                         user: viewModel.author
-                    )
+                    ),
+                    width: maxWidth
                 )
 
                 .clipShape(
                     RoundedRectangle(
                         cornerRadius: attachmentsPadding != EdgeInsets(
                             .zero
-                        ) ? 18 : 0
+                        ) || viewModel.quotedMessage != nil ? 18 : 0
                     )
                 )
 
@@ -227,7 +237,7 @@ extension MessageView {
                     RoundedRectangle(
                         cornerRadius: attachmentsPadding != EdgeInsets(
                             .zero
-                        ) ? 18 : 0
+                        )  ? 18 : 0
                     )
                     .stroke(
                         .white,

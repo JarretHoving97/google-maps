@@ -124,14 +124,14 @@ public struct CustomMessageContainerView<Factory: ViewFactory>: View {
                         )
                     }
 
-                    MessageViewComposer.composeWith(
-                        with: message,
-                        isFirst: showsAllInfo,
-                        forceLeftToRight: false,
-                        onQuotedMessageTap: { id in
-                            scrolledId = id
-                        }
-                    )
+                   CustomMessageView(
+                       factory: factory,
+                       channel: channel,
+                       message: message,
+                       contentWidth: contentWidth,
+                       isFirst: showsAllInfo,
+                       scrolledId: $scrolledId
+                   )
                     .overlay(
                         ZStack {
                             topReactionsShown ?
