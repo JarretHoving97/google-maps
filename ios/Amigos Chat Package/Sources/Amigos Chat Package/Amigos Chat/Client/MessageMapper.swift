@@ -43,7 +43,8 @@ struct QuotedMessageMapper {
                 Message(
                     id: quotedMessage.id,
                     user: quotedMessage.user.toLocal(),
-                    message: quotedMessage.text,
+                    message: quotedMessage.textContent ?? "",
+                    isDeleted: quotedMessage.isDeleted,
                     attachments: attachmentsMapper.mapAttachmentsFactory(quotedMessage.attachments)
                 )
             }

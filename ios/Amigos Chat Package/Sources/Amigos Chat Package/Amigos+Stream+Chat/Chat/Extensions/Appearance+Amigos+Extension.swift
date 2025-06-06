@@ -19,7 +19,7 @@ public extension Appearance {
         colors.messageOtherUserBackground = [UIColor.white]
         colors.messageCurrentUserTextColor = UIColor.white
         colors.tintColor = Color("Purple")
-        colors.background = UIColor(Color("Pale"))
+        colors.background = .white
 
         let images = Images()
 
