@@ -3,9 +3,9 @@ opt_out_usage
 platform :ios do
   desc "Build and upload to TestFlight for internal testing"
   lane :internal do
-    # set xcode (build tools) version
-    xcodes(version: "16.2", select_for_current_build_only: true)
+    # log versions used
     sh("swift --version")
+    sh("xcodebuild -version")
     # generate auth token
     app_store_connect_api_key(
       issuer_id: ENV["ISSUER_ID"],
@@ -27,15 +27,40 @@ platform :ios do
       build_number: last_app_store_build_number + 1,
       xcodeproj: "ios/App/App.xcodeproj"
     )
+
+    # update project provisioning `NotificationService` target manually
+    update_project_provisioning(
+     xcodeproj: "ios/App/App.xcodeproj",
+     profile: "/Users/runner/Library/MobileDevice/Provisioning Profiles/com.whoisup.app.notificationservice.mobileprovision",
+     target_filter: "NotificationService",
+     build_configuration: "Release",
+     code_signing_identity: "Apple Distribution"
+    )
+
     # manual code signing
+
+    # Main App
     update_code_signing_settings(
       use_automatic_signing: false,
       path: "ios/App/App.xcodeproj",
+      targets: ["Amigos"],
       team_id: "G3578K4W58",
       code_sign_identity: "Apple Distribution",
       bundle_identifier: "com.whoisup.app",
       profile_name: "GitHub Actions Distribution"
     )
+    
+    # NotificationService Extension
+    update_code_signing_settings(
+      use_automatic_signing: false,
+      path: "ios/App/App.xcodeproj",
+      targets: ["NotificationService"],
+      team_id: "G3578K4W58",
+      code_sign_identity: "Apple Distribution",
+      bundle_identifier: "com.whoisup.app.NotificationService",
+      profile_name: "GitHub Actions Distribution - Notification Service"
+    )
+
     build_app(
       workspace: "ios/App/App.xcworkspace",
       scheme: "App",
@@ -44,7 +69,8 @@ platform :ios do
       export_method: "app-store", # or "development" or "ad-hoc"
       export_options: {
         provisioningProfiles: {
-          "com.whoisup.app" => "GitHub Actions Distribution"
+          "com.whoisup.app" => "GitHub Actions Distribution",
+ 	  "com.whoisup.app.NotificationService" => "GitHub Actions Distribution - Notification Service",
         }
       } 
     ) 
