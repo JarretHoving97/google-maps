@@ -66,7 +66,7 @@ struct CustomSafetyCheckInfoSheetView: View {
     var body: some View {
         VStack(alignment: .leading, spacing: 24) {
             VStack(alignment: .leading, spacing: 8) {
-                Text("custom.safetyCheck.info.sheet.title")
+                Text(tr("custom.safetyCheck.info.sheet.title"))
                     .font(fonts.title)
 
                 Text(content.subtitle)

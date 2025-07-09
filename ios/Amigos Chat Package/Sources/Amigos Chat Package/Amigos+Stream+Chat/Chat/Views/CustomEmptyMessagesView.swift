@@ -23,7 +23,7 @@ public struct CustomEmptyMessagesView: View {
                     .background(Color("Grey Light"))
                     .clipShape(RoundedRectangle(cornerRadius: 8))
 
-                    Text("custom.channel.emptyState.direct")
+                    Text(tr("custom.channel.emptyState.direct"))
                         .font(fonts.footnote)
                         .foregroundColor(Color("Grey"))
                         .multilineTextAlignment(.center)
@@ -45,7 +45,7 @@ public struct CustomEmptyMessagesView: View {
     }
 
     var groupNotice: some View {
-        Text("custom.channel.emptyState.group")
+        Text(tr("custom.channel.emptyState.group"))
             .font(fonts.footnote)
             .foregroundColor(Color("Grey"))
             .multilineTextAlignment(.center)

@@ -36,7 +36,7 @@ struct CustomChatSuperPowerOnlyNoticeView: View {
     var body: some View {
         if show {
             HStack(spacing: 12) {
-                Text("custom.channel.superNotice")
+                Text(tr("custom.channel.superNotice"))
                     .font(fonts.caption2)
 
                 Spacer()

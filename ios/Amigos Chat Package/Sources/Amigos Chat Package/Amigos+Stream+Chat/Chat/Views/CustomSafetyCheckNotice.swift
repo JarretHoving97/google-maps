@@ -167,10 +167,10 @@ struct CustomNegativeSafetyCheckSheetView: View {
     var body: some View {
         VStack(alignment: .leading, spacing: 24) {
             VStack(alignment: .leading, spacing: 8) {
-                Text("custom.safetyCheck.review.sheet.title")
+                Text(tr("custom.safetyCheck.review.sheet.title"))
                     .font(fonts.title)
 
-                Text("custom.safetyCheck.review.sheet.subtitle")
+                Text(tr("custom.safetyCheck.review.sheet.subtitle"))
                     .fixedSize(horizontal: false, vertical: true)
                     .font(fonts.body)
 
