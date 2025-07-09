@@ -74,7 +74,7 @@ struct AmiReactionRow: View {
                 }
 
                 if reaction.author.id == chatClient.currentUserId {
-                    Text("custom.reactions.tapToRemove")
+                    Text(tr("custom.reactions.tapToRemove"))
                         .font(fonts.caption2)
                         .foregroundColor(Color(colors.textLowEmphasis))
                 }

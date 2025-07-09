@@ -53,7 +53,7 @@ public struct CustomRecordingView: View {
                     }
                 }
 
-                Text("custom.composer.voice.slideToCancel")
+                Text(tr("custom.composer.voice.slideToCancel"))
                     .font(fonts.footnote)
             }
             .foregroundColor(Color(colors.textLowEmphasis))

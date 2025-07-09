@@ -16,7 +16,7 @@ public struct CustomEmptyChannelsView: View {
                     .font(.system(size: 64))
                     .foregroundColor(Color(colors.textLowEmphasis))
 
-                Text("custom.channelList.empty")
+                Text(tr("custom.channelList.empty"))
                     .font(fonts.caption1)
                     .multilineTextAlignment(.center)
                     .foregroundColor(Color(colors.subtitleText))

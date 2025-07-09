@@ -50,7 +50,7 @@ struct AmiTextAreaFieldView: View {
                     }
 
                 if value.isEmpty {
-                    Text("custom.input.textarea.placeholder")
+                    Text(tr("custom.input.textarea.placeholder"))
                         .font(fonts.body)
                         .foregroundColor(Color("Grey Light"))
                         .padding(16)

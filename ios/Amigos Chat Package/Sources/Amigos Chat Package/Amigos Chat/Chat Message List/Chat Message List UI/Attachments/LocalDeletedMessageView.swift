@@ -19,7 +19,7 @@ struct LocalDeletedMessageView: View {
             spacing: 4
         ) {
             HStack(spacing: 6) {
-                Text("message.deleted-message-placeholder")
+                Text(tr("message.deleted-message-placeholder"))
                     .font(.caption)
                     .italic()
 

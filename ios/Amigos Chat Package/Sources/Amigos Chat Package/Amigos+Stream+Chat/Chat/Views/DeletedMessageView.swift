@@ -27,7 +27,7 @@ public struct DeletedMessageView: View {
             spacing: 4
         ) {
             HStack(spacing: 6) {
-                Text("message.deleted-message-placeholder")
+                Text(tr("message.deleted-message-placeholder"))
                     .font(fonts.caption1.italic())
 
                 Image(systemName: "trash.fill")
@@ -55,7 +55,7 @@ public struct DeletedMessageView: View {
                             .frame(maxWidth: 12)
                             .accessibilityIdentifier("onlyVisibleToYouImageView")
 
-                        Text("message.only-visible-to-you")
+                        Text(tr("message.only-visible-to-you"))
                             .font(fonts.footnote)
                             .accessibilityIdentifier("onlyVisibleToYouLabel")
                     }

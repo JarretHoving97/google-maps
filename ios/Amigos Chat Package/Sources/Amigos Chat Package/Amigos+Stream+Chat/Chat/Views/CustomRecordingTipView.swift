@@ -7,7 +7,7 @@ public struct CustomRecordingTipView: View {
     @Injected(\.fonts) private var fonts
 
     public var body: some View {
-        Text("custom.composer.record.holdAndRelease")
+        Text(tr("custom.composer.record.holdAndRelease"))
             .font(fonts.caption2)
             .padding(.horizontal, 16)
             .padding(.vertical, 12)

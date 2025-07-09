@@ -76,7 +76,7 @@ struct CustomPinnedMessage: View {
                             .foregroundColor(.white)
                             .frame(maxWidth: 8, maxHeight: 12)
 
-                        Text("custom.pinnedMessage.title")
+                        Text(tr("custom.pinnedMessage.title"))
                             .font(fonts.caption1.bold())
                             .foregroundColor(.white)
                     }
@@ -169,10 +169,10 @@ struct CustomEditPinnedMessageSheetView: View {
     var body: some View {
         VStack(alignment: .leading, spacing: 24) {
             VStack(alignment: .leading, spacing: 8) {
-                Text("custom.pinnedMessage.title")
+                Text(tr("custom.pinnedMessage.title"))
                     .font(fonts.title)
 
-                Text("custom.pinnedMessage.subtitle")
+                Text(tr("custom.pinnedMessage.subtitle"))
                     .fixedSize(horizontal: false, vertical: true)
                     .font(fonts.body)
             }
