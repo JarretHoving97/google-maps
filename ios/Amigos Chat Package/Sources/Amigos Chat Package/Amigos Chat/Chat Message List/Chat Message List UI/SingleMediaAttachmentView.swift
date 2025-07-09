@@ -57,7 +57,7 @@ struct SingleMediaAttachmentView: View {
                     attachment: imageAttachment,
                     loader: viewModel.imageLoader,
                     imageCDN: viewModel.imageCDN,
-                    width: maxWidth,
+                    width: maxWidth
                 )
                 .matchedTransitionSourceIfAvailable(
                     sourceID: imageAttachment.imageUrl,

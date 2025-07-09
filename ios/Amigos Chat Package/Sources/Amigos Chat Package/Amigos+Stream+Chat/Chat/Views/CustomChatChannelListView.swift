@@ -79,7 +79,7 @@ public struct CustomChatChannelListView<Factory: ViewFactory>: View {
             }
         })
         .background(
-            viewFactory.makeChannelListBackground(colors: colors)
+            Color(.chatBackground)
         )
         .alert(isPresented: $viewModel.alertShown) {
             switch viewModel.channelAlertType {
@@ -128,7 +128,6 @@ public struct CustomChatChannelListView<Factory: ViewFactory>: View {
         }
     }
 }
-
 
 public struct ChatChannelListContentView<Factory: ViewFactory>: View {
 

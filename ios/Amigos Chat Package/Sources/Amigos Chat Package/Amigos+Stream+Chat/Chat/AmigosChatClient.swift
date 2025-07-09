@@ -237,3 +237,17 @@ let customMessageListConfig = MessageListConfig(
     uniqueReactionsEnabled: true,
     markdownSupportEnabled: false
 )
+
+extension MessageListConfig {
+    var local: MessageListDisplayConfiguration {
+        return MessageListDisplayConfiguration(
+            messageDisplayOptions: messageDisplayOptions.local
+        )
+    }
+}
+
+extension MessageDisplayOptions {
+    var local: LocalMessageDisplayOptions {
+        return LocalMessageDisplayOptions(dateLabelSize: dateLabelSize)
+    }
+}

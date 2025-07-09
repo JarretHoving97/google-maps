@@ -100,7 +100,7 @@ public extension Message {
     }
 }
 
-extension Message: Equatable, Hashable {
+extension Message: Equatable, Hashable, Identifiable {
 
     public func hash(into hasher: inout Hasher) {
         hasher.combine(id)

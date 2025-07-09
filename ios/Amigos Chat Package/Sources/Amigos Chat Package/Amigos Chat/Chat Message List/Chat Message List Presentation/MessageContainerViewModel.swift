@@ -7,6 +7,8 @@
 
 import SwiftUI
 
+typealias IsReadByAllHandler = (Message) -> Bool
+
 class MessageContainerViewModel: ObservableObject {
 
     @Published var showReactionsOverlay: Bool = false
@@ -25,7 +27,6 @@ class MessageContainerViewModel: ObservableObject {
 
     let message: Message
     let showsAllInfo: Bool
-    let isMessagePinned: Bool
     let isLast: Bool
     let isDirectMessageChat: Bool
 
@@ -76,29 +77,31 @@ class MessageContainerViewModel: ObservableObject {
 
     let isRead: Bool
 
-    let isReadByAll: Bool
+    private let isReadByAllHandler: IsReadByAllHandler
 
     init(
         message: Message,
         showsAllInfo: Bool,
-        isMessagePinned: Bool,
         isLast: Bool,
         isDirectMessageChat: Bool,
         isRead: Bool = false,
-        isReadByAll: Bool = false,
+        isReadByAllHandler: @escaping IsReadByAllHandler = { _ in false },
         imageLoader: ImageLoader = DefaultImageLoader(),
         imageCDN: ImageCDNhandler = MockImageCDN(),
-        videoPreviewLoader: PreviewVideoLoader = DefaultPreviewVideoLoader(),
+        videoPreviewLoader: PreviewVideoLoader = DefaultPreviewVideoLoader()
     ) {
         self.message = message
         self.showsAllInfo = showsAllInfo
         self.imageLoader = imageLoader
         self.isRead = isRead
-        self.isReadByAll = isReadByAll
+        self.isReadByAllHandler = isReadByAllHandler
         self.imageCDN = imageCDN
         self.videoPreviewLoader = videoPreviewLoader
-        self.isMessagePinned = isMessagePinned
         self.isLast = isLast
         self.isDirectMessageChat = isDirectMessageChat
+    }
+
+    var isReadByAll: Bool {
+        return isReadByAllHandler(message)
     }
 }

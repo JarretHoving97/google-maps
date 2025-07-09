@@ -2,12 +2,26 @@ import StreamChat
 import SwiftUI
 import StreamChatSwiftUI
 
+// bridge
+extension LocalScrollDirection {
+
+    var toStream: ScrollDirection {
+        switch self {
+        case .up:
+            return .up
+        case .down:
+            return .down
+        }
+    }
+}
+
 public struct CustomMessageListContainerView<Factory: ViewFactory>: View, KeyboardReadable {
 
     @Injected(\.utils) private var utils
     @Injected(\.chatClient) private var chatClient
     @Injected(\.colors) private var colors
 
+    private let firstMessageKey = "firstMessage"
     private let scrollAreaId = "scrollArea"
     private let unknownMessageId = "unknown"
 
@@ -27,6 +41,10 @@ public struct CustomMessageListContainerView<Factory: ViewFactory>: View, Keyboa
     var shouldShowTypingIndicator: Bool
 
     var onMessageAppear: (Int, ScrollDirection) -> Void
+
+    /// used to bridge the onMessageAppear to the stream
+    private var extendedOnMessageAppear: (Int, LocalScrollDirection) -> Void { {onMessageAppear($0, $1.toStream) }}
+
     var onScrollToBottom: () -> Void
     var onLongPress: (MessageDisplayInfo) -> Void
     var onJumpToMessage: ((String) -> Bool)?
@@ -34,8 +52,9 @@ public struct CustomMessageListContainerView<Factory: ViewFactory>: View, Keyboa
     @State private var width: CGFloat?
     @State private var keyboardShown = false
     @State private var pendingKeyboardUpdate: Bool?
-    @State private var scrollDirection = ScrollDirection.up
+    @State private var scrollDirection = MessageListView.ScrollDirection.up
     @State private var unreadMessagesBannerShown = false
+    @State private var messageReactionPresentationInfo: MessageReactionsInfo?
 
     private var messageRenderingUtil = MessageRenderingUtil.shared
     private var skipRenderingMessageIds = [String]()
@@ -111,6 +130,31 @@ public struct CustomMessageListContainerView<Factory: ViewFactory>: View, Keyboa
 
     private var messageCachingUtils = CustomMessageCachingUtils()
 
+    // converts the local long press handler to the 3rd party long press handler
+    // this is needed to handle the long press locally and don't depend on types we don't own
+    private func handleLongPressLocally() -> (LocalMessageInfo) -> Void {
+        { info in
+            if let message = messages.first(where: { $0.id == info.id }) {
+                resignFirstResponder()
+                let updatedDisplayInfo = MessageDisplayInfo(
+                    message: message,
+                    frame: info.frame,
+                    contentWidth: (max(240, info.frame.width)),
+                    isFirst: showsAllData(for: message),
+                    keyboardWasShown: true
+                )
+                onLongPress(updatedDisplayInfo)
+            }
+        }
+    }
+    private func showsAllData(for message: ChatMessage) -> Bool {
+        if !messageListConfig.groupMessages {
+            return true
+        }
+        let groupInfo = messagesGroupingInfo[message.id] ?? []
+        return groupInfo.contains(firstMessageKey) == true
+    }
+
     public var body: some View {
         ZStack {
             ScrollViewReader { scrollView in
@@ -124,23 +168,26 @@ public struct CustomMessageListContainerView<Factory: ViewFactory>: View, Keyboa
                     }
                     LazyVStack(spacing: 0, pinnedViews: .sectionFooters) {
                         Section {
-                            CustomMessageListView(
-                                factory: factory,
-                                channel: channel,
-                                messages: messages,
-                                messagesGroupingInfo: messagesGroupingInfo,
-                                width: width,
-                                listId: listId,
-                                isMessageThread: isMessageThread,
-                                onMessageAppear: onMessageAppear,
-                                onLongPress: onLongPress,
-                                firstUnreadMessageId: $firstUnreadMessageId,
-                                quotedMessage: $quotedMessage,
-                                scrolledId: $scrolledId,
-                                keyboardShown: $keyboardShown,
+                            MessageListUIComposer.makeMessageListView(
+                                messages: Array(messages),
+                                messageDisplayConfig: Utils.amigosUtils.messageListConfig.local,
+                                messageGroupingInfo: messagesGroupingInfo,
+                                unreadMessagesCount: channel.unreadCount.messages,
                                 scrollDirection: $scrollDirection,
-                                unreadMessagesBannerShown: $unreadMessagesBannerShown
+                                isDirectMessageChat: channel.isDirectMessageChannel,
+                                firstUnreadMessageId: firstUnreadMessageId,
+                                isReadHandler: RemoteHasSeenHandler(channel: channel, userId: chatClient.currentUserId),
+                                isReadByAllHandler: isReadByAllHandler,
+                                onMessageAppear: extendedOnMessageAppear,
+                                onQuotedMessageTapHandler: { handleQuotedMessageTap(messageId: $0) },
+                                onMessageReplyHandler: { handleMessageReply(messageId: $0)},
+                                onLongPressHandler: handleLongPressLocally(),
+                                onReactionsTap: { messageReactionPresentationInfo = $0 },
+                                width: width ?? .messageWidth
                             )
+                            .sheet(isPresented: $messageReactionPresentationInfo.toBoolBinding) {
+                                reactionsForMessageView(viewInfo: $messageReactionPresentationInfo)
+                            }
                         }
                     }
                     .modifier(factory.makeMessageListModifier())
@@ -148,12 +195,7 @@ public struct CustomMessageListContainerView<Factory: ViewFactory>: View, Keyboa
                 }
                 .modifier(ScrollPositionModifier(scrollPosition: loadingNextMessages ? $scrollPosition : .constant(nil)))
                 .dismissKeyboardAndAttachmentViewOnTap()
-                .background(
-                    factory.makeMessageListBackground(
-                        colors: colors,
-                        isInThread: isMessageThread
-                    )
-                )
+                .background(Color(.chatBackground))
                 .coordinateSpace(name: scrollAreaId)
                 .onPreferenceChange(WidthPreferenceKey.self) { value in
                     if let value = value, value != width {
@@ -261,6 +303,43 @@ public struct CustomMessageListContainerView<Factory: ViewFactory>: View, Keyboa
         }
         .accessibilityElement(children: .contain)
         .accessibilityIdentifier("MessageListView")
+    }
+
+    private func handleQuotedMessageTap(messageId: String) {
+        scrolledId = messageId
+    }
+
+    private func handleMessageReply(messageId: String) {
+        if let message = messages.first(where: { $0.id == messageId }) {
+            if quotedMessage?.id != messageId {
+                triggerHapticFeedback(style: .medium)
+            }
+
+            quotedMessage = message
+        }
+    }
+
+    /// Presents the reactions for the message view.
+    @ViewBuilder func reactionsForMessageView(viewInfo: Binding<MessageReactionsInfo?>) -> some View {
+        if let message = Array(messages).first(where: { $0.id == messageReactionPresentationInfo!.id }) {
+            CustomReactionsUsersSheetView(
+                isPresented: $messageReactionPresentationInfo.toBoolBinding,
+                viewModel: ReactionsOverlayViewModel(
+                    message: message
+                )
+            )
+        }
+    }
+
+    var isReadByAllHandler: IsReadByAllHandler {
+        return { message in
+            let currentUser = chatClient.currentUserId
+            // Filter out current user from last active members
+            let readUsers = channel.readUsers(currentUser: currentUser, message: message)
+            let memberIds = channel.lastActiveMembers.map(\.id).filter { $0 != currentUser }
+            let isReadByAll = memberIds.allSatisfy { memberId in readUsers.contains(where: { $0.id == memberId })}
+            return isReadByAll
+        }
     }
 }
 
@@ -501,5 +580,20 @@ struct CustomMessageContainerHeaderView: View {
                 CustomPinnedMessage(channel: channel)
             }
         }
+    }
+}
+
+extension ChatChannel {
+
+    func readUsers(currentUser: String?, message: Message?) -> [ChatUser] {
+        guard let message = message else {
+            return []
+        }
+        let readUsers = reads.filter {
+            $0.lastReadAt > message.createdAt &&
+            $0.user.id != currentUser
+        }.map(\.user)
+        return readUsers
+
     }
 }

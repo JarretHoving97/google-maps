@@ -7,6 +7,8 @@
 
 import SwiftUI
 
+// TODO: Implement
+///it is functional but needs to be impleneted like we do in `CustomChatChannelMessageListView` with the `onLongPress` closure
 struct ReactionsOverlayView: View {
 
     let viewModel: ReactionsContainerViewModel
@@ -136,7 +138,6 @@ public struct ReactionsHStack<Content: View>: View {
                 isDeleted: false
             ),
             showsAllInfo: true,
-            isMessagePinned: false,
             isLast: true,
             isDirectMessageChat: false
         )

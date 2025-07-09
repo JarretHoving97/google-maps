@@ -21,6 +21,7 @@ public protocol ChatMessageProtocol {
     var createdAt: Date { get }
     var reactions: [String: Int] { get }
     var textContent: String? { get }
+    var pinDetails: MessagePinDetails? { get }
 }
 
 public protocol ChatMessageAttachmentProtocol {

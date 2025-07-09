@@ -24,5 +24,4 @@ class EmojiImageHelper {
 
         return image ?? UIImage()
     }
-
 }

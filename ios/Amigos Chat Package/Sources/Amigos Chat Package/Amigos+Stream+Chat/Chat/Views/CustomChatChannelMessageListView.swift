@@ -70,7 +70,8 @@ struct CustomChatChannelMessageListView<Factory: ViewFactory>: View {
                     scrollPosition: $viewModel.scrollPosition,
                     loadingNextMessages: viewModel.loadingNextMessages,
                     firstUnreadMessageId: $viewModel.firstUnreadMessageId,
-                    onMessageAppear: viewModel.handleMessageAppear(index:scrollDirection:),
+                    onMessageAppear:
+                        viewModel.handleMessageAppear(index:scrollDirection:),
                     onScrollToBottom: viewModel.scrollToLastMessage,
                     onLongPress: { displayInfo in
                         messageDisplayInfo = displayInfo

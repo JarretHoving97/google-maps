@@ -7,38 +7,23 @@
 
 import SwiftUI
 
-typealias LongPressInfo = ((CGRect) -> Void)
-
 struct MessageContainerView: View {
-    @ObservedObject var viewModel: MessageContainerViewModel
 
+    @ObservedObject var viewModel: MessageContainerViewModel
     @State private var frame: CGRect = .zero
     @State private var computeFrame: Bool = false
 
     private let width: CGFloat
-    private let onQuotedMessageTap: ((String) -> Void)
-    private let onMessageReply: ((() -> Void))
-    private let onReactionTap: ((ReactionType) -> Void)
-    private let onReactionsTap: ((String) -> Void)
-    private let onLongPress: LongPressInfo
-
+    private let gestureCallbacks: MessageGestureCallbacks
     private let avatarSize: CGFloat = 32
 
     init(
         viewModel: MessageContainerViewModel,
-        onQuotedMessageTap: @escaping ((String) -> Void) = {_ in },
-        onMessageReply: @escaping (() -> Void) = {},
-        onReactionTap: @escaping ((ReactionType) -> Void) = {_ in },
-        onReactionsTap: @escaping ((String) -> Void) = {_ in },
-        onLongPress: @escaping LongPressInfo = { _ in },
+        gestureCallbacks: MessageGestureCallbacks = .noGestures,
         width: CGFloat = .messageWidth
     ) {
         self.viewModel = viewModel
-        self.onQuotedMessageTap = onQuotedMessageTap
-        self.onMessageReply = onMessageReply
-        self.onReactionTap = onReactionTap
-        self.onReactionsTap = onReactionsTap
-        self.onLongPress = onLongPress
+        self.gestureCallbacks = gestureCallbacks
         self.width = width
     }
 
@@ -64,11 +49,8 @@ struct MessageContainerView: View {
             }
         }
         .padding(.horizontal, 12)
-        .padding(.bottom, viewModel.showsAllInfo || viewModel.isMessagePinned ? 20 : 2)
+        .padding(.bottom, viewModel.showsAllInfo ? 20 : 2)
         .padding(.top, viewModel.isLast ? 20 : 0)
-
-        .background(viewModel.isMessagePinned ? Color(.orange) : nil)
-        .padding(.bottom, viewModel.isMessagePinned ? 20 / 2 : 0)
         .padding(.bottom, !viewModel.message.reactions.isEmpty ? 16 : 0)
     }
 
@@ -110,6 +92,10 @@ struct MessageContainerView: View {
             RouteController.routeAction?(RouteInfo(route: .howToJoin, dismiss: true))
         }
     }
+
+    private func showReactions() {
+        viewModel.showReactionsOverlay.toggle()
+    }
 }
 
 struct MessageSpacer: View {
@@ -136,19 +122,18 @@ extension MessageContainerView {
                     isFirst: viewModel.showsAllInfo
                 ),
                 maxWidth: contentWidth,
-                onQuotedMessageTap: onQuotedMessageTap
+                onQuotedMessageTap: gestureCallbacks.onQuotedMessageTap
             )
-            .swipeable(onSwipeCompleted: onMessageReply)
-
-            .onLongPressGesture(minimumDuration: 0.2, maximumDistance: 20) {
-                longTapGesture()
-            }
+            .messageGestures(
+                onSwipe: { gestureCallbacks.onMessageReply(viewModel.message.id) },
+                onLongPress: { longTapGesture() }
+            )
             .background(
                 GeometryReader { proxy in
                     Rectangle().fill(Color.clear)
                         .onChange(of: computeFrame, perform: { _ in
                             DispatchQueue.main.async {
-                                onLongPress(proxy.frame(in: .global))
+                                gestureCallbacks.onLongPress(LocalMessageInfo(id: viewModel.message.id, frame: (proxy.frame(in: .global))))
                                 computeFrame = false
                             }
                         })
@@ -157,16 +142,6 @@ extension MessageContainerView {
             .onTapGesture {
                 navigateToOnboardingWebView()
             }
-            .overlay(
-                Group {
-                    if viewModel.showReactionsOverlay {
-                        ReactionsOverlayView(
-                            viewModel: ReactionsContainerViewModel(message: viewModel.message),
-                            onReactionTap: onReactionTap
-                        )
-                    }
-                }
-            )
             .padding(
                 .top,
                 viewModel.showReactionsOverlay ? 24 : 0
@@ -185,7 +160,7 @@ extension MessageContainerView {
                     )
                 )
                 .onTapGesture {
-                    onReactionsTap(viewModel.message.id)
+                    gestureCallbacks.onReactionsTap(MessageReactionsInfo(id: viewModel.message.id))
                 }
             }
         }
@@ -297,11 +272,9 @@ extension MessageContainerView {
                 isDeleted: false
             ),
             showsAllInfo: true,
-            isMessagePinned: false,
             isLast: true,
             isDirectMessageChat: false
         ),
         width: UIScreen.main.bounds.width
     )
-
 }
