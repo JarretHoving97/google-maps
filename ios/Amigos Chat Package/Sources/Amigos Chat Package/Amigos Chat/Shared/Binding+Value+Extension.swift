@@ -70,3 +70,16 @@ extension Binding where Value == SingleAttachmentType? {
         }
     }
 }
+
+extension Binding where Value == MessageReactionsInfo? {
+
+    var toBoolBinding: Binding<Bool> {
+        Binding<Bool>.init {
+            self.wrappedValue != nil
+        } set: { value in
+            if !value {
+                self.wrappedValue = nil
+            }
+        }
+    }
+}

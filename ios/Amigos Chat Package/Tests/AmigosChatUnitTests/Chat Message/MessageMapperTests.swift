@@ -154,6 +154,8 @@ struct RemoteToLocalMessageMapperTests {
         var localQuotedMessage: (any ChatMessageProtocol)?
         var isDeleted: Bool
         var attachments: [ChatMessageAttachmentProtocol]
+        var sendingState: String?
+        var createdAt: Date = Date.now
     }
 
     /// same goes for the `AnyChatMessageAttachment` from Stream.
@@ -170,6 +172,7 @@ struct RemoteToLocalMessageMapperTests {
     }
 
     private struct LocalUser: Author {
+        var imageURL: URL?
         var role: any AnyRole
         var userId: UUID
         var name: String?

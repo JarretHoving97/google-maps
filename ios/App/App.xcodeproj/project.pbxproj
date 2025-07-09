@@ -8,50 +8,11 @@
 
 /* Begin PBXBuildFile section */
 		2D493B40E1B7A3A0E35F19BD /* Pods_Amigos.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 48822AA27B06A141DA02D04F /* Pods_Amigos.framework */; };
-		2FAD9763203C412B000D30F8 /* config.xml in Resources */ = {isa = PBXBuildFile; fileRef = 2FAD9762203C412B000D30F8 /* config.xml */; };
-		3110E7E1ADE214AC8F7C6A63 /* CapacitorTokenLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A3BFEAD36359B174E7FE592 /* CapacitorTokenLoader.swift */; };
-		315876F02D2FF95600DDA943 /* BuildFile in Resources */ = {isa = PBXBuildFile; };
 		316829482DBA38DA00E9FD9D /* NotificationService.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 316829412DBA38DA00E9FD9D /* NotificationService.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		316829512DBA394B00E9FD9D /* AmigosChat in Frameworks */ = {isa = PBXBuildFile; productRef = 316829502DBA394B00E9FD9D /* AmigosChat */; };
-		3178DEB02D1033FB0084708F /* ExtendendStreamPlugin+ChatNavigationComposition+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3178DEAF2D1033A40084708F /* ExtendendStreamPlugin+ChatNavigationComposition+Extension.swift */; };
-		3178DEB32D105ECA0084708F /* NotificationHandler+CAP+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3178DEB22D105EA20084708F /* NotificationHandler+CAP+Extension.swift */; };
-		31A5E6642DC36A0400C19433 /* LocalChatTokenStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31A5E6632DC369F800C19433 /* LocalChatTokenStore.swift */; };
-		31A5E66F2DC380A700C19433 /* LocalChatApiKeyStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31A5E66E2DC380A300C19433 /* LocalChatApiKeyStore.swift */; };
-		31B020D82CE25C6800198BDB /* NotificationHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31B020D72CE25C6700198BDB /* NotificationHandler.swift */; };
-		31B020DA2CE25C8600198BDB /* LaunchAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31B020D92CE25C8300198BDB /* LaunchAction.swift */; };
 		31EE02162DE48F13006DDC42 /* AmigosShared in Frameworks */ = {isa = PBXBuildFile; productRef = 31EE02152DE48F13006DDC42 /* AmigosShared */; };
 		31EE02182DE48F4B006DDC42 /* AmigosShared in Frameworks */ = {isa = PBXBuildFile; productRef = 31EE02172DE48F4B006DDC42 /* AmigosShared */; };
-		3D0E8A4A25F65E9B0039E3FC /* FacebookOAuth2Handler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D0E8A4925F65E9B0039E3FC /* FacebookOAuth2Handler.swift */; };
-		3DE196A726307EF100994AB9 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3DE196A626307EF100994AB9 /* GoogleService-Info.plist */; };
-		4511D14428CB7D99001961E4 /* ExtendedBranchPlugin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4511D14328CB7D99001961E4 /* ExtendedBranchPlugin.swift */; };
-		4511D14728CB7F9C001961E4 /* ExtendedBranchPlugin.m in Sources */ = {isa = PBXBuildFile; fileRef = 4511D14628CB7F9C001961E4 /* ExtendedBranchPlugin.m */; };
-		4525C7872BEA2AA700DC197F /* BranchDeepLinks.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4525C7862BEA2AA700DC197F /* BranchDeepLinks.swift */; };
-		45A8C3212BFE2DF1008AC7B8 /* ExtendedStreamPlugin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45A8C3202BFE2DF1008AC7B8 /* ExtendedStreamPlugin.swift */; };
-		45B61B8C2BE4C8E700B2EC61 /* Poppins-MediumItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 45B61B822BE4C8E700B2EC61 /* Poppins-MediumItalic.ttf */; };
-		45B61B8D2BE4C8E700B2EC61 /* Poppins-SemiBoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 45B61B832BE4C8E700B2EC61 /* Poppins-SemiBoldItalic.ttf */; };
-		45B61B8E2BE4C8E700B2EC61 /* Poppins-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 45B61B842BE4C8E700B2EC61 /* Poppins-Medium.ttf */; };
-		45B61B8F2BE4C8E700B2EC61 /* Poppins-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 45B61B852BE4C8E700B2EC61 /* Poppins-Regular.ttf */; };
-		45B61B902BE4C8E700B2EC61 /* Poppins-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 45B61B862BE4C8E700B2EC61 /* Poppins-Bold.ttf */; };
-		45B61B912BE4C8E700B2EC61 /* Poppins-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 45B61B872BE4C8E700B2EC61 /* Poppins-Light.ttf */; };
-		45B61B922BE4C8E700B2EC61 /* Poppins-Italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 45B61B882BE4C8E700B2EC61 /* Poppins-Italic.ttf */; };
-		45B61B932BE4C8E700B2EC61 /* Poppins-LightItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 45B61B892BE4C8E700B2EC61 /* Poppins-LightItalic.ttf */; };
-		45B61B942BE4C8E700B2EC61 /* Poppins-BoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 45B61B8A2BE4C8E700B2EC61 /* Poppins-BoldItalic.ttf */; };
-		45B61B952BE4C8E700B2EC61 /* Poppins-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 45B61B8B2BE4C8E700B2EC61 /* Poppins-SemiBold.ttf */; };
-		45DDDB7228DC526D002BFCE9 /* ExtendedFacebookPlugin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45DDDB7128DC526D002BFCE9 /* ExtendedFacebookPlugin.swift */; };
-		45DDDB7428DC527A002BFCE9 /* ExtendedFacebookPlugin.m in Sources */ = {isa = PBXBuildFile; fileRef = 45DDDB7328DC527A002BFCE9 /* ExtendedFacebookPlugin.m */; };
-		50379B232058CBB4000EE86E /* capacitor.config.json in Resources */ = {isa = PBXBuildFile; fileRef = 50379B222058CBB4000EE86E /* capacitor.config.json */; };
-		504EC3081FED79650016851F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 504EC3071FED79650016851F /* AppDelegate.swift */; };
-		504EC30D1FED79650016851F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 504EC30B1FED79650016851F /* Main.storyboard */; };
-		504EC30F1FED79650016851F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 504EC30E1FED79650016851F /* Assets.xcassets */; };
-		504EC3121FED79650016851F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 504EC3101FED79650016851F /* LaunchScreen.storyboard */; };
-		507AA1A4E46266322DBCCD73 /* CurrentUserDelegate+StreamUserDelegate+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABE0716230DB7D590E949544 /* CurrentUserDelegate+StreamUserDelegate+Extension.swift */; };
-		8241647BA9E39D96D0026458 /* CAPKeychainLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1374B7E8AE3D71FB4C1EE1EA /* CAPKeychainLoader.swift */; };
-		D740490D2D56323B00AAB2C1 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D740490C2D56322F00AAB2C1 /* MainViewController.swift */; };
 		D793A0B82D478809008AAD5A /* AmigosChat in Frameworks */ = {isa = PBXBuildFile; productRef = D793A0B72D478809008AAD5A /* AmigosChat */; };
-		DF04072BB2FB3498AEE664F7 /* CurrentUserModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E58E14D133ABA03CF36A375 /* CurrentUserModel.swift */; };
-		EFCFF896C3A60B275773EBD5 /* ChatPushConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 987AB422F4757C09B4931227 /* ChatPushConfig.swift */; };
-		F5F144D9235724241F1D94C9 /* ShareLocationMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA7040E356CBD8481381C58D /* ShareLocationMapView.swift */; };
-		FE9E807327A2A43C00360DFF /* public in Resources */ = {isa = PBXBuildFile; fileRef = FE9E807227A2A43C00360DFF /* public */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -61,6 +22,13 @@
 			proxyType = 1;
 			remoteGlobalIDString = 316829402DBA38DA00E9FD9D;
 			remoteInfo = NotificationService;
+		};
+		317942FB2DEDC83B00D687D1 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 504EC2FC1FED79650016851F /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 504EC3031FED79650016851F;
+			remoteInfo = Amigos;
 		};
 /* End PBXContainerItemProxy section */
 
@@ -79,64 +47,24 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		1374B7E8AE3D71FB4C1EE1EA /* CAPKeychainLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CAPKeychainLoader.swift; sourceTree = "<group>"; };
-		1A3BFEAD36359B174E7FE592 /* CapacitorTokenLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CapacitorTokenLoader.swift; sourceTree = "<group>"; };
 		288CFD35D914FE59CC0CD026 /* Pods-Amigos.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Amigos.release.xcconfig"; path = "Target Support Files/Pods-Amigos/Pods-Amigos.release.xcconfig"; sourceTree = "<group>"; };
-		2E58E14D133ABA03CF36A375 /* CurrentUserModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrentUserModel.swift; sourceTree = "<group>"; };
-		2FAD9762203C412B000D30F8 /* config.xml */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = config.xml; sourceTree = "<group>"; };
 		316829052DB90D4F00E9FD9D /* UserNotifications.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UserNotifications.framework; path = System/Library/Frameworks/UserNotifications.framework; sourceTree = SDKROOT; };
 		316829072DB90D4F00E9FD9D /* UserNotificationsUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UserNotificationsUI.framework; path = System/Library/Frameworks/UserNotificationsUI.framework; sourceTree = SDKROOT; };
 		316829412DBA38DA00E9FD9D /* NotificationService.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = NotificationService.appex; sourceTree = BUILT_PRODUCTS_DIR; };
-		3178DEAF2D1033A40084708F /* ExtendendStreamPlugin+ChatNavigationComposition+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ExtendendStreamPlugin+ChatNavigationComposition+Extension.swift"; sourceTree = "<group>"; };
-		3178DEB22D105EA20084708F /* NotificationHandler+CAP+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NotificationHandler+CAP+Extension.swift"; sourceTree = "<group>"; };
-		31A5E6632DC369F800C19433 /* LocalChatTokenStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalChatTokenStore.swift; sourceTree = "<group>"; };
-		31A5E66E2DC380A300C19433 /* LocalChatApiKeyStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalChatApiKeyStore.swift; sourceTree = "<group>"; };
-		31B020D72CE25C6700198BDB /* NotificationHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationHandler.swift; sourceTree = "<group>"; };
-		31B020D92CE25C8300198BDB /* LaunchAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchAction.swift; sourceTree = "<group>"; };
-		3D0E8A4925F65E9B0039E3FC /* FacebookOAuth2Handler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FacebookOAuth2Handler.swift; sourceTree = "<group>"; };
-		3DD0638F2611D66C0007D6C7 /* App.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = App.entitlements; sourceTree = "<group>"; };
-		3DE196A626307EF100994AB9 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
-		4511D14328CB7D99001961E4 /* ExtendedBranchPlugin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtendedBranchPlugin.swift; sourceTree = "<group>"; };
-		4511D14528CB7F9C001961E4 /* App-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "App-Bridging-Header.h"; sourceTree = "<group>"; };
-		4511D14628CB7F9C001961E4 /* ExtendedBranchPlugin.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ExtendedBranchPlugin.m; sourceTree = "<group>"; };
-		4525C7862BEA2AA700DC197F /* BranchDeepLinks.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BranchDeepLinks.swift; sourceTree = "<group>"; };
-		4562792D2C6E119500AF2B7E /* nl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = nl; path = nl.lproj/Localizable.strings; sourceTree = "<group>"; };
-		456279342C6E478E00AF2B7E /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
-		456279352C6E47EC00AF2B7E /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/Localizable.strings; sourceTree = "<group>"; };
-		456279382C6E4CF800AF2B7E /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Localizable.strings; sourceTree = "<group>"; };
-		4562793A2C6E4D4400AF2B7E /* pl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = pl; path = pl.lproj/Localizable.strings; sourceTree = "<group>"; };
-		4562793C2C6E4D4F00AF2B7E /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/Localizable.strings; sourceTree = "<group>"; };
-		45A8C3202BFE2DF1008AC7B8 /* ExtendedStreamPlugin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtendedStreamPlugin.swift; sourceTree = "<group>"; };
-		45B61B822BE4C8E700B2EC61 /* Poppins-MediumItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Poppins-MediumItalic.ttf"; sourceTree = "<group>"; };
-		45B61B832BE4C8E700B2EC61 /* Poppins-SemiBoldItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Poppins-SemiBoldItalic.ttf"; sourceTree = "<group>"; };
-		45B61B842BE4C8E700B2EC61 /* Poppins-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Poppins-Medium.ttf"; sourceTree = "<group>"; };
-		45B61B852BE4C8E700B2EC61 /* Poppins-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Poppins-Regular.ttf"; sourceTree = "<group>"; };
-		45B61B862BE4C8E700B2EC61 /* Poppins-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Poppins-Bold.ttf"; sourceTree = "<group>"; };
-		45B61B872BE4C8E700B2EC61 /* Poppins-Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Poppins-Light.ttf"; sourceTree = "<group>"; };
-		45B61B882BE4C8E700B2EC61 /* Poppins-Italic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Poppins-Italic.ttf"; sourceTree = "<group>"; };
-		45B61B892BE4C8E700B2EC61 /* Poppins-LightItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Poppins-LightItalic.ttf"; sourceTree = "<group>"; };
-		45B61B8A2BE4C8E700B2EC61 /* Poppins-BoldItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Poppins-BoldItalic.ttf"; sourceTree = "<group>"; };
-		45B61B8B2BE4C8E700B2EC61 /* Poppins-SemiBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Poppins-SemiBold.ttf"; sourceTree = "<group>"; };
-		45DDDB7128DC526D002BFCE9 /* ExtendedFacebookPlugin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtendedFacebookPlugin.swift; sourceTree = "<group>"; };
-		45DDDB7328DC527A002BFCE9 /* ExtendedFacebookPlugin.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ExtendedFacebookPlugin.m; sourceTree = "<group>"; };
+		317942F72DEDC83B00D687D1 /* CI_iOS.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CI_iOS.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		48822AA27B06A141DA02D04F /* Pods_Amigos.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Amigos.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		50379B222058CBB4000EE86E /* capacitor.config.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = capacitor.config.json; sourceTree = "<group>"; };
 		504EC3041FED79650016851F /* Amigos.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Amigos.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		504EC3071FED79650016851F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		504EC30C1FED79650016851F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		504EC30E1FED79650016851F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		504EC3111FED79650016851F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
-		504EC3131FED79650016851F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		987AB422F4757C09B4931227 /* ChatPushConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatPushConfig.swift; sourceTree = "<group>"; };
-		ABE0716230DB7D590E949544 /* CurrentUserDelegate+StreamUserDelegate+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CurrentUserDelegate+StreamUserDelegate+Extension.swift"; sourceTree = "<group>"; };
 		D37AEC20C1B4531B05D5DC81 /* Pods-Amigos.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Amigos.debug.xcconfig"; path = "Target Support Files/Pods-Amigos/Pods-Amigos.debug.xcconfig"; sourceTree = "<group>"; };
-		D740490C2D56322F00AAB2C1 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
-		EA7040E356CBD8481381C58D /* ShareLocationMapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareLocationMapView.swift; sourceTree = "<group>"; };
-		FE8E1DA3261F364A00AB9CB7 /* AppRelease.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = AppRelease.entitlements; sourceTree = "<group>"; };
-		FE9E807227A2A43C00360DFF /* public */ = {isa = PBXFileReference; lastKnownFileType = folder; path = public; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		312CCAA72DF31773005F6772 /* Exceptions for "App" folder in "Amigos" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Info.plist,
+			);
+			target = 504EC3031FED79650016851F /* Amigos */;
+		};
 		316829492DBA38DA00E9FD9D /* Exceptions for "NotificationService" folder in "NotificationService" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
@@ -147,12 +75,28 @@
 /* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
+		312CCA7E2DF31773005F6772 /* App */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				312CCAA72DF31773005F6772 /* Exceptions for "App" folder in "Amigos" target */,
+			);
+			explicitFolders = (
+				public,
+			);
+			path = App;
+			sourceTree = "<group>";
+		};
 		316829422DBA38DA00E9FD9D /* NotificationService */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			exceptions = (
 				316829492DBA38DA00E9FD9D /* Exceptions for "NotificationService" folder in "NotificationService" target */,
 			);
 			path = NotificationService;
+			sourceTree = "<group>";
+		};
+		317942F82DEDC83B00D687D1 /* CI_iOS */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = CI_iOS;
 			sourceTree = "<group>";
 		};
 /* End PBXFileSystemSynchronizedRootGroup section */
@@ -164,6 +108,13 @@
 			files = (
 				316829512DBA394B00E9FD9D /* AmigosChat in Frameworks */,
 				31EE02162DE48F13006DDC42 /* AmigosShared in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		317942F42DEDC83B00D687D1 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -189,47 +140,12 @@
 			path = Pods;
 			sourceTree = "<group>";
 		};
-		31A5E6702DC3811800C19433 /* Store */ = {
-			isa = PBXGroup;
-			children = (
-				31A5E66E2DC380A300C19433 /* LocalChatApiKeyStore.swift */,
-				31A5E6632DC369F800C19433 /* LocalChatTokenStore.swift */,
-			);
-			path = Store;
-			sourceTree = "<group>";
-		};
-		31B020D62CE25C3400198BDB /* NotificationHandler */ = {
-			isa = PBXGroup;
-			children = (
-				3178DEB22D105EA20084708F /* NotificationHandler+CAP+Extension.swift */,
-				31B020D92CE25C8300198BDB /* LaunchAction.swift */,
-				31B020D72CE25C6700198BDB /* NotificationHandler.swift */,
-			);
-			path = NotificationHandler;
-			sourceTree = "<group>";
-		};
-		45B61B812BE4C8C700B2EC61 /* Fonts */ = {
-			isa = PBXGroup;
-			children = (
-				45B61B862BE4C8E700B2EC61 /* Poppins-Bold.ttf */,
-				45B61B8A2BE4C8E700B2EC61 /* Poppins-BoldItalic.ttf */,
-				45B61B882BE4C8E700B2EC61 /* Poppins-Italic.ttf */,
-				45B61B872BE4C8E700B2EC61 /* Poppins-Light.ttf */,
-				45B61B892BE4C8E700B2EC61 /* Poppins-LightItalic.ttf */,
-				45B61B842BE4C8E700B2EC61 /* Poppins-Medium.ttf */,
-				45B61B822BE4C8E700B2EC61 /* Poppins-MediumItalic.ttf */,
-				45B61B852BE4C8E700B2EC61 /* Poppins-Regular.ttf */,
-				45B61B8B2BE4C8E700B2EC61 /* Poppins-SemiBold.ttf */,
-				45B61B832BE4C8E700B2EC61 /* Poppins-SemiBoldItalic.ttf */,
-			);
-			path = Fonts;
-			sourceTree = "<group>";
-		};
 		504EC2FB1FED79650016851F = {
 			isa = PBXGroup;
 			children = (
-				504EC3061FED79650016851F /* App */,
+				312CCA7E2DF31773005F6772 /* App */,
 				316829422DBA38DA00E9FD9D /* NotificationService */,
+				317942F82DEDC83B00D687D1 /* CI_iOS */,
 				504EC3051FED79650016851F /* Products */,
 				2202CC72E50A5C7B7789ED71 /* Pods */,
 				FFF9CFE96C36CF04DBF4EF19 /* Frameworks */,
@@ -241,53 +157,9 @@
 			children = (
 				504EC3041FED79650016851F /* Amigos.app */,
 				316829412DBA38DA00E9FD9D /* NotificationService.appex */,
+				317942F72DEDC83B00D687D1 /* CI_iOS.xctest */,
 			);
 			name = Products;
-			sourceTree = "<group>";
-		};
-		504EC3061FED79650016851F /* App */ = {
-			isa = PBXGroup;
-			children = (
-				BE870E5FFB84E7BF36B5F28A /* App+Chat */,
-				31B020D62CE25C3400198BDB /* NotificationHandler */,
-				45B61B812BE4C8C700B2EC61 /* Fonts */,
-				FE9E807227A2A43C00360DFF /* public */,
-				3DE196A626307EF100994AB9 /* GoogleService-Info.plist */,
-				FE8E1DA3261F364A00AB9CB7 /* AppRelease.entitlements */,
-				3DD0638F2611D66C0007D6C7 /* App.entitlements */,
-				504EC30E1FED79650016851F /* Assets.xcassets */,
-				504EC3071FED79650016851F /* AppDelegate.swift */,
-				504EC30B1FED79650016851F /* Main.storyboard */,
-				504EC3101FED79650016851F /* LaunchScreen.storyboard */,
-				50379B222058CBB4000EE86E /* capacitor.config.json */,
-				504EC3131FED79650016851F /* Info.plist */,
-				2FAD9762203C412B000D30F8 /* config.xml */,
-				D740490C2D56322F00AAB2C1 /* MainViewController.swift */,
-				45A8C3202BFE2DF1008AC7B8 /* ExtendedStreamPlugin.swift */,
-				4511D14328CB7D99001961E4 /* ExtendedBranchPlugin.swift */,
-				4511D14628CB7F9C001961E4 /* ExtendedBranchPlugin.m */,
-				4525C7862BEA2AA700DC197F /* BranchDeepLinks.swift */,
-				3D0E8A4925F65E9B0039E3FC /* FacebookOAuth2Handler.swift */,
-				45DDDB7128DC526D002BFCE9 /* ExtendedFacebookPlugin.swift */,
-				45DDDB7328DC527A002BFCE9 /* ExtendedFacebookPlugin.m */,
-				4511D14528CB7F9C001961E4 /* App-Bridging-Header.h */,
-			);
-			path = App;
-			sourceTree = "<group>";
-		};
-		BE870E5FFB84E7BF36B5F28A /* App+Chat */ = {
-			isa = PBXGroup;
-			children = (
-				31A5E6702DC3811800C19433 /* Store */,
-				1374B7E8AE3D71FB4C1EE1EA /* CAPKeychainLoader.swift */,
-				2E58E14D133ABA03CF36A375 /* CurrentUserModel.swift */,
-				1A3BFEAD36359B174E7FE592 /* CapacitorTokenLoader.swift */,
-				987AB422F4757C09B4931227 /* ChatPushConfig.swift */,
-				ABE0716230DB7D590E949544 /* CurrentUserDelegate+StreamUserDelegate+Extension.swift */,
-				3178DEAF2D1033A40084708F /* ExtendendStreamPlugin+ChatNavigationComposition+Extension.swift */,
-				EA7040E356CBD8481381C58D /* ShareLocationMapView.swift */,
-			);
-			path = "App+Chat";
 			sourceTree = "<group>";
 		};
 		FFF9CFE96C36CF04DBF4EF19 /* Frameworks */ = {
@@ -327,6 +199,27 @@
 			productReference = 316829412DBA38DA00E9FD9D /* NotificationService.appex */;
 			productType = "com.apple.product-type.app-extension";
 		};
+		317942F62DEDC83B00D687D1 /* CI_iOS */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 317942FF2DEDC83B00D687D1 /* Build configuration list for PBXNativeTarget "CI_iOS" */;
+			buildPhases = (
+				317942F32DEDC83B00D687D1 /* Sources */,
+				317942F42DEDC83B00D687D1 /* Frameworks */,
+				317942F52DEDC83B00D687D1 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				317942FC2DEDC83B00D687D1 /* PBXTargetDependency */,
+			);
+			fileSystemSynchronizedGroups = (
+				317942F82DEDC83B00D687D1 /* CI_iOS */,
+			);
+			name = CI_iOS;
+			productName = CI_iOS;
+			productReference = 317942F72DEDC83B00D687D1 /* CI_iOS.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 		504EC3031FED79650016851F /* Amigos */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 504EC3161FED79650016851F /* Build configuration list for PBXNativeTarget "Amigos" */;
@@ -344,6 +237,9 @@
 			);
 			dependencies = (
 				316829472DBA38DA00E9FD9D /* PBXTargetDependency */,
+			);
+			fileSystemSynchronizedGroups = (
+				312CCA7E2DF31773005F6772 /* App */,
 			);
 			name = Amigos;
 			packageProductDependencies = (
@@ -365,6 +261,10 @@
 				TargetAttributes = {
 					316829402DBA38DA00E9FD9D = {
 						CreatedOnToolsVersion = 16.2;
+					};
+					317942F62DEDC83B00D687D1 = {
+						CreatedOnToolsVersion = 16.3;
+						TestTargetID = 504EC3031FED79650016851F;
 					};
 					504EC3031FED79650016851F = {
 						CreatedOnToolsVersion = 9.2;
@@ -393,6 +293,7 @@
 			targets = (
 				504EC3031FED79650016851F /* Amigos */,
 				316829402DBA38DA00E9FD9D /* NotificationService */,
+				317942F62DEDC83B00D687D1 /* CI_iOS */,
 			);
 		};
 /* End PBXProject section */
@@ -405,28 +306,17 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		317942F52DEDC83B00D687D1 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		504EC3021FED79650016851F /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				504EC3121FED79650016851F /* LaunchScreen.storyboard in Resources */,
-				45B61B932BE4C8E700B2EC61 /* Poppins-LightItalic.ttf in Resources */,
-				45B61B912BE4C8E700B2EC61 /* Poppins-Light.ttf in Resources */,
-				45B61B922BE4C8E700B2EC61 /* Poppins-Italic.ttf in Resources */,
-				45B61B8C2BE4C8E700B2EC61 /* Poppins-MediumItalic.ttf in Resources */,
-				504EC30F1FED79650016851F /* Assets.xcassets in Resources */,
-				50379B232058CBB4000EE86E /* capacitor.config.json in Resources */,
-				504EC30D1FED79650016851F /* Main.storyboard in Resources */,
-				45B61B8D2BE4C8E700B2EC61 /* Poppins-SemiBoldItalic.ttf in Resources */,
-				2FAD9763203C412B000D30F8 /* config.xml in Resources */,
-				45B61B902BE4C8E700B2EC61 /* Poppins-Bold.ttf in Resources */,
-				3DE196A726307EF100994AB9 /* GoogleService-Info.plist in Resources */,
-				45B61B8F2BE4C8E700B2EC61 /* Poppins-Regular.ttf in Resources */,
-				FE9E807327A2A43C00360DFF /* public in Resources */,
-				45B61B8E2BE4C8E700B2EC61 /* Poppins-Medium.ttf in Resources */,
-				315876F02D2FF95600DDA943 /* BuildFile in Resources */,
-				45B61B942BE4C8E700B2EC61 /* Poppins-BoldItalic.ttf in Resources */,
-				45B61B952BE4C8E700B2EC61 /* Poppins-SemiBold.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -513,33 +403,17 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		317942F32DEDC83B00D687D1 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		504EC3001FED79650016851F /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4525C7872BEA2AA700DC197F /* BranchDeepLinks.swift in Sources */,
-				504EC3081FED79650016851F /* AppDelegate.swift in Sources */,
-				45DDDB7228DC526D002BFCE9 /* ExtendedFacebookPlugin.swift in Sources */,
-				31A5E66F2DC380A700C19433 /* LocalChatApiKeyStore.swift in Sources */,
-				504EC3081FED79650016851F /* AppDelegate.swift in Sources */,
-				31B020DA2CE25C8600198BDB /* LaunchAction.swift in Sources */,
-				3178DEB32D105ECA0084708F /* NotificationHandler+CAP+Extension.swift in Sources */,
-				45DDDB7228DC526D002BFCE9 /* ExtendedFacebookPlugin.swift in Sources */,
-				4511D14428CB7D99001961E4 /* ExtendedBranchPlugin.swift in Sources */,
-				3D0E8A4A25F65E9B0039E3FC /* FacebookOAuth2Handler.swift in Sources */,
-				45A8C3212BFE2DF1008AC7B8 /* ExtendedStreamPlugin.swift in Sources */,
-				3178DEB02D1033FB0084708F /* ExtendendStreamPlugin+ChatNavigationComposition+Extension.swift in Sources */,
-				4511D14728CB7F9C001961E4 /* ExtendedBranchPlugin.m in Sources */,
-				31B020D82CE25C6800198BDB /* NotificationHandler.swift in Sources */,
-				45DDDB7428DC527A002BFCE9 /* ExtendedFacebookPlugin.m in Sources */,
-				3110E7E1ADE214AC8F7C6A63 /* CapacitorTokenLoader.swift in Sources */,
-				31A5E6642DC36A0400C19433 /* LocalChatTokenStore.swift in Sources */,
-				507AA1A4E46266322DBCCD73 /* CurrentUserDelegate+StreamUserDelegate+Extension.swift in Sources */,
-				EFCFF896C3A60B275773EBD5 /* ChatPushConfig.swift in Sources */,
-				DF04072BB2FB3498AEE664F7 /* CurrentUserModel.swift in Sources */,
-				8241647BA9E39D96D0026458 /* CAPKeychainLoader.swift in Sources */,
-				D740490D2D56323B00AAB2C1 /* MainViewController.swift in Sources */,
-				F5F144D9235724241F1D94C9 /* ShareLocationMapView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -551,32 +425,12 @@
 			target = 316829402DBA38DA00E9FD9D /* NotificationService */;
 			targetProxy = 316829462DBA38DA00E9FD9D /* PBXContainerItemProxy */;
 		};
+		317942FC2DEDC83B00D687D1 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 504EC3031FED79650016851F /* Amigos */;
+			targetProxy = 317942FB2DEDC83B00D687D1 /* PBXContainerItemProxy */;
+		};
 /* End PBXTargetDependency section */
-
-/* Begin PBXVariantGroup section */
-		504EC30B1FED79650016851F /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				504EC30C1FED79650016851F /* Base */,
-				4562792D2C6E119500AF2B7E /* nl */,
-				456279342C6E478E00AF2B7E /* en */,
-				456279352C6E47EC00AF2B7E /* es */,
-				456279382C6E4CF800AF2B7E /* de */,
-				4562793A2C6E4D4400AF2B7E /* pl */,
-				4562793C2C6E4D4F00AF2B7E /* ko */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
-		504EC3101FED79650016851F /* LaunchScreen.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				504EC3111FED79650016851F /* Base */,
-			);
-			name = LaunchScreen.storyboard;
-			sourceTree = "<group>";
-		};
-/* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
 		3168294B2DBA38DA00E9FD9D /* Debug */ = {
@@ -654,6 +508,66 @@
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		317942FD2DEDC83B00D687D1 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = G3578K4W58;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.4;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MARKETING_VERSION = 1.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.whoisup.CI-iOS";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Amigos.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Amigos";
+			};
+			name = Debug;
+		};
+		317942FE2DEDC83B00D687D1 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = G3578K4W58;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.4;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MARKETING_VERSION = 1.0;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.whoisup.CI-iOS";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Amigos.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Amigos";
 			};
 			name = Release;
 		};
@@ -835,6 +749,15 @@
 			buildConfigurations = (
 				3168294B2DBA38DA00E9FD9D /* Debug */,
 				3168294C2DBA38DA00E9FD9D /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		317942FF2DEDC83B00D687D1 /* Build configuration list for PBXNativeTarget "CI_iOS" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				317942FD2DEDC83B00D687D1 /* Debug */,
+				317942FE2DEDC83B00D687D1 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

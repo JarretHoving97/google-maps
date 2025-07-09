@@ -37,6 +37,10 @@ extension Font {
     static var subheadline: Font {
         Font.custom(size: 14, weight: ThemeFontWeight.medium)
     }
+
+    static var footnote1: Font {
+        return .custom(size: 8, weight: .regular)
+    }
 }
 
 extension UIFont {

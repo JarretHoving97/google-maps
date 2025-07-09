@@ -10,10 +10,10 @@ import SwiftUI
 class QuotedMessageViewModel {
 
     public var messageText: String {
-        message.text
+        return isDeleted ? tr("message.deleted-message-placeholder") : message.text
     }
 
-    public var isDeleted: Bool {
+    private var isDeleted: Bool {
         return message.isDeleted
     }
 

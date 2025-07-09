@@ -29,4 +29,12 @@ extension ChatMessage: ChatMessageProtocol {
     public var attachments: [any ChatMessageAttachmentProtocol] {
         return allAttachments
     }
+
+    public var sendingState: String? {
+        return self.localState?.rawValue
+    }
+
+    public var reactions: [String : Int] {
+        Dictionary(uniqueKeysWithValues: reactionCounts.map { ($0.key.rawValue, Int($0.value)) })
+    }
 }
