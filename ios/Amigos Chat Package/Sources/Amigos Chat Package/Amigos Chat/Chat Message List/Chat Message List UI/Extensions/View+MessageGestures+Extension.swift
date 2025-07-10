@@ -11,12 +11,12 @@ extension View {
 
     func messageGestures(
         onSwipe: @escaping () -> Void,
-        onLongPress: @escaping () -> Void,
+        onLongPress: @escaping () -> Void
     ) -> some View {
         self.modifier(
             MessageGesturesModifier(
                 onSwipe: onSwipe,
-                onLongPress: onLongPress,
+                onLongPress: onLongPress
             )
         )
     }
