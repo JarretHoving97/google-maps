@@ -11,7 +11,7 @@ PODS:
   - CapacitorCommunityGenericOauth2 (6.0.0):
     - Capacitor
     - OAuthSwift (= 2.2.0)
-  - CapacitorCommunityGoogleMaps (2.0.0-beta.10):
+  - CapacitorCommunityGoogleMaps (2.0.0-beta.11):
     - Capacitor
     - GoogleMaps
     - SDWebImage
@@ -256,25 +256,25 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   BranchSDK: ffa2a71be00efb4cd6e54b55f46349750a5a7625
-  Capacitor: 1f3c7b9802d958cd8c4eb63895fff85dff2e1eea
-  CapacitorApp: 2a8c3a0b0814322e5e6e15fe595f02c3808f0f8b
-  CapacitorCamera: 9052bd3f464f135ba983feccd8ac1266272f0549
-  CapacitorCommunityContacts: 5c39644b972056cb0b078daac1223d07a1df92fb
-  CapacitorCommunityGenericOauth2: 256461439c7553ee2a8d4d73e210653f35459438
-  CapacitorCommunityGoogleMaps: 58b5a0d98c02df1a82b6709acfb30f49dbfe9847
-  CapacitorCommunityInAppReview: c69a9392f39a10f28092d823cfa979637f4fa079
-  CapacitorCommunityPrivacyScreen: 8f34f8c4d47193f637bda6d28371e01aa677dafc
+  Capacitor: 05d35014f4425b0740fc8776481f6a369ad071bf
+  CapacitorApp: e1e6b7d05e444d593ca16fd6d76f2b7c48b5aea7
+  CapacitorCamera: 9bc7b005d0e6f1d5f525b8137045b60cffffce79
+  CapacitorCommunityContacts: 9cde99c2cd212f6594677aae542436e2174c4ef2
+  CapacitorCommunityGenericOauth2: 1c435de1813fc8a4b842bc1c105e1d3bb8c04506
+  CapacitorCommunityGoogleMaps: 2b72a0d916f1a042657860ead4ad9030509dc0d0
+  CapacitorCommunityInAppReview: e5c93959637a956ce993134734d7df90390ea167
+  CapacitorCommunityPrivacyScreen: 5ac93e09bbd78884ca9c8f3c0a9084ec2cc9a4fe
   CapacitorCordova: b33e7f4aa4ed105dd43283acdd940964374a87d9
-  CapacitorDevice: 1a215717f0b5061503b21a03508b0ec458a57d78
-  CapacitorGeolocation: d994ee64ee41909e2089e575c9d3a976007c2812
-  CapacitorKeyboard: 460c6f9ec5e52c84f2742d5ce2e67bbc7ab0ebb0
-  CapacitorNativeSettings: ab24b68c6e6e7391c6ade889d2a83aaceed0fc36
-  CapacitorPreferences: 9f9935bce493977183511362131a93f7b260191a
-  CapacitorPushNotifications: 1fc22ae360214a0ac0625c348d3aea217085163d
-  CapacitorSecureStoragePlugin: ced6025438fbbdbfb9fffec4398e748572fc147b
-  CapacitorShare: 7af6ca761ce62030e8e9fbd2eb82416f5ceced38
-  CapacitorSplashScreen: 68893659d77b5f82d753b3a70475082845e3039c
-  CapacitorStatusBar: 3b9ac7d0684770522c532d1158a1434512ab1477
+  CapacitorDevice: 9efd479d71d1baad74b75df531184c3f730eaa48
+  CapacitorGeolocation: 3f6c960e6d9d11c83fcdd181c4912604857afb51
+  CapacitorKeyboard: e89189ad398b815b6ff7e52271f0fb4f911a0a0a
+  CapacitorNativeSettings: ef920042d55d3bc594655e5180a717d73faa609b
+  CapacitorPreferences: f3eadae2369ac3ab8e21743a2959145b0d1286a3
+  CapacitorPushNotifications: b3f20973cb167cb8fee622e309ec521134798241
+  CapacitorSecureStoragePlugin: 545b51d782d35e61a39231ecf99a966b060a2cbb
+  CapacitorShare: d2a742baec21c8f3b92b361a2fbd2401cdd8288e
+  CapacitorSplashScreen: fd8bf1bf9081d9aa8817b7cd37d740d1bdaf2fb2
+  CapacitorStatusBar: b16799a26320ffa52f6c8b01737d5a95bbb8f3eb
   FBAEMKit: d8312d8451ead46282adc7f3565ffc4965e3a4a7
   FBSDKCoreKit: 81879058dd06208c0820fc713d054ca54903e8ba
   FBSDKCoreKit_Basics: eebc9bb69a0e5d133b92dca53a20716227faa454
@@ -293,12 +293,12 @@ SPEC CHECKSUMS:
   PromisesObjC: ab77feca74fa2823e7af4249b8326368e61014cb
   PurchasesHybridCommon: fa166fc8b385cf80f581f923c91d8ccffe5dd7f8
   RevenueCat: e47ff90dfd271fde155a4befe48e8fc02e8281e4
-  RevenuecatPurchasesCapacitor: 05a6dc8ba13e6cc072202c2dddcb4556abf45259
+  RevenuecatPurchasesCapacitor: 6727a4dc1455bdf2374259420719ce5dfbe957fa
   SDWebImage: 9c36e66c8ce4620b41a7407698dda44211a96764
   SDWebImageSVGCoder: 15a300a97ec1c8ac958f009c02220ac0402e936c
   SDWebImageSwiftUI: 824628d8220906aa101f62b39a7492edd138449d
   SwiftKeychainWrapper: 807ba1d63c33a7d0613288512399cd1eda1e470c
 
-PODFILE CHECKSUM: 3ca35b82d55a3306faeb47492313e845d4a38dea
+PODFILE CHECKSUM: 5c957476fc66022c843436ca7e0ab3f3ec9e1d15
 
 COCOAPODS: 1.16.2
