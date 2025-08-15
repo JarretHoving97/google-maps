@@ -374,39 +374,6 @@ extension CustomUIFactory: ViewFactory {
         return CustomMessageActionsView(for: message, messageActions: messageActions)
     }
 
-    public func supportedMoreChannelActions(
-        for channel: ChatChannel,
-        onDismiss: @escaping () -> Void,
-        onError: @escaping (Error) -> Void
-    ) -> [ChannelAction] {
-        ChannelAction.customActions(
-            for: channel,
-            chatClient: chatClient,
-            onDismiss: onDismiss,
-            onError: onError
-        )
-    }
-
-    public typealias MoreActionsView = CustomMoreChannelActionsContainerView<CustomUIFactory>
-
-    public func makeMoreChannelActionsView(
-        for channel: ChatChannel,
-        swipedChannelId: Binding<String?>,
-        onDismiss: @escaping () -> Void,
-        onError: @escaping (Error) -> Void
-    ) -> CustomMoreChannelActionsContainerView<CustomUIFactory> {
-        CustomMoreChannelActionsContainerView(
-            factory: self,
-            channel: channel,
-            channelActions: supportedMoreChannelActions(
-                for: channel,
-                onDismiss: onDismiss,
-                onError: onError
-            ),
-            onDismiss: onDismiss
-        )
-    }
-
     public typealias DeletedMessageViewType = DeletedMessageView
 
     public func makeDeletedMessageView(

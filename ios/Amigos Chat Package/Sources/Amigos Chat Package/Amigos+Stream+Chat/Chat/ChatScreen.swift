@@ -38,6 +38,8 @@ public struct ChatChannelScreen: View {
 
     @StateObject var viewModel: ChatChannelScreenViewModel
 
+    @Environment(\.presentationMode) var presentationMode
+
     public var chatChannelController: ChatChannelController
 
     var onDidLoadChannel: ((ChatChannel) -> Void)?
@@ -61,6 +63,7 @@ public struct ChatChannelScreen: View {
     }
 
     public var body: some View {
+
         CustomChatChannelView(
             viewFactory: viewFactory,
             messageId: messageId,
@@ -76,21 +79,20 @@ public struct ChatChannelScreen: View {
 
     @ViewBuilder
     private func customViewOverlay(popOver: PopoverType?) -> some View {
-        switch viewModel.popOver {
-        case let .moreActions(channel):
-            viewFactory.makeMoreChannelActionsView(
-                for: channel,
-                swipedChannelId: .constant(nil)
-            ) {
-                withAnimation {
-                    viewModel.set(popOver: nil)
-                }
-            } onError: { error in
-                viewModel.set(popOver: .error(error))
-            }
 
-        default:
-            EmptyView()
+        if case let .moreActions(channel) = viewModel.popOver {
+
+            let callbacks = ChannelActionCallbacks(
+                onDismiss: { viewModel.set(popOver: nil) },
+                onError: { viewModel.set(popOver: .error($0)) },
+                onClose: { presentationMode.wrappedValue.dismiss() }
+            )
+
+            CustomMoreChannelActionsContainerView(
+                factory: viewFactory,
+                channel: channel,
+                callbacks: callbacks
+            )
         }
     }
 }

@@ -21,7 +21,7 @@ class CustomMoreChannelActionsViewModel: MoreChannelActionsViewModel {
 
     public override init(
         channel: ChatChannel,
-        channelActions: [ChannelAction]
+        channelActions: [ChannelAction] = [],
     ) {
         super.init(channel: channel, channelActions: channelActions)
         self.channelController = chatClient.channelController(for: channel.cid)
@@ -99,10 +99,10 @@ public struct CustomMoreChannelActionsContainerView<Factory: ViewFactory>: View 
     @Injected(\.images) private var images
     @Injected(\.fonts) private var fonts
 
+    let callbacks: ChannelActionCallbacks
     var factory: Factory
     @ObservedObject var viewModel: CustomMoreChannelActionsViewModel
     @State private var isPresented = false
-    var onDismiss: () -> Void
 
     @State private var presentedView: AnyView? {
         didSet {
@@ -113,17 +113,11 @@ public struct CustomMoreChannelActionsContainerView<Factory: ViewFactory>: View 
     public init(
         factory: Factory,
         channel: ChatChannel,
-        channelActions: [ChannelAction],
-        onDismiss: @escaping () -> Void
+        callbacks: ChannelActionCallbacks
     ) {
         self.factory = factory
-        _viewModel = ObservedObject(
-            wrappedValue: CustomMoreChannelActionsViewModel(
-                channel: channel,
-                channelActions: channelActions
-            )
-        )
-        self.onDismiss = onDismiss
+        _viewModel = ObservedObject(wrappedValue: CustomMoreChannelActionsViewModel(channel: channel))
+        self.callbacks = callbacks
     }
 
     public var body: some View {
@@ -142,7 +136,12 @@ public struct CustomMoreChannelActionsContainerView<Factory: ViewFactory>: View 
                 .onAppear {
                     // Stream doesn't understand that the actions need to be reactive somehow, so we set them on appear.
                     if let channel = viewModel.channelController?.channel {
-                        viewModel.channelActions = factory.supportedMoreChannelActions(for: channel, onDismiss: onDismiss, onError: {_ in })
+                        viewModel.channelActions =
+                        ChannelAction.customActions(
+                            for: channel,
+                            chatClient: factory.chatClient,
+                            callbacks: callbacks
+                        )
                     }
                 }
         }
@@ -162,7 +161,7 @@ public struct CustomMoreChannelActionsContainerView<Factory: ViewFactory>: View 
         }
         .background(Color.black.opacity(0.3))
         .onTapGesture {
-            onDismiss()
+            callbacks.onDismiss()
         }
         .fullScreenCover(isPresented: $isPresented) {
             if let fullScreenView = presentedView {
