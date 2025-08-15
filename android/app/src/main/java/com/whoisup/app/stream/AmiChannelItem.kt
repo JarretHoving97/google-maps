@@ -11,7 +11,9 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.defaultMinSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.wrapContentHeight
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.BasicText
 import androidx.compose.material.ripple.rememberRipple
@@ -20,14 +22,23 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
+import coil.compose.AsyncImage
+import coil.decode.SvgDecoder
+import coil.request.ImageRequest
+import com.whoisup.app.R
 import com.whoisup.app.components.AmiAvatar
 import com.whoisup.app.components.AmiIconButton
 import com.whoisup.app.components.DcIcon
 import com.whoisup.app.components.UserForAmiAvatar
+import com.whoisup.app.modifiers.layoutPadding
+import com.whoisup.app.stream.extensions.ChatChannelRelatedConceptType
 import com.whoisup.app.stream.extensions.isDirectMessageChannel
+import com.whoisup.app.stream.extensions.relatedConceptType
 import com.whoisup.app.ui.theme.CustomTheme
 import com.whoisup.app.utils.formatRelative
 import com.whoisup.app.utils.getLocale
@@ -77,12 +88,42 @@ fun AmiChannelItem(
                 name = otherUser?.name,
                 avatarUrl = otherUser?.image
             ))
-        } else {
+        } else if (itemState.channel.relatedConceptType is ChatChannelRelatedConceptType.Activity) {
             AmiIconButton(
                 size = 40.dp,
                 color = CustomTheme.colorScheme.secondary,
                 iconUrl = itemState.channel.image
             )
+        } else {
+            Box {
+                AsyncImage(
+                    model = ImageRequest.Builder(LocalContext.current)
+                        .data(itemState.channel.image)
+                        .decoderFactory(SvgDecoder.Factory())
+                        .build(),
+                    contentDescription = null,
+                    modifier = Modifier
+                        .size(40.dp)
+                        .clip(CircleShape)
+                        .background(CustomTheme.colorScheme.surface),
+                    contentScale = ContentScale.Crop,
+                )
+
+                if (itemState.channel.relatedConceptType is ChatChannelRelatedConceptType.Community) {
+                    Box(
+                        modifier = Modifier
+                            .align(Alignment.BottomEnd)
+                            .layoutPadding(horizontal = (-2).dp, vertical = (-2).dp)
+                    ) {
+                        AmiIconButton(
+                            size = 16.dp,
+                            color = CustomTheme.colorScheme.surface,
+                            iconId = R.drawable.community,
+                            iconScale = 0.5f
+                        )
+                    }
+                }
+            }
         }
 
         Column(modifier = Modifier.weight(1f)) {

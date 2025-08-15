@@ -43,6 +43,9 @@
     <!-- AmiChatWithHost -->
     <string name="AmiChatWithHost_body">Csevegés a házigazdával</string>
 
+    <!-- AmiChannelCreateActivity -->
+    <string name="AmiChannelCreateActivity_body">Tevékenység létrehozása</string>
+
     <!-- AmiChatTrialNotice -->
     <plurals name="AmiChatTrialNotice_title">
         <item quantity="one">Indíts ingyenes csevegést egy napig helyi alapítóként</item>
@@ -87,6 +90,7 @@
     <string name="custom_channel_action_inviteAmigos_title">Amigók meghívása</string>
     <string name="custom_channel_action_manageParticipants_title">Résztvevők kezelése</string>
     <string name="custom_channel_action_mixer_title">Ital megtekintése</string>
+    <string name="custom_channel_action_community_title">Közösség megtekintése</string>
 
     <!-- Channel List -->
     <string name="stream_compose_channel_list_you">Te</string>

@@ -49,6 +49,7 @@ import io.getstream.chat.android.compose.viewmodel.messages.AttachmentsPickerVie
 import io.getstream.chat.android.compose.viewmodel.messages.MessageComposerViewModel
 import io.getstream.chat.android.compose.viewmodel.messages.MessageListViewModel
 import io.getstream.chat.android.compose.viewmodel.messages.MessagesViewModelFactory
+import io.getstream.chat.android.models.ChannelCapabilities
 import io.getstream.chat.android.ui.common.state.messages.Delete
 import java.time.ZoneId
 import java.time.ZonedDateTime
@@ -163,21 +164,25 @@ fun AmiChannelScreen(
 
                 val myMember = listViewModel.channel.membership
 
-                val isMainHost =
-                    listViewModel.channel.createdBy.id === currentUser?.id || // @TODO: this line should eventually be removed
-                    myMember?.amiParticipantRole == AmiParticipantRole.Organizer
+                val isAllowedToUpdatePinnedMessage = when (listViewModel.channel.relatedConceptType) {
+                    is ChatChannelRelatedConceptType.Standard -> {
+                        false
+                    }
 
-                val isAllowedToUpdatePinnedMessage =
-                    listViewModel.channel.relatedConceptType is ChatChannelRelatedConceptType.Activity &&
-                    (
-                        isMainHost ||
-                        myMember?.amiParticipantRole == AmiParticipantRole.PseudoOrganizer
-                    )
+                     is ChatChannelRelatedConceptType.Community -> {
+                         myMember?.amiParticipantRole == AmiParticipantRole.CommunityOrganizer ||
+                             myMember?.amiParticipantRole == AmiParticipantRole.CommunityPseudoOrganizer
+                     }
+
+                    else -> {
+                        myMember?.amiParticipantRole == AmiParticipantRole.Organizer ||
+                            myMember?.amiParticipantRole == AmiParticipantRole.PseudoOrganizer
+                    }
+                }
 
                 val pinnedMessage = listViewModel.channel.extraData["pinnedMessage"] as? String
 
-                val showPinnedMessage =
-                    isAllowedToUpdatePinnedMessage || (!listViewModel.channel.isDirectMessageChannel() && !pinnedMessage.isNullOrBlank())
+                val showPinnedMessage = (isAllowedToUpdatePinnedMessage && listViewModel.channel.relatedConceptType !is ChatChannelRelatedConceptType.Community) || !pinnedMessage.isNullOrBlank()
 
                 if (showPinnedMessage) {
                     extraContentPaddingTop += 100.dp
@@ -294,6 +299,9 @@ fun AmiChannelScreen(
                 }
             }
 
+            val messageComposerState by composerViewModel.messageComposerState.collectAsState()
+            val canSendMessage = messageComposerState.ownCapabilities.contains(ChannelCapabilities.SEND_MESSAGE)
+
             if (otherUser?.isSupportTeamMember == true) {
                 // You are not allowed to chat if the other user is part of our support team.
                 Box(
@@ -310,6 +318,8 @@ fun AmiChannelScreen(
                         .fillMaxWidth()
                         .padding(8.dp)
                 )
+            } else if (!canSendMessage && listViewModel.channel.relatedConceptType is ChatChannelRelatedConceptType.Community) {
+                // In this case we want to hide the composer entirely
             } else {
                 AmiChannelComposer(
                     listViewModel = listViewModel,

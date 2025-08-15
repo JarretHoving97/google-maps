@@ -45,6 +45,9 @@
     <!-- AmiChatWithHost -->
     <string name="AmiChatWithHost_body">Chat met host</string>
 
+    <!-- AmiChannelCreateActivity -->
+    <string name="AmiChannelCreateActivity_body">Activiteit aanmaken</string>
+
     <!-- AmiChatTrialNotice -->
     <plurals name="AmiChatTrialNotice_title">
         <item quantity="one">%s dag gratis chats starten als local founder</item>
@@ -91,6 +94,7 @@
     <string name="custom_channel_action_inviteAmigos_title">Amigos uitnodigen</string>
     <string name="custom_channel_action_manageParticipants_title">Deelnemers beheren</string>
     <string name="custom_channel_action_mixer_title">Borrel bekijken</string>
+    <string name="custom_channel_action_community_title">Community bekijken</string>
 
     <!-- Channel List -->
     <string name="stream_compose_channel_list_you">Jij</string>

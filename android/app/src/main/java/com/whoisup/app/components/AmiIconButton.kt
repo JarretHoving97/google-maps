@@ -28,6 +28,7 @@ fun AmiIconButton(
     @DrawableRes iconId: Int? = null,
     iconColor: Color? = null,
     iconUrl: String? = null,
+    iconScale: Float = 0.4f,
     filled: Boolean = true,
     onClick: (() -> Unit)? = null
 ) {
@@ -55,7 +56,7 @@ fun AmiIconButton(
     ) {
         if (iconUrl != null) {
             AsyncImage(
-                modifier = Modifier.size(0.4 * size).aspectRatio(1f),
+                modifier = Modifier.size(iconScale * size).aspectRatio(1f),
                 model =
                 ImageRequest.Builder(LocalContext.current)
                     .data(iconUrl)
@@ -68,7 +69,7 @@ fun AmiIconButton(
             DcIcon(
                 id = iconId,
                 contentDescription = null,
-                size = 0.4 * size,
+                size = iconScale * size,
                 color = iconColor,
             )
         }

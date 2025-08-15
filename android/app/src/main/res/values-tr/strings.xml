@@ -45,6 +45,9 @@
     <!-- AmiChatWithHost -->
     <string name="AmiChatWithHost_body">Ev sahibiyle sohbet et</string>
 
+    <!-- AmiChannelCreateActivity -->
+    <string name="AmiChannelCreateActivity_body">Aktivite oluştur</string>
+
     <!-- AmiChatTrialNotice -->
     <plurals name="AmiChatTrialNotice_title">
         <item quantity="one">Yerel kurucu olarak bir gün ücretsiz sohbet başlat</item>
@@ -89,6 +92,7 @@
     <string name="custom_channel_action_inviteAmigos_title">Amigoları davet et</string>
     <string name="custom_channel_action_manageParticipants_title">Katılımcıları yönet</string>
     <string name="custom_channel_action_mixer_title">İçeceği görüntüle</string>
+    <string name="custom_channel_action_community_title">Topluluğu görüntüle</string>
 
     <!-- Channel List -->
     <string name="stream_compose_channel_list_you">Sen</string>

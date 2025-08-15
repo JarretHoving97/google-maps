@@ -45,6 +45,9 @@
     <!-- AmiChatWithHost -->
     <string name="AmiChatWithHost_body">호스트와 채팅</string>
 
+    <!-- AmiChannelCreateActivity -->
+    <string name="AmiChannelCreateActivity_body">활동 만들기</string>
+
     <!-- AmiChatTrialNotice -->
     <plurals name="AmiChatTrialNotice_title">
         <item quantity="one">지역 창업자로서 1일 무료 채팅을 시작하세요</item>
@@ -91,6 +94,7 @@
     <string name="custom_channel_action_inviteAmigos_title">친구 초대</string>
     <string name="custom_channel_action_manageParticipants_title">참가자 관리</string>
     <string name="custom_channel_action_mixer_title">음료 보기</string>
+    <string name="custom_channel_action_community_title">커뮤니티 보기</string>
 
     <!-- Channel List -->
     <string name="stream_compose_channel_list_you">귀하</string>

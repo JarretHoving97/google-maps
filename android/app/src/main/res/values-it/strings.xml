@@ -45,6 +45,9 @@
     <!-- AmiChatWithHost -->
     <string name="AmiChatWithHost_body">Chatta con l\'organizzatore</string>
 
+    <!-- AmiChannelCreateActivity -->
+    <string name="AmiChannelCreateActivity_body">Crea attività</string>
+
     <!-- AmiChatTrialNotice -->
     <plurals name="AmiChatTrialNotice_title">
         <item quantity="one">Avvia chat gratuitamente per un giorno come fondatore locale</item>
@@ -90,6 +93,7 @@
     <string name="custom_channel_action_inviteAmigos_title">Invita amigos</string>
     <string name="custom_channel_action_manageParticipants_title">Gestisci partecipanti</string>
     <string name="custom_channel_action_mixer_title">Visualizza drink</string>
+    <string name="custom_channel_action_community_title">Visualizza community</string>
 
     <!-- Channel List -->
     <string name="stream_compose_channel_list_you">Tu</string>
