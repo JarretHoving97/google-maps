@@ -23,7 +23,12 @@ struct CustomPinnedMessage: View {
             return false
         }
 
-        return channel.membership?.memberRole == MemberRole.coOrganizer || channel.isCurrentUserOrganizer
+        if case .community = channel.relatedConceptType {
+            return channel.membership?.memberRole == .communityCoOrganizer ||
+            channel.membership?.memberRole == .communityOrganizer
+        }
+
+        return channel.membership?.memberRole == .coOrganizer || channel.membership?.memberRole == .organizer
     }
 
     var pinnedMessage: String? {
@@ -43,11 +48,11 @@ struct CustomPinnedMessage: View {
             return pinnedMessage
         }
 
-        if isUpdateable {
-            return tr("custom.pinnedMessage.subtitle")
+        if case .community = channel.relatedConceptType {
+            return nil
         }
 
-        return nil
+        return isUpdateable ? tr("custom.pinnedMessage.subtitle") : nil
     }
 
     func showEditPinnedMessageSheet() {

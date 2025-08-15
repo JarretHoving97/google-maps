@@ -1,0 +1,11 @@
+/* 
+  Localizable.strings (ko)
+  Amigos Chat Package
+
+  Created by Jarret on 13/08/2025.
+  
+*/
+
+"chat_channel_create_activity" = "활동 만들기";
+
+"custom_channel_action_community_title" = "커뮤니티 보기";

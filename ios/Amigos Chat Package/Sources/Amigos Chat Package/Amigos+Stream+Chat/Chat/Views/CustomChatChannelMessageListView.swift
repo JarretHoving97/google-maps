@@ -81,6 +81,7 @@ struct CustomChatChannelMessageListView<Factory: ViewFactory>: View {
                     },
                     onJumpToMessage: viewModel.jumpToMessage(messageId:)
                 )
+                .ignoresSafeArea(edges: [.bottom])
                 .onAppear {
                     if let messageId {
                         _ = viewModel.jumpToMessage(messageId: messageId)
@@ -132,6 +133,8 @@ struct CustomChatChannelMessageListView<Factory: ViewFactory>: View {
 
             if channel.isSupportChatChannel {
                 CustomSupportChatChannelButton()
+            } else if isInputDisabled && channel.relatedConceptType.isCommunity {
+                // hide input view
             } else {
                 factory.makeMessageComposerViewType(
                     with: viewModel.channelController,
@@ -187,7 +190,7 @@ struct CustomChatChannelMessageListView<Factory: ViewFactory>: View {
             onReloadChannelHeader?(channel)
         }
     }
-    
+
     var isInputDisabled: Bool {
         !viewModel.canSendMessage
     }

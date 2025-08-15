@@ -72,6 +72,10 @@ public struct CustomChatChannelHeader<Factory: ViewFactory>: View {
             route = .profileRoute(id: userId)
         }
 
+        if case .community(id: let id) = channel.relatedConceptType {
+            route = .communityRoute(id: id)
+        }
+
         if let route {
             RouteController.routeAction?(RouteInfo(route: route, dismiss: true))
         }

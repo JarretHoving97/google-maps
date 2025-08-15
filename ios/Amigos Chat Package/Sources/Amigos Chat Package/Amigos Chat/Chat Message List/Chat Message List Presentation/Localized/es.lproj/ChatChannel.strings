@@ -1,0 +1,11 @@
+/* 
+  Localizable.strings (es)
+  Amigos Chat Package
+
+  Created by Jarret on 13/08/2025.
+  
+*/
+
+"chat_channel_create_activity" = "Crear actividad";
+
+"custom_channel_action_community_title" = "Ver comunidad";

@@ -44,7 +44,7 @@ public struct ChatChannelScreen: View {
 
     var onDidLoadChannel: ((ChatChannel) -> Void)?
 
-    var onChatWithHostTapped: ((String?) -> Void)?
+    var headerButtonTapHandler: HeaderButtonActionHandler?
 
     private let viewFactory: CustomUIFactory
 
@@ -69,7 +69,7 @@ public struct ChatChannelScreen: View {
             messageId: messageId,
             channelController: chatChannelController,
             onDidLoadChannel: onDidLoadChannel,
-            onChatWithHostTapped: onChatWithHostTapped
+            headerButtonTapHandler: headerButtonTapHandler
         )
         .environment(\.attachmentController, AttachmentEnvironmentController())
         .environment(\.showConsentMediaInGroupChannel, viewModel.isDirectMessageChannel)

@@ -58,7 +58,7 @@ extension MessageAction {
             return messageActions
         }
 
-        if channel.config.quotesEnabled {
+        if channel.canQuoteMessage {
             let quoteAction = quoteAction(
                 for: message,
                 channel: channel,
@@ -89,9 +89,11 @@ extension MessageAction {
             }
         }
 
-        let isOwnMessageDeletable = channel.ownCapabilities.contains(.deleteOwnMessage) && message.isSentByCurrentUser && isOwnMessageMutable
-        let isOrganizer = channel.membership?.memberRole == .organizer
-        let isAnyMessageDeletable = channel.ownCapabilities.contains(.deleteAnyMessage) && !channel.isDirectMessageChannel && isOrganizer
+        let isOwnMessageDeletable = channel.ownCapabilities.contains(.deleteOwnMessage) &&
+        message.isSentByCurrentUser &&
+        isOwnMessageMutable
+
+        let isAnyMessageDeletable = channel.ownCapabilities.contains(.deleteAnyMessage)
 
         if isOwnMessageDeletable || isAnyMessageDeletable {
             let deleteAction = deleteAction(

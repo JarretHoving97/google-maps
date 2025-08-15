@@ -281,6 +281,7 @@ extension ChannelAction {
             var organizerActions = [viewAction]
 
             if channel.extraData["active"]?.numberValue == 1 {
+
                 if channel.membership?.memberRole == MemberRole.coOrganizer || channel.isCurrentUserOrganizer {
                     let inviteAction = ChannelAction(
                         title: tr("custom.channel.action.inviteAmigos.title"),
@@ -305,6 +306,58 @@ extension ChannelAction {
             }
 
             return organizerActions
+        }
+
+        if case .community(let id) = channel.relatedConceptType {
+
+            var communityActions: [ChannelAction] = []
+
+            let viewAction = ChannelAction(
+                title: Localized.ChatChannel.viewCommunityActionLabel,
+                iconName: "chevron.right",
+                action: { RouteController.routeAction?(RouteInfo(route: .communityRoute(id: id), dismiss: true))},
+                confirmationPopup: nil,
+                isDestructive: false
+            )
+
+            communityActions.append(viewAction)
+
+            let userMembershipStatus: MemberRole? = channel.membership?.memberRole
+
+            if userMembershipStatus == .organizer || userMembershipStatus == .coOrganizer {
+
+//                MARK: Comment this out for now
+
+//                let inviteViewAction = ChannelAction(
+//                    title: tr("custom.channel.action.inviteAmigos.title"),
+//                    iconName:  "chevron.right",
+//                    action: {
+//                        RouteController.routeAction?(
+//                            RouteInfo(route: .communityActivityInviteRoute(id: id), dismiss: true)
+//                        )
+//                    },
+//                    confirmationPopup: nil,
+//                    isDestructive: false
+//                )
+//
+//                communityActions.append(inviteViewAction)
+
+                let communityParticipantsAction = ChannelAction(
+                    title: tr("custom.channel.action.manageParticipants.title"),
+                    iconName: "chevron.right",
+                    action: {
+                        RouteController.routeAction?(
+                            RouteInfo(route: .manageCommunityParticipantsRoute(id: id), dismiss: true)
+                        )
+                    },
+                    confirmationPopup: nil,
+                    isDestructive: false
+                )
+
+                communityActions.append(communityParticipantsAction)
+            }
+
+            return communityActions
         }
 
         return nil

@@ -70,7 +70,8 @@ extension ExtendedStreamPlugin {
                 channelController: channelController,
                 routeHandler: routeAction(),
                 messageId: channel.messageId,
-                navigation: chatNavigationController
+                navigation: chatNavigationController,
+                client: client
             )
 
             chatNavigationController.pushViewController(detailViewController, animated: animated)
@@ -187,7 +188,8 @@ extension ExtendedStreamPlugin {
             routeHandler: routeAction(),
             messageId: channel.messageId,
             navigation: navigationController,
-            onWillMoveToParent: adaptOnWillMoveToParent()
+            onWillMoveToParent: adaptOnWillMoveToParent(),
+            client: client
         )
 
         let stack = [channelViewController, chatViewController].compactMap {$0}

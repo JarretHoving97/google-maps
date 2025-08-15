@@ -63,8 +63,9 @@ public class ChatViewControllerComposer {
                 in: navigationController
             )
         )
-        // Handle chat with host navigation
-        viewController.rootView.onChatWithHostTapped = adaptOnChatWithHostTapped(
+
+        // Handle header button navigation
+        viewController.rootView.headerButtonTapHandler = adaptOnChannelHeaderButtonTap(
             client: chatClient,
             routeHandler: routeHandler,
             loader: MainTheadDispatchDecorator(decoratee: channelCreationService),
@@ -93,7 +94,9 @@ public class ChatViewControllerComposer {
         routeHandler: @escaping routeAction,
         messageId: String?,
         navigation: UINavigationController,
-        onWillMoveToParent: ((UIViewController?) -> Void)? = nil
+        onWillMoveToParent: ((UIViewController?) -> Void)? = nil,
+        client: ChatClient,
+        channelCreationService: ChannelCreationService = RemoteFindOrCreateChannelService(),
     ) -> UIHostingController<ChatChannelScreen> {
 
         RouteController.setupRouteAction(action: routeHandler)
@@ -120,6 +123,14 @@ public class ChatViewControllerComposer {
             )
         )
 
+        // Handle header button navigation
+        viewController.rootView.headerButtonTapHandler = adaptOnChannelHeaderButtonTap(
+            client: client,
+            routeHandler: routeHandler,
+            loader: MainTheadDispatchDecorator(decoratee: channelCreationService),
+            in: navigation
+        )
+
         return viewController
     }
 }
@@ -127,31 +138,39 @@ public class ChatViewControllerComposer {
 // MARK: Adaptors
 extension ChatViewControllerComposer {
 
-    static private func adaptOnChatWithHostTapped(
+    static private func adaptOnChannelHeaderButtonTap(
         client: ChatClient,
         routeHandler: @escaping routeAction,
         loader: ChannelCreationService,
         in navigation: UINavigationController
-    ) -> ((String?) -> Void) {
+    ) -> HeaderButtonActionHandler {
 
-        return { user in
-            guard let user else { return }
+        return { actionType in
 
-            loader.load(for: user) { result in
-                if case let .success(channel) = result, let channelId = try? ChannelId(cid: channel) {
+            switch actionType {
 
-                    let viewModel = ChatChannelScreenViewModel(isDirectMessageChannel: true)
+            case let .messageHost(userId: userId):
+                loader.load(for: userId) { result in
+                    if case let .success(channel) = result, let channelId = try? ChannelId(cid: channel) {
 
-                    let channelView = lazyLoadCompose(
-                        viewFactory: CustomUIFactory(),
-                        viewModel: viewModel,
-                        channelController: client.channelController(for: channelId),
-                        routeHandler: routeHandler,
-                        messageId: nil,
-                        navigation: navigation
-                    )
-                    navigation.pushViewController(channelView, animated: true)
+                        let viewModel = ChatChannelScreenViewModel(isDirectMessageChannel: true)
+
+                        let channelView = lazyLoadCompose(
+                            viewFactory: CustomUIFactory(),
+                            viewModel: viewModel,
+                            channelController: client.channelController(for: channelId),
+                            routeHandler: routeHandler,
+                            messageId: nil,
+                            navigation: navigation,
+                            client: client
+                        )
+                        navigation.pushViewController(channelView, animated: true)
+                    }
                 }
+
+            case let .startCommunityActivity(communityId: communityId):
+                let route = "/upsert-activity?communityId=\(communityId)"
+                RouteController.routeAction?(RouteInfo(route: .path(route), dismiss: true))
             }
         }
     }
