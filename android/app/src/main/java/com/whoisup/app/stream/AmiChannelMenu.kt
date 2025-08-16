@@ -241,7 +241,7 @@ internal fun channelOptions(
         null
     }
 
-    val activityIsActive = selectedChannel.extraData["activityIsActive"] as? Int ?: 1
+    val activityIsActive = (selectedChannel.extraData["activityIsActive"] as? Number ?: 1).toInt()
 
     val context = LocalContext.current
 
