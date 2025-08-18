@@ -473,7 +473,7 @@ struct CustomUnreadButtonIndicator: View {
             .font(fonts.footnoteBold)
             .frame(width: unreadCount < 10 ? size : nil, height: size)
             .padding(.horizontal, unreadCount < 10 ? 2 : 6)
-            .background(Color("Orange"))
+            .background(Color(.orange))
             .cornerRadius(9)
             .foregroundColor(Color(colors.staticColorText))
             .offset(y: -size)

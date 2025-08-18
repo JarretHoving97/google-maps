@@ -79,7 +79,7 @@ public struct CustomChatChannelListView<Factory: ViewFactory>: View {
             }
         })
         .background(
-            Color(.chatBackground)
+            Color(.white)
         )
         .alert(isPresented: $viewModel.alertShown) {
             switch viewModel.channelAlertType {

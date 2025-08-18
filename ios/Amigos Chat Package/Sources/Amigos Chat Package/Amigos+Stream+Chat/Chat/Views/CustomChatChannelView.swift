@@ -183,7 +183,7 @@ public struct CustomChatChannelView<Factory: ViewFactory>: View, KeyboardReadabl
 
     private var startCommunityActivityHeaderView: some View {
 
-        VStack {
+        VStack(spacing: 10) {
             Divider()
             ChannelHeaderButtonView(
                 title: customViewModel.createActivityLabel,
@@ -196,7 +196,7 @@ public struct CustomChatChannelView<Factory: ViewFactory>: View, KeyboardReadabl
         }
     }
     private var chatWithHostHeaderView: some View {
-        VStack {
+        VStack(spacing: 10) {
             Divider()
             ChannelHeaderButtonView(
                 title: tr("channel.start.message.with.host"),

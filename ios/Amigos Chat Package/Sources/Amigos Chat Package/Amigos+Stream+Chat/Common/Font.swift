@@ -27,19 +27,31 @@ extension Font {
     }
 
     static var body: Font {
-        Font.custom(size: 15, weight: ThemeFontWeight.regular)
+        .custom(size: 15, weight: ThemeFontWeight.regular)
     }
 
     static var caption1: Font {
         return .custom(size: 13, weight: .regular)
     }
 
+    static var caption2: Font {
+        return .custom(size: 11, weight: .medium)
+    }
+
     static var subheadline: Font {
-        Font.custom(size: 14, weight: ThemeFontWeight.medium)
+        .custom(size: 14, weight: .medium)
     }
 
     static var footnote1: Font {
         return .custom(size: 8, weight: .regular)
+    }
+
+    static var bold: Font {
+        return .custom(size: 13, weight: .bold)
+    }
+
+    static var headline: Font {
+        return .custom(size: 15, weight: .semiBold)
     }
 }
 

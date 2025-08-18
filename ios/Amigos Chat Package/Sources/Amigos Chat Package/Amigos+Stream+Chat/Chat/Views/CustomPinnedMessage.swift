@@ -109,7 +109,7 @@ struct CustomPinnedMessage: View {
                 .frame(maxWidth: .infinity)
                 .padding(.horizontal, 12)
                 .padding(.vertical, 8)
-                .background(Color("Orange"))
+                .background(Color(.orange))
                 .cornerRadius(12)
                 .modifier(ShadowModifier())
                 .padding(.all, 12)

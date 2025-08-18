@@ -7,7 +7,7 @@
 
 import Foundation
 
-public struct LocalUser {
+public struct LocalUser: Equatable {
     let id: UUID
     let name: String
     let isModerator: Bool

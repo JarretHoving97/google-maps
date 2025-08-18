@@ -19,22 +19,6 @@ extension ChatChannelRelatedConceptType {
 
 extension ChatChannel {
 
-    var relatedConceptType: ChatChannelRelatedConceptType {
-        if isDirectMessageChannel {
-            return .standard
-        }
-
-        if let mixerId = extraData["mixerId"]?.stringValue {
-            return .mixer(id: mixerId)
-        }
-
-        if let communityId = extraData["communityId"]?.stringValue {
-            return .community(id: communityId)
-        }
-
-        return .activity(id: cid.id)
-    }
-
     var mixerId: String? {
         if isDirectMessageChannel {
             return nil

@@ -46,10 +46,9 @@ extension CustomUIFactory: ViewFactory {
         }
     }
 
-    public typealias ChannelListItemType = CustomChatChannelNavigatableListItem<ChannelDestination>
+    public typealias ChannelListItemType = ChatChannelCell
 
-    public func
-    makeChannelListItem(
+    public func makeChannelListItem(
         channel: ChatChannel,
         channelName: String,
         avatar: UIImage,
@@ -63,17 +62,17 @@ extension CustomUIFactory: ViewFactory {
         trailingSwipeLeftButtonTapped: @escaping (ChatChannel) -> Void,
         leadingSwipeButtonTapped: @escaping (ChatChannel) -> Void
     ) -> ChannelListItemType {
-        CustomChatChannelNavigatableListItem(
-            channel: channel,
-            channelName: channelName,
-            avatar: avatar,
-            onlineIndicatorShown: false,
-            disabled: disabled,
-            selectedChannel: selectedChannel,
-            channelDestination: channelDestination,
-            onItemTap: onItemTap,
-            onLongPress: trailingSwipeLeftButtonTapped
+
+        let localChannel = LocalChannel(from: channel)
+
+        let viewModel = ChatChannelCellViewModel(
+            channel: localChannel,
+            currentUserId: self.chatClient.currentUserId
         )
+
+        let view = ChatChannelCell(viewModel: viewModel, onTap: { onItemTap(channel) })
+
+        return view
     }
 
     public typealias MessageListDateIndicatorViewType = CustomDateIndicatorView
@@ -263,6 +262,7 @@ extension CustomUIFactory: ViewFactory {
         channel: ChatChannel,
         message: ChatMessage
     ) -> CustomMessageReadIndicatorView {
+
         let isRead = channel.unreadCount == .noUnread
         let isReadByAll = message.readByCount >= channel.memberCount - 1
 

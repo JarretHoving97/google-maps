@@ -4,13 +4,13 @@ import StreamChatSwiftUI
 
 /// View representing the user's avatar.
 public struct CustomActivityImageView: View {
-    var url: URL
+    var url: URL?
     var size: CGSize = .defaultAvatarSize
 
     public var body: some View {
         ZStack {
             Circle()
-                .fill(Color("Orange"))
+                .fill(Color(.orange))
                 .frame(width: size.width, height: size.height)
 
             WebImage(url: url)

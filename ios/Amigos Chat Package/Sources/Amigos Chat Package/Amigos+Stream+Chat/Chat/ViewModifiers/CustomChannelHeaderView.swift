@@ -89,6 +89,10 @@ public struct CustomChatChannelHeader<Factory: ViewFactory>: View {
         }
     }
 
+    var avatarImage: URL? {
+        return otherUser?.imageURL
+    }
+
     public var body: some View {
         HStack {
             ZStack {
@@ -98,10 +102,9 @@ public struct CustomChatChannelHeader<Factory: ViewFactory>: View {
                 } label: {
                     HStack(spacing: 8) {
                         if channel.isDirectMessageChannel {
-                            CustomChannelAvatarView(
-                                avatar: headerImage,
-                                showOnlineIndicator: false,
-                                size: CGSize(width: 32, height: 32)
+                            AvatarView(
+                                imageUrl: avatarImage,
+                                size: 32
                             )
                             .allowsHitTesting(false)
                             .accessibilityElement(children: .contain)

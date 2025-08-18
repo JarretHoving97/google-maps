@@ -123,7 +123,6 @@ public struct CustomMoreChannelActionsContainerView<Factory: ViewFactory>: View 
     public var body: some View {
         VStack {
             Spacer()
-
             CustomMoreChannelActionsView(viewModel: viewModel)
                 .padding(.horizontal, 16)
                 .padding(.vertical, 12)
