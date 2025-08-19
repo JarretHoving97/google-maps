@@ -13,8 +13,12 @@ public class ChatChannelScreenViewModel: ObservableObject {
     }
 
     @MainActor
-    public func set(popOver: PopoverType?) {
-        self.popOver = popOver
+    public func toggle(popOver: PopoverType?) {
+        if self.popOver == popOver {
+            self.popOver = nil
+        } else {
+            self.popOver = popOver
+        }
     }
 }
 
@@ -74,7 +78,6 @@ public struct ChatChannelScreen: View {
         .environment(\.attachmentController, AttachmentEnvironmentController())
         .environment(\.showConsentMediaInGroupChannel, viewModel.isDirectMessageChannel)
         .overlay(customViewOverlay(popOver: viewModel.popOver).ignoresSafeArea(edges: [.top]))
-        .animation(.easeInOut, value: viewModel.popOver)
     }
 
     @ViewBuilder
@@ -83,8 +86,8 @@ public struct ChatChannelScreen: View {
         if case let .moreActions(channel) = viewModel.popOver {
 
             let callbacks = ChannelActionCallbacks(
-                onDismiss: { viewModel.set(popOver: nil) },
-                onError: { viewModel.set(popOver: .error($0)) },
+                onDismiss: { viewModel.toggle(popOver: nil) },
+                onError: { viewModel.toggle(popOver: .error($0)) },
                 onClose: { presentationMode.wrappedValue.dismiss() }
             )
 

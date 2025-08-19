@@ -215,7 +215,7 @@ extension ChatViewControllerComposer {
         return { [weak viewModel] channel in
             guard let viewModel else { return }
             Task {
-                await viewModel.set(popOver: .moreActions(channel))
+                await viewModel.toggle(popOver: .moreActions(channel))
             }
         }
     }
