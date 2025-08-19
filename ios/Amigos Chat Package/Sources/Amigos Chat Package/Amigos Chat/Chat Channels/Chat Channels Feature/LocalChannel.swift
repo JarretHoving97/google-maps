@@ -108,7 +108,7 @@ struct LocalChannel: ChatChannelProtocol {
         }
         let readUsers = localReads.filter {
             $0.lastReadAt > message.createdAt &&
-            $0.localUser.id != UUID(uuidString: currentUser)
+            $0.localUser.id != currentUser
         }.map(\.localUser)
 
         return readUsers

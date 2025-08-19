@@ -151,7 +151,7 @@ extension StreamChatNotificationHandler {
 
                 return INPerson(
                     personHandle: INPersonHandle(
-                        value: member.userId.uuidString,
+                        value: member.userId,
                         type: .unknown
                     ),
                     nameComponents: personNameComponents,

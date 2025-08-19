@@ -9,3 +9,8 @@
 "chat_channel_create_activity" = "Crea attività";
 
 "custom_channel_action_community_title" = "Tevékenység létrehozása";
+
+// system messages
+"attendance_reminder" = "L'attività inizierà tra 24 ore. Conto su di te.";
+"group_chat_joined" = "Sono %@, l'organizzatore di questa attività. Presentati anche tu nella chat.";
+"group_chat_joined" = "Vengo anch'io!";

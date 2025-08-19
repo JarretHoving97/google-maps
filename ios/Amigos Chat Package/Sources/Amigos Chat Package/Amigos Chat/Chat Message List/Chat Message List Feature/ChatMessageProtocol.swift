@@ -22,6 +22,8 @@ public protocol ChatMessageProtocol {
     var reactions: [String: Int] { get }
     var textContent: String? { get }
     var pinDetails: MessagePinDetails? { get }
+    var messageType: String { get }
+    var translationKey: TranslationKey? { get }
 }
 
 public protocol ChatMessageAttachmentProtocol {
@@ -30,7 +32,7 @@ public protocol ChatMessageAttachmentProtocol {
 }
 
 public protocol Author {
-    var userId: UUID { get }
+    var userId: String { get }
     var name: String? { get }
     var imageURL: URL? { get }
     var role: any AnyRole { get }
@@ -55,3 +57,4 @@ public protocol AnyRole: RawRepresentable, Codable, Hashable, ExpressibleByStrin
 
     init(stringLiteral value: String)
 }
+

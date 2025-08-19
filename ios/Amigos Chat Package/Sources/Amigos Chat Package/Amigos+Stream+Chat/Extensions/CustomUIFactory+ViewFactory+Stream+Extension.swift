@@ -315,12 +315,6 @@ extension CustomUIFactory: ViewFactory {
         )
     }
 
-    public typealias SystemMessageViewType = CustomSystemMessageView
-
-    public func makeSystemMessageView(message: ChatMessage) -> CustomSystemMessageView {
-        CustomSystemMessageView(message: message)
-    }
-
     public typealias ReactionsOverlayViewType = CustomReactionsOverlayView<CustomUIFactory>
 
     public func makeReactionsOverlayView(

@@ -30,5 +30,36 @@ extension Localized {
                 comment: "action button dat will appear when user taps on channel actions"
             )
         }
+
+        // system messages
+
+        static var attendanceReminderMessage: String {
+            NSLocalizedString(
+                "attendance_reminder",
+                tableName: table,
+                bundle: bundle,
+                comment: "System message in the community chat"
+            )
+        }
+
+        static func groupChatCreated(_ value: String) -> String {
+            String(
+                format: NSLocalizedString(
+                    "group_chat_created",
+                    tableName: table,
+                    bundle: bundle,
+                    comment: "System message in the community chat"
+                ), value
+            )
+        }
+
+        static var groupChatJoined: String {
+            NSLocalizedString(
+                "group_chat_joined",
+                tableName: table,
+                bundle: bundle,
+                comment: "System message in the community chat"
+            )
+        }
     }
 }

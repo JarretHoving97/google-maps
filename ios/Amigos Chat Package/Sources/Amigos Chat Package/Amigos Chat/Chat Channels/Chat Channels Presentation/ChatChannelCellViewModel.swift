@@ -62,7 +62,7 @@ class ChatChannelCellViewModel: ObservableObject {
 
     var showReadIndicator: Bool {
         guard let currentUserId else { return false }
-        return channel.localLatestMessages.first?.user.id == UUID(uuidString: currentUserId)
+        return channel.localLatestMessages.first?.user.id == currentUserId
     }
 
     var readIndicatorViewData: ReadIndicatorViewModel {

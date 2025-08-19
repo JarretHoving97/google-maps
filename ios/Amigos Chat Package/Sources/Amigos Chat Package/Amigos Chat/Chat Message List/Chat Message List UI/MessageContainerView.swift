@@ -31,7 +31,9 @@ struct MessageContainerView: View {
 
         HStack(alignment: .bottom) {
 
-            avatarView
+            if viewModel.showLeftPadding {
+                avatarView
+            }
 
             if viewModel.isRightAligned {
                 MessageSpacer(spacerWidth: defaultSpacerWidth(width))
@@ -234,21 +236,17 @@ extension MessageContainerView {
     }
 
     private var avatarView: some View {
-        Group {
-            if !viewModel.isDirectMessageChat {
-                VStack {
-                    Spacer()
-                    if viewModel.showAvatar {
-                        AvatarView(
-                            imageUrl: viewModel.author.imageUrl,
-                            size: avatarSize
-                        )
-                    } else {
-                        ZStack {
-                            Color.clear
-                                .frame(width: avatarSize)
-                        }
-                    }
+        VStack {
+            Spacer()
+            if viewModel.showAvatar {
+                AvatarView(
+                    imageUrl: viewModel.author.imageUrl,
+                    size: avatarSize
+                )
+            } else {
+                ZStack {
+                    Color.clear
+                        .frame(width: avatarSize)
                 }
             }
         }
@@ -260,7 +258,7 @@ extension MessageContainerView {
         viewModel: MessageContainerViewModel(
             message: Message(
                 user: LocalUser(
-                    id: UUID(),
+                    id: .uniqueID,
                     name: "Ilon",
                     imageUrl: ImageURLExamples.portraitImageUrl
                 ),
@@ -270,6 +268,28 @@ extension MessageContainerView {
                 },
                 reactions: [ReactionType(rawValue: "haha"): 1],
                 isDeleted: false
+            ),
+            showsAllInfo: true,
+            isLast: true,
+            isDirectMessageChat: false
+        ),
+        width: UIScreen.main.bounds.width
+    )
+}
+
+#Preview {
+    MessageContainerView(
+        viewModel: MessageContainerViewModel(
+            message: Message(
+                user: LocalUser(
+                    id: .uniqueID,
+                    name: "Ilon",
+                    imageUrl: ImageURLExamples.portraitImageUrl
+                ),
+                isSentByCurrentUser: false,
+                message: TextExamples.largeMessageText,
+                isDeleted: false,
+                layoutKey: "system"
             ),
             showsAllInfo: true,
             isLast: true,

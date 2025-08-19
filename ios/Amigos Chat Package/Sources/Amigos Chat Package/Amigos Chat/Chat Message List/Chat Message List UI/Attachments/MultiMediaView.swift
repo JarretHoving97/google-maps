@@ -187,7 +187,7 @@ public struct MultiMediaView: View {
 #Preview {
     VStack {
         MultiMediaView(
-            user: LocalUser(id: UUID(), name: "Ilon"), sources: [
+            user: LocalUser(id: .uniqueID, name: "Ilon"), sources: [
                 MediaAttachment(
                     imageLoader: DefaultImageLoader(),
                     imageCDN: MockImageCDN(),
@@ -197,7 +197,7 @@ public struct MultiMediaView: View {
             ], isSentByCurrentUser: true
         )
         MultiMediaView(
-            user: LocalUser(id: UUID(), name: "Ilon"),
+            user: LocalUser(id: .uniqueID, name: "Ilon"),
             sources: [
                 MediaAttachment(
                     imageLoader: DefaultImageLoader(),
@@ -227,7 +227,7 @@ public struct MultiMediaView: View {
             isSentByCurrentUser: true
         )
         MultiMediaView(
-            user: LocalUser(id: UUID(), name: "Ilon"),
+            user: LocalUser(id: .uniqueID, name: "Ilon"),
             sources: [
                 MediaAttachment(
                     imageLoader: DefaultImageLoader(),

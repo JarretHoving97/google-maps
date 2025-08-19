@@ -19,8 +19,8 @@ extension ChatMessage {
 
 extension ChatUser: Author {
 
-    public var userId: UUID {
-        return UUID(uuidString: id) ?? UUID()
+    public var userId: String {
+        return id
     }
 
     public var role: any AnyRole {

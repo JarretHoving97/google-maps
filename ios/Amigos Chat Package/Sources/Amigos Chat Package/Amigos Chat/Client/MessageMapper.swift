@@ -35,11 +35,13 @@ public class MessageMapper {
                     remoteMessage.attachments
                 ),
             layoutKey: remoteMessage.layoutKey,
+            translationKey: remoteMessage.translationKey,
             localState: Message
                 .LocalState(
                     rawValue: remoteMessage.sendingState ?? ""
                 ),
-            createdAt: remoteMessage.createdAt
+            createdAt: remoteMessage.createdAt,
+            type: MessageType(rawValue: remoteMessage.messageType) ?? .regular,
         )
     }
 }
@@ -49,7 +51,6 @@ struct QuotedMessageMapper {
     func mapQuotedMessageFactory(quotedMessage: ChatMessageProtocol?, attachmentsMapper: LocalChatMessageAttachmentMapper) -> (() -> Message?)? {
 
         if let quotedMessage = quotedMessage {
-
             return {
                 Message(
                     id: quotedMessage.id,
@@ -57,7 +58,8 @@ struct QuotedMessageMapper {
                     message: quotedMessage.textContent ?? "",
                     reactions: Dictionary(uniqueKeysWithValues: quotedMessage.reactions.map { (ReactionType(rawValue: $0.key), $0.value)}),
                     isDeleted: quotedMessage.isDeleted,
-                    attachments: attachmentsMapper.mapAttachmentsFactory(quotedMessage.attachments)
+                    attachments: attachmentsMapper.mapAttachmentsFactory(quotedMessage.attachments),
+                    type: MessageType(rawValue: quotedMessage.messageType) ?? .regular,
                 )
             }
         }

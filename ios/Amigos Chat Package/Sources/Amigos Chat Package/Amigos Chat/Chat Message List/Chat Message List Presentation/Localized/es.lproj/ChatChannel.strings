@@ -9,3 +9,8 @@
 "chat_channel_create_activity" = "Crear actividad";
 
 "custom_channel_action_community_title" = "Ver comunidad";
+
+// System Messages
+"attendance_reminder" = "¡Faltan 24 horas para que empiece la actividad! Cuento contigo.";
+"group_chat_created" = "Soy %@, el anfitrión de esta actividad. ¿Podrías presentarte también brevemente en el chat?";
+"group_chat_joined" = "¡Yo también voy!";

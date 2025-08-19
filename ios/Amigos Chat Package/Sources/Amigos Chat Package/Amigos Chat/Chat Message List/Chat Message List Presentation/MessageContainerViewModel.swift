@@ -13,10 +13,6 @@ class MessageContainerViewModel: ObservableObject {
 
     @Published var showReactionsOverlay: Bool = false
 
-    private var isAnonymous: Bool {
-        return LayoutMessageType(rawValue: message.layoutKey ?? "") == .anonymous
-    }
-
     private var dateFormatter: DateFormatter {
         let formatter = DateFormatter()
         formatter.dateStyle = .none
@@ -52,10 +48,6 @@ class MessageContainerViewModel: ObservableObject {
         return message.isSentByCurrentUser
     }
 
-    var showAvatar: Bool {
-        return !isRightAligned && showsAllInfo && !isAnonymous
-    }
-
     var reactions: [ReactionType: Int] {
         return message.reactions
     }
@@ -64,15 +56,37 @@ class MessageContainerViewModel: ObservableObject {
         return message.localState
     }
 
+    var showLeftPadding: Bool {
+        return !isDirectMessageChat && !isSystemMessage
+    }
+
+    var showAvatar: Bool {
+        !isRightAligned &&
+        showsAllInfo &&
+        !isAnonymous
+    }
+
     var showFooterView: Bool {
         showsAllInfo &&
         !message.isDeleted &&
-        /// moderator accounts can be used for some notifications we want to hide the moderator information.
-        !isAnonymous
+        !isAnonymous &&
+        !isSystemMessage
     }
 
     var layoutKey: String? {
         return message.layoutKey
+    }
+
+    private var layoutType: LayoutMessageType? {
+        return LayoutMessageType(rawValue: message.layoutKey ?? "")
+    }
+
+    private var isAnonymous: Bool {
+        return layoutType == .anonymous
+    }
+
+    private var isSystemMessage: Bool {
+        return message.type == .system
     }
 
     let isRead: Bool

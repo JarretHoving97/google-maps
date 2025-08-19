@@ -9,3 +9,8 @@
 "chat_channel_create_activity" = "활동 만들기";
 
 "custom_channel_action_community_title" = "커뮤니티 보기";
+
+// system messages
+"attendance_reminder" = "24시간이 지나면 활동이 시작됩니다. 기대할게요.";
+"group_chat_joined" = "저는 %@님이, 이 활동의 진행자입니다. 채팅에서 간단히 자기소개를 해 주시겠어요?";
+"group_chat_joined" = "나도 갈게요!";
