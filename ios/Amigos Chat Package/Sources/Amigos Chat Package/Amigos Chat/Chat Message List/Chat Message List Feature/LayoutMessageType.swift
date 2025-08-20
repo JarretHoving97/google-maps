@@ -27,8 +27,9 @@ enum LayoutMessageType: Equatable {
             self = .anonymous
         } else if let childType = MessageWalkthroughType(rawValue: rawValue) {
             self = .messageWalkthrough(childType)
+        } else {
+            return nil
         }
-        return nil
      }
 
     static func == (lhs: LayoutMessageType, rhs: LayoutMessageType) -> Bool {
