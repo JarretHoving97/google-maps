@@ -233,10 +233,6 @@ internal fun channelOptions(
 
     val myMember = selectedChannel.membership
 
-    val isMainHost =
-        selectedChannel.createdBy.id === currentUser?.id || // @TODO: this line should eventually be removed
-        myMember?.amiParticipantRole == AmiParticipantRole.Organizer
-
     val otherUser = if (selectedChannel.isDirectMessageChannel()) {
         selectedChannel.members.firstOrNull {
             it.user.id != currentUser?.id
@@ -245,7 +241,7 @@ internal fun channelOptions(
         null
     }
 
-    val activityIsActive = selectedChannel.extraData["activityIsActive"] as? Int ?: 1
+    val activityIsActive = (selectedChannel.extraData["activityIsActive"] as? Number ?: 1).toInt()
 
     val context = LocalContext.current
 
@@ -293,7 +289,7 @@ internal fun channelOptions(
         )
 
         if (
-            isMainHost ||
+            myMember?.amiParticipantRole == AmiParticipantRole.Organizer ||
             myMember?.amiParticipantRole == AmiParticipantRole.PseudoOrganizer
         ) {
             if (activityIsActive == 1) {
@@ -310,6 +306,40 @@ internal fun channelOptions(
                 title = stringResource(id = R.string.custom_channel_action_manageParticipants_title),
                 callback = {
                     val route = "/manage-activity/${conceptType.id}/participants"
+                    ExtendedStreamPlugin.notifyNavigateToListeners(context, route, true)
+                }
+            )
+        }
+    }
+
+    if (conceptType is ChatChannelRelatedConceptType.Community) {
+        options += ChannelOptionItemState(
+            title = stringResource(id = R.string.custom_channel_action_community_title),
+            callback = {
+                val route = "/community/${conceptType.id}"
+                ExtendedStreamPlugin.notifyNavigateToListeners(context, route, true)
+            }
+        )
+
+        if (
+            myMember?.amiParticipantRole == AmiParticipantRole.CommunityOrganizer ||
+            myMember?.amiParticipantRole == AmiParticipantRole.CommunityPseudoOrganizer
+        ) {
+            // Strictly speaking we should enable the code below.
+            // But currently there's no way to check for the status of a Community here.
+            // So we wouldn't know if this option should be available.
+            // options += ChannelOptionItemState(
+            //     title = stringResource(id = R.string.custom_channel_action_inviteAmigos_title),
+            //     callback = {
+            //         val route = "/community/${conceptType.id}/invite"
+            //         ExtendedStreamPlugin.notifyNavigateToListeners(context, route, true)
+            //     }
+            // )
+
+            options += ChannelOptionItemState(
+                title = stringResource(id = R.string.custom_channel_action_manageParticipants_title),
+                callback = {
+                    val route = "/manage-community/${conceptType.id}/participants"
                     ExtendedStreamPlugin.notifyNavigateToListeners(context, route, true)
                 }
             )
@@ -346,7 +376,7 @@ internal fun channelOptions(
                 myMember?.amiParticipantRole == AmiParticipantRole.Participant ||
                 myMember?.amiParticipantRole == AmiParticipantRole.PseudoOrganizer ||
                 // hosts will only see the button if the activity is deleted/expired
-                (isMainHost && activityIsActive == 0)
+                (myMember?.amiParticipantRole == AmiParticipantRole.Organizer && activityIsActive == 0)
             )
 
         if (isAllowedToLeaveChannel) {

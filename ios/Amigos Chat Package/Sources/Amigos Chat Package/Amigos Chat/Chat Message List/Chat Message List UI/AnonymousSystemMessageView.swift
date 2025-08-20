@@ -1,23 +1,25 @@
+//
+//  AnonymousSystemMessageView.swift
+//  Amigos Chat Package
+//
+//  Created by Jarret on 18/08/2025.
+//
+
 import SwiftUI
-import StreamChat
-import StreamChatSwiftUI
-import SDWebImageSwiftUI
 
 struct AnonymousSystemMessageView: View {
-    @Injected(\.fonts) private var fonts
-    @Injected(\.colors) private var colors
 
-    let message: ChatMessage
+    let message: Message
 
-    public init(message: ChatMessage) {
+    public init(message: Message) {
         self.message = message
     }
 
     var body: some View {
         HStack(spacing: 8) {
-            Text(message.text)
-                .font(fonts.caption1)
-                .foregroundColor(Color(colors.textLowEmphasis))
+            Text(tr(message.text))
+                .font(.caption1)
+                .foregroundStyle(Color(.darkText))
         }
         .padding(.horizontal, 16)
         .padding(.vertical, 12)

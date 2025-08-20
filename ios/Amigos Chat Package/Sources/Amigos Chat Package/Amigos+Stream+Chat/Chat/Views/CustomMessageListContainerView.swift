@@ -156,6 +156,9 @@ public struct CustomMessageListContainerView<Factory: ViewFactory>: View, Keyboa
     }
 
     public var body: some View {
+
+        let isInputViewHidden = !channel.canSendMessage && channel.relatedConceptType.isCommunity
+
         ZStack {
             ScrollViewReader { scrollView in
                 ScrollView {
@@ -256,6 +259,15 @@ public struct CustomMessageListContainerView<Factory: ViewFactory>: View, Keyboa
                 factory.makeScrollToBottomButton(
                     unreadCount: channel.unreadCount.messages,
                     onScrollToBottom: onScrollToBottom
+                )
+                .padding(
+                    EdgeInsets(
+                        top: 0,
+                        leading: 0,
+                        // extra padding so the button won't stick to bottom of the screen.
+                        bottom: isInputViewHidden ? 20 : 0,
+                        trailing: isInputViewHidden ? 20 : 0
+                    )
                 )
             }
 
@@ -461,7 +473,7 @@ struct CustomUnreadButtonIndicator: View {
             .font(fonts.footnoteBold)
             .frame(width: unreadCount < 10 ? size : nil, height: size)
             .padding(.horizontal, unreadCount < 10 ? 2 : 6)
-            .background(Color("Orange"))
+            .background(Color(.orange))
             .cornerRadius(9)
             .foregroundColor(Color(colors.staticColorText))
             .offset(y: -size)

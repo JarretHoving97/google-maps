@@ -137,7 +137,7 @@ extension SingleAttachmentGalleryView {
     SingleAttachmentGalleryView(
         isPresented: .constant(true),
         viewModel: SingleAttachmentViewModel(
-            author: LocalUser(id: UUID(), name: "Ilon"),
+            author: LocalUser(id: .uniqueID, name: "Ilon"),
             attachment: MediaAttachment(
                 imageLoader: DefaultImageLoader(),
                 imageCDN: MockImageCDN(),
@@ -154,7 +154,7 @@ extension SingleAttachmentGalleryView {
     SingleAttachmentGalleryView(
         isPresented: .constant(true),
         viewModel: SingleAttachmentViewModel(
-            author: LocalUser(id: UUID(), name: "Ilon"),
+            author: LocalUser(id: .uniqueID, name: "Ilon"),
             attachment: MediaAttachment(
                 imageLoader: DefaultImageLoader(),
                 imageCDN: MockImageCDN(),

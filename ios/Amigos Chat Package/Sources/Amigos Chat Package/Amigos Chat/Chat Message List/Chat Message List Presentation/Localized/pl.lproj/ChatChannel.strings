@@ -1,0 +1,16 @@
+/* 
+  Localizable.strings (pl)
+  Amigos Chat Package
+
+  Created by Jarret on 13/08/2025.
+  
+*/
+
+"chat_channel_create_activity" = "Utwórz aktywność";
+
+"custom_channel_action_community_title" = "Społeczność zobacz";
+
+// System Messages
+"attendance_reminder" = "Jeszcze 24 godziny i aktywność się rozpocznie! Liczę na ciebie.";
+"group_chat_created" = "Jestem %@, organizator tego wydarzenia. Czy mógłbyś również krótko przedstawić się na czacie?";
+"group_chat_joined" = "Też tam będę!";

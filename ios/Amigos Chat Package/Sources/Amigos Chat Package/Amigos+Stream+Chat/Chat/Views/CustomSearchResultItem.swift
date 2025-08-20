@@ -32,17 +32,12 @@ public struct CustomSearchResultItem<ChannelDestination: View>: View {
         } label: {
             HStack {
                 if !channel.isDirectMessageChannel, let imageUrl = channelActivityImageUrl {
-                    CustomActivityImageView(url: imageUrl, size: CGSize(width: 40, height: 40))
+                    CustomActivityImageView(url: imageUrl)
                         .allowsHitTesting(false)
                 } else {
-                    CustomChannelAvatarView(
-                        avatar: avatar,
-                        showOnlineIndicator: false,
-                        size: CGSize(width: 40, height: 40)
-                    )
-                    .allowsHitTesting(false)
-                    .accessibilityElement(children: .contain)
-                    .accessibilityIdentifier("ChannelAvatarView")
+                    AvatarView(imageUrl: channel.imageURL)
+                        .accessibilityElement(children: .contain)
+                        .accessibilityIdentifier("ChannelAvatarView")
                 }
 
                 VStack(alignment: .leading, spacing: 4) {

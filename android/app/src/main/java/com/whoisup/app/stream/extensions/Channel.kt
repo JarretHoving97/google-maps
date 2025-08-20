@@ -13,6 +13,7 @@ fun Channel.isDirectMessageChannel(): Boolean {
 sealed class ChatChannelRelatedConceptType {
     data class Mixer(val id: String) : ChatChannelRelatedConceptType()
     data class Activity(val id: String) : ChatChannelRelatedConceptType()
+    data class Community(val id: String) : ChatChannelRelatedConceptType()
     data object Standard : ChatChannelRelatedConceptType()
 }
 
@@ -22,5 +23,7 @@ val Channel.relatedConceptType: ChatChannelRelatedConceptType
     } else {
         (extraData["mixerId"] as? String)?.let {
             ChatChannelRelatedConceptType.Mixer(it)
+        } ?: (extraData["communityId"] as? String)?.let {
+            ChatChannelRelatedConceptType.Community(it)
         } ?: ChatChannelRelatedConceptType.Activity(id)
     }

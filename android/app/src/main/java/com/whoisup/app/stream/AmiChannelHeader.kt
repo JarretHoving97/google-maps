@@ -131,6 +131,16 @@ fun AmiChannelHeader(
                                     }
                                 )
                             }
+                            is ChatChannelRelatedConceptType.Community -> {
+                                Modifier.clickable(
+                                    indication = null,
+                                    interactionSource = remember { MutableInteractionSource() },
+                                    onClick = {
+                                        val route = "/community/${conceptType.id}"
+                                        ExtendedStreamPlugin.notifyNavigateToListeners(context, route, true)
+                                    }
+                                )
+                            }
                             is ChatChannelRelatedConceptType.Mixer -> {
                                 Modifier.clickable(
                                     indication = null,
@@ -218,8 +228,9 @@ fun AmiChannelHeader(
             AmiInviteUser(otherUser = otherUser)
         }
 
+        val conceptType = channel.relatedConceptType
 
-        if (listViewModel.channel.relatedConceptType is ChatChannelRelatedConceptType.Activity) {
+        if (conceptType is ChatChannelRelatedConceptType.Activity) {
             val mainHost = listViewModel.channel.createdBy
             // It would be nice if we could do something like the following.
             // But we don't have any guarantees that the main host will be present in the `channel.members` list
@@ -232,6 +243,12 @@ fun AmiChannelHeader(
 
                 AmiChatWithHost(mainHost = mainHost)
             }
+        }
+
+        if (conceptType is ChatChannelRelatedConceptType.Community) {
+            Divider()
+
+            AmiChannelCreateActivity(communityId = conceptType.id)
         }
 
         Divider()

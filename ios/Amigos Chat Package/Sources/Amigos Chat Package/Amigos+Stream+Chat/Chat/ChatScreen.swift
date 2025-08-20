@@ -13,8 +13,12 @@ public class ChatChannelScreenViewModel: ObservableObject {
     }
 
     @MainActor
-    public func set(popOver: PopoverType?) {
-        self.popOver = popOver
+    public func toggle(popOver: PopoverType?) {
+        if self.popOver == popOver {
+            self.popOver = nil
+        } else {
+            self.popOver = popOver
+        }
     }
 }
 
@@ -38,11 +42,13 @@ public struct ChatChannelScreen: View {
 
     @StateObject var viewModel: ChatChannelScreenViewModel
 
+    @Environment(\.presentationMode) var presentationMode
+
     public var chatChannelController: ChatChannelController
 
     var onDidLoadChannel: ((ChatChannel) -> Void)?
 
-    var onChatWithHostTapped: ((String?) -> Void)?
+    var headerButtonTapHandler: HeaderButtonActionHandler?
 
     private let viewFactory: CustomUIFactory
 
@@ -61,36 +67,35 @@ public struct ChatChannelScreen: View {
     }
 
     public var body: some View {
+
         CustomChatChannelView(
             viewFactory: viewFactory,
             messageId: messageId,
             channelController: chatChannelController,
             onDidLoadChannel: onDidLoadChannel,
-            onChatWithHostTapped: onChatWithHostTapped
+            headerButtonTapHandler: headerButtonTapHandler
         )
         .environment(\.attachmentController, AttachmentEnvironmentController())
         .environment(\.showConsentMediaInGroupChannel, viewModel.isDirectMessageChannel)
         .overlay(customViewOverlay(popOver: viewModel.popOver).ignoresSafeArea(edges: [.top]))
-        .animation(.easeInOut, value: viewModel.popOver)
     }
 
     @ViewBuilder
     private func customViewOverlay(popOver: PopoverType?) -> some View {
-        switch viewModel.popOver {
-        case let .moreActions(channel):
-            viewFactory.makeMoreChannelActionsView(
-                for: channel,
-                swipedChannelId: .constant(nil)
-            ) {
-                withAnimation {
-                    viewModel.set(popOver: nil)
-                }
-            } onError: { error in
-                viewModel.set(popOver: .error(error))
-            }
 
-        default:
-            EmptyView()
+        if case let .moreActions(channel) = viewModel.popOver {
+
+            let callbacks = ChannelActionCallbacks(
+                onDismiss: { viewModel.toggle(popOver: nil) },
+                onError: { viewModel.toggle(popOver: .error($0)) },
+                onClose: { presentationMode.wrappedValue.dismiss() }
+            )
+
+            CustomMoreChannelActionsContainerView(
+                factory: viewFactory,
+                channel: channel,
+                callbacks: callbacks
+            )
         }
     }
 }

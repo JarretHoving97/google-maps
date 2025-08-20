@@ -6,6 +6,13 @@ import StreamChat
 import SwiftUI
 import StreamChatSwiftUI
 
+public typealias HeaderButtonActionHandler = (ChannelHeaderButtonAction) -> Void
+
+public enum ChannelHeaderButtonAction {
+    case messageHost(userId: String)
+    case startCommunityActivity(communityId: String)
+}
+
 /// View for the chat channel.
 public struct CustomChatChannelView<Factory: ViewFactory>: View, KeyboardReadable {
     @Injected(\.colors) private var colors
@@ -13,6 +20,8 @@ public struct CustomChatChannelView<Factory: ViewFactory>: View, KeyboardReadabl
     @Injected(\.chatClient) private var chatClient
 
     @StateObject private var viewModel: ChatChannelViewModel
+
+    private let customViewModel = CustomChatChannelViewModel()
 
     @Environment(\.presentationMode) var presentationMode
 
@@ -28,7 +37,7 @@ public struct CustomChatChannelView<Factory: ViewFactory>: View, KeyboardReadabl
 
     var onDidLoadChannel: ((ChatChannel) -> Void)?
 
-    var onChatWithHostTapped: ((String?) -> Void)?
+    var headerButtonTapHandler: HeaderButtonActionHandler?
 
     public init(
         viewFactory: Factory = DefaultViewFactory.shared,
@@ -38,7 +47,7 @@ public struct CustomChatChannelView<Factory: ViewFactory>: View, KeyboardReadabl
         messageController: ChatMessageController? = nil,
         scrollToMessage: ChatMessage? = nil,
         onDidLoadChannel: ((ChatChannel) -> Void)? = nil,
-        onChatWithHostTapped: ((String?) -> Void)? = nil
+        headerButtonTapHandler: HeaderButtonActionHandler? = nil
     ) {
         _viewModel = StateObject(
             wrappedValue: viewModel ?? ViewModelsFactory.makeChannelViewModel(
@@ -49,7 +58,7 @@ public struct CustomChatChannelView<Factory: ViewFactory>: View, KeyboardReadabl
         )
         factory = viewFactory
         self.onDidLoadChannel = onDidLoadChannel
-        self.onChatWithHostTapped = onChatWithHostTapped
+        self.headerButtonTapHandler = headerButtonTapHandler
         self.scrollToMessage = scrollToMessage
         self.messageId = messageId
     }
@@ -58,9 +67,9 @@ public struct CustomChatChannelView<Factory: ViewFactory>: View, KeyboardReadabl
         ZStack {
             if let channel = viewModel.channel {
                 VStack(spacing: 0) {
-                    if case .activity = channel.relatedConceptType, !channel.isCurrentUserOrganizer {
-                        chatWithHostView
-                    }
+
+                    headerActionView()
+
                     CustomChatChannelMessageListView(
                         viewFactory: factory,
                         channel: channel,
@@ -152,11 +161,50 @@ public struct CustomChatChannelView<Factory: ViewFactory>: View, KeyboardReadabl
         return bottomPadding
     }
 
-    private var chatWithHostView: some View {
-        VStack {
+    @ViewBuilder
+    private func headerActionView() -> some View {
+
+        if let channel = viewModel.channel {
+            switch viewModel.channel?.relatedConceptType {
+
+            case .activity:
+
+                if !channel.isCurrentUserOrganizer {
+                    chatWithHostHeaderView
+                }
+            case .community:
+
+                startCommunityActivityHeaderView
+
+            default: EmptyView()
+            }
+        }
+    }
+
+    private var startCommunityActivityHeaderView: some View {
+
+        VStack(spacing: 10) {
             Divider()
-            ChatWithHostView(onChatWithHostTapped: { onChatWithHostTapped?(viewModel.channel?.createdBy?.id) })
-                .frame(height: 32)
+            ChannelHeaderButtonView(
+                title: customViewModel.createActivityLabel,
+                onButtonPress: {
+                    guard let communityId = viewModel.channel?.extraData["communityId"]?.stringValue else { return }
+                    headerButtonTapHandler?(.startCommunityActivity(communityId: communityId))
+                }
+            )
+            Divider()
+        }
+    }
+    private var chatWithHostHeaderView: some View {
+        VStack(spacing: 10) {
+            Divider()
+            ChannelHeaderButtonView(
+                title: tr("channel.start.message.with.host"),
+                onButtonPress: {
+                    guard let userId = viewModel.channel?.createdBy?.id else { return }
+                    headerButtonTapHandler?(.messageHost(userId: userId))
+                }
+            )
             Divider()
         }
     }

@@ -7,13 +7,13 @@
 
 import Foundation
 
-public struct LocalUser {
-    let id: UUID
+public struct LocalUser: Equatable {
+    let id: String
     let name: String
     let isModerator: Bool
     var imageUrl: URL?
 
-    public init(id: UUID, name: String, imageUrl: URL? = nil, isModerator: Bool = false) {
+    public init(id: String, name: String, imageUrl: URL? = nil, isModerator: Bool = false) {
         self.id = id
         self.name = name
         self.isModerator = isModerator
@@ -39,6 +39,8 @@ public struct Message {
 
     public let layoutKey: String?
 
+    public let translationKey: TranslationKey?
+
     public var quotedMessage: Message? {
         _quotedMessage?()
     }
@@ -47,11 +49,13 @@ public struct Message {
 
     public var localState: LocalState?
 
+    public let type: MessageType
+
     let createdAt: Date
 
     public init(
         id: String = UUID().uuidString,
-        user: LocalUser = LocalUser(id: UUID(), name: "", imageUrl: nil),
+        user: LocalUser = LocalUser(id: .uniqueID, name: "", imageUrl: nil),
         isSentByCurrentUser: Bool = false,
         message: String = "",
         quotedMessage: (() -> Message?)? = nil,
@@ -59,8 +63,10 @@ public struct Message {
         isDeleted: Bool = false,
         attachments: [LocalChatMessageAttachment] = [],
         layoutKey: String? = nil,
+        translationKey: TranslationKey? = nil,
         localState: LocalState? = nil,
-        createdAt: Date = Date()
+        createdAt: Date = Date(),
+        type: MessageType = .regular
 
     ) {
         self.id = id
@@ -74,6 +80,8 @@ public struct Message {
         self.layoutKey = layoutKey
         self.localState = localState
         self.createdAt = createdAt
+        self.type = type
+        self.translationKey = translationKey
     }
 }
 

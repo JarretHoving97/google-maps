@@ -1,5 +1,5 @@
 //
-//  ChatWithHostView.swift
+//  ChannelHeaderButtonView.swift
 //  Amigos Chat Package
 //
 //  Created by Jarret on 14/01/2025.
@@ -7,24 +7,16 @@
 
 import SwiftUI
 
-class ChatWithHostViewModel {
+struct ChannelHeaderButtonView: View {
 
-    var title: String {
-        // TODO: when merging Share Location feature use the modular approach
-        tr("channel.start.message.with.host")
-    }
-}
+    let title: String
 
-struct ChatWithHostView: View {
-
-    let viewModel = ChatWithHostViewModel()
-
-    var onChatWithHostTapped: (() -> Void)
+    let onButtonPress: (() -> Void)
 
     var body: some View {
         HStack {
-            Button(action: onChatWithHostTapped) {
-                Text(viewModel.title)
+            Button(action: onButtonPress) {
+                Text(title)
                     .font(Font.custom(size: 14, weight: .regular))
                 ZStack {
                     Circle()

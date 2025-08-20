@@ -5,22 +5,19 @@ import SwiftUI
 enum ChatChannelRelatedConceptType: Equatable {
     case mixer(id: String)
     case activity(id: String)
+    case community(id: String)
     case standard
 }
 
-extension ChatChannel {
+extension ChatChannelRelatedConceptType {
 
-    var relatedConceptType: ChatChannelRelatedConceptType {
-        if isDirectMessageChannel {
-            return .standard
-        }
-
-        if let mixerId = extraData["mixerId"]?.stringValue {
-            return .mixer(id: mixerId)
-        }
-
-        return .activity(id: cid.id)
+    var isCommunity: Bool {
+        if case .community = self { return true }
+        return false
     }
+}
+
+extension ChatChannel {
 
     var mixerId: String? {
         if isDirectMessageChannel {

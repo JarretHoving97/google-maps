@@ -22,9 +22,6 @@ import androidx.compose.ui.unit.dp
 import com.whoisup.app.components.AmiButtonLabel
 import com.whoisup.app.components.AmiSimpleMenu
 import com.whoisup.app.components.TextColor
-import com.whoisup.app.stream.extensions.AmiParticipantRole
-import com.whoisup.app.stream.extensions.amiParticipantRole
-import com.whoisup.app.stream.extensions.isDirectMessageChannel
 import com.whoisup.app.stream.extensions.isSupportTeamMember
 import com.whoisup.app.ui.theme.CustomTheme
 import io.getstream.chat.android.client.utils.message.isGiphy
@@ -62,7 +59,6 @@ fun AmiMessageMenu(
     val ownCapabilities = selectedMessageState?.ownCapabilities ?: setOf()
 
     val newMessageOptions = messageOptions(
-        listViewModel = listViewModel,
         selectedMessage = selectedMessage,
         currentUser = currentUser,
         ownCapabilities = ownCapabilities,
@@ -137,7 +133,6 @@ internal class MessageOptionItemState(
 
 @Composable
 internal fun messageOptions(
-    listViewModel: MessageListViewModel,
     selectedMessage: Message,
     currentUser: User?,
     ownCapabilities: Set<String>,
@@ -181,10 +176,6 @@ internal fun messageOptions(
 
     val isDeleteMessagePossible = isAllowedByCreateAt && isOwnMessage && canDeleteOwnMessage
     val isEditMessagePossible = isAllowedByCreateAt && (isOwnMessage && canEditOwnMessage) && !selectedMessage.isGiphy()
-
-    val isDeleteAnyMessagePossible = canDeleteAnyMessage &&
-            !listViewModel.channel.isDirectMessageChannel() &&
-            listViewModel.channel.membership?.amiParticipantRole == AmiParticipantRole.Organizer
 
     return listOfNotNull(
         if (isOwnMessage && isMessageFailed) {
@@ -232,7 +223,7 @@ internal fun messageOptions(
         } else {
             null
         },
-        if (isDeleteMessagePossible || isDeleteAnyMessagePossible) {
+        if (isDeleteMessagePossible || canDeleteAnyMessage) {
             MessageOptionItemState(
                 title = stringResource(id = io.getstream.chat.android.compose.R.string.stream_compose_delete_message),
                 iconId = io.getstream.chat.android.compose.R.drawable.stream_compose_ic_delete,

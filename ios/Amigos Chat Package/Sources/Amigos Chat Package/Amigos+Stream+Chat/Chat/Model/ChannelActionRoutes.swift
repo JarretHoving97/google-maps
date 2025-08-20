@@ -9,13 +9,24 @@ import Foundation
 
 public enum ChannelRoute: Equatable {
 
+    // direct message
     case profileRoute(id: String)
     case profileInviteRoute(id: String)
+
+    // activity
     case activityRoute(id: String)
-    case mixerRoute(id: String)
     case inviteToActivityRoute(id: String)
     case manageActivityParticipantsRoute(id: String)
 
+    // community
+    case communityRoute(id: String)
+    case communityActivityInviteRoute(id: String)
+    case manageCommunityParticipantsRoute(id: String)
+
+    // mixer
+    case mixerRoute(id: String)
+
+    // other
     case superAmigoRoute
     case onboardingRoute
     case howToHost
@@ -39,12 +50,21 @@ public enum ChannelRoute: Equatable {
 
         case .mixerRoute(let id):
             "/mixer/\(id)"
-            
+
+        case .communityRoute(let id):
+            "/community/\(id)"
+
+        case .communityActivityInviteRoute(id: let id):
+            "/community/\(id)/invite"
+
+        case .manageCommunityParticipantsRoute(id: let id):
+            "/manage-community/\(id)/participants"
+
+        case .manageActivityParticipantsRoute(id: let id):
+            "/manage-activity/\(id)/participants"
+
         case .inviteToActivityRoute(let id):
             "/activity/\(id)/invite"
-
-        case .manageActivityParticipantsRoute(let id):
-            "/manage-activity/\(id)/participants"
 
         case .superAmigoRoute:
             "/super-amigo"

@@ -1,14 +1,20 @@
 import StreamChat
 import StreamChatSwiftUI
 
+public struct ChannelActionCallbacks {
+    let onDismiss: () -> Void
+    let onError: (Error) -> Void
+    let onClose: () -> Void
+}
+
 extension ChannelAction {
 
     /// Returns the channel actions.
     public static func customActions(
         for channel: ChatChannel,
         chatClient: ChatClient,
-        onDismiss: @escaping () -> Void,
-        onError: @escaping (Error) -> Void
+        callbacks: ChannelActionCallbacks
+
     ) -> [ChannelAction] {
         var actions = [ChannelAction]()
 
@@ -21,17 +27,14 @@ extension ChannelAction {
                 let unmuteAction = unmuteAction(
                     for: channel,
                     chatClient: chatClient,
-                    onDismiss: onDismiss,
-                    onError: onError
+                    callbacks: callbacks
                 )
-
                 actions.append(unmuteAction)
             } else {
                 let muteAction = muteAction(
                     for: channel,
                     chatClient: chatClient,
-                    onDismiss: onDismiss,
-                    onError: onError
+                    callbacks: callbacks
                 )
 
                 actions.append(muteAction)
@@ -46,17 +49,19 @@ extension ChannelAction {
             let isAllowedToLeaveChannel =
                 hasCapability &&
                 (
+                    // participants and co-hosts always see the leave button
                     memberRole == .channelMember ||
                     memberRole == .coOrganizer ||
-                    (channel.isCurrentUserOrganizer && isActiveActivity)
+                    // hosts will only see the button if the activity is deleted/expired
+                    (channel.isCurrentUserOrganizer && !isActiveActivity)
                 )
 
             if isAllowedToLeaveChannel {
                 let leaveAction = leaveChat(
                     for: channel,
                     chatClient: chatClient,
-                    onDismiss: onDismiss,
-                    onError: onError
+                    onDismiss: callbacks.onClose,
+                    onError: callbacks.onError
                 )
 
                 actions.append(leaveAction)
@@ -65,8 +70,8 @@ extension ChannelAction {
             let archiveAction = archiveChat(
                 for: channel,
                 chatClient: chatClient,
-                onDismiss: onDismiss,
-                onError: onError
+                onDismiss: callbacks.onClose,
+                onError: callbacks.onError,
             )
 
             actions.append(archiveAction)
@@ -78,16 +83,15 @@ extension ChannelAction {
     private static func deleteChat(
         for channel: ChatChannel,
         chatClient: ChatClient,
-        onDismiss: @escaping () -> Void,
-        onError: @escaping (Error) -> Void
+        callbacks: ChannelActionCallbacks
     ) -> ChannelAction {
         let action = {
             let controller = chatClient.channelController(for: channel.cid)
             controller.deleteChannel { error in
                 if let error = error {
-                    onError(error)
+                    callbacks.onError(error)
                 } else {
-                    onDismiss()
+                    callbacks.onClose()
                 }
             }
         }
@@ -111,7 +115,7 @@ extension ChannelAction {
         for channel: ChatChannel,
         chatClient: ChatClient,
         onDismiss: @escaping () -> Void,
-        onError: @escaping (Error) -> Void
+        onError: @escaping (Error) -> Void,
     ) -> ChannelAction {
         let action = {
             let controller = chatClient.channelController(for: channel.cid)
@@ -155,6 +159,7 @@ extension ChannelAction {
                 if let error = error {
                     onError(error)
                 } else {
+
                     onDismiss()
                 }
             }
@@ -178,16 +183,15 @@ extension ChannelAction {
     private static func muteAction(
         for channel: ChatChannel,
         chatClient: ChatClient,
-        onDismiss: @escaping () -> Void,
-        onError: @escaping (Error) -> Void
+        callbacks: ChannelActionCallbacks
     ) -> ChannelAction {
         let action = {
             let controller = chatClient.channelController(for: channel.cid)
             controller.muteChannel { error in
                 if let error = error {
-                    onError(error)
+                    callbacks.onError(error)
                 } else {
-                    onDismiss()
+                    callbacks.onDismiss()
                 }
             }
         }
@@ -204,16 +208,15 @@ extension ChannelAction {
     private static func unmuteAction(
         for channel: ChatChannel,
         chatClient: ChatClient,
-        onDismiss: @escaping () -> Void,
-        onError: @escaping (Error) -> Void
+        callbacks: ChannelActionCallbacks
     ) -> ChannelAction {
         let action = {
             let controller = chatClient.channelController(for: channel.cid)
             controller.unmuteChannel { error in
                 if let error = error {
-                    onError(error)
+                    callbacks.onError(error)
                 } else {
-                    onDismiss()
+                    callbacks.onDismiss()
                 }
             }
         }
@@ -278,6 +281,7 @@ extension ChannelAction {
             var organizerActions = [viewAction]
 
             if channel.extraData["active"]?.numberValue == 1 {
+
                 if channel.membership?.memberRole == MemberRole.coOrganizer || channel.isCurrentUserOrganizer {
                     let inviteAction = ChannelAction(
                         title: tr("custom.channel.action.inviteAmigos.title"),
@@ -302,6 +306,58 @@ extension ChannelAction {
             }
 
             return organizerActions
+        }
+
+        if case .community(let id) = channel.relatedConceptType {
+
+            var communityActions: [ChannelAction] = []
+
+            let viewAction = ChannelAction(
+                title: Localized.ChatChannel.viewCommunityActionLabel,
+                iconName: "chevron.right",
+                action: { RouteController.routeAction?(RouteInfo(route: .communityRoute(id: id), dismiss: true))},
+                confirmationPopup: nil,
+                isDestructive: false
+            )
+
+            communityActions.append(viewAction)
+
+            let userMembershipStatus: MemberRole? = channel.membership?.memberRole
+
+            if userMembershipStatus == .organizer || userMembershipStatus == .coOrganizer {
+
+//                MARK: Comment this out for now
+
+//                let inviteViewAction = ChannelAction(
+//                    title: tr("custom.channel.action.inviteAmigos.title"),
+//                    iconName:  "chevron.right",
+//                    action: {
+//                        RouteController.routeAction?(
+//                            RouteInfo(route: .communityActivityInviteRoute(id: id), dismiss: true)
+//                        )
+//                    },
+//                    confirmationPopup: nil,
+//                    isDestructive: false
+//                )
+//
+//                communityActions.append(inviteViewAction)
+
+                let communityParticipantsAction = ChannelAction(
+                    title: tr("custom.channel.action.manageParticipants.title"),
+                    iconName: "chevron.right",
+                    action: {
+                        RouteController.routeAction?(
+                            RouteInfo(route: .manageCommunityParticipantsRoute(id: id), dismiss: true)
+                        )
+                    },
+                    confirmationPopup: nil,
+                    isDestructive: false
+                )
+
+                communityActions.append(communityParticipantsAction)
+            }
+
+            return communityActions
         }
 
         return nil

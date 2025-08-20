@@ -49,6 +49,10 @@ struct MessageView: View {
             )
             .modifier(bubbleResolvedModifier)
 
+        } else if viewModel.messageType == .system {
+
+            SystemMessageView(message: viewModel.message)
+
         } else if viewModel.asSuperEmoji {
 
             VStack(spacing: 0) {
@@ -86,7 +90,6 @@ struct MessageView: View {
 // MARK: View Components
 
 extension MessageView {
-
     private var walkthroughView: some View {
         Group {
             if let type = viewModel.layoutMessageType, case let .messageWalkthrough(messageWalkthroughType) = type {
@@ -292,4 +295,26 @@ extension MessageView {
         )
     )
     .frame(width: UIScreen.main.bounds.size.width * 0.6)
+}
+
+#Preview {
+    MessageContainerView(
+        viewModel: MessageContainerViewModel(
+            message: Message(
+                user: LocalUser(
+                    id: .uniqueID,
+                    name: "Ilon",
+                    imageUrl: ImageURLExamples.portraitImageUrl
+                ),
+                isSentByCurrentUser: false,
+                message: TextExamples.largeMessageText,
+                isDeleted: false,
+                layoutKey: "system"
+            ),
+            showsAllInfo: true,
+            isLast: true,
+            isDirectMessageChat: false
+        ),
+        width: UIScreen.main.bounds.width
+    )
 }

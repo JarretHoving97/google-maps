@@ -46,10 +46,9 @@ extension CustomUIFactory: ViewFactory {
         }
     }
 
-    public typealias ChannelListItemType = CustomChatChannelNavigatableListItem<ChannelDestination>
+    public typealias ChannelListItemType = ChatChannelCell
 
-    public func
-    makeChannelListItem(
+    public func makeChannelListItem(
         channel: ChatChannel,
         channelName: String,
         avatar: UIImage,
@@ -63,17 +62,17 @@ extension CustomUIFactory: ViewFactory {
         trailingSwipeLeftButtonTapped: @escaping (ChatChannel) -> Void,
         leadingSwipeButtonTapped: @escaping (ChatChannel) -> Void
     ) -> ChannelListItemType {
-        CustomChatChannelNavigatableListItem(
-            channel: channel,
-            channelName: channelName,
-            avatar: avatar,
-            onlineIndicatorShown: false,
-            disabled: disabled,
-            selectedChannel: selectedChannel,
-            channelDestination: channelDestination,
-            onItemTap: onItemTap,
-            onLongPress: trailingSwipeLeftButtonTapped
+
+        let localChannel = LocalChannel(from: channel)
+
+        let viewModel = ChatChannelCellViewModel(
+            channel: localChannel,
+            currentUserId: self.chatClient.currentUserId
         )
+
+        let view = ChatChannelCell(viewModel: viewModel, onTap: { onItemTap(channel) })
+
+        return view
     }
 
     public typealias MessageListDateIndicatorViewType = CustomDateIndicatorView
@@ -263,6 +262,7 @@ extension CustomUIFactory: ViewFactory {
         channel: ChatChannel,
         message: ChatMessage
     ) -> CustomMessageReadIndicatorView {
+
         let isRead = channel.unreadCount == .noUnread
         let isReadByAll = message.readByCount >= channel.memberCount - 1
 
@@ -313,12 +313,6 @@ extension CustomUIFactory: ViewFactory {
             isFirst: isFirst,
             scrolledId: scrolledId
         )
-    }
-
-    public typealias SystemMessageViewType = CustomSystemMessageView
-
-    public func makeSystemMessageView(message: ChatMessage) -> CustomSystemMessageView {
-        CustomSystemMessageView(message: message)
     }
 
     public typealias ReactionsOverlayViewType = CustomReactionsOverlayView<CustomUIFactory>
@@ -372,39 +366,6 @@ extension CustomUIFactory: ViewFactory {
         )
 
         return CustomMessageActionsView(for: message, messageActions: messageActions)
-    }
-
-    public func supportedMoreChannelActions(
-        for channel: ChatChannel,
-        onDismiss: @escaping () -> Void,
-        onError: @escaping (Error) -> Void
-    ) -> [ChannelAction] {
-        ChannelAction.customActions(
-            for: channel,
-            chatClient: chatClient,
-            onDismiss: onDismiss,
-            onError: onError
-        )
-    }
-
-    public typealias MoreActionsView = CustomMoreChannelActionsContainerView<CustomUIFactory>
-
-    public func makeMoreChannelActionsView(
-        for channel: ChatChannel,
-        swipedChannelId: Binding<String?>,
-        onDismiss: @escaping () -> Void,
-        onError: @escaping (Error) -> Void
-    ) -> CustomMoreChannelActionsContainerView<CustomUIFactory> {
-        CustomMoreChannelActionsContainerView(
-            factory: self,
-            channel: channel,
-            channelActions: supportedMoreChannelActions(
-                for: channel,
-                onDismiss: onDismiss,
-                onError: onError
-            ),
-            onDismiss: onDismiss
-        )
     }
 
     public typealias DeletedMessageViewType = DeletedMessageView

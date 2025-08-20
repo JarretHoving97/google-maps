@@ -90,7 +90,7 @@ struct VideoPlayIcon: View {
 #Preview {
     VideoPreviewAttachmentView(
         user: LocalUser(
-            id: UUID(),
+            id: .uniqueID,
             name: "Ilon"
         ),
         videoPreviewLoader: DefaultPreviewVideoLoader(),

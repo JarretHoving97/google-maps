@@ -12,22 +12,21 @@ class ReadIndicatorViewModel: ObservableObject {
     private var isRead: Bool
     private var isReadByAll: Bool
     private var localState: Message.LocalState?
+    private var memberCount: Int
 
     var tintColor: Color? {
-        if isReadByAll || isRead {
-            return Color(.purple)
-        }
-
         return Color(.purple)
     }
 
     var icon: UIImage? {
         if localState == .pendingSend {
             return UIImage(named: "message_receipt_sending", in: .module, with: nil)
-        } else if isReadByAll || isRead {
 
+        } else if isReadByAll {
             return UIImage(named: "message_receipt_read", in: .module, with: nil)?
                 .withRenderingMode(.alwaysTemplate)
+        } else if isRead {
+                return UIImage(named: "message_receipt_sent", in: .module, with: nil)
         } else {
             return UIImage(named: "message_receipt_sent", in: .module, with: nil)
         }
@@ -36,10 +35,12 @@ class ReadIndicatorViewModel: ObservableObject {
     init(
         isRead: Bool,
         isReadByAll: Bool,
-        localState: Message.LocalState? = nil
+        localState: Message.LocalState? = nil,
+        memberCount: Int = 0
     ) {
         self.isRead = isRead
         self.isReadByAll = isReadByAll
         self.localState = localState
+        self.memberCount = memberCount
     }
 }

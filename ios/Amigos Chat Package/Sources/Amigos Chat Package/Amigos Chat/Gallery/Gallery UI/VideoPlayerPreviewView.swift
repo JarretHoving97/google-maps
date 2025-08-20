@@ -110,6 +110,6 @@ struct VideoPlayerPreviewView: View {
             url: VideoURLExamples.example1,
             type: .video,
             uploadingState: .none
-        ), author: LocalUser(id: UUID(), name: "Ilon")
+        ), author: LocalUser(id: .uniqueID, name: "Ilon")
     )
 }

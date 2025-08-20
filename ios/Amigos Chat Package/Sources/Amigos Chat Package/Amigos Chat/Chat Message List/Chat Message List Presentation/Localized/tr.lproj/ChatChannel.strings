@@ -1,0 +1,16 @@
+/* 
+  Localizable.strings (tr)
+  Amigos Chat Package
+
+  Created by Jarret on 13/08/2025.
+  
+*/
+
+"chat_channel_create_activity" = "Aktivite oluştur";
+
+"custom_channel_action_community_title" = "Topluluğu görüntüle";
+
+// System Messages
+"attendance_reminder" = "Etkinlik 24 saat içinde başlayacak. Sana güveniyorum.";
+"group_chat_created" = "Ben %@, bu etkinliğin ev sahibiyim. Sohbette kendini tanıtmaktan çekinme.";
+"group_chat_joined" = "Ben de geliyorum!";

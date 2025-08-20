@@ -100,7 +100,7 @@ struct GalleryView: View {
             VStack {
                 if attachment.type == .photo {
                     GalleryImageView(
-                        author: LocalUser(id: UUID(), name: "Ilon"),
+                        author: LocalUser(id: .uniqueID, name: "Ilon"),
                         attachment: ImageAttachment(imageUrl: attachment.url, uploadingState: nil),
                         loader: attachment.imageLoader,
                         imageCDN: attachment.imageCDN
@@ -307,7 +307,7 @@ struct GalleryView: View {
                     uploadingState: .none
                 )
             ],
-            author: LocalUser(id: UUID(), name: "Ilon")
+            author: LocalUser(id: .uniqueID, name: "Ilon")
         )
     )
 }

@@ -10,9 +10,21 @@ import StreamChat
 
 extension ChatMessage: ChatMessageProtocol {
 
+    public var messageType: String {
+        return type.rawValue
+    }
+
     public var layoutKey: String? {
         if let layoutKey = extraData["layoutKey"]?.stringValue {
             return layoutKey
+        }
+
+        return nil
+    }
+
+    public var translationKey: TranslationKey? {
+        if let key = extraData["translationKey"]?.stringValue {
+            return TranslationKey(rawValue: key)
         }
 
         return nil

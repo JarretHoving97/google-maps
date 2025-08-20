@@ -88,7 +88,7 @@ public class MessageViewModel: ObservableObject {
 
     private let messageResolver: AmigosMessageTypeResolving
 
-    private let message: Message
+    let message: Message
 
     /// used when we want other than the default `messageResolver` behaviour
     public init(
@@ -178,4 +178,16 @@ extension MessageViewModel {
     var layoutMessageType: LayoutMessageType? {
         LayoutMessageType(rawValue: message.layoutKey ?? "")
     }
+
+    var messageType: MessageType {
+        return message.type
+    }
+}
+
+public enum MessageType: String {
+    case regular
+
+    case system
+
+    case deleted
 }
