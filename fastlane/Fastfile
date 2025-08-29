@@ -109,6 +109,6 @@ platform :android do
     # return version
 
     # For now, return the latest version manually.
-    return "1.9.20"
+    return "1.9.21"
   end
 end
