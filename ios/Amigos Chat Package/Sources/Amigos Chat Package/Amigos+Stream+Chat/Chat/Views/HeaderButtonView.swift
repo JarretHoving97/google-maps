@@ -29,6 +29,7 @@ struct HeaderButtonView: View {
                     .alignmentGuide(HorizontalAlignment.center, computeValue: { viewDimension in
                         viewDimension[HorizontalAlignment.center]
                     })
+                    .padding(.bottom, 3)
             }
         }
         .padding(.all, 6)

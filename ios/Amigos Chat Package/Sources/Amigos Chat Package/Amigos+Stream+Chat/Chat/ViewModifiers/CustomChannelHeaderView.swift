@@ -149,6 +149,7 @@ public struct CustomChatChannelHeader<Factory: ViewFactory>: View {
                     }
                     .frame(width: 20, height: 20)
                     .padding(.trailing, 2)
+                    .padding(.bottom, 3)
 
                     Divider()
                         .frame(minWidth: 1, idealWidth: 1, maxHeight: .infinity)
