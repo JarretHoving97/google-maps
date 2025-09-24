@@ -12,6 +12,12 @@ import Amigos_Chat_Package
 
 struct ChatPresentationModel {
     let channel: ChannelInfo
+    let showChatOnly: Bool
+
+    init(channel: ChannelInfo, showChatOnly: Bool = false) {
+        self.channel = channel
+        self.showChatOnly = showChatOnly
+    }
 }
 
 extension ExtendedStreamPlugin {
@@ -34,21 +40,24 @@ extension ExtendedStreamPlugin {
     }
 
     func composeNavigation(model: ChatPresentationModel? = nil) -> UINavigationController {
-        if let channel = model?.channel {
-            return buildStack(with: channel)
+        if let channel = model?.channel, let showChatOnly = model?.showChatOnly {
+            return showChatOnly ? buildWithChatOnly(with: channel) : buildStack(with: channel)
         }
 
         return build()
     }
 
     /// initialize chat if no instance can be found.
-    func openChannel(info: ChannelInfo) {
+    func openChannel(info: ChannelInfo, showChatOnly: Bool = true) {
         if ExtendedStreamPlugin.shared.chatNavigationController != nil {
             routeToChannel(with: info)
         } else {
+
             let model = ChatPresentationModel(
-                channel: ChannelInfo(channelId: info.channelId)
+                channel: ChannelInfo(channelId: info.channelId),
+                showChatOnly: showChatOnly
             )
+
             initializeViewController(model: model)
         }
     }
@@ -155,9 +164,7 @@ extension ExtendedStreamPlugin {
             onBackButtonTapped: { ExtendedStreamPlugin.shared.notifyNavigateBackToListeners(dismiss: true) }
         )
 
-        let navigationController = UINavigationController(rootViewController: channelViewController)
-        navigationController.navigationBar.prefersLargeTitles = true
-        navigationController.modalPresentationStyle = .fullScreen
+        let navigationController = navigationController(with: channelViewController)
 
         channelViewController.rootView.onItemTapped = adapRouteToChannel(with: navigationController)
 
@@ -168,10 +175,7 @@ extension ExtendedStreamPlugin {
 
         guard let client = ExtendedStreamPlugin.chatClient.chatClient, let channelController = try? client.channelController(for: ChannelId(cid: channel.channelId)) else { return UINavigationController() }
 
-        let navigationController = UINavigationController()
-        navigationController.navigationBar.prefersLargeTitles = true
-        navigationController.navigationBar.prefersLargeTitles = true
-        navigationController.modalPresentationStyle = .fullScreen
+        let navigationController = navigationController()
 
         let channelViewController = ChatChannelsViewControllerComposer.composeWith(
             viewFactory: CustomUIFactory(),
@@ -195,6 +199,42 @@ extension ExtendedStreamPlugin {
         let stack = [channelViewController, chatViewController].compactMap {$0}
 
         navigationController.setViewControllers(stack, animated: true)
+
+        return navigationController
+    }
+
+    private func buildWithChatOnly(with channel: ChannelInfo) -> UINavigationController {
+
+        guard let client = ExtendedStreamPlugin.chatClient.chatClient, let channelController = try? client.channelController(for: ChannelId(cid: channel.channelId)) else { return UINavigationController() }
+
+        let navigationController = navigationController()
+
+        let chatViewController = ChatViewControllerComposer.lazyLoadCompose(
+            viewFactory: CustomUIFactory(),
+            viewModel: ChatChannelScreenViewModel(isDirectMessageChannel: channelController.channel?.isDirectMessageChannel ?? false),
+            channelController: channelController,
+            routeHandler: routeAction(),
+            messageId: channel.messageId,
+            navigation: navigationController,
+            onWillMoveToParent: adaptOnWillMoveToParent(),
+            client: client
+        )
+
+        navigationController.setViewControllers([chatViewController], animated: true)
+
+        return navigationController
+    }
+
+    private func navigationController(with root: UIViewController? = nil) -> UINavigationController {
+
+        var navigationController = UINavigationController()
+
+        if let root {
+            navigationController = UINavigationController(rootViewController: root)
+        }
+
+        navigationController.navigationBar.prefersLargeTitles = true
+        navigationController.modalPresentationStyle = .fullScreen
 
         return navigationController
     }

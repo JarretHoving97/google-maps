@@ -34,7 +34,7 @@ final class NotificationHandler: NSObject, UNUserNotificationCenterDelegate {
         // open stream chat
         case let .streamChat(chatInfo):
 
-            ExtendedStreamPlugin.shared.openChannel(info: chatInfo)
+            ExtendedStreamPlugin.shared.openChannel(info: chatInfo, showChatOnly: false)
         }
 
         completionHandler()

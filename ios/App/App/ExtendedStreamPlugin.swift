@@ -122,7 +122,8 @@ public class ExtendedStreamPlugin: CAPPlugin, CAPBridgedPlugin {
 
                 initializeViewController(
                     model: ChatPresentationModel(
-                        channel: ChannelInfo(channelId: channelId)
+                        channel: ChannelInfo(channelId: channelId),
+                        showChatOnly: true
                     )
                 )
 
