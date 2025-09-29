@@ -61,11 +61,13 @@ extension Localized {
                 comment: "System message in the community chat"
             )
         }
-
-        static var communityShareAdminOnly: String {
+        
+        // notices
+        
+        static var communityAdminOnlyNotice: String {
             String(
                 format: NSLocalizedString(
-                    "chat_channel_community_share_admin_only",
+                    "chat_channel_community_admin_only_notice",
                     tableName: table,
                     bundle: bundle,
                     comment: "Banner notificiation in the community channel"

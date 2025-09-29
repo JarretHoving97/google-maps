@@ -15,4 +15,4 @@
 "group_chat_joined" = "Sono %@, l'organizzatore di questa attività. Presentati anche tu nella chat.";
 "group_chat_joined" = "Vengo anch'io!";
 
-"chat_channel_community_share_admin_only" = "Solo l'amministratore o il co-amministratore può condividere un messaggio.";
+"chat_channel_community_admin_only_notice" = "Solo gli (co-)amministratori possono pubblicare messaggi qui.";

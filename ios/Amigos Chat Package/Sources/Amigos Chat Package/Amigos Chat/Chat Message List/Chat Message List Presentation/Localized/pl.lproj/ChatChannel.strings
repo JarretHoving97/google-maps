@@ -15,4 +15,4 @@
 "group_chat_created" = "Jestem %@, organizator tego wydarzenia. Czy mógłbyś również krótko przedstawić się na czacie?";
 "group_chat_joined" = "Też tam będę!";
 
-"chat_channel_community_share_admin_only" = "Tylko administrator lub współadministrator może udostępniać wiadomość.";
+"chat_channel_community_admin_only_notice" = "Tylko (współ)administratorzy mogą tutaj zamieszczać wiadomości.";

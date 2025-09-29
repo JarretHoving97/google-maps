@@ -15,4 +15,4 @@
 "group_chat_created" = "Sou %@, o anfitrião desta atividade. Apresente-se também na conversa.";
 "group_chat_joined" = "Também vou!";
 
-"chat_channel_community_share_admin_only" = "Só o administrador ou o coadministrador pode partilhar uma mensagem.";
+"chat_channel_community_admin_only_notice" = "Apenas os (co)administradores podem publicar mensagens aqui.";

@@ -18,7 +18,7 @@ struct CommunityChatNoticeHeaderView: View {
                 .frame(width: 24, height: 24)
                 .tint(Color(.greyDark))
 
-            Text(Localized.ChatChannel.communityShareAdminOnly)
+            Text(Localized.ChatChannel.communityAdminOnlyNotice)
                 .font(.caption2)
                 .foregroundStyle(Color(.darkText))
                 .frame(maxWidth: .infinity, alignment: .leading)

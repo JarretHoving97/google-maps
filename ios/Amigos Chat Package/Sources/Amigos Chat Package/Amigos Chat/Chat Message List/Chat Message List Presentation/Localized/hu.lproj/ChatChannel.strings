@@ -15,4 +15,4 @@
 "group_chat_joined" = "Én vagyok %@, az esemény házigazdája. Mutatkozz be a csevegésben is.";
 "group_chat_joined" = "Én is megyek!";
 
-"chat_channel_community_share_admin_only" = "Csak az admin vagy a táradmin oszthat meg üzenetet.";
+"chat_channel_community_admin_only_notice" = "Csak a (tár)adminok tehetnek közzé üzeneteket itt.";
