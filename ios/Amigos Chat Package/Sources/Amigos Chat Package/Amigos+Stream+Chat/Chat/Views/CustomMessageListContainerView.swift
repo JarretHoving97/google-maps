@@ -15,6 +15,15 @@ extension LocalScrollDirection {
     }
 }
 
+// PreferenceKey to propagate the header height up the view tree.
+private struct HeaderHeightPreferenceKey: PreferenceKey {
+    static var defaultValue: CGFloat = 0
+    static func reduce(value: inout CGFloat, nextValue: () -> CGFloat) {
+        // Use the largest reported height if multiple children report.
+        value = max(value, nextValue())
+    }
+}
+
 public struct CustomMessageListContainerView<Factory: ViewFactory>: View, KeyboardReadable {
 
     @Injected(\.utils) private var utils
@@ -55,6 +64,8 @@ public struct CustomMessageListContainerView<Factory: ViewFactory>: View, Keyboa
     @State private var scrollDirection = MessageListView.ScrollDirection.up
     @State private var unreadMessagesBannerShown = false
     @State private var messageReactionPresentationInfo: MessageReactionsInfo?
+    // Dynamic header height for insetting the scroll content.
+    @State private var headerHeight: CGFloat = 0
 
     private var messageRenderingUtil = MessageRenderingUtil.shared
     private var skipRenderingMessageIds = [String]()
@@ -195,6 +206,7 @@ public struct CustomMessageListContainerView<Factory: ViewFactory>: View, Keyboa
                     }
                     .modifier(factory.makeMessageListModifier())
                     .modifier(ScrollTargetLayoutModifier(enabled: loadingNextMessages))
+                    .padding(.bottom, headerHeight)
                 }
                 .modifier(ScrollPositionModifier(scrollPosition: loadingNextMessages ? $scrollPosition : .constant(nil)))
                 .dismissKeyboardAndAttachmentViewOnTap()
@@ -250,6 +262,13 @@ public struct CustomMessageListContainerView<Factory: ViewFactory>: View, Keyboa
             }
 
             CustomMessageContainerHeaderView(channel: channel)
+                .background(
+                    // Measure header height and publish it via preference.
+                    GeometryReader { proxy in
+                        Color.clear
+                            .preference(key: HeaderHeightPreferenceKey.self, value: proxy.size.height)
+                    }
+                )
                 .frame(
                     maxHeight: .infinity,
                     alignment: Alignment(horizontal: .center, vertical: .top)
@@ -276,6 +295,11 @@ public struct CustomMessageListContainerView<Factory: ViewFactory>: View, Keyboa
                     channel: channel,
                     currentUserId: chatClient.currentUserId
                 )
+            }
+        }
+        .onPreferenceChange(HeaderHeightPreferenceKey.self) { newHeight in
+            withAnimation(.easeInOut(duration: 0.2)) {
+                headerHeight = newHeight
             }
         }
         .onReceive(keyboardDidChangePublisher) { visible in
@@ -586,8 +610,9 @@ struct CustomMessageContainerHeaderView: View {
         VStack {
             if channel.isDirectMessageChannel {
                 CustomSafetyCheckNotice(channel: channel)
-
                 CustomChatSuperPowerOnlyNoticeView(channel: channel)
+            } else if channel.isCommunityChannel {
+                CommunityChatNoticeHeaderView()
             } else {
                 CustomPinnedMessage(channel: channel)
             }
@@ -607,5 +632,10 @@ extension ChatChannel {
         }.map(\.user)
         return readUsers
 
+    }
+
+    var isCommunityChannel: Bool {
+        if case .community = relatedConceptType { return true }
+        return false
     }
 }

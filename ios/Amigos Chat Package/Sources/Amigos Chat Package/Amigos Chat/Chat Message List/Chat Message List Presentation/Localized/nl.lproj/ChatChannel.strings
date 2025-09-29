@@ -14,3 +14,5 @@
 "attendance_reminder" = "Nog 24 uur en de activiteit gaat van start! Ik reken op je.";
 "group_chat_created" = "Ik ben %@, de host van deze activiteit. Stel jij jezelf ook even voor in de chat?";
 "group_chat_joined" = "Ik ben er ook bij!";
+
+"chat_channel_community_share_admin_only" = "Alleen de (mede-)beheerder kan een bericht delen.";

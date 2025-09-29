@@ -14,3 +14,5 @@
 "attendance_reminder" = "24시간이 지나면 활동이 시작됩니다. 기대할게요.";
 "group_chat_joined" = "저는 %@님이, 이 활동의 진행자입니다. 채팅에서 간단히 자기소개를 해 주시겠어요?";
 "group_chat_joined" = "나도 갈게요!";
+
+"chat_channel_community_share_admin_only" = "관리자 또는 공동 관리자만 메시지를 공유할 수 있습니다.";

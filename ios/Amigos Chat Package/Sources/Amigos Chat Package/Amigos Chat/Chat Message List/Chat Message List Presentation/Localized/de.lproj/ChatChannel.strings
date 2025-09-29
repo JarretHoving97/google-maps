@@ -14,3 +14,5 @@
 "attendance_reminder" = "Noch 24 Stunden bis die Aktivität beginnt! Ich verlasse mich auf dich.";
 "group_chat_created" = "Ich bin %@, der Host dieser Aktivität. Stellst du dich auch kurz im Chat vor?";
 "group_chat_joined" = "Ich bin auch dabei!";
+
+"chat_channel_community_share_admin_only" = "Nur der Administrator oder der Co-Administrator kann eine Nachricht teilen.";

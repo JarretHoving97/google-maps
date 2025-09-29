@@ -14,3 +14,5 @@
 "attendance_reminder" = "Etkinlik 24 saat içinde başlayacak. Sana güveniyorum.";
 "group_chat_created" = "Ben %@, bu etkinliğin ev sahibiyim. Sohbette kendini tanıtmaktan çekinme.";
 "group_chat_joined" = "Ben de geliyorum!";
+
+"chat_channel_community_share_admin_only" = "Yalnızca yönetici veya eş yönetici bir mesaj paylaşabilir.";
