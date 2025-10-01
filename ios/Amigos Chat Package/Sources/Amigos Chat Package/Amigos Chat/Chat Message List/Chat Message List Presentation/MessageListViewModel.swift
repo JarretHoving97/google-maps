@@ -69,14 +69,14 @@ class MessageListViewModel: ObservableObject {
 
     func showUnreadMessageSeparator(for message: Message) -> Bool {
         messageListConfig.showUnreadSeparator &&
-        firstUnreadMessageId?.contains(message.id) == true
+        unreadMessagesCount > 0 &&
+        firstUnreadMessageId == message.id
     }
 
     func showsLastGroupInfo(showUnreadMessages: Bool) -> Bool {
         guard let message = messageList.last,
             !isDirectMessageChat &&
-            !message.isSentByCurrentUser &&
-            lastGroupHeaderSize(showUnreadMessages: showUnreadMessages) > 0
+            !message.isSentByCurrentUser
         else { return false }
 
         let groupInfo = messagesGroupingInfo[message.id] ?? []
@@ -103,15 +103,7 @@ class MessageListViewModel: ObservableObject {
     }
 
     func padding(for message: Message) -> CGFloat {
-
-        let showUnreadSeparator = showUnreadMessageSeparator(for: message)
-
-        if message == messageList.last {
-            return dateLabelOffset(showUnreadMessages: showUnreadSeparator)
-
-        } else {
-            return lastGroupHeaderSize(showUnreadMessages: showUnreadSeparator)
-        }
+        message == messageList.last ? dateLabelOffset() : 0
     }
 
     func indexForMessageDate(
@@ -137,19 +129,7 @@ class MessageListViewModel: ObservableObject {
         return message == messageList.last
     }
 
-   private func lastGroupHeaderSize(showUnreadMessages: Bool) -> CGFloat {
-
-        var padding: CGFloat = 0
-
-        padding = showUnreadMessages ? padding + 50 : padding
-
-        return padding
-    }
-
-    private func dateLabelOffset(showUnreadMessages: Bool) -> CGFloat {
-        var offset = messageListConfig.messageDisplayOptions.dateLabelSize
-        offset = showUnreadMessages ? offset + 50 : offset
-
-        return offset
+    private func dateLabelOffset() -> CGFloat {
+        return messageListConfig.messageDisplayOptions.dateLabelSize
     }
 }

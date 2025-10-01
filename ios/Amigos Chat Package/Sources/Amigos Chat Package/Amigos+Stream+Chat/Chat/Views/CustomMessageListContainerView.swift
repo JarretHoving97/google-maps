@@ -424,9 +424,13 @@ public struct CustomNewMessagesIndicatorView: View {
     @Injected(\.fonts) var fonts
 
     @Binding var newMessagesStartId: String?
-    var count: Int
 
-    public init(newMessagesStartId: Binding<String?>, count: Int) {
+    @State private var count: Int
+
+    public init(
+        newMessagesStartId: Binding<String?>,
+        count: Int
+    ) {
         _newMessagesStartId = newMessagesStartId
         self.count = count
     }

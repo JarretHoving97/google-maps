@@ -17,6 +17,8 @@ struct MessageListView: View {
 
     @Binding var scrollDirection: ScrollDirection
 
+    @State private var firstUnreadMessage: Message?
+
     let width: CGFloat
 
     private let messageGestureCallBacks: MessageGestureCallbacks
@@ -37,7 +39,17 @@ struct MessageListView: View {
     }
 
     var body: some View {
-        ForEach(viewModel.messageList, content: listItemView)
+        ForEach(viewModel.messageList) { message in
+            listItemView(message)
+
+            if message == firstUnreadMessage {
+                CustomNewMessagesIndicatorView(
+                    newMessagesStartId: .constant(message.id),
+                    count: viewModel.unreadMessagesCount
+                )
+                .flippedUpsideDown()
+            }
+        }
     }
 
     private func listItemView(_ message: Message) -> some View {
@@ -50,8 +62,12 @@ struct MessageListView: View {
             gestureCallbacks: messageGestureCallBacks,
             width: width
         )
+        .onAppear {
+            if viewModel.showUnreadMessageSeparator(for: message) {
+                firstUnreadMessage = message
+            }
+        }
         .padding(.top, viewModel.padding(for: message))
-        .newMessageIndicator(viewModel.newMessageViewData(for: message))
         .flippedUpsideDown()
         .onAppear { handleOnAppear(index: &index, message: message) }
     }
