@@ -37,8 +37,9 @@
     <string name="SafetyCheckInfoModal_receiver_examples_host">Pour organiser des activités (ensemble)</string>
     <string name="SafetyCheckInfoModal_receiver_examples_other">Si vous utilisez Amigos à d’autres fins, vous serez retiré de la plateforme</string>
 
-    <!-- AmiChatSuperPowerOnlyNotice -->
+    <!-- Chat Notices -->
     <string name="AmiChatSuperPowerOnlyNotice_body">Seuls les hôtes et les Super amigos peuvent démarrer une discussion.\nAppuyez ici et devenez Super amigo.</string>
+    <string name="AmiChatCommunityAdminOnlyNotice_body">Seuls les (co)admins peuvent publier des messages ici.</string>
 
     <!-- AmiChatWithHost -->
     <string name="AmiChatWithHost_body">Discuter avec l’hôte</string>

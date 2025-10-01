@@ -39,8 +39,9 @@
     <string name="SafetyCheckInfoModal_receiver_examples_host">Do (wspólnego) organizowania aktywności</string>
     <string name="SafetyCheckInfoModal_receiver_examples_other">Jeśli używasz Amigos z innymi intencjami, zostaniesz usunięty z platformy</string>
 
-    <!-- AmiChatSuperPowerOnlyNotice -->
+    <!-- Chat Notices -->
     <string name="AmiChatSuperPowerOnlyNotice_body">Tylko organizatorzy i Super amigos mogą rozpocząć czat.\nKliknij tutaj i zostań Super amigo.</string>
+    <string name="AmiChatCommunityAdminOnlyNotice_body">Tylko (współ)administratorzy mogą tutaj zamieszczać wiadomości.</string>
 
     <!-- AmiChatWithHost -->
     <string name="AmiChatWithHost_body">Czat z organizatorem</string>

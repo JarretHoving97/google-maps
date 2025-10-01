@@ -39,8 +39,9 @@
     <string name="SafetyCheckInfoModal_receiver_examples_host">Etkinlik düzenlemek için (birlikte)</string>
     <string name="SafetyCheckInfoModal_receiver_examples_other">Amigos\'u başka amaçlarla kullanırsan platformdan çıkarılırsın</string>
 
-    <!-- AmiChatSuperPowerOnlyNotice -->
+    <!-- Chat Notices -->
     <string name="AmiChatSuperPowerOnlyNotice_body">Sadece ev sahipleri ve Süper amigolar sohbet başlatabilir.\nBuraya tıkla ve Süper amigo ol.</string>
+    <string name="AmiChatCommunityAdminOnlyNotice_body">Yalnızca (co-)adminler burada mesaj paylaşabilir.</string>
 
     <!-- AmiChatWithHost -->
     <string name="AmiChatWithHost_body">Ev sahibiyle sohbet et</string>

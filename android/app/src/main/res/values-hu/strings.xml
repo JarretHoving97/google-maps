@@ -37,8 +37,9 @@
     <string name="SafetyCheckInfoModal_receiver_examples_host">Tevékenységek szervezése (együtt)</string>
     <string name="SafetyCheckInfoModal_receiver_examples_other">Ha más célra használod az Amigos-t, eltávolítanak a platformról</string>
 
-    <!-- AmiChatSuperPowerOnlyNotice -->
+    <!-- Chat Notices -->
     <string name="AmiChatSuperPowerOnlyNotice_body">Csak a házigazdák és Szuper amigók indíthatnak csevegést.\nKoppints ide, és légy Szuper amigo.</string>
+    <string name="AmiChatCommunityAdminOnlyNotice_body">Csak a (tár)adminok tehetnek közzé üzeneteket itt.</string>
 
     <!-- AmiChatWithHost -->
     <string name="AmiChatWithHost_body">Csevegés a házigazdával</string>

@@ -224,6 +224,12 @@ fun AmiChannelScreen(
                     extraContentPaddingTop += 75.dp
                 }
 
+                val showCommunityChatNotice = listViewModel.channel.relatedConceptType is ChatChannelRelatedConceptType.Community
+
+                if (showCommunityChatNotice) {
+                    extraContentPaddingTop += 75.dp
+                }
+
                 when {
                     currentState.isLoading -> {
                         CircularProgressIndicator(
@@ -294,6 +300,14 @@ fun AmiChannelScreen(
                             modifier = Modifier
                                 .fillMaxWidth()
                                 .padding(horizontal = 12.dp),
+                        )
+                    }
+
+                    if (showCommunityChatNotice) {
+                        AmiChatCommunityAdminOnlyNotice(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .padding(horizontal = 12.dp)
                         )
                     }
                 }

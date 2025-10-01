@@ -39,8 +39,9 @@
     <string name="SafetyCheckInfoModal_receiver_examples_host">Para organizar atividades (juntos)</string>
     <string name="SafetyCheckInfoModal_receiver_examples_other">Se você usar o Amigos para outros fins, será removido da plataforma</string>
 
-    <!-- AmiChatSuperPowerOnlyNotice -->
+    <!-- Chat Notices -->
     <string name="AmiChatSuperPowerOnlyNotice_body">Apenas anfitriões e Super amigos podem iniciar um chat.\nToque aqui e torne-se Super amigo.</string>
+    <string name="AmiChatCommunityAdminOnlyNotice_body">Apenas os (co)administradores podem postar mensagens aqui.</string>
 
     <!-- AmiChatWithHost -->
     <string name="AmiChatWithHost_body">Conversar com o anfitrião</string>

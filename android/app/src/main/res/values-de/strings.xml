@@ -39,8 +39,9 @@
     <string name="SafetyCheckInfoModal_receiver_examples_host">Für das (gemeinsame) Hosten von Aktivitäten</string>
     <string name="SafetyCheckInfoModal_receiver_examples_other">Wenn du Amigos mit anderen Absichten verwendest, wirst du von der Plattform ausgeschlossen</string>
 
-    <!-- AmiChatSuperPowerOnlyNotice -->
+    <!-- Chat Notices -->
     <string name="AmiChatSuperPowerOnlyNotice_body">Nur Hosts und Super Amigos können einen Chat beginnen. Hier tippen, um Super Amigo zu werden.</string>
+    <string name="AmiChatCommunityAdminOnlyNotice_body">Nur die (Co-)Admins können hier Nachrichten posten.</string>
 
     <!-- AmiChatWithHost -->
     <string name="AmiChatWithHost_body">Chat mit Host</string>
