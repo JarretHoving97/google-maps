@@ -9,17 +9,12 @@ import Foundation
 import StreamChat
 
 extension ChatMessage: ChatMessageProtocol {
-
     public var messageType: String {
         return type.rawValue
     }
 
     public var layoutKey: String? {
-        if let layoutKey = extraData["layoutKey"]?.stringValue {
-            return layoutKey
-        }
-
-        return nil
+        return extraData["layoutKey"]?.stringValue
     }
 
     public var translationKey: TranslationKey? {
@@ -28,6 +23,10 @@ extension ChatMessage: ChatMessageProtocol {
         }
 
         return nil
+    }
+
+    public var actionUrl: String? {
+        return extraData["actionUrl"]?.stringValue
     }
 
     public var user: any Author {

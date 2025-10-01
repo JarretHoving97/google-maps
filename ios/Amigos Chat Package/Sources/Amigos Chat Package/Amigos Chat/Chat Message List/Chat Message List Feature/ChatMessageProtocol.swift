@@ -17,6 +17,7 @@ public protocol ChatMessageProtocol {
     var isDeleted: Bool { get }
     var attachments: [ChatMessageAttachmentProtocol] { get }
     var layoutKey: String? { get }
+    var actionUrl: String? { get }
     var sendingState: String? { get }
     var createdAt: Date { get }
     var reactions: [String: Int] { get }

@@ -10,9 +10,16 @@
 
 "custom_channel_action_community_title" = "Ver comunidade";
 
+// Chat message action button
+"message_action_create_activity_title" = "Criar atividade";
+"message_action_repeat_activity_title" = "Repetir atividade";
+"message_action_view_activity_title" = "Ver atividade";
+"message_action_view_title" = "Ver";
+
 // System Messages
 "attendance_reminder" = "A atividade começa dentro de 24 horas. Conto contigo.";
 "group_chat_created" = "Sou %@, o anfitrião desta atividade. Apresente-se também na conversa.";
 "group_chat_joined" = "Também vou!";
+"repeat_activity" = "A atividade foi um sucesso? Toque abaixo para repetir a atividade e convidar os mesmos amigos.";
 
 "chat_channel_community_admin_only_notice" = "Apenas os (co)administradores podem publicar mensagens aqui.";

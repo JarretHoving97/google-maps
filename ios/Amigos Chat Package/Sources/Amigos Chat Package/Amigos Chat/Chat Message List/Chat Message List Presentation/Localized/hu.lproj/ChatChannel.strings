@@ -10,9 +10,17 @@
 
 "custom_channel_action_community_title" = "Tevékenység létrehozása";
 
+// Chat message action button
+"message_action_create_activity_title" = "Tevékenység létrehozása";
+"message_action_repeat_activity_title" = "Ismétlődő tevékenység";
+"message_action_view_activity_title" = "Tevékenység megtekintése";
+"message_action_view_title" = "Megtekintés";
+
 // system messages
 "attendance_reminder" = "Az esemény 24 órán belül kezdődik. Számítok rád.";
-"group_chat_joined" = "Én vagyok %@, az esemény házigazdája. Mutatkozz be a csevegésben is.";
+"group_chat_created" = "Én vagyok %@, az esemény házigazdája. Mutatkozz be a csevegésben is.";
 "group_chat_joined" = "Én is megyek!";
+"repeat_activity" = "Sikeres volt a tevékenység? Koppints alább, hogy megismételd a tevékenységet, és meghívd ugyanazokat az amigos-t.";
 
 "chat_channel_community_admin_only_notice" = "Csak a (tár)adminok tehetnek közzé üzeneteket itt.";
+

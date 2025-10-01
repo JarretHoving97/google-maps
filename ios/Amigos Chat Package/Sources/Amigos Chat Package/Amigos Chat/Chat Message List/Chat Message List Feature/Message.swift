@@ -41,6 +41,8 @@ public struct Message {
 
     public let translationKey: TranslationKey?
 
+    public let actionUrl: String?
+
     public var quotedMessage: Message? {
         _quotedMessage?()
     }
@@ -64,6 +66,7 @@ public struct Message {
         attachments: [LocalChatMessageAttachment] = [],
         layoutKey: String? = nil,
         translationKey: TranslationKey? = nil,
+        actionUrl: String? = nil,
         localState: LocalState? = nil,
         createdAt: Date = Date(),
         type: MessageType = .regular
@@ -82,6 +85,7 @@ public struct Message {
         self.createdAt = createdAt
         self.type = type
         self.translationKey = translationKey
+        self.actionUrl = actionUrl
     }
 }
 

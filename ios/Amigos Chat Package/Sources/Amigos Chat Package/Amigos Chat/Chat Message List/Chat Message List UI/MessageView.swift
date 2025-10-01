@@ -71,7 +71,11 @@ struct MessageView: View {
                     mediaAttachmentView
                     walkthroughView
                 }
-                messageTextView
+
+                VStack(alignment: .leading, spacing: 12) {
+                    messageTextView
+                    messageButtonView
+                }
             }
 
             .modifier(bubbleResolvedModifier)
@@ -247,6 +251,14 @@ extension MessageView {
                         lineWidth: viewModel.isSentByCurrentUser ? 0.5 : 0
                     )
                 )
+            }
+        }
+    }
+
+    private var messageButtonView: some View {
+        Group {
+            if let viewData = viewModel.messageAction {
+                MessageActionButtonView(viewModel: viewData)
             }
         }
     }

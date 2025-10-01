@@ -11,6 +11,7 @@ public enum TranslationKey: String {
     case attendanceReminder = "attendance_reminder"
     case groupChatCreated = "group_chat_created"
     case groupChatJoined = "group_chat_joined"
+    case repeatActivity = "repeat_activity"
     /* case communityChatCreated = "community_chat_created" */
 
     /// Returns the localized string for the case.
@@ -26,6 +27,9 @@ public enum TranslationKey: String {
 
         case .groupChatJoined:
             Localized.ChatChannel.groupChatJoined
+
+        case .repeatActivity:
+            Localized.ChatChannel.repeatActivity
         }
     }
 }

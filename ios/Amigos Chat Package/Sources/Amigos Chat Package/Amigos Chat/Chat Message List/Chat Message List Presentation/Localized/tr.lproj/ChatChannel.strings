@@ -10,9 +10,16 @@
 
 "custom_channel_action_community_title" = "Topluluğu görüntüle";
 
+// Chat message action button
+"message_action_create_activity_title" = "Aktivite oluştur";
+"message_action_repeat_activity_title" = "Etkinliği tekrarla";
+"message_action_view_activity_title" = "Etkinliği görüntüle";
+"message_action_view_title" = "Görüntüle";
+
 // System Messages
 "attendance_reminder" = "Etkinlik 24 saat içinde başlayacak. Sana güveniyorum.";
 "group_chat_created" = "Ben %@, bu etkinliğin ev sahibiyim. Sohbette kendini tanıtmaktan çekinme.";
 "group_chat_joined" = "Ben de geliyorum!";
+"repeat_activity" = "Etkinlik başarılı oldu mu? Aşağıya dokunarak etkinliği tekrarlayın ve aynı amigosları davet edin.";
 
 "chat_channel_community_admin_only_notice" = "Yalnızca (co-)adminler burada mesaj paylaşabilir.";

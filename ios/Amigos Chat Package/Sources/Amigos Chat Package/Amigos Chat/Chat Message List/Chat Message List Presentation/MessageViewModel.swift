@@ -182,6 +182,10 @@ extension MessageViewModel {
     var messageType: MessageType {
         return message.type
     }
+
+    var messageAction: MessageActionButton? {
+        MessageActionResolver.resolve(from: message)
+    }
 }
 
 public enum MessageType: String {

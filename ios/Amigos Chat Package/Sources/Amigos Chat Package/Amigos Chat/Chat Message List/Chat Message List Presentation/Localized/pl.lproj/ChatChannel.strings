@@ -10,9 +10,16 @@
 
 "custom_channel_action_community_title" = "Społeczność zobacz";
 
+// Chat message action button
+"message_action_create_activity_title" = "Utwórz aktywność";
+"message_action_repeat_activity_title" = "Powtórz aktywność";
+"message_action_view_activity_title" = "Zobacz aktywność";
+"message_action_view_title" = "Zobacz";
+
 // System Messages
 "attendance_reminder" = "Jeszcze 24 godziny i aktywność się rozpocznie! Liczę na ciebie.";
 "group_chat_created" = "Jestem %@, organizator tego wydarzenia. Czy mógłbyś również krótko przedstawić się na czacie?";
 "group_chat_joined" = "Też tam będę!";
+"repeat_activity" = "Czy aktywność się udała? Stuknij poniżej, aby powtórzyć aktywność i zaprosić tych samych amigos.";
 
 "chat_channel_community_admin_only_notice" = "Tylko (współ)administratorzy mogą tutaj zamieszczać wiadomości.";

@@ -10,9 +10,16 @@
 
 "custom_channel_action_community_title" = "Community bekijken";
 
+// Chat message action button
+"message_action_create_activity_title" = "Activiteit aanmaken";
+"message_action_repeat_activity_title" = "Activiteit herhalen";
+"message_action_view_activity_title" = "Activiteit bekijken";
+"message_action_view_title" = "Bekijken";
+
 // System Messages
 "attendance_reminder" = "Nog 24 uur en de activiteit gaat van start! Ik reken op je.";
 "group_chat_created" = "Ik ben %@, de host van deze activiteit. Stel jij jezelf ook even voor in de chat?";
 "group_chat_joined" = "Ik ben er ook bij!";
+"repeat_activity" = "Was de activiteit een success? Tik hieronder om de activiteit te herhalen en dezelfde amigos uit te nodigen.";
 
 "chat_channel_community_admin_only_notice" = "Alleen de (co-)beheerders kunnen hier berichten plaatsen.";

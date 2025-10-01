@@ -33,7 +33,7 @@ public enum BuildConfiguration {
         }
     }
 
-    var env: String {
+    public var env: String {
         switch self {
 
         case .production:

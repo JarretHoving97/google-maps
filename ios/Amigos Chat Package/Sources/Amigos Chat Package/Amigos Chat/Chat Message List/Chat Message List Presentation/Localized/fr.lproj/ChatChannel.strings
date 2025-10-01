@@ -10,9 +10,16 @@
 
 "custom_channel_action_community_title" = "Voir la communauté";
 
+// Chat message action button
+"message_action_create_activity_title" = "Créer une activité";
+"message_action_repeat_activity_title" = "Répéter l’activité";
+"message_action_view_activity_title" = "Voir l’activité";
+"message_action_view_title" = "Voir";
+
 // System Messages
 "attendance_reminder" = "L’activité commencera dans 24 heures. Je compte sur vous.";
 "group_chat_created" = "Je suis %@, l’hôte de cette activité. Allez-y, présentez-vous aussi dans la discussion.";
 "group_chat_joined" = "J’y vais aussi !";
+"repeat_activity" = "L’activité a-t-elle été un succès ? Appuie ci-dessous pour répéter l’activité et inviter les mêmes amigos.";
 
 "chat_channel_community_admin_only_notice" = "Seuls les (co)admins peuvent publier des messages ici.";

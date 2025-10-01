@@ -24,18 +24,21 @@ public struct DefaultSystemMessageView: View {
         HStack(spacing: 8) {
             AvatarView(imageUrl: message.user.imageUrl, size: 40)
 
-            VStack(alignment: .leading, spacing: 2) {
-                Text(message.user.name)
-                    .font(.footnote)
-                    .fontWeight(.bold)
+            VStack(alignment: .leading, spacing: 8) {
+                VStack(alignment: .leading, spacing: 2) {
+                    Text(message.user.name)
+                        .font(.footnote)
+                        .fontWeight(.bold)
 
-                Text(
-                    message
-                        .translationKey?
-                        .localizedString(message.user.name) ?? message.text
-                )
-                    .font(.caption1)
-                    .foregroundStyle(Color(.grey))
+                    Text(
+                        message
+                            .translationKey?
+                            .localizedString(message.user.name) ?? message.text
+                    )
+                        .font(.caption1)
+                        .foregroundStyle(Color(.grey))
+                }
+                messageButtonView
             }
         }
         .padding(.horizontal, 16)
@@ -48,5 +51,13 @@ public struct DefaultSystemMessageView: View {
         }
         .padding(.all, 4)
         .accessibilityIdentifier("SystemMessageView")
+    }
+
+    private var messageButtonView: some View {
+        Group {
+            if let viewData = MessageActionResolver.resolve(from: message) {
+                MessageActionButtonView(viewModel: viewData)
+            }
+        }
     }
 }

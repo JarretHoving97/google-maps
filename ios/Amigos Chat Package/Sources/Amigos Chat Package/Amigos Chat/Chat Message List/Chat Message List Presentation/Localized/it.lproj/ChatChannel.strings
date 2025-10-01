@@ -10,9 +10,16 @@
 
 "custom_channel_action_community_title" = "Tevékenység létrehozása";
 
+// Chat message action button
+"message_action_create_activity_title" = "Crea attività";
+"message_action_repeat_activity_title" = "Ripeti attività";
+"message_action_view_activity_title" = "Visualizza attività";
+"message_action_view_title" = "Visualizza";
+
 // system messages
 "attendance_reminder" = "L'attività inizierà tra 24 ore. Conto su di te.";
-"group_chat_joined" = "Sono %@, l'organizzatore di questa attività. Presentati anche tu nella chat.";
+"group_chat_created" = "Sono %@, l'organizzatore di questa attività. Presentati anche tu nella chat.";
 "group_chat_joined" = "Vengo anch'io!";
+"repeat_activity" = "L’attività è stata un successo? Tocca qui sotto per ripetere l’attività e invitare gli stessi amigos.";
 
 "chat_channel_community_admin_only_notice" = "Solo gli (co-)amministratori possono pubblicare messaggi qui.";

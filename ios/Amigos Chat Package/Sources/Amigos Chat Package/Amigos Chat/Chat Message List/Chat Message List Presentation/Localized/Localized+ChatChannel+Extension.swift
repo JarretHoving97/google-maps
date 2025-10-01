@@ -31,6 +31,42 @@ extension Localized {
             )
         }
 
+        static var createActivityActionLabel: String {
+            NSLocalizedString(
+                "message_action_create_activity_title",
+                tableName: table,
+                bundle: bundle,
+                comment: "Button that will appear at the bottom of a chat message"
+            )
+        }
+
+        static var repeatActivityActionLabel: String {
+            NSLocalizedString(
+                "message_action_repeat_activity_title",
+                tableName: table,
+                bundle: bundle,
+                comment: "Button that will appear at the bottom of a chat message"
+            )
+        }
+
+        static var viewActivityActionLabel: String {
+            NSLocalizedString(
+                "message_action_view_activity_title",
+                tableName: table,
+                bundle: bundle,
+                comment: "Button that will appear at the bottom of a chat message"
+            )
+        }
+
+        static var viewActionLabel: String {
+            NSLocalizedString(
+                "message_action_view_title",
+                tableName: table,
+                bundle: bundle,
+                comment: "Button that will appear at the bottom of a chat message"
+            )
+        }
+
         // system messages
 
         static var attendanceReminderMessage: String {
@@ -59,6 +95,15 @@ extension Localized {
                 tableName: table,
                 bundle: bundle,
                 comment: "System message in the community chat"
+            )
+        }
+        
+        static var repeatActivity: String {
+            NSLocalizedString(
+                "repeat_activity",
+                tableName: table,
+                bundle: bundle,
+                comment: "System message in the chat"
             )
         }
         

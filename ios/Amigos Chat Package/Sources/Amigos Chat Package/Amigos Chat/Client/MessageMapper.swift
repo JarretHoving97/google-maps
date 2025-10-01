@@ -36,6 +36,7 @@ public class MessageMapper {
                 ),
             layoutKey: remoteMessage.layoutKey,
             translationKey: remoteMessage.translationKey,
+            actionUrl: remoteMessage.actionUrl,
             localState: Message
                 .LocalState(
                     rawValue: remoteMessage.sendingState ?? ""
