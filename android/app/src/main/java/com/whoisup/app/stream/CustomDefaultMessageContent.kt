@@ -11,6 +11,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clipToBounds
 import androidx.compose.ui.unit.dp
 import com.whoisup.app.R
+import com.whoisup.app.components.AmiButtonTheme
 import com.whoisup.app.components.AmiClickableText
 import com.whoisup.app.stream.extensions.isSupportTeamMember
 import com.whoisup.app.ui.theme.CustomTheme
@@ -96,5 +97,26 @@ internal fun CustomDefaultMessageContent(
                 onLongPress = { listViewModel.selectMessage(messageItem.message) },
             )
         }
+
+        AmiMessageActionButton(
+            message = messageItem.message,
+            modifier = Modifier
+                .padding(
+                    start = 12.dp,
+                    bottom = 12.dp,
+                    end = 12.dp
+                ),
+            theme = if (messageItem.isMine) {
+                AmiButtonTheme(
+                    color = CustomTheme.colorScheme.background,
+                    textColor = CustomTheme.colorScheme.onBackground,
+                )
+            } else {
+                AmiButtonTheme(
+                    color = CustomTheme.colorScheme.primary,
+                    textColor = CustomTheme.colorScheme.onPrimary,
+                )
+            }
+        )
     }
 }

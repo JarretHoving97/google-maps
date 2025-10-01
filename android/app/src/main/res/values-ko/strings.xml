@@ -8,6 +8,10 @@
     <string name="global_save">저장</string>
     <string name="global_wasUpFor">에 대해 %1$s</string>
     <string name="global_isUpFor">오늘은 어떤 %1$s</string>
+    <string name="global_activity_create">활동 만들기</string>
+    <string name="global_activity_repeat">활동 반복</string>
+    <string name="global_activity_view">활동 보기</string>
+    <string name="global_view">보기</string>
 
     <!-- Channels Screen -->
     <string name="AmiChannelsScreen_title">채팅</string>
@@ -20,6 +24,7 @@
     <string name="AmiChannelSystemMessage_AttendenceReminder">24시간이 지나면 활동이 시작됩니다. 기대할게요.</string>
     <string name="AmiChannelSystemMessage_GroupChatCreated">저는 %1$s님이, 이 활동의 진행자입니다. 채팅에서 간단히 자기소개를 해 주시겠어요?</string>
     <string name="AmiChannelSystemMessage_GroupChatJoined">나도 갈게요!</string>
+    <string name="AmiChannelSystemMessage_RepeatActivity">활동이 성공적이었나요? 아래를 탭하여 활동을 반복하고 같은 친구들을 초대하세요.</string>
 
     <!-- AmiPinnedMessage -->
     <string name="AmiPinnedMessage_final_placeholder">여기에 세부 정보(예: 주소)를 추가하여 모두가 쉽게 찾을 수 있습니다.</string>
@@ -45,9 +50,6 @@
 
     <!-- AmiChatWithHost -->
     <string name="AmiChatWithHost_body">호스트와 채팅</string>
-
-    <!-- AmiChannelCreateActivity -->
-    <string name="AmiChannelCreateActivity_body">활동 만들기</string>
 
     <!-- AmiChatTrialNotice -->
     <plurals name="AmiChatTrialNotice_title">
@@ -91,7 +93,6 @@
     <string name="custom_channel_action_unmute_title">알림 켜기</string>
     <string name="custom_channel_action_profile_title">프로필 보기</string>
     <string name="custom_channel_action_invite_title">초대</string>
-    <string name="custom_channel_action_activity_title">활동 보기</string>
     <string name="custom_channel_action_inviteAmigos_title">친구 초대</string>
     <string name="custom_channel_action_manageParticipants_title">참가자 관리</string>
     <string name="custom_channel_action_mixer_title">음료 보기</string>

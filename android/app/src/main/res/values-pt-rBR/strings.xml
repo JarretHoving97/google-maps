@@ -8,6 +8,10 @@
     <string name="global_save">Salvar</string>
     <string name="global_wasUpFor">Estava disponível para %1$s</string>
     <string name="global_isUpFor">Está disponível para %1$s</string>
+    <string name="global_activity_create">Criar atividade</string>
+    <string name="global_activity_repeat">Repetir atividade</string>
+    <string name="global_activity_view">Ver atividade</string>
+    <string name="global_view">Ver</string>
 
     <!-- Channels Screen -->
     <string name="AmiChannelsScreen_title">Chats</string>
@@ -20,6 +24,7 @@
     <string name="AmiChannelSystemMessage_AttendenceReminder">A atividade começará em 24 horas. Estou contando com você.</string>
     <string name="AmiChannelSystemMessage_GroupChatCreated">Eu sou %1$s, o anfitrião desta atividade. Apresente-se no chat também.</string>
     <string name="AmiChannelSystemMessage_GroupChatJoined">Eu também vou!</string>
+    <string name="AmiChannelSystemMessage_RepeatActivity">A atividade foi um sucesso? Toque abaixo para repetir a atividade e convidar os mesmos amigos.</string>
 
     <!-- AmiPinnedMessage -->
     <string name="AmiPinnedMessage_final_placeholder">Aqui você pode adicionar detalhes (como o endereço) para que todos possam encontrar facilmente.</string>
@@ -45,9 +50,6 @@
 
     <!-- AmiChatWithHost -->
     <string name="AmiChatWithHost_body">Conversar com o anfitrião</string>
-
-    <!-- AmiChannelCreateActivity -->
-    <string name="AmiChannelCreateActivity_body">Criar atividade</string>
 
     <!-- AmiChatTrialNotice -->
     <plurals name="AmiChatTrialNotice_title">
@@ -89,7 +91,6 @@
     <string name="custom_channel_action_unmute_title">Ativar notificações</string>
     <string name="custom_channel_action_profile_title">Ver perfil</string>
     <string name="custom_channel_action_invite_title">Convidar</string>
-    <string name="custom_channel_action_activity_title">Ver atividade</string>
     <string name="custom_channel_action_inviteAmigos_title">Convidar amigos</string>
     <string name="custom_channel_action_manageParticipants_title">Gerenciar participantes</string>
     <string name="custom_channel_action_mixer_title">Ver bebida</string>

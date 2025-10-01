@@ -22,6 +22,7 @@ import java.util.regex.Pattern
 const val AnnotationTagUrl: String = "URL"
 
 val INTERNAL_APP_HOSTS = listOf(
+    "qa.app.amigosapp.nl",
     "app.amigosapp.nl",
     "app.amigossocial.com",
 )

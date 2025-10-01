@@ -17,6 +17,11 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.whoisup.app.ui.theme.CustomTheme
 
+enum class AmiButtonSize(val scale: Float) {
+    Small(0.8f),
+    Medium(1.0f),
+}
+
 data class AmiButtonTheme(
     val color: Color,
     val textColor: Color,
@@ -28,6 +33,7 @@ fun AmiButton(
     text: String,
     onClick: () -> Unit,
     modifier: Modifier = Modifier,
+    size: AmiButtonSize = AmiButtonSize.Medium,
     theme: AmiButtonTheme = AmiButtonTheme(
         color = CustomTheme.colorScheme.primary,
         textColor = CustomTheme.colorScheme.onPrimary,
@@ -63,9 +69,11 @@ fun AmiButton(
                     Color.Unspecified
                 }
             )
-            .padding(horizontal = 24.dp, vertical = 12.dp),
+            .padding(horizontal = (24 * size.scale).dp, vertical = (12 * size.scale).dp),
         style = CustomTheme.typography.subhead.copy(
-            color = theme.textColor, textAlign = TextAlign.Center
+            color = theme.textColor,
+            fontSize = CustomTheme.typography.subhead.fontSize * size.scale,
+            textAlign = TextAlign.Center
         )
     )
 }

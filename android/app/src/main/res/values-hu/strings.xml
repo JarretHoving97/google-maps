@@ -8,6 +8,10 @@
     <string name="global_save">Mentés</string>
     <string name="global_wasUpFor">%1$s ideig volt fent</string>
     <string name="global_isUpFor">%1$s ideje van fent</string>
+    <string name="global_activity_create">Tevékenység létrehozása</string>
+    <string name="global_activity_repeat">Ismétlődő tevékenység</string>
+    <string name="global_activity_view">Esemény megtekintése</string>
+    <string name="global_view">Megtekintés</string>
 
     <!-- Channels Screen -->
     <string name="AmiChannelsScreen_title">Csevegések</string>
@@ -20,6 +24,7 @@
     <string name="AmiChannelSystemMessage_AttendenceReminder">Az esemény 24 órán belül kezdődik. Számítok rád.</string>
     <string name="AmiChannelSystemMessage_GroupChatCreated">Én vagyok %1$s, az esemény házigazdája. Mutatkozz be a csevegésben is.</string>
     <string name="AmiChannelSystemMessage_GroupChatJoined">Én is megyek!</string>
+    <string name="AmiChannelSystemMessage_RepeatActivity">Sikeres volt a tevékenység? Koppints alább, hogy megismételd a tevékenységet, és meghívd ugyanazokat az amigos-t.</string>
 
     <!-- AmiPinnedMessage -->
     <string name="AmiPinnedMessage_final_placeholder">Itt adhatsz meg részleteket (például címet), hogy mindenki könnyen megtalálja.</string>
@@ -43,9 +48,6 @@
 
     <!-- AmiChatWithHost -->
     <string name="AmiChatWithHost_body">Csevegés a házigazdával</string>
-
-    <!-- AmiChannelCreateActivity -->
-    <string name="AmiChannelCreateActivity_body">Tevékenység létrehozása</string>
 
     <!-- AmiChatTrialNotice -->
     <plurals name="AmiChatTrialNotice_title">
@@ -87,7 +89,6 @@
     <string name="custom_channel_action_unmute_title">Értesítések visszakapcsolása</string>
     <string name="custom_channel_action_profile_title">Profil megtekintése</string>
     <string name="custom_channel_action_invite_title">Meghívás</string>
-    <string name="custom_channel_action_activity_title">Esemény megtekintése</string>
     <string name="custom_channel_action_inviteAmigos_title">Amigók meghívása</string>
     <string name="custom_channel_action_manageParticipants_title">Résztvevők kezelése</string>
     <string name="custom_channel_action_mixer_title">Ital megtekintése</string>

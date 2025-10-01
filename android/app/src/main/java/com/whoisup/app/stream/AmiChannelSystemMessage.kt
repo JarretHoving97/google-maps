@@ -62,18 +62,22 @@ fun AmiChannelSystemMessage(
                 size = 44.dp,
             )
 
-            Column {
-                BasicText(
-                    text = systemMessageState.message.user.name,
-                    style = CustomTheme.typography.captionSmall.copy(color = CustomTheme.colorScheme.onSurface)
-                )
+            Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
+                Column {
+                    BasicText(
+                        text = systemMessageState.message.user.name,
+                        style = CustomTheme.typography.captionSmall.copy(color = CustomTheme.colorScheme.onSurface)
+                    )
 
-                val text = formatSystemMessageText(systemMessageState.message)
+                    val text = formatSystemMessageText(systemMessageState.message)
 
-                BasicText(
-                    text = text,
-                    style = CustomTheme.typography.subhead.copy(color = CustomTheme.colorScheme.onSurface)
-                )
+                    BasicText(
+                        text = text,
+                        style = CustomTheme.typography.subhead.copy(color = CustomTheme.colorScheme.onSurface)
+                    )
+                }
+
+                AmiMessageActionButton(message = systemMessageState.message)
             }
         }
     }

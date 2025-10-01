@@ -24,6 +24,10 @@
     <string name="global_save">Save</string>
     <string name="global_wasUpFor">Was up for %1$s</string>
     <string name="global_isUpFor">Is up for %1$s</string>
+    <string name="global_activity_create">Create activity</string>
+    <string name="global_activity_repeat">Repeat activity</string>
+    <string name="global_activity_view">View activity</string>
+    <string name="global_view">View</string>
 
     <!-- Channels Screen -->
     <string name="AmiChannelsScreen_title">Chats</string>
@@ -36,6 +40,7 @@
     <string name="AmiChannelSystemMessage_AttendenceReminder">The activity will start in 24 hours. I\'m counting on you.</string>
     <string name="AmiChannelSystemMessage_GroupChatCreated">I\'m %1$s, the host of this activity. Go ahead and introduce yourself in the chat as well.</string>
     <string name="AmiChannelSystemMessage_GroupChatJoined">I\'m going too!</string>
+    <string name="AmiChannelSystemMessage_RepeatActivity">Enjoyed the activity? Tap below to repeat the activity and invite the same amigos.</string>
 
     <!-- AmiPinnedMessage -->
     <string name="AmiPinnedMessage_final_placeholder">Here you can add details (such as the address) so that everyone can easily find it.</string>
@@ -61,9 +66,6 @@
 
     <!-- AmiChatWithHost -->
     <string name="AmiChatWithHost_body">Chat with host</string>
-
-    <!-- AmiChannelCreateActivity -->
-    <string name="AmiChannelCreateActivity_body">Create activity</string>
 
     <!-- AmiChatTrialNotice -->
     <plurals name="AmiChatTrialNotice_title">
@@ -107,7 +109,6 @@
     <string name="custom_channel_action_unmute_title">Unmute notifications</string>
     <string name="custom_channel_action_profile_title">View profile</string>
     <string name="custom_channel_action_invite_title">Invite</string>
-    <string name="custom_channel_action_activity_title">View activity</string>
     <string name="custom_channel_action_inviteAmigos_title">Invite amigos</string>
     <string name="custom_channel_action_manageParticipants_title">Manage participants</string>
     <string name="custom_channel_action_mixer_title">View drink</string>

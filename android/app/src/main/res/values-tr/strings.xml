@@ -8,6 +8,10 @@
     <string name="global_save">Kaydet</string>
     <string name="global_wasUpFor">%1$s için uygundu</string>
     <string name="global_isUpFor">%1$s için uygun</string>
+    <string name="global_activity_create">Aktivite oluştur</string>
+    <string name="global_activity_repeat">Etkinliği tekrarla</string>
+    <string name="global_activity_view">Etkinliği görüntüle</string>
+    <string name="global_view">Görüntüle</string>
 
     <!-- Channels Screen -->
     <string name="AmiChannelsScreen_title">Sohbetler</string>
@@ -20,6 +24,7 @@
     <string name="AmiChannelSystemMessage_AttendenceReminder">Etkinlik 24 saat içinde başlayacak. Sana güveniyorum.</string>
     <string name="AmiChannelSystemMessage_GroupChatCreated">Ben %1$s, bu etkinliğin ev sahibiyim. Sohbette kendini tanıtmaktan çekinme.</string>
     <string name="AmiChannelSystemMessage_GroupChatJoined">Ben de geliyorum!</string>
+    <string name="AmiChannelSystemMessage_RepeatActivity">Etkinlik başarılı oldu mu? Aşağıya dokunarak etkinliği tekrarlayın ve aynı amigosları davet edin.</string>
 
     <!-- AmiPinnedMessage -->
     <string name="AmiPinnedMessage_final_placeholder">Buraya adres gibi detayları ekleyebilirsin, böylece herkes kolayca bulabilir.</string>
@@ -45,9 +50,6 @@
 
     <!-- AmiChatWithHost -->
     <string name="AmiChatWithHost_body">Ev sahibiyle sohbet et</string>
-
-    <!-- AmiChannelCreateActivity -->
-    <string name="AmiChannelCreateActivity_body">Aktivite oluştur</string>
 
     <!-- AmiChatTrialNotice -->
     <plurals name="AmiChatTrialNotice_title">
@@ -89,7 +91,6 @@
     <string name="custom_channel_action_unmute_title">Bildirimleri aç</string>
     <string name="custom_channel_action_profile_title">Profili görüntüle</string>
     <string name="custom_channel_action_invite_title">Davet et</string>
-    <string name="custom_channel_action_activity_title">Etkinliği görüntüle</string>
     <string name="custom_channel_action_inviteAmigos_title">Amigoları davet et</string>
     <string name="custom_channel_action_manageParticipants_title">Katılımcıları yönet</string>
     <string name="custom_channel_action_mixer_title">İçeceği görüntüle</string>

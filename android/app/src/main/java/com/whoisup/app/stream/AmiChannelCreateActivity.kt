@@ -33,7 +33,7 @@ fun AmiChannelCreateActivity(communityId: String) {
         verticalAlignment = Alignment.CenterVertically
     ) {
         BasicText(
-            text = stringResource(R.string.AmiChannelCreateActivity_body),
+            text = stringResource(R.string.global_activity_create),
             style = CustomTheme.typography.paragraph.copy(color = CustomTheme.colorScheme.onBackground)
         )
 

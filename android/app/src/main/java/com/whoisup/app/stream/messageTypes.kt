@@ -3,7 +3,8 @@ package com.whoisup.app.stream
 enum class MessageTranslationKeyEnum(val value: String) {
     AttendanceReminder("attendance_reminder"),
     GroupChatCreated("group_chat_created"),
-    GroupChatJoined("group_chat_joined")
+    GroupChatJoined("group_chat_joined"),
+    RepeatActivity("repeat_activity")
 }
 
 enum class MessageLayoutKeyEnum(val value: String) {

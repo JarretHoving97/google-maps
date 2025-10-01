@@ -281,7 +281,7 @@ internal fun channelOptions(
 
     if (conceptType is ChatChannelRelatedConceptType.Activity) {
         options += ChannelOptionItemState(
-            title = stringResource(id = R.string.custom_channel_action_activity_title),
+            title = stringResource(id = R.string.global_activity_view),
             callback = {
                 val route = "/activity/${conceptType.id}"
                 ExtendedStreamPlugin.notifyNavigateToListeners(context, route, true)

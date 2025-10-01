@@ -49,6 +49,9 @@ fun formatSystemMessageText(
         MessageTranslationKeyEnum.GroupChatJoined.value -> {
             R.string.AmiChannelSystemMessage_GroupChatJoined
         }
+        MessageTranslationKeyEnum.RepeatActivity.value -> {
+            R.string.AmiChannelSystemMessage_RepeatActivity
+        }
         else -> {
             null
         }

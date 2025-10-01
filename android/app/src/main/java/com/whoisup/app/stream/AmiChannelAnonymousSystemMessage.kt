@@ -3,6 +3,7 @@ package com.whoisup.app.stream
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -37,12 +38,16 @@ fun AmiChannelAnonymousSystemMessage(
             horizontalArrangement = Arrangement.spacedBy(12.dp),
             verticalAlignment = Alignment.CenterVertically
         ) {
-            val text = formatSystemMessageText(systemMessageState.message)
+            Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
+                val text = formatSystemMessageText(systemMessageState.message)
 
-            BasicText(
-                text = text,
-                style = CustomTheme.typography.subhead.copy(color = CustomTheme.colorScheme.onSurface)
-            )
+                BasicText(
+                    text = text,
+                    style = CustomTheme.typography.subhead.copy(color = CustomTheme.colorScheme.onSurface)
+                )
+
+                AmiMessageActionButton(message = systemMessageState.message)
+            }
         }
     }
 }

@@ -8,6 +8,10 @@
     <string name="global_save">Opslaan</string>
     <string name="global_wasUpFor">Was in voor %1$s</string>
     <string name="global_isUpFor">Is in voor %1$s</string>
+    <string name="global_activity_create">Activiteit aanmaken</string>
+    <string name="global_activity_repeat">Activiteit herhalen</string>
+    <string name="global_activity_view">Activiteit bekijken</string>
+    <string name="global_view">Bekijken</string>
 
     <!-- Channels Screen -->
     <string name="AmiChannelsScreen_title">Chats</string>
@@ -20,6 +24,7 @@
     <string name="AmiChannelSystemMessage_AttendenceReminder">Nog 24 uur en de activiteit gaat van start! Ik reken op je.</string>
     <string name="AmiChannelSystemMessage_GroupChatCreated">Ik ben %1$s, de host van deze activiteit. Stel jij jezelf ook even voor in de chat?</string>
     <string name="AmiChannelSystemMessage_GroupChatJoined">Ik ben er ook bij!</string>
+    <string name="AmiChannelSystemMessage_RepeatActivity">Was de activiteit een success? Tik hieronder om de activiteit te herhalen en dezelfde amigos uit te nodigen.</string>
 
     <!-- AmiPinnedMessage -->
     <string name="AmiPinnedMessage_final_placeholder">Hier kan jij details (zoals het adres) toevoegen zodat iedereen dat makkelijk terug kan vinden.</string>
@@ -45,9 +50,6 @@
 
     <!-- AmiChatWithHost -->
     <string name="AmiChatWithHost_body">Chat met host</string>
-
-    <!-- AmiChannelCreateActivity -->
-    <string name="AmiChannelCreateActivity_body">Activiteit aanmaken</string>
 
     <!-- AmiChatTrialNotice -->
     <plurals name="AmiChatTrialNotice_title">
@@ -91,7 +93,6 @@
     <string name="custom_channel_action_unmute_title">Zet meldingen aan</string>
     <string name="custom_channel_action_profile_title">Profiel bekijken</string>
     <string name="custom_channel_action_invite_title">Uitnodigen</string>
-    <string name="custom_channel_action_activity_title">Activiteit bekijken</string>
     <string name="custom_channel_action_inviteAmigos_title">Amigos uitnodigen</string>
     <string name="custom_channel_action_manageParticipants_title">Deelnemers beheren</string>
     <string name="custom_channel_action_mixer_title">Borrel bekijken</string>
