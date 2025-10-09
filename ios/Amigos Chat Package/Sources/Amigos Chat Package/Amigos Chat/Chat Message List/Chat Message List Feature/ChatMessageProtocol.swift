@@ -25,6 +25,7 @@ public protocol ChatMessageProtocol {
     var pinDetails: MessagePinDetails? { get }
     var messageType: String { get }
     var translationKey: TranslationKey? { get }
+    var localPoll: LocalPoll? { get }
 }
 
 public protocol ChatMessageAttachmentProtocol {
@@ -58,4 +59,3 @@ public protocol AnyRole: RawRepresentable, Codable, Hashable, ExpressibleByStrin
 
     init(stringLiteral value: String)
 }
-

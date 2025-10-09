@@ -205,7 +205,7 @@
 "message.polls.button.show-all" = "Mostrar todo";
 "message.polls.button.suggestAnOption" = "Sugerir una opción";
 "message.polls.button.updateComment" = "Actualizar tu comentario";
-"message.polls.button.viewResults" = "Ver resultados";
+"message.polls.button.viewResults" = "Ver votos";
 "message.polls.subtitle.selectOne" = "Seleccionar uno";
 "message.polls.subtitle.selectOneOrMore" = "Selecciona uno o más";
 "message.polls.subtitle.selectUpTo" = "Selecciona hasta %d";

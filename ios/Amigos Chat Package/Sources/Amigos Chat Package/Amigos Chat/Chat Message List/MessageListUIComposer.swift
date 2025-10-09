@@ -7,6 +7,11 @@
 
 import Foundation
 import SwiftUI
+import StreamChat
+
+typealias PollControllerBuilder = (_ messageId: String, _ pollId: String) -> PollControllerProtocol?
+
+typealias PollOptionAllVotesViewBuilder = (LocalPoll, LocalPollOption) -> LocalPollOptionAllVotesView
 
 class MessageListUIComposer {
 
@@ -14,6 +19,7 @@ class MessageListUIComposer {
 
     @MainActor
     static func makeMessageListView(
+        client: ChatClient,
         messages: [ChatMessageProtocol],
         messageDisplayConfig: MessageListDisplayConfiguration,
         messageGroupingInfo: [String: [String]],
@@ -44,6 +50,8 @@ class MessageListUIComposer {
             config: messageDisplayConfig
         )
 
+        viewModel.pollControllerBuilder = pollBuilder(client: client)
+
         let messageGestureCallbacks = MessageGestureCallbacks(
             onQuotedMessageTap: onQuotedMessageTapHandler,
             onMessageReply: onMessageReplyHandler,
@@ -56,7 +64,71 @@ class MessageListUIComposer {
             callbacks: messageGestureCallbacks,
             width: width,
             scrollDirection: scrollDirection,
-            onMessageAppear: onMessageAppear
+            onMessageAppear: onMessageAppear,
+            pollOptionAllVotesViewBuilder: pollAllVotesViewBuilder(with: client)
         )
+    }
+}
+
+extension MessageListUIComposer {
+
+    static func pollBuilder(client: ChatClient) -> PollControllerBuilder? {
+        return { [weak client] messageId, pollId in
+            guard let client else { return nil }
+            return PollControllerAdapter(client.pollController(messageId: messageId, pollId: pollId))
+        }
+    }
+
+    static func pollAllVotesViewBuilder(with client: ChatClient) -> PollOptionAllVotesViewBuilder {
+
+        return { [weak client] poll, option in
+
+            guard let client else {
+                // client is deallocated. show a view without a controller (which will not happen at all)
+                // but I prever this above a crash.
+                return LocalPollOptionAllVotesView(
+                    viewModel: PollOptionAllVotesViewModel(
+                        poll: poll,
+                        option: option,
+                        controller: EmptyPollVotelistController()
+                    )
+                )
+            }
+
+            let controller = client.pollVoteListController(
+                query: PollVoteListQuery(pollId: poll.id, optionId: option.id)
+            )
+
+            let viewModel = PollOptionAllVotesViewModel(
+                poll: poll,
+                option: option,
+                controller: StreamPollVotesAdapter(controller: controller)
+            )
+
+            let view = LocalPollOptionAllVotesView(viewModel: viewModel)
+
+            return view
+        }
+    }
+}
+
+class EmptyPollVotelistController: PollVoteListControllerProtocol {
+
+    enum Error: Swift.Error {
+        case empty
+    }
+
+    var votes: [LocalPollVote] = []
+
+    var hasLoadedAllVotes: Bool = false
+
+    var delegate: (any LocalPollVotesProviderDelegate)?
+
+    func synchronize(_ completion: ((Swift.Error?) -> Void)?) {
+        completion?(.some(Error.empty))
+    }
+
+    func loadMoreVotes(limit: Int?, completion: ((Swift.Error?) -> Void)?) {
+        completion?(.some(Error.empty))
     }
 }

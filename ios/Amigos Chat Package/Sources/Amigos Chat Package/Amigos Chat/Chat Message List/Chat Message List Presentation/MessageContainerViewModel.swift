@@ -13,6 +13,8 @@ class MessageContainerViewModel: ObservableObject {
 
     @Published var showReactionsOverlay: Bool = false
 
+    var pollController: PollControllerProtocol?
+
     private var dateFormatter: DateFormatter {
         let formatter = DateFormatter()
         formatter.dateStyle = .none
@@ -89,6 +91,15 @@ class MessageContainerViewModel: ObservableObject {
         return message.type == .system
     }
 
+    @MainActor
+    var messagePollViewData: PollMessageViewModel? {
+        guard let pollController, message.poll != nil else { return nil }
+        return PollMessageViewModel(
+            message: message,
+            controller: pollController
+        )
+    }
+
     let isRead: Bool
 
     private let isReadByAllHandler: IsReadByAllHandler
@@ -99,6 +110,7 @@ class MessageContainerViewModel: ObservableObject {
         isLast: Bool,
         isDirectMessageChat: Bool,
         isRead: Bool = false,
+        pollController: PollControllerProtocol? = nil,
         isReadByAllHandler: @escaping IsReadByAllHandler = { _ in false },
         imageLoader: ImageLoader = DefaultImageLoader(),
         imageCDN: ImageCDNhandler = MockImageCDN(),
@@ -113,6 +125,7 @@ class MessageContainerViewModel: ObservableObject {
         self.videoPreviewLoader = videoPreviewLoader
         self.isLast = isLast
         self.isDirectMessageChat = isDirectMessageChat
+        self.pollController = pollController
     }
 
     var isReadByAll: Bool {

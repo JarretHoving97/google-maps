@@ -69,7 +69,8 @@ public struct NewMessageIndicatorViewModifier: ViewModifier {
             config: MessageListDisplayConfiguration()
         ),
         scrollDirection: .constant(.up),
-        onMessageAppear: { _, _ in }
+        onMessageAppear: { _, _ in },
+        pollOptionAllVotesViewBuilder: nil
     )
     .flippedUpsideDown()
     .frame(height: 120)

@@ -205,7 +205,7 @@
 "message.polls.button.show-all" = "모두 보기";
 "message.polls.button.suggestAnOption" = "옵션 제안하기";
 "message.polls.button.updateComment" = "댓글 업데이트";
-"message.polls.button.viewResults" = "결과 보기";
+"message.polls.button.viewResults" = "투표 보기";
 "message.polls.subtitle.selectOne" = "하나 선택";
 "message.polls.subtitle.selectOneOrMore" = "하나 이상 선택";
 "message.polls.subtitle.selectUpTo" = "최대 %d 선택";

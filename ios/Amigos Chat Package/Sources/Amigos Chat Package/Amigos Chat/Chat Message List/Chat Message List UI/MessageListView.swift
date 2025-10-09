@@ -24,18 +24,22 @@ struct MessageListView: View {
     private let messageGestureCallBacks: MessageGestureCallbacks
     private let onMessageAppear: OnMessageAppearHandler
 
+    private let pollOptionAllVotesViewBuilder: PollOptionAllVotesViewBuilder?
+
     init(
         viewModel: MessageListViewModel,
         callbacks: MessageGestureCallbacks = .noGestures,
         width: CGFloat = .messageWidth,
         scrollDirection: Binding<ScrollDirection>,
-        onMessageAppear: @escaping OnMessageAppearHandler
+        onMessageAppear: @escaping OnMessageAppearHandler,
+        pollOptionAllVotesViewBuilder: PollOptionAllVotesViewBuilder?
     ) {
         self._scrollDirection = scrollDirection
         self.viewModel = viewModel
         self.width = width
         self.messageGestureCallBacks = callbacks
         self.onMessageAppear = onMessageAppear
+        self.pollOptionAllVotesViewBuilder = pollOptionAllVotesViewBuilder
     }
 
     var body: some View {
@@ -60,7 +64,8 @@ struct MessageListView: View {
         return MessageContainerView(
             viewModel: viewData,
             gestureCallbacks: messageGestureCallBacks,
-            width: width
+            width: width,
+            pollOptionAllVotesViewBuilder: pollOptionAllVotesViewBuilder
         )
         .onAppear {
             if viewModel.showUnreadMessageSeparator(for: message) {
@@ -121,7 +126,8 @@ struct MessageListView: View {
                     MessageListView(
                         viewModel: viewModel,
                         scrollDirection: .constant(.up),
-                        onMessageAppear: {_, _ in }
+                        onMessageAppear: {_, _ in },
+                        pollOptionAllVotesViewBuilder: nil
                     )
                 }
             }

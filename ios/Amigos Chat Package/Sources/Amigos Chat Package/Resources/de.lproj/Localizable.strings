@@ -203,7 +203,7 @@
 "message.polls.button.show-all" = "Alles anzeigen";
 "message.polls.button.suggestAnOption" = "Eine Option vorschlagen";
 "message.polls.button.updateComment" = "Deinen Kommentar aktualisieren";
-"message.polls.button.viewResults" = "Resultate anzeigen";
+"message.polls.button.viewResults" = "Stimmen anzeigen";
 "message.polls.subtitle.selectOne" = "Eins auswählen";
 "message.polls.subtitle.selectOneOrMore" = "Wählen Sie eine oder mehrere aus";
 "message.polls.subtitle.selectUpTo" = "Wählen Sie bis zu %d";

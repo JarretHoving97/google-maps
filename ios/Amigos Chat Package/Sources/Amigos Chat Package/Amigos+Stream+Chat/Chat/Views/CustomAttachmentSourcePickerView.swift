@@ -5,6 +5,8 @@ import StreamChat
 /// View for picking the source of the attachment (photo, files or camera).
 public struct CustomAttachmentSourcePickerView: View {
 
+    @EnvironmentObject var viewModel: MessageComposerViewModel
+
     @Injected(\.colors) private var colors
     @Injected(\.images) private var images
 
@@ -58,6 +60,18 @@ public struct CustomAttachmentSourcePickerView: View {
                 onTap: onTap
             )
            */
+
+            let canSendPoll = viewModel.channelController.channel?.ownCapabilities.contains(.sendPoll) ?? false
+
+            if canSendPoll && viewModel.messageController == nil {
+                AttachmentPickerButton(
+                    icon: images.attachmentPickerPolls,
+                    pickerType: .polls,
+                    isSelected: selected == .polls,
+                    onTap: onTap
+                )
+                .accessibilityIdentifier("attachmentPickerPolls")
+            }
 
             Spacer()
         }

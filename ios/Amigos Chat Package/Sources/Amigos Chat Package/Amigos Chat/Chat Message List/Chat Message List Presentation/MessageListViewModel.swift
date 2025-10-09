@@ -31,6 +31,8 @@ class MessageListViewModel: ObservableObject {
 
     let isReadByAllHandler: IsReadByAllHandler
 
+    var pollControllerBuilder: PollControllerBuilder?
+
     init(
         reactionsForMessage: Message? = nil,
         messageList: [Message],
@@ -57,7 +59,7 @@ class MessageListViewModel: ObservableObject {
         for message: Message
     ) -> MessageContainerViewModel {
 
-        MessageContainerViewModel(
+       let viewModel = MessageContainerViewModel(
             message: message,
             showsAllInfo: showsAllData(for: message),
             isLast: isLastMessage(message),
@@ -65,6 +67,13 @@ class MessageListViewModel: ObservableObject {
             isRead: isReadHandler.hasSeen(for: message),
             isReadByAllHandler: isReadByAllHandler
         )
+
+        // build pollcontroller if message contains a poll
+        if let poll = message.poll {
+            viewModel.pollController = pollControllerBuilder?(message.id, poll.id)
+        }
+
+        return viewModel
     }
 
     func showUnreadMessageSeparator(for message: Message) -> Bool {

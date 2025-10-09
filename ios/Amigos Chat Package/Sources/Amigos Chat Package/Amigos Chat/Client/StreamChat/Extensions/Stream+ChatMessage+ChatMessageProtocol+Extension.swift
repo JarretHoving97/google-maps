@@ -48,4 +48,8 @@ extension ChatMessage: ChatMessageProtocol {
     public var reactions: [String : Int] {
         Dictionary(uniqueKeysWithValues: reactionCounts.map { ($0.key.rawValue, Int($0.value)) })
     }
+
+    public var localPoll: LocalPoll? {
+        poll?.toLocal()
+    }
 }

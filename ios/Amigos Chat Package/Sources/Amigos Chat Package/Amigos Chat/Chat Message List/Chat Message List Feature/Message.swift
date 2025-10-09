@@ -7,8 +7,8 @@
 
 import Foundation
 
-public struct LocalUser: Equatable {
-    let id: String
+public struct LocalUser: Equatable, Hashable, Identifiable {
+    public let id: String
     let name: String
     let isModerator: Bool
     var imageUrl: URL?
@@ -53,6 +53,8 @@ public struct Message {
 
     public let type: MessageType
 
+    public let poll: LocalPoll?
+
     let createdAt: Date
 
     public init(
@@ -69,7 +71,8 @@ public struct Message {
         actionUrl: String? = nil,
         localState: LocalState? = nil,
         createdAt: Date = Date(),
-        type: MessageType = .regular
+        type: MessageType = .regular,
+        poll: LocalPoll? = nil
 
     ) {
         self.id = id
@@ -86,6 +89,7 @@ public struct Message {
         self.type = type
         self.translationKey = translationKey
         self.actionUrl = actionUrl
+        self.poll = poll
     }
 }
 

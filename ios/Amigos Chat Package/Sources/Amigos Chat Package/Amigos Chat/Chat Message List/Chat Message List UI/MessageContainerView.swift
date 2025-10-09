@@ -16,15 +16,18 @@ struct MessageContainerView: View {
     private let width: CGFloat
     private let gestureCallbacks: MessageGestureCallbacks
     private let avatarSize: CGFloat = 32
-
+    private let pollOptionAllVotesViewBuilder: PollOptionAllVotesViewBuilder?
+    
     init(
         viewModel: MessageContainerViewModel,
         gestureCallbacks: MessageGestureCallbacks = .noGestures,
-        width: CGFloat = .messageWidth
+        width: CGFloat = .messageWidth,
+        pollOptionAllVotesViewBuilder: PollOptionAllVotesViewBuilder?
     ) {
         self.viewModel = viewModel
         self.gestureCallbacks = gestureCallbacks
         self.width = width
+        self.pollOptionAllVotesViewBuilder = pollOptionAllVotesViewBuilder
     }
 
     var body: some View {
@@ -42,7 +45,7 @@ struct MessageContainerView: View {
                 alignment: viewModel.isRightAligned ? .trailing : .leading,
                 spacing: viewModel.message.reactions.isEmpty ? 10 : 18
             ) {
-                messageView
+                content
                 footerView
             }
 
@@ -112,57 +115,65 @@ struct MessageSpacer: View {
 // MARK: Subviews
 extension MessageContainerView {
 
-    @ViewBuilder private var messageView: some View {
+    @ViewBuilder private var content: some View {
 
-        ZStack(alignment: viewModel.isRightAligned ? .bottomTrailing : .bottomLeading) {
-            MessageView(
-                viewModel: MessageViewModel(
-                    message: viewModel.message,
-                    imageLoader: viewModel.imageLoader,
-                    imageCDN: viewModel.imageCDN,
-                    videoPreviewLoader: viewModel.videoPreviewLoader,
-                    isFirst: viewModel.showsAllInfo
-                ),
-                maxWidth: contentWidth,
-                onQuotedMessageTap: gestureCallbacks.onQuotedMessageTap
+        // check if message contains a poll
+        if let messagePollViewData = viewModel.messagePollViewData {
+            PollMessageView(
+                viewModel: messagePollViewData,
+                pollOptionAllVotesViewBuilder: pollOptionAllVotesViewBuilder
             )
-            .messageGestures(
-                onSwipe: { gestureCallbacks.onMessageReply(viewModel.message.id) },
-                onLongPress: { longTapGesture() }
-            )
-            .background(
-                GeometryReader { proxy in
-                    Rectangle().fill(Color.clear)
-                        .onChange(of: computeFrame, perform: { _ in
-                            DispatchQueue.main.async {
-                                gestureCallbacks.onLongPress(LocalMessageInfo(id: viewModel.message.id, frame: (proxy.frame(in: .global))))
-                                computeFrame = false
-                            }
-                        })
-                }
-            )
-            .onTapGesture {
-                navigateToOnboardingWebView()
-            }
-            .padding(
-                .top,
-                viewModel.showReactionsOverlay ? 24 : 0
-            )
-
-            if !viewModel.reactions.isEmpty {
-                MessageBottomReactionsView(
-                    viewModel: MessageBottomReactionsViewModel(reactions: viewModel.reactions)
+        } else {
+            ZStack(alignment: viewModel.isRightAligned ? .bottomTrailing : .bottomLeading) {
+                MessageView(
+                    viewModel: MessageViewModel(
+                        message: viewModel.message,
+                        imageLoader: viewModel.imageLoader,
+                        imageCDN: viewModel.imageCDN,
+                        videoPreviewLoader: viewModel.videoPreviewLoader,
+                        isFirst: viewModel.showsAllInfo
+                    ),
+                    maxWidth: contentWidth,
+                    onQuotedMessageTap: gestureCallbacks.onQuotedMessageTap
                 )
-                .padding(
-                    EdgeInsets(
-                        top: 10,
-                        leading: 10,
-                        bottom: -14,
-                        trailing: 10
-                    )
+                .messageGestures(
+                    onSwipe: { gestureCallbacks.onMessageReply(viewModel.message.id) },
+                    onLongPress: { longTapGesture() }
+                )
+                .background(
+                    GeometryReader { proxy in
+                        Rectangle().fill(Color.clear)
+                            .onChange(of: computeFrame, perform: { _ in
+                                DispatchQueue.main.async {
+                                    gestureCallbacks.onLongPress(LocalMessageInfo(id: viewModel.message.id, frame: (proxy.frame(in: .global))))
+                                    computeFrame = false
+                                }
+                            })
+                    }
                 )
                 .onTapGesture {
-                    gestureCallbacks.onReactionsTap(MessageReactionsInfo(id: viewModel.message.id))
+                    navigateToOnboardingWebView()
+                }
+                .padding(
+                    .top,
+                    viewModel.showReactionsOverlay ? 24 : 0
+                )
+
+                if !viewModel.reactions.isEmpty {
+                    MessageBottomReactionsView(
+                        viewModel: MessageBottomReactionsViewModel(reactions: viewModel.reactions)
+                    )
+                    .padding(
+                        EdgeInsets(
+                            top: 10,
+                            leading: 10,
+                            bottom: -14,
+                            trailing: 10
+                        )
+                    )
+                    .onTapGesture {
+                        gestureCallbacks.onReactionsTap(MessageReactionsInfo(id: viewModel.message.id))
+                    }
                 }
             }
         }
@@ -254,6 +265,30 @@ extension MessageContainerView {
 }
 
 #Preview {
+
+    MessageContainerView(
+        viewModel: MessageContainerViewModel(
+            message: Message(
+                user: LocalUser(
+                    id: .uniqueID,
+                    name: "Ilon",
+                    imageUrl: ImageURLExamples.portraitImageUrl
+                ),
+                poll: LocalPoll(
+                    name: "Waar gaan we drinken vanavond?",
+                    options: LocalPollOption.mockOptions
+                )
+            ),
+            showsAllInfo: true,
+            isLast: true,
+            isDirectMessageChat: false,
+            isRead: false,
+            pollController: MockPollController(localOwnVotes: [])
+        ), pollOptionAllVotesViewBuilder: nil
+    )
+}
+
+#Preview {
     MessageContainerView(
         viewModel: MessageContainerViewModel(
             message: Message(
@@ -273,7 +308,8 @@ extension MessageContainerView {
             isLast: true,
             isDirectMessageChat: false
         ),
-        width: UIScreen.main.bounds.width
+        width: UIScreen.main.bounds.width,
+        pollOptionAllVotesViewBuilder: nil
     )
 }
 
@@ -295,6 +331,7 @@ extension MessageContainerView {
             isLast: true,
             isDirectMessageChat: false
         ),
-        width: UIScreen.main.bounds.width
+        width: UIScreen.main.bounds.width,
+        pollOptionAllVotesViewBuilder: nil
     )
 }

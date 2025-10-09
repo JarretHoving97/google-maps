@@ -327,6 +327,7 @@ extension MessageView {
             isLast: true,
             isDirectMessageChat: false
         ),
-        width: UIScreen.main.bounds.width
+        width: UIScreen.main.bounds.width,
+        pollOptionAllVotesViewBuilder: nil
     )
 }

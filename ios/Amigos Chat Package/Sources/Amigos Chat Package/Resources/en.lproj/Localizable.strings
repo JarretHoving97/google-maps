@@ -58,7 +58,7 @@
 "message.polls.button.seeMoreOptions" = "See %d More Options";
 "message.polls.button.show-all" = "Show All";
 "message.polls.button.suggestAnOption" = "Suggest an Option";
-"message.polls.button.viewResults" = "View Results";
+"message.polls.button.viewResults" = "View Votes";
 "message.polls.subtitle.selectOne" = "Select one";
 "message.polls.subtitle.selectOneOrMore" = "Select one or more";
 "message.polls.subtitle.selectUpTo" = "Select up to %d";

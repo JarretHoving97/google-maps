@@ -21,7 +21,7 @@
     {
       "identity" : "stream-chat-swift",
       "kind" : "remoteSourceControl",
-      "location" : "https://github.com/GetStream/stream-chat-swift.git",
+      "location" : "https://github.com/GetStream/stream-chat-swift",
       "state" : {
         "revision" : "3ea8ab7fb8367cf53255ab0f1effcb239efd8fa1",
         "version" : "4.81.0"
@@ -30,7 +30,7 @@
     {
       "identity" : "stream-chat-swiftui",
       "kind" : "remoteSourceControl",
-      "location" : "https://github.com/getstream/stream-chat-swiftui",
+      "location" : "https://github.com/GetStream/stream-chat-swiftui",
       "state" : {
         "revision" : "04cb99f6ea61a8339af423687d5d47e9348c0ead",
         "version" : "4.81.0"

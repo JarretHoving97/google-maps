@@ -43,6 +43,7 @@ public class MessageMapper {
                 ),
             createdAt: remoteMessage.createdAt,
             type: MessageType(rawValue: remoteMessage.messageType) ?? .regular,
+            poll: remoteMessage.localPoll
         )
     }
 }

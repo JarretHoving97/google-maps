@@ -108,10 +108,12 @@ public struct CustomAttachmentPickerView<Factory: ViewFactory>: View {
                     cameraImageAdded: cameraImageAdded
                 )
             } else if selectedPickerState == .polls {
-                viewFactory.makeComposerPollView(
+                LocalComposerPollView(
                     channelController: viewModel.channelController,
                     messageController: viewModel.messageController
-                )
+                ) {
+                    selectedPickerState = .photos
+                }
             } else if selectedPickerState == .custom, let shareLocationView = CustomUIFactory.shareCurrentLocationView {
                 // custom factory
                 viewFactory.makeCustomShareLocation(
@@ -149,5 +151,47 @@ public struct CustomAttachmentPickerView<Factory: ViewFactory>: View {
 
         .offset(y: isDisplayed ? 0 : popupHeight)
         .animation(.spring())
+    }
+}
+
+ struct LocalComposerPollView: View {
+    @State private var showsOnAppear = true
+    @State private var showsCreatePoll = false
+
+    let channelController: ChatChannelController
+    let messageController: ChatMessageController?
+
+    var onCreatePollDissapears: () -> Void
+
+    var body: some View {
+        VStack {
+            Spacer()
+            Button {
+                showsCreatePoll = true
+            } label: {
+                Text(tr("composer.polls.create-poll"))
+            }
+
+            Spacer()
+        }
+        .fullScreenCover(isPresented: $showsCreatePoll) {
+            CustomCreatePollView(
+                chatController: channelController,
+                messageController: messageController
+            )
+        }
+        .onAppear {
+            guard showsOnAppear else { return }
+            showsOnAppear = false
+            showsCreatePoll = true
+        }
+
+        .onChange(of: showsCreatePoll) { newValue in
+            if newValue == false {
+                DispatchQueue.main.async {
+                    onCreatePollDissapears()
+                }
+            }
+        }
     }
 }

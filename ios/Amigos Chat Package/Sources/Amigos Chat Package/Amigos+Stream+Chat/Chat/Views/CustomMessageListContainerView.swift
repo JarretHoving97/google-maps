@@ -183,6 +183,7 @@ public struct CustomMessageListContainerView<Factory: ViewFactory>: View, Keyboa
                     LazyVStack(spacing: 0, pinnedViews: .sectionFooters) {
                         Section {
                             MessageListUIComposer.makeMessageListView(
+                                client: chatClient,
                                 messages: Array(messages),
                                 messageDisplayConfig: Utils.amigosUtils.messageListConfig.local,
                                 messageGroupingInfo: messagesGroupingInfo,

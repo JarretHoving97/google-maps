@@ -58,7 +58,7 @@
 "message.polls.button.seeMoreOptions" = "Bekijk %d meer opties";
 "message.polls.button.show-all" = "Alles tonen";
 "message.polls.button.suggestAnOption" = "Een optie voorstellen";
-"message.polls.button.viewResults" = "Resultaten bekijken";
+"message.polls.button.viewResults" = "Bekijk stemmen";
 "message.polls.subtitle.selectOne" = "Selecteer één";
 "message.polls.subtitle.selectOneOrMore" = "Selecteer één of meer";
 "message.polls.subtitle.selectUpTo" = "Selecteer tot %d";

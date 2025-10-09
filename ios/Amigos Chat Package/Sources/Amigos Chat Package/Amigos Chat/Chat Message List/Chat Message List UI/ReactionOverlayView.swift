@@ -140,7 +140,7 @@ public struct ReactionsHStack<Content: View>: View {
             showsAllInfo: true,
             isLast: true,
             isDirectMessageChat: false
-        )
+        ), pollOptionAllVotesViewBuilder: nil
     )
     .frame(maxWidth: .messageWidth)
 }
