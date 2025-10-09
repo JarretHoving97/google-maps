@@ -14,7 +14,6 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.ime
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.CircularProgressIndicator
@@ -34,7 +33,6 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import com.whoisup.app.ExtendedStreamPlugin
 import com.whoisup.app.R
 import com.whoisup.app.SuperEntitlementStatus
-import com.whoisup.app.components.AmiButton
 import com.whoisup.app.components.AmiEmptyContent
 import com.whoisup.app.components.AmiPinnedMessage
 import com.whoisup.app.stream.extensions.AmiParticipantRole
@@ -49,7 +47,6 @@ import io.getstream.chat.android.compose.viewmodel.messages.AttachmentsPickerVie
 import io.getstream.chat.android.compose.viewmodel.messages.MessageComposerViewModel
 import io.getstream.chat.android.compose.viewmodel.messages.MessageListViewModel
 import io.getstream.chat.android.compose.viewmodel.messages.MessagesViewModelFactory
-import io.getstream.chat.android.models.ChannelCapabilities
 import io.getstream.chat.android.ui.common.state.messages.Delete
 import java.time.ZoneId
 import java.time.ZonedDateTime
@@ -313,34 +310,12 @@ fun AmiChannelScreen(
                 }
             }
 
-            val messageComposerState by composerViewModel.messageComposerState.collectAsState()
-            val canSendMessage = messageComposerState.ownCapabilities.contains(ChannelCapabilities.SEND_MESSAGE)
-
-            if (otherUser?.isSupportTeamMember == true) {
-                // You are not allowed to chat if the other user is part of our support team.
-                Box(
-                    modifier = Modifier
-                        .height(2.dp)
-                        .fillMaxWidth()
-                        .background(CustomTheme.colorScheme.surfaceHard)
-                )
-
-                AmiButton(
-                    text = stringResource(id = R.string.global_contact),
-                    onClick = onContactSupportClick,
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(8.dp)
-                )
-            } else if (!canSendMessage && listViewModel.channel.relatedConceptType is ChatChannelRelatedConceptType.Community) {
-                // In this case we want to hide the composer entirely
-            } else {
-                AmiChannelComposer(
-                    listViewModel = listViewModel,
-                    composerViewModel = composerViewModel,
-                    attachmentsPickerViewModel = attachmentsPickerViewModel,
-                )
-            }
+            AmiChannelComposerContainer(
+                listViewModel = listViewModel,
+                composerViewModel = composerViewModel,
+                attachmentsPickerViewModel = attachmentsPickerViewModel,
+                onContactSupportClick = onContactSupportClick
+            )
         }
 
         val selectedMessageState = listViewModel.currentMessagesState.selectedMessageState

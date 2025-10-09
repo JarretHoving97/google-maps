@@ -23,7 +23,6 @@ import com.whoisup.app.ui.theme.CustomTheme
 import io.getstream.chat.android.compose.viewmodel.messages.MessageComposerViewModel
 import io.getstream.chat.android.compose.viewmodel.messages.MessageListViewModel
 import io.getstream.chat.android.models.Attachment
-import io.getstream.chat.android.models.ChannelCapabilities
 import io.getstream.chat.android.ui.common.state.messages.Edit
 import io.getstream.chat.android.ui.common.state.messages.Reply
 import io.getstream.chat.android.ui.common.state.messages.composer.MessageComposerState
@@ -33,6 +32,7 @@ fun AmiChannelComposerInput(
     listViewModel: MessageListViewModel,
     composerViewModel: MessageComposerViewModel,
     messageComposerState: MessageComposerState,
+    enabled: Boolean,
     onValueChange: (String) -> Unit,
     onAttachmentRemoved: (Attachment) -> Unit,
     modifier: Modifier = Modifier,
@@ -45,7 +45,7 @@ fun AmiChannelComposerInput(
     val (value, attachments, activeAction) = messageComposerState
 
     val placeholder =
-        if (messageComposerState.ownCapabilities.contains(ChannelCapabilities.SEND_MESSAGE)) {
+        if (enabled) {
             stringResource(id = io.getstream.chat.android.compose.R.string.stream_compose_message_label)
         } else {
             stringResource(id = io.getstream.chat.android.compose.R.string.stream_compose_cannot_send_messages_label)

@@ -36,6 +36,7 @@ fun AmiChannelComposer(
     listViewModel: MessageListViewModel,
     composerViewModel: MessageComposerViewModel,
     attachmentsPickerViewModel: AttachmentsPickerViewModel,
+    enabled: Boolean,
 ) {
     val messageComposerState by composerViewModel.messageComposerState.collectAsState()
 
@@ -49,10 +50,9 @@ fun AmiChannelComposer(
     Column {
         val isInEditMode = messageComposerState.action is Edit
 
-        val canSendMessage = messageComposerState.ownCapabilities.contains(ChannelCapabilities.SEND_MESSAGE)
         val canSendAttachments = messageComposerState.ownCapabilities.contains(ChannelCapabilities.UPLOAD_FILE)
 
-        val showAttachmentsButton = !isInEditMode && canSendMessage && canSendAttachments
+        val showAttachmentsButton = !isInEditMode && enabled && canSendAttachments
 
         Box(
             modifier = Modifier
@@ -62,8 +62,8 @@ fun AmiChannelComposer(
         )
 
         DisableTouch(
-            disableTouch = !canSendMessage,
-            modifier = if (canSendMessage) {
+            disableTouch = !enabled,
+            modifier = if (enabled) {
                 Modifier
             } else {
                 Modifier.alpha(0.4f)
@@ -71,7 +71,7 @@ fun AmiChannelComposer(
         ) {
             Row(
                 modifier = Modifier.padding(
-                    start = if (showAttachmentsButton) {
+                    start = if (enabled) {
                         0.dp
                     } else {
                         8.dp
@@ -104,6 +104,7 @@ fun AmiChannelComposer(
                     listViewModel = listViewModel,
                     composerViewModel = composerViewModel,
                     messageComposerState = messageComposerState,
+                    enabled = enabled,
                     onValueChange = { composerViewModel.setMessageInput(it) },
                     onAttachmentRemoved = { composerViewModel.removeSelectedAttachment(it) },
                     modifier = Modifier
@@ -120,7 +121,7 @@ fun AmiChannelComposer(
                         value = messageComposerState.inputValue,
                         validationErrors = messageComposerState.validationErrors,
                         attachments = messageComposerState.attachments,
-                        ownCapabilities = messageComposerState.ownCapabilities,
+                        enabled = enabled,
                         onSendMessage = { input, attachments ->
                             val message = composerViewModel.buildNewMessage(input, attachments)
                             composerViewModel.sendMessage(message)
