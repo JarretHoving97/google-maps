@@ -52,134 +52,150 @@ struct CustomChatChannelMessageListView<Factory: ViewFactory>: View {
         self.onReloadChannelHeader = onReloadChannelHeader
     }
 
+    private var shouldPresentOverlay: Bool {
+        viewModel.reactionsShown && messageDisplayInfo != nil && viewModel.currentSnapshot != nil
+    }
+
     var body: some View {
-        VStack(spacing: 0) {
-            if !viewModel.messages.isEmpty {
-                CustomMessageListContainerView(
-                    factory: factory,
-                    channel: channel,
-                    messages: viewModel.messages,
-                    messagesGroupingInfo: viewModel.messagesGroupingInfo,
-                    scrolledId: $viewModel.scrolledId,
-                    showScrollToLatestButton: $viewModel.showScrollToLatestButton,
-                    quotedMessage: $viewModel.quotedMessage,
-                    currentDateString: viewModel.currentDateString,
-                    listId: viewModel.listId,
-                    isMessageThread: viewModel.isMessageThread,
-                    shouldShowTypingIndicator: viewModel.shouldShowTypingIndicator,
-                    scrollPosition: $viewModel.scrollPosition,
-                    loadingNextMessages: viewModel.loadingNextMessages,
-                    firstUnreadMessageId: $viewModel.firstUnreadMessageId,
-                    onMessageAppear:
-                        viewModel.handleMessageAppear(index:scrollDirection:),
-                    onScrollToBottom: viewModel.scrollToLastMessage,
-                    onLongPress: { displayInfo in
-                        messageDisplayInfo = displayInfo
-                        withAnimation {
-                            viewModel.showReactionOverlay(for: AnyView(self))
+        ZStack {
+            VStack(spacing: 0) {
+                if !viewModel.messages.isEmpty {
+                    CustomMessageListContainerView(
+                        factory: factory,
+                        channel: channel,
+                        messages: viewModel.messages,
+                        messagesGroupingInfo: viewModel.messagesGroupingInfo,
+                        scrolledId: $viewModel.scrolledId,
+                        showScrollToLatestButton: $viewModel.showScrollToLatestButton,
+                        quotedMessage: $viewModel.quotedMessage,
+                        currentDateString: viewModel.currentDateString,
+                        listId: viewModel.listId,
+                        isMessageThread: viewModel.isMessageThread,
+                        shouldShowTypingIndicator: viewModel.shouldShowTypingIndicator,
+                        scrollPosition: $viewModel.scrollPosition,
+                        loadingNextMessages: viewModel.loadingNextMessages,
+                        firstUnreadMessageId: $viewModel.firstUnreadMessageId,
+                        onMessageAppear:
+                            viewModel.handleMessageAppear(index:scrollDirection:),
+                        onScrollToBottom: viewModel.scrollToLastMessage,
+                        onLongPress: { displayInfo in
+                            messageDisplayInfo = displayInfo
+                            withAnimation {
+                                viewModel.showReactionOverlay(for: AnyView(self))
+                            }
+                        },
+                        onJumpToMessage: viewModel.jumpToMessage(messageId:)
+                    )
+                    .ignoresSafeArea(edges: [.bottom])
+                    .onAppear {
+                        if let messageId {
+                            _ = viewModel.jumpToMessage(messageId: messageId)
                         }
-                    },
-                    onJumpToMessage: viewModel.jumpToMessage(messageId:)
-                )
-                .ignoresSafeArea(edges: [.bottom])
-                .onAppear {
-                    if let messageId {
-                        _ = viewModel.jumpToMessage(messageId: messageId)
                     }
-                }
-                .overlay(alignment: .top) {
-                    Rectangle()
-                        .fill(
-                            LinearGradient(
-                                gradient: Gradient(colors: [.black.opacity(0.04), .black.opacity(0)]),
-                                startPoint: .top,
-                                endPoint: .bottom
+                    .overlay(alignment: .top) {
+                        Rectangle()
+                            .fill(
+                                LinearGradient(
+                                    gradient: Gradient(colors: [.black.opacity(0.04), .black.opacity(0)]),
+                                    startPoint: .top,
+                                    endPoint: .bottom
+                                )
                             )
-                        )
-                        .frame(maxWidth: .infinity, maxHeight: 18)
-                }
-                .overlay(
-                    viewModel.currentDateString != nil ?
-                    factory.makeDateIndicatorView(dateString: viewModel.currentDateString!)
-                    : nil
-                )
-            } else {
-                ZStack {
-                    factory.makeEmptyMessagesView(for: channel, colors: colors)
-                    if viewModel.shouldShowTypingIndicator {
-                        factory.makeTypingIndicatorBottomView(
-                            channel: channel,
-                            currentUserId: chatClient.currentUserId
-                        )
+                            .frame(maxWidth: .infinity, maxHeight: 18)
+                    }
+                    .overlay(
+                        viewModel.currentDateString != nil ?
+                        factory.makeDateIndicatorView(dateString: viewModel.currentDateString!)
+                        : nil
+                    )
+                } else {
+                    ZStack {
+                        factory.makeEmptyMessagesView(for: channel, colors: colors)
+                        if viewModel.shouldShowTypingIndicator {
+                            factory.makeTypingIndicatorBottomView(
+                                channel: channel,
+                                currentUserId: chatClient.currentUserId
+                            )
+                        }
                     }
                 }
-            }
 
-            Divider()
+                Divider()
 
-                .if(viewModel.channelHeaderType == .regular) { _ in
-                    reloadHeaderEmptyView
-                }
-                .if(viewModel.channelHeaderType == .typingIndicator) { _ in
-                    reloadHeaderEmptyView
-                }
-                .navigationBarBackButtonHidden(viewModel.reactionsShown)
-                .if(viewModel.reactionsShown, transform: { view in
-                    view.navigationBarHidden(true)
-                })
-                .if(!viewModel.reactionsShown, transform: { view in
-                    view.navigationBarHidden(false)
-                })
+                    .if(viewModel.channelHeaderType == .regular) { _ in
+                        reloadHeaderEmptyView
+                    }
+                    .if(viewModel.channelHeaderType == .typingIndicator) { _ in
+                        reloadHeaderEmptyView
+                    }
 
-            if channel.isSupportChatChannel {
-                CustomSupportChatChannelButton()
-            } else if isInputDisabled && channel.relatedConceptType.isCommunity {
-                // hide input view
-            } else {
-                factory.makeMessageComposerViewType(
-                    with: viewModel.channelController,
-                    messageController: viewModel.messageController,
-                    quotedMessage: $viewModel.quotedMessage,
-                    editedMessage: $viewModel.editedMessage,
-                    onMessageSent: viewModel.scrollToLastMessage
-                )
-                .disabled(isInputDisabled)
-                .opacity(isInputDisabled ? 0.4 : 1)
-            }
-
-            NavigationLink(
-                isActive: $viewModel.threadMessageShown
-            ) {
-                if let message = viewModel.threadMessage {
-                    let threadDestination = factory.makeMessageThreadDestination()
-                    threadDestination(channel, message)
+                if channel.isSupportChatChannel {
+                    CustomSupportChatChannelButton()
+                } else if isInputDisabled && channel.relatedConceptType.isCommunity {
+                    // hide input view
                 } else {
+                    factory.makeMessageComposerViewType(
+                        with: viewModel.channelController,
+                        messageController: viewModel.messageController,
+                        quotedMessage: $viewModel.quotedMessage,
+                        editedMessage: $viewModel.editedMessage,
+                        onMessageSent: viewModel.scrollToLastMessage
+                    )
+                    .disabled(isInputDisabled)
+                    .opacity(isInputDisabled ? 0.4 : 1)
+                }
+
+                NavigationLink(
+                    isActive: $viewModel.threadMessageShown
+                ) {
+                    if let message = viewModel.threadMessage {
+                        let threadDestination = factory.makeMessageThreadDestination()
+                        threadDestination(channel, message)
+                    } else {
+                        EmptyView()
+                    }
+                } label: {
                     EmptyView()
                 }
-            } label: {
-                EmptyView()
+            }
+            .accentColor(colors.tintColor)
+        }
+        .overlayPresenter(
+            isPresented: Binding(
+                get: { shouldPresentOverlay },
+                set: { newValue in
+                    if !newValue {
+                        // Sluiten vanuit presenter of overlay zelf
+                        messageDisplayInfo = nil
+                        viewModel.reactionsShown = false
+                    }
+                }
+            ),
+            transition: .crossDissolve
+        ) {
+            if let mdi = messageDisplayInfo, let snapshot = viewModel.currentSnapshot {
+                factory.makeReactionsOverlayView(
+                    channel: channel,
+                    currentSnapshot: snapshot,
+                    messageDisplayInfo: mdi,
+                    onBackgroundTap: {
+                        withAnimation {
+                            viewModel.reactionsShown = false
+                        }
+                    }, onActionExecuted: { actionInfo in
+                        viewModel.messageActionExecuted(actionInfo)
+                        withAnimation {
+                            viewModel.reactionsShown = false
+                        }
+                    }
+                )
+                .background(Color.clear)
+                .ignoresSafeArea()
+            } else {
+                Color.clear.ignoresSafeArea()
             }
         }
-        .accentColor(colors.tintColor)
-        .overlay(
-            viewModel.reactionsShown ?
-            factory.makeReactionsOverlayView(
-                channel: channel,
-                currentSnapshot: viewModel.currentSnapshot!,
-                messageDisplayInfo: messageDisplayInfo!,
-                onBackgroundTap: {
-                    viewModel.reactionsShown = false
-                    messageDisplayInfo = nil
-                }, onActionExecuted: { actionInfo in
-
-                    viewModel.messageActionExecuted(actionInfo)
-                    messageDisplayInfo = nil
-                }
-            )
-            .transition(.identity)
-            .edgesIgnoringSafeArea(.all)
-            : nil
-        )
+        .animation(.easeInOut(duration: 0.22), value: viewModel.reactionsShown)
     }
 
     var reloadHeaderEmptyView: some View {

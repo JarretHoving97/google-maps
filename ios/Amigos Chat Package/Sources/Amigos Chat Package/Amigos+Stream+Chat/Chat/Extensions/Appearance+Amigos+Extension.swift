@@ -24,6 +24,10 @@ public extension Appearance {
         let images = Images()
 
         images.availableReactions = [
+            .init(rawValue: "thumbs-up"): ChatMessageReactionAppearance(
+                smallIcon: "👍".toImage(size: 64),
+                largeIcon: "👍".toImage(size: 256)
+            ),
             .init(rawValue: "heart"): ChatMessageReactionAppearance(
                 smallIcon: "❤️".toImage(size: 64),
                 largeIcon: "❤️".toImage(size: 256)
@@ -32,17 +36,41 @@ public extension Appearance {
                 smallIcon: "😂".toImage(size: 64),
                 largeIcon: "😂".toImage(size: 256)
             ),
-            .init(rawValue: "thumbs-up"): ChatMessageReactionAppearance(
-                smallIcon: "👍".toImage(size: 64),
-                largeIcon: "👍".toImage(size: 256)
-            ),
             .init(rawValue: "astonished"): ChatMessageReactionAppearance(
                 smallIcon: "😲".toImage(size: 64),
                 largeIcon: "😲".toImage(size: 256)
             ),
+            .init(rawValue: "cry"): ChatMessageReactionAppearance(
+                smallIcon: "😥".toImage(size: 64),
+                largeIcon: "😥".toImage(size: 256)
+            ),
+            .init(rawValue: "pray"): ChatMessageReactionAppearance(
+                smallIcon: "🙏".toImage(size: 64),
+                largeIcon: "🙏".toImage(size: 256)
+            ),
             .init(rawValue: "fire"): ChatMessageReactionAppearance(
                 smallIcon: "🔥".toImage(size: 64),
                 largeIcon: "🔥".toImage(size: 256)
+            ),
+            .init(rawValue: "tada"): ChatMessageReactionAppearance(
+                smallIcon: "🎉".toImage(size: 64),
+                largeIcon: "🎉".toImage(size: 256)
+            ),
+            .init(rawValue: "thumbsdown"): ChatMessageReactionAppearance(
+                smallIcon: "👎".toImage(size: 64),
+                largeIcon: "👎".toImage(size: 256)
+            ),
+            .init(rawValue: "star-struck"): ChatMessageReactionAppearance(
+                smallIcon: "🤩".toImage(size: 64),
+                largeIcon: "🤩".toImage(size: 256)
+            ),
+            .init(rawValue: "white_check_mark"): ChatMessageReactionAppearance(
+                smallIcon: "✅".toImage(size: 64),
+                largeIcon: "✅".toImage(size: 256)
+            ),
+            .init(rawValue: "thinking_face"): ChatMessageReactionAppearance(
+                smallIcon: "🤔".toImage(size: 64),
+                largeIcon: "🤔".toImage(size: 256)
             )
         ]
 

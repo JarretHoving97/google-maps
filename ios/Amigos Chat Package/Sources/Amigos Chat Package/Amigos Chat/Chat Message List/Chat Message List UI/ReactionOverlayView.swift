@@ -56,9 +56,11 @@ struct ReactionsOverlayView: View {
 extension ReactionsOverlayView {
 
     var animatableView: some View {
-        HStack {
-            ForEach(viewModel.reactions) { reaction in
-                reactionView(for: reaction)
+        ScrollView(.horizontal) {
+            HStack {
+                ForEach(viewModel.reactions) { reaction in
+                    reactionView(for: reaction)
+                }
             }
         }
         .padding(.all, 6)
@@ -113,6 +115,7 @@ public struct ReactionsHStack<Content: View>: View {
         self.message = message
         self.content = content
     }
+
 
     public var body: some View {
         HStack {

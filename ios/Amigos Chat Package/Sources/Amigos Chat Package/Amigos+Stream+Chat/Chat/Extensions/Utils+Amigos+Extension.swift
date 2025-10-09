@@ -7,10 +7,12 @@
 
 import SwiftUI
 import StreamChatSwiftUI
+import StreamChat
 
 public extension Utils {
+
     static var amigosUtils: Utils {
-        Utils(
+        let utils = Utils(
             messageTypeResolver: LocationMessageTypeResolver(),
             commandsConfig: CustomCommandsConfig(),
             messageListConfig: customMessageListConfig,
@@ -29,5 +31,37 @@ public extension Utils {
             ),
             channelHeaderLoader: CustomChannelHeaderLoader()
         )
+
+        utils.sortReactions = amigosSortReactions
+
+        return utils
+    }
+
+    static let amigosReactionsOrder: [String] = [
+        "thumbs-up",
+        "heart",
+        "tears-of-joy",
+        "astonished",
+        "cry",
+        "pray",
+        "fire",
+        "tada",
+        "thumbsdown",
+        "star-struck",
+        "white_check_mark",
+        "thinking_face"
+    ]
+
+    static let amigosSortReactions: (MessageReactionType, MessageReactionType) -> Bool = { lhs, rhs in
+        let order = amigosReactionsOrder
+
+        let lIndex = order.firstIndex(of: lhs.rawValue) ?? Int.max
+        let rIndex = order.firstIndex(of: rhs.rawValue) ?? Int.max
+
+        if lIndex != rIndex {
+            return lIndex < rIndex
+        } else {
+            return lhs.rawValue < rhs.rawValue
+        }
     }
 }
