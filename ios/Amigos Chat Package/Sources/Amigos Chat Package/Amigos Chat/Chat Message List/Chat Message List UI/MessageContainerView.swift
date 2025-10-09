@@ -98,6 +98,11 @@ struct MessageContainerView: View {
         }
     }
 
+    private func navigateToProfileWebView() {
+        let userId = viewModel.message.user.id
+        RouteController.routeAction?(RouteInfo(route: .profileRoute(id: userId), dismiss: true))
+    }
+
     private func showReactions() {
         viewModel.showReactionsOverlay.toggle()
     }
@@ -254,6 +259,7 @@ extension MessageContainerView {
                     imageUrl: viewModel.author.imageUrl,
                     size: avatarSize
                 )
+                .onTapGesture { navigateToProfileWebView() }
             } else {
                 ZStack {
                     Color.clear
