@@ -1,8 +1,17 @@
 package com.whoisup.app.stream
 
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.unit.dp
+import com.whoisup.app.stream.extensions.isThreadStartOptimistic
+import com.whoisup.app.ui.theme.CustomTheme
+import io.getstream.chat.android.client.utils.message.isThreadStart
 import io.getstream.chat.android.compose.viewmodel.messages.MessageComposerViewModel
 import io.getstream.chat.android.compose.viewmodel.messages.MessageListViewModel
 import io.getstream.chat.android.ui.common.state.messages.list.DateSeparatorItemState
@@ -28,7 +37,7 @@ fun AmiChannelMessageContainer(
     when (messageListItemState) {
         is DateSeparatorItemState -> AmiChannelDateSeparator(messageListItemState)
         is ThreadDateSeparatorItemState -> {
-            /* we're not using threaded messages */
+            // Instead we do this inside the `is MessageItemState`
         }
         is SystemMessageItemState -> {
             val layoutKey = messageListItemState.message.extraData["layoutKey"] as? String
@@ -45,19 +54,34 @@ fun AmiChannelMessageContainer(
             }
         }
         is MessageItemState -> {
-            AmiChannelMessageItem(
-                messageItem = messageListItemState,
-                listViewModel = listViewModel,
-                composerViewModel = composerViewModel,
-                onUserAvatarClick = onUserAvatarClick,
-                onWalkthroughClick = onWalkthroughClick,
-            )
+            val isInThreadAndStartOptimistic = messageListItemState.isInThread && messageListItemState.isThreadStartOptimistic()
+
+            val modifier = if (isInThreadAndStartOptimistic) {
+                Modifier
+                    .fillMaxWidth()
+                    .padding(bottom = 8.dp)
+                    .background(CustomTheme.colorScheme.surfaceHard)
+                    .padding(bottom = 2.dp)
+                    .background(CustomTheme.colorScheme.surface)
+                    .padding(vertical = 8.dp)
+            } else {
+                Modifier
+            }
+
+            Box(modifier = modifier) {
+                AmiChannelMessageItem(
+                    messageItem = messageListItemState,
+                    listViewModel = listViewModel,
+                    composerViewModel = composerViewModel,
+                    onUserAvatarClick = onUserAvatarClick,
+                    onWalkthroughClick = onWalkthroughClick,
+                )
+            }
         }
         is TypingItemState -> {
             // has no default stream implementation
         }
         is EmptyThreadPlaceholderItemState -> {
-            /* we're not using threaded messages */
             // has no default stream implementation
         }
         is UnreadSeparatorItemState -> AmiChannelUnreadSeparator(messageListItemState)

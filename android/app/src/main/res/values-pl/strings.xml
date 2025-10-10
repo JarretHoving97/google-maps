@@ -119,6 +119,12 @@
 
     <!-- Message List -->
     <string name="stream_compose_message_list_footnote_edited">Edytowano</string>
+    <plurals name="stream_compose_message_list_thread_separator">
+        <item quantity="one">%d odpowiedź</item>
+        <item quantity="few">%s odpowiedzi</item>
+        <item quantity="many">%s odpowiedzi</item>
+        <item quantity="other">%d odpowiedzi</item>
+    </plurals>
     <string name="stream_compose_message_list_unread_separator_zero">nieprzeczytane wiadomości</string>
     <plurals name="stream_compose_message_list_unread_separator">
         <item quantity="one">%s nieprzeczytana wiadomość</item>
@@ -131,6 +137,7 @@
     <!-- Selected Message Menu -->
     <string name="stream_compose_resend_message">Wyślij ponownie</string>
     <string name="stream_compose_reply">Odpowiedz</string>
+    <string name="stream_compose_thread_reply">Odpowiedz w wątku</string>
     <string name="stream_compose_mark_as_unread">Oznacz jako nieprzeczytane</string>
     <string name="stream_compose_copy_message">Kopiuj</string>
     <string name="stream_compose_edit_message">Edytuj</string>

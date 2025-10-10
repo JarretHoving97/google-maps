@@ -71,7 +71,7 @@ fun AmiChannelComposer(
         ) {
             Row(
                 modifier = Modifier.padding(
-                    start = if (enabled) {
+                    start = if (showAttachmentsButton) {
                         0.dp
                     } else {
                         8.dp

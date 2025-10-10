@@ -115,6 +115,10 @@
 
     <!-- Message List -->
     <string name="stream_compose_message_list_footnote_edited">편집됨</string>
+    <plurals name="stream_compose_message_list_thread_separator">
+        <item quantity="one">%d 답변</item>
+        <item quantity="other">%d 답변</item>
+    </plurals>
     <string name="stream_compose_message_list_unread_separator_zero">읽지 않은 메시지</string>
     <plurals name="stream_compose_message_list_unread_separator">
         <item quantity="one">읽지 않은 메시지 %s개</item>
@@ -125,6 +129,7 @@
     <!-- Selected Message Menu -->
     <string name="stream_compose_resend_message">다시 보내기</string>
     <string name="stream_compose_reply">답장하기</string>
+    <string name="stream_compose_thread_reply">스레드에 답변</string>
     <string name="stream_compose_mark_as_unread">읽지 않음으로 표시</string>
     <string name="stream_compose_copy_message">복사</string>
     <string name="stream_compose_edit_message">편집</string>

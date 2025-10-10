@@ -53,9 +53,16 @@ class Stream {
                         channel,
                     ->
                     // Return the intent you want to be triggered when the notification is clicked
-                    val intent = ChannelActivity.getIntent(applicationContext, channelId = channel.cid, messageId = message.id)
-                    // intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK) // @TODO(1)
-                    intent
+                    val parentMessageId = message.parentId
+                    if (parentMessageId != null) {
+                        val intent = ChannelThreadActivity.getIntent(applicationContext, channelId = channel.cid, messageId = message.id, parentMessageId)
+                        // intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK) // @TODO(1)
+                        intent
+                    } else {
+                        val intent = ChannelActivity.getIntent(applicationContext, channelId = channel.cid, messageId = message.id)
+                        // intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK) // @TODO(1)
+                        intent
+                    }
                 }
             )
 

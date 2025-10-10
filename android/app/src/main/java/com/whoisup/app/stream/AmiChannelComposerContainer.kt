@@ -41,7 +41,11 @@ fun AmiChannelComposerContainer(
 
     val messageComposerState by composerViewModel.messageComposerState.collectAsState()
 
-    val canSendMessage = messageComposerState.ownCapabilities.contains(ChannelCapabilities.SEND_MESSAGE)
+    val canSendMessageOrReply = if (listViewModel.isInThread) {
+        messageComposerState.ownCapabilities.contains(ChannelCapabilities.SEND_REPLY)
+    } else {
+        messageComposerState.ownCapabilities.contains(ChannelCapabilities.SEND_MESSAGE)
+    }
 
     if (otherUser?.isSupportTeamMember == true) {
         // You are not allowed to chat if the other user is part of our support team.
@@ -59,14 +63,14 @@ fun AmiChannelComposerContainer(
                 .fillMaxWidth()
                 .padding(8.dp)
         )
-    } else if (!canSendMessage && listViewModel.channel.relatedConceptType is ChatChannelRelatedConceptType.Community) {
+    } else if (!canSendMessageOrReply && listViewModel.channel.relatedConceptType is ChatChannelRelatedConceptType.Community) {
         // In this case we want to hide the composer entirely
     } else {
         AmiChannelComposer(
             listViewModel = listViewModel,
             composerViewModel = composerViewModel,
             attachmentsPickerViewModel = attachmentsPickerViewModel,
-            enabled = canSendMessage
+            enabled = canSendMessageOrReply
         )
     }
 }

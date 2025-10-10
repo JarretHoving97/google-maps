@@ -30,9 +30,11 @@ import androidx.compose.material.Icon
 import androidx.compose.material.ripple.rememberRipple
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontStyle
@@ -44,10 +46,13 @@ import com.whoisup.app.components.UserForAmiAvatar
 import com.whoisup.app.helpers.getColorByHashingString
 import com.whoisup.app.modifiers.layoutPadding
 import com.whoisup.app.stream.extensions.isDirectMessageChannel
+import com.whoisup.app.stream.extensions.isThreadStartOptimistic
 import com.whoisup.app.ui.theme.CustomTheme
 import com.whoisup.app.utils.DateTimeFormat
 import com.whoisup.app.utils.getLocale
 import com.whoisup.app.utils.intlDateTimeFormat
+import com.whoisup.app.utils.startThreadActivity
+import io.getstream.chat.android.client.utils.message.belongsToThread
 import io.getstream.chat.android.client.utils.message.isDeleted
 import io.getstream.chat.android.client.utils.message.isErrorOrFailed
 import io.getstream.chat.android.compose.ui.messages.list.HighlightFadeOutDurationMillis
@@ -55,9 +60,13 @@ import io.getstream.chat.android.compose.ui.theme.ChatTheme
 import io.getstream.chat.android.compose.viewmodel.messages.MessageComposerViewModel
 import io.getstream.chat.android.compose.viewmodel.messages.MessageListViewModel
 import io.getstream.chat.android.core.internal.InternalStreamChatApi
+import io.getstream.chat.android.models.ChannelCapabilities
+import io.getstream.chat.android.models.SyncStatus
 import io.getstream.chat.android.ui.common.state.messages.list.MessageFocused
 import io.getstream.chat.android.ui.common.state.messages.list.MessageItemState
 import io.getstream.chat.android.ui.common.state.messages.list.MessagePosition
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import java.time.ZoneId
 import java.time.ZonedDateTime
 
@@ -72,7 +81,9 @@ fun AmiChannelMessageItem(
 ) {
     val position = messageItem.groupPosition
     val spacerSize =
-        if (position.contains(MessagePosition.NONE) || position.contains(MessagePosition.TOP)) {
+        if (messageItem.isInThread && messageItem.isThreadStartOptimistic()) {
+            0.dp
+        } else if (position.contains(MessagePosition.NONE) || position.contains(MessagePosition.TOP)) {
             16.dp
         } else {
             1.dp
@@ -82,6 +93,9 @@ fun AmiChannelMessageItem(
     val focusState = messageItem.focusState
 
     val interactionSource = remember { MutableInteractionSource() }
+
+    val context = LocalContext.current
+    val coroutineScope = rememberCoroutineScope()
 
     val clickModifier = if (message.isDeleted()) {
         Modifier
@@ -104,10 +118,39 @@ fun AmiChannelMessageItem(
                     }
                 }
 
-                /* we're not using threaded messages */
-                // if (message.isThreadStart()) {
-                //     onThreadClick(message)
-                // }
+                val messageComposerState = composerViewModel.messageComposerState.value
+
+                val isMessageSynced = messageItem.message.syncStatus == SyncStatus.COMPLETED
+                val canThreadReply = messageComposerState.ownCapabilities.contains(ChannelCapabilities.SEND_REPLY)
+                val isThreadReplyPossible = !messageItem.isInThread && isMessageSynced && canThreadReply
+
+                val canOpenThread = if (isThreadReplyPossible) {
+                    true
+                } else if (!messageItem.isInThread && messageItem.message.belongsToThread()) {
+                    // Even if you cannot send messages in the thread,
+                    // if there _is_ a thread, a user should still be able to read the messages inside the thread
+                    true
+                } else {
+                    false
+                }
+
+                if (canOpenThread) {
+                    coroutineScope.launch(Dispatchers.Default) {
+                        startThreadActivity(context, listViewModel.channel.cid, message.id, message.parentId)
+                    }
+                }
+
+//                Below is the (deducted) code of how stream handled this for reference.
+//                This isn't really viable code, as it performs magic to transform the current channel view into a thread view.
+//                But (to us) it makes more sense to just start an entire new activity with a dedicated thread view.
+//                if (message.belongsToThread()) {
+//                    composerViewModel.setMessageMode(MessageMode.MessageThread(message))
+//                    listViewModel.openMessageThread(message)
+//                } else {
+//                    val action = ThreadReply(message)
+//                    composerViewModel.performMessageAction(action)
+//                    listViewModel.performMessageAction(action)
+//                }
             },
             onLongClick = {
                 // @TODO
@@ -120,7 +163,8 @@ fun AmiChannelMessageItem(
     val backgroundColor = if (focusState is MessageFocused) {
         CustomTheme.colorScheme.highlight
     } else {
-        CustomTheme.colorScheme.background
+        // We can't use `Color.Transparent` here because the fade animation would glitch for some reason
+        CustomTheme.colorScheme.background.copy(alpha = 0f)
     }
 
     val color = animateColorAsState(
@@ -249,16 +293,15 @@ internal fun MessageItemHeaderContent(
 
     /* we're not using pinned messages */
     // if (message.pinned) {
-
-    /* we're not using threaded messages */
-    // if (message.showInChannel) {
 }
 
 @Composable
 internal fun ColumnScope.DefaultMessageItemFooterContent(
     messageItem: MessageItemState,
 ) {
-    if (messageItem.showMessageFooter) {
+    val showThreadReplyCount = !messageItem.message.isDeleted() && messageItem.isThreadStartOptimistic()
+
+    if (messageItem.showMessageFooter || showThreadReplyCount) {
         val date = messageItem.message.createdAt ?: messageItem.message.createdLocallyAt
 
         if (date != null) {
@@ -279,11 +322,28 @@ internal fun ColumnScope.DefaultMessageItemFooterContent(
                 timeText
             }
 
-            BasicText(
-                text = text,
+            Row(
                 modifier = Modifier.padding(paddingValues),
-                style = CustomTheme.typography.captionSmall.copy(color = CustomTheme.colorScheme.onSurfaceSoft)
-            )
+                horizontalArrangement = Arrangement.spacedBy(8.dp),
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                BasicText(
+                    text = text,
+                    style = CustomTheme.typography.captionSmall.copy(color = CustomTheme.colorScheme.onSurfaceSoft)
+                )
+
+                if (showThreadReplyCount) {
+                    val threadFooterText = LocalContext.current.resources.getQuantityString(
+                        io.getstream.chat.android.compose.R.plurals.stream_compose_message_list_thread_separator,
+                        messageItem.message.replyCount,
+                        messageItem.message.replyCount,
+                    )
+                    BasicText(
+                        text = threadFooterText,
+                        style = CustomTheme.typography.captionSmall.copy(color = CustomTheme.colorScheme.primary)
+                    )
+                }
+            }
         }
     }
     // @TODO

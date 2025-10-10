@@ -14,9 +14,11 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.key
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.whoisup.app.components.AmiButtonLabel
@@ -24,6 +26,7 @@ import com.whoisup.app.components.AmiSimpleMenu
 import com.whoisup.app.components.TextColor
 import com.whoisup.app.stream.extensions.isSupportTeamMember
 import com.whoisup.app.ui.theme.CustomTheme
+import com.whoisup.app.utils.startThreadActivity
 import io.getstream.chat.android.client.utils.message.isGiphy
 import io.getstream.chat.android.compose.ui.theme.ChatTheme
 import io.getstream.chat.android.compose.viewmodel.messages.MessageComposerViewModel
@@ -39,9 +42,12 @@ import io.getstream.chat.android.ui.common.state.messages.MarkAsUnread
 import io.getstream.chat.android.ui.common.state.messages.MessageAction
 import io.getstream.chat.android.ui.common.state.messages.Reply
 import io.getstream.chat.android.ui.common.state.messages.Resend
+import io.getstream.chat.android.ui.common.state.messages.ThreadReply
 import io.getstream.chat.android.ui.common.state.messages.list.SelectedMessageOptionsState
 import io.getstream.chat.android.ui.common.state.messages.list.SelectedMessageState
 import io.getstream.chat.android.ui.common.state.messages.updateMessage
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import java.time.Duration
 import java.time.ZoneId
 import java.time.ZonedDateTime
@@ -54,6 +60,9 @@ fun AmiMessageMenu(
     selectedMessageState: SelectedMessageState?,
     currentUser: User?,
 ) {
+    val context = LocalContext.current
+    val coroutineScope = rememberCoroutineScope()
+
     val selectedMessage = selectedMessageState?.message ?: Message()
 
     val ownCapabilities = selectedMessageState?.ownCapabilities ?: setOf()
@@ -61,6 +70,7 @@ fun AmiMessageMenu(
     val newMessageOptions = messageOptions(
         selectedMessage = selectedMessage,
         currentUser = currentUser,
+        isInThread = listViewModel.isInThread,
         ownCapabilities = ownCapabilities,
     )
 
@@ -112,8 +122,19 @@ fun AmiMessageMenu(
                             textColor = option.textColor,
                             onClick = {
                                 option.action.updateMessage(option.action.message).let {
-                                    composerViewModel.performMessageAction(it)
-                                    listViewModel.performMessageAction(it)
+                                    if (it is ThreadReply) {
+                                        // We override this particular action behavior,
+                                        // because the default behavior is just not acceptable.
+                                        // The default behavior transforms the current view into a thread,
+                                        // instead of starting a new activity/view, like what would be expected in our opinion.
+                                        // Additionally, the starting a new thread approach. makes it easier to customize stuff.
+                                        coroutineScope.launch(Dispatchers.Default) {
+                                            startThreadActivity(context, listViewModel.channel.cid, it.message.id, it.message.parentId)
+                                        }
+                                    } else {
+                                        composerViewModel.performMessageAction(it)
+                                        listViewModel.performMessageAction(it)
+                                    }
                                 }
                             }
                         )
@@ -135,6 +156,7 @@ internal class MessageOptionItemState(
 internal fun messageOptions(
     selectedMessage: Message,
     currentUser: User?,
+    isInThread: Boolean,
     ownCapabilities: Set<String>,
 ): List<MessageOptionItemState> {
     if (selectedMessage.id.isEmpty()) {
@@ -155,11 +177,13 @@ internal fun messageOptions(
 
     // user capabilities
     val canQuoteMessage = ownCapabilities.contains(ChannelCapabilities.QUOTE_MESSAGE)
+    val canThreadReply = ownCapabilities.contains(ChannelCapabilities.SEND_REPLY)
     val canDeleteOwnMessage = ownCapabilities.contains(ChannelCapabilities.DELETE_OWN_MESSAGE)
     val canDeleteAnyMessage = ownCapabilities.contains(ChannelCapabilities.DELETE_ANY_MESSAGE)
     val canEditOwnMessage = ownCapabilities.contains(ChannelCapabilities.UPDATE_OWN_MESSAGE)
     val canMarkAsUnread = ownCapabilities.contains(ChannelCapabilities.READ_EVENTS)
 
+    val isThreadReplyPossible = !isInThread && isMessageSynced && canThreadReply
     val isQuoteMessagePossible = isMessageSynced && canQuoteMessage && !selectedMessage.user.isSupportTeamMember
 
     val isAllowedByCreateAt = selectedMessage.createdAt?.let {
@@ -196,7 +220,16 @@ internal fun messageOptions(
         } else {
             null
         },
-        if (!isOwnMessage && canMarkAsUnread) {
+        if (isThreadReplyPossible) {
+            MessageOptionItemState(
+                title = stringResource(id = io.getstream.chat.android.compose.R.string.stream_compose_thread_reply),
+                iconId = io.getstream.chat.android.compose.R.drawable.stream_compose_ic_thread,
+                action = ThreadReply(selectedMessage),
+            )
+        } else {
+            null
+        },
+        if (!isOwnMessage && !isInThread && canMarkAsUnread) {
             MessageOptionItemState(
                 title = stringResource(id = io.getstream.chat.android.compose.R.string.stream_compose_mark_as_unread),
                 iconId = io.getstream.chat.android.compose.R.drawable.stream_compose_ic_mark_as_unread,

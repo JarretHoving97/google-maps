@@ -150,7 +150,7 @@ fun AmiChannelScreen(
             ) {
                 val currentState = listViewModel.currentMessagesState
 
-                var extraContentPaddingTop = 0.dp
+                var contentPaddingTop = 16.dp
 
                 val myMember = listViewModel.channel.membership
 
@@ -175,7 +175,7 @@ fun AmiChannelScreen(
                 val showPinnedMessage = (isAllowedToUpdatePinnedMessage && listViewModel.channel.relatedConceptType !is ChatChannelRelatedConceptType.Community) || !pinnedMessage.isNullOrBlank()
 
                 if (showPinnedMessage) {
-                    extraContentPaddingTop += 100.dp
+                    contentPaddingTop += 100.dp
                 }
 
                 val safetyCheckState = listViewModel.channel.extraData[SAFETY_CHECK_STATE_KEY] as? String
@@ -196,7 +196,7 @@ fun AmiChannelScreen(
                     safetyCheckState == SafetyCheckState.Unanswered.value
 
                 if (showSafetyCheck) {
-                    extraContentPaddingTop += 75.dp
+                    contentPaddingTop += 75.dp
                 }
 
                 val createdAt = listViewModel.channel.createdAt?.let {
@@ -211,13 +211,13 @@ fun AmiChannelScreen(
                     createdAt?.isAfter(then) == true
 
                 if (showSuperPowerOnlyNotice) {
-                    extraContentPaddingTop += 75.dp
+                    contentPaddingTop += 75.dp
                 }
 
                 val showCommunityChatNotice = listViewModel.channel.relatedConceptType is ChatChannelRelatedConceptType.Community
 
                 if (showCommunityChatNotice) {
-                    extraContentPaddingTop += 75.dp
+                    contentPaddingTop += 75.dp
                 }
 
                 when {
@@ -232,7 +232,7 @@ fun AmiChannelScreen(
                     currentState.messageItems.isNotEmpty() -> AmiChannelMessages(
                         listViewModel = listViewModel,
                         composerViewModel = composerViewModel,
-                        extraContentPaddingTop = extraContentPaddingTop,
+                        contentPaddingTop = contentPaddingTop,
                         onUserAvatarClick = onUserAvatarClick,
                         onWalkthroughClick = onWalkthroughClick
                     )

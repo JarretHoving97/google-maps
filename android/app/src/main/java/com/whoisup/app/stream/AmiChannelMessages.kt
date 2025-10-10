@@ -5,6 +5,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import io.getstream.chat.android.compose.ui.messages.list.Messages
+import io.getstream.chat.android.compose.ui.messages.list.ThreadMessagesStart
 import io.getstream.chat.android.compose.ui.util.rememberMessageListState
 import io.getstream.chat.android.compose.viewmodel.messages.MessageComposerViewModel
 import io.getstream.chat.android.compose.viewmodel.messages.MessageListViewModel
@@ -13,7 +14,7 @@ import io.getstream.chat.android.compose.viewmodel.messages.MessageListViewModel
 fun AmiChannelMessages(
     listViewModel: MessageListViewModel,
     composerViewModel: MessageComposerViewModel,
-    extraContentPaddingTop: Dp = 0.dp,
+    contentPaddingTop: Dp = 0.dp,
     onUserAvatarClick: (String) -> Unit,
     onWalkthroughClick: (slideKey: String?) -> Unit,
 ) {
@@ -22,11 +23,12 @@ fun AmiChannelMessages(
     Messages(
         contentPadding = PaddingValues(
             // only add extra padding if needed (e.g. for PinnedMessage and SafetyCheck components)
-            top = 16.dp + extraContentPaddingTop,
+            top = contentPaddingTop,
             bottom = 16.dp
         ),
         messagesState = currentState,
         messagesLazyListState = rememberMessageListState(parentMessageId = currentState.parentMessageId),
+        threadMessagesStart = ThreadMessagesStart.TOP,
         onMessagesStartReached = { listViewModel.loadOlderMessages() },
         onLastVisibleMessageChanged = { listViewModel.updateLastSeenMessage(it) },
         onScrolledToBottom = { listViewModel.clearNewMessageState() },
