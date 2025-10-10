@@ -315,8 +315,7 @@ internal fun ColumnScope.DefaultMessageItemFooterContent(
                 PaddingValues(start = 8.dp)
             }
 
-            val text = if (messageItem.message.messageTextUpdatedAt != null) {
-                // @TODO(1): it would show edited for deleted + edited, which doesn't make sense, because it's deleted
+            val text = if (!messageItem.message.isDeleted() && messageItem.message.messageTextUpdatedAt != null) {
                 "${stringResource(id = R.string.stream_compose_message_list_footnote_edited)} - $timeText"
             } else {
                 timeText
