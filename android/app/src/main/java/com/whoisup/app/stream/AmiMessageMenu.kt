@@ -186,7 +186,7 @@ internal fun messageOptions(
     val isThreadReplyPossible = !isInThread && isMessageSynced && canThreadReply
     val isQuoteMessagePossible = isMessageSynced && canQuoteMessage && !selectedMessage.user.isSupportTeamMember
 
-    val isAllowedByCreateAt = selectedMessage.createdAt?.let {
+    val isAllowedByCreatedAt = selectedMessage.createdAt?.let {
         val diffInMinutes = Duration.between(
             ZonedDateTime.ofInstant(
                 it.toInstant(),
@@ -198,8 +198,8 @@ internal fun messageOptions(
         diffInMinutes < 15
     } ?: true // if `createdAt == null`, message has likely not been synced yet
 
-    val isDeleteMessagePossible = isAllowedByCreateAt && isOwnMessage && canDeleteOwnMessage
-    val isEditMessagePossible = isAllowedByCreateAt && (isOwnMessage && canEditOwnMessage) && !selectedMessage.isGiphy()
+    val isDeleteMessagePossible = (isMessageFailed || isAllowedByCreatedAt) && isOwnMessage && canDeleteOwnMessage
+    val isEditMessagePossible = isAllowedByCreatedAt && (isOwnMessage && canEditOwnMessage) && !selectedMessage.isGiphy()
 
     return listOfNotNull(
         if (isOwnMessage && isMessageFailed) {
