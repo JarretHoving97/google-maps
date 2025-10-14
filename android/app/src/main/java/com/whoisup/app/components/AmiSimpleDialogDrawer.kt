@@ -36,6 +36,7 @@ import com.whoisup.app.ui.theme.CustomTheme
 fun AmiSimpleDialogDrawer(
     showDialog: Boolean,
     onDismissRequest: () -> Unit,
+    useSlideAnimation: Boolean = true,
     content: @Composable BoxScope.() -> Unit
 ) {
 
@@ -82,14 +83,22 @@ fun AmiSimpleDialogDrawer(
                             Modifier
                                 .fillMaxSize()
                                 .animateEnterExit(
-                                    enter = slideInVertically(
-                                        initialOffsetY = { height -> height },
-                                        animationSpec = tween(),
-                                    ),
-                                    exit = slideOutVertically(
-                                        targetOffsetY = { height -> height },
-                                        animationSpec = tween(),
-                                    ),
+                                    enter = if (useSlideAnimation) {
+                                        slideInVertically(
+                                            initialOffsetY = { height -> height },
+                                            animationSpec = tween(),
+                                        )
+                                    } else {
+                                        fadeIn()
+                                    },
+                                    exit = if (useSlideAnimation) {
+                                        slideOutVertically(
+                                            targetOffsetY = { height -> height },
+                                            animationSpec = tween(),
+                                        )
+                                    } else {
+                                        fadeOut()
+                                    }
                                 )
                         ) {
                             content()

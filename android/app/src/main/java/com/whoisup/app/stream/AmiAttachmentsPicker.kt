@@ -210,20 +210,20 @@ private fun AttachmentPickerOptions(
     ) {
         Row(horizontalArrangement = Arrangement.SpaceEvenly) {
             tabFactories.forEach { tabFactory ->
-
                 val isSelected = attachmentsPickerMode == tabFactory.attachmentsPickerMode
-                val isEnabled = isSelected || (!hasPickedAttachments && tabFactory.isPickerTabEnabled(channel))
 
-                IconButton(
-                    enabled = isEnabled,
-                    content = {
-                        tabFactory.PickerTabIcon(
-                            isEnabled = isEnabled,
-                            isSelected = isSelected,
-                        )
-                    },
-                    onClick = { onTabClick(tabFactory.attachmentsPickerMode) },
-                )
+                if (tabFactory.isPickerTabEnabled(channel)) {
+                    val isEnabled = isSelected || !hasPickedAttachments
+                    IconButton(
+                        content = {
+                            tabFactory.PickerTabIcon(
+                                isEnabled = isEnabled,
+                                isSelected = isSelected,
+                            )
+                        },
+                        onClick = { onTabClick(tabFactory.attachmentsPickerMode) },
+                    )
+                }
             }
         }
 

@@ -40,6 +40,7 @@ fun AmiTextField(
     singleLine: Boolean = false,
     maxLines: Int = if (singleLine) 1 else Int.MAX_VALUE,
     minLines: Int = 1,
+    onFocusChange: (Boolean) -> Unit = {},
     headingContent: @Composable () -> Unit = {},
     leadingContent: @Composable () -> Unit = {},
     trailingContent: @Composable () -> Unit = {}
@@ -51,15 +52,15 @@ fun AmiTextField(
     Column(
         modifier = modifier
             .fillMaxWidth()
-            .clip(RoundedCornerShape(12.dp))
+            .clip(RoundedCornerShape(8.dp))
             .border(
-                0.5.dp,
+                2.dp,
                 if (isFocused) {
-                    CustomTheme.colorScheme.onBackground
+                    CustomTheme.colorScheme.primary
                 } else {
                     CustomTheme.colorScheme.surfaceHard
                 },
-                RoundedCornerShape(12.dp)
+                RoundedCornerShape(8.dp)
             )
             .background(CustomTheme.colorScheme.background)
     ) {
@@ -79,10 +80,13 @@ fun AmiTextField(
                 modifier = Modifier
                     .weight(1f)
                     .padding(
-                        horizontal = 8.dp,
-                        vertical = 8.dp
+                        horizontal = 16.dp,
+                        vertical = 16.dp
                     )
-                    .onFocusChanged { isFocused = it.isFocused }
+                    .onFocusChanged {
+                        isFocused = it.isFocused
+                        onFocusChange(isFocused)
+                    }
                     .onPreInterceptKeyBeforeSoftKeyboard {
                         if (it.key.keyCode == 17179869184) {
                             focusManager.clearFocus()

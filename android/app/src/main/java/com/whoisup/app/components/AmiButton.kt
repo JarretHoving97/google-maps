@@ -44,7 +44,7 @@ fun AmiButton(
     // @TODO: add loading icon or something similar for loading state
     val alpha by animateFloatAsState(
         if (!enabled || loading) {
-            0.5f
+            0.2f
         } else {
             1f
         }, label = "buttonAlpha"
