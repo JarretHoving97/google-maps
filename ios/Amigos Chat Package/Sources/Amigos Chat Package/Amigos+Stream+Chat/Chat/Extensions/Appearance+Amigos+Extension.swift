@@ -22,7 +22,8 @@ public extension Appearance {
         colors.background = .white
 
         let images = Images()
-
+        // MARK: Disable sending extended available reactions to match android
+        // We do support recognizing them for now but we can't send them.
         images.availableReactions = [
             .init(rawValue: "thumbs-up"): ChatMessageReactionAppearance(
                 smallIcon: "👍".toImage(size: 64),
@@ -40,38 +41,38 @@ public extension Appearance {
                 smallIcon: "😲".toImage(size: 64),
                 largeIcon: "😲".toImage(size: 256)
             ),
-            .init(rawValue: "cry"): ChatMessageReactionAppearance(
-                smallIcon: "😥".toImage(size: 64),
-                largeIcon: "😥".toImage(size: 256)
-            ),
-            .init(rawValue: "pray"): ChatMessageReactionAppearance(
-                smallIcon: "🙏".toImage(size: 64),
-                largeIcon: "🙏".toImage(size: 256)
-            ),
+//            .init(rawValue: "cry"): ChatMessageReactionAppearance(
+//                smallIcon: "😥".toImage(size: 64),
+//                largeIcon: "😥".toImage(size: 256)
+//            ),
+//            .init(rawValue: "pray"): ChatMessageReactionAppearance(
+//                smallIcon: "🙏".toImage(size: 64),
+//                largeIcon: "🙏".toImage(size: 256)
+//            ),
             .init(rawValue: "fire"): ChatMessageReactionAppearance(
                 smallIcon: "🔥".toImage(size: 64),
                 largeIcon: "🔥".toImage(size: 256)
             ),
-            .init(rawValue: "tada"): ChatMessageReactionAppearance(
-                smallIcon: "🎉".toImage(size: 64),
-                largeIcon: "🎉".toImage(size: 256)
-            ),
-            .init(rawValue: "thumbsdown"): ChatMessageReactionAppearance(
-                smallIcon: "👎".toImage(size: 64),
-                largeIcon: "👎".toImage(size: 256)
-            ),
-            .init(rawValue: "star-struck"): ChatMessageReactionAppearance(
-                smallIcon: "🤩".toImage(size: 64),
-                largeIcon: "🤩".toImage(size: 256)
-            ),
-            .init(rawValue: "white_check_mark"): ChatMessageReactionAppearance(
-                smallIcon: "✅".toImage(size: 64),
-                largeIcon: "✅".toImage(size: 256)
-            ),
-            .init(rawValue: "thinking_face"): ChatMessageReactionAppearance(
-                smallIcon: "🤔".toImage(size: 64),
-                largeIcon: "🤔".toImage(size: 256)
-            )
+//            .init(rawValue: "tada"): ChatMessageReactionAppearance(
+//                smallIcon: "🎉".toImage(size: 64),
+//                largeIcon: "🎉".toImage(size: 256)
+//            ),
+//            .init(rawValue: "thumbsdown"): ChatMessageReactionAppearance(
+//                smallIcon: "👎".toImage(size: 64),
+//                largeIcon: "👎".toImage(size: 256)
+//            ),
+//            .init(rawValue: "star-struck"): ChatMessageReactionAppearance(
+//                smallIcon: "🤩".toImage(size: 64),
+//                largeIcon: "🤩".toImage(size: 256)
+//            ),
+//            .init(rawValue: "white_check_mark"): ChatMessageReactionAppearance(
+//                smallIcon: "✅".toImage(size: 64),
+//                largeIcon: "✅".toImage(size: 256)
+//            ),
+//            .init(rawValue: "thinking_face"): ChatMessageReactionAppearance(
+//                smallIcon: "🤔".toImage(size: 64),
+//                largeIcon: "🤔".toImage(size: 256)
+//            )
         ]
 
         images.sliderThumb = UIImage(named: "SliderThumb")!

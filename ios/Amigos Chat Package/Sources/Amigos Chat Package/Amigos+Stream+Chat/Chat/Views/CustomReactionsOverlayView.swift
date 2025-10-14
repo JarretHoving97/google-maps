@@ -124,7 +124,7 @@ public struct CustomReactionsOverlayView<Factory: ViewFactory>: View {
                         dismissReactionsOverlay { viewModel.reactionTapped(reaction) }
                     }
                 )
-                .frame(width: layout.overlayWidth)
+                .frame(width: layout.overlayWidth - 25 * 2) // minus 2 emoji width since android does not support it yet
                 .offset(x: layout.overlayLocalX, y: layout.reactionLocalY)
                 .opacity(willPopOut ? 0 : 1)
                 .scaleEffect(popIn ? 1 : (willPopOut ? 0.9 : 0.95))
