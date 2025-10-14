@@ -108,6 +108,9 @@ dependencies {
     // Zoomable
     implementation "net.engawapg.lib:zoomable:1.6.1"
 
+    // Reorderable
+    implementation("sh.calvin.reorderable:reorderable:3.0.0")
+
     coreLibraryDesugaring "com.android.tools:desugar_jdk_libs:2.1.2"
 }
 

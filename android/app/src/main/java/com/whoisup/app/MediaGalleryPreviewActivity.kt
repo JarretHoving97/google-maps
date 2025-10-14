@@ -195,7 +195,7 @@ class MediaGalleryPreviewActivity : AppCompatActivity() {
         HorizontalPager(
             modifier = Modifier.background(CustomTheme.colorScheme.background),
             state = pagerState,
-            beyondBoundsPageCount = 2
+            beyondViewportPageCount = 2
         ) { page ->
             if (attachments[page].isImage()) {
                 ImagePreviewContent(attachment = attachments[page])
