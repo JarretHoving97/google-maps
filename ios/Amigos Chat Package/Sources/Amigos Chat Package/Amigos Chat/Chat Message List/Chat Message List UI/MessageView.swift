@@ -321,11 +321,19 @@ extension MessageView {
                 isSentByCurrentUser: false,
                 message: TextExamples.largeMessageText,
                 isDeleted: false,
-                layoutKey: "system"
+                replyCount: 4,
+                threadParticipants: [
+                    LocalChatUser(
+                        id: UUID().uuidString,
+                        name: "ilon",
+                        imageUrl: ImageURLExamples.portraitImageUrl
+                    )
+                ]
             ),
             showsAllInfo: true,
             isLast: true,
-            isDirectMessageChat: false
+            isDirectMessageChat: false,
+
         ),
         width: UIScreen.main.bounds.width,
         pollOptionAllVotesViewBuilder: nil

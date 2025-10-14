@@ -136,29 +136,29 @@
 			<string>NSStringPluralRuleType</string>
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
-			<key>zero</key>
-			<string>No hay mensajes</string>
 			<key>one</key>
-			<string>%d mensaje</string>
+			<string>%d respuesta</string>
+			<key>many</key>
+			<string>%d respuestas</string>
 			<key>other</key>
-			<string>%d mensajes</string>
+			<string>%d respuestas</string>
 		</dict>
 	</dict>
 	<key>custom.chatTrialNotice.title</key>
-    <dict>
-        <key>NSStringLocalizedFormatKey</key>
-        <string>%#@days@</string>
-        <key>days</key>
-        <dict>
-            <key>NSStringFormatSpecTypeKey</key>
-            <string>NSStringPluralRuleType</string>
-            <key>NSStringFormatValueTypeKey</key>
-            <string>d</string>
-            <key>one</key>
-            <string>Iniciar chats gratis por un día como fundador local</string>
-            <key>other</key>
-            <string>Iniciar chats gratis durante %d días como fundador local</string>
-        </dict>
-    </dict>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@days@</string>
+		<key>days</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>Iniciar chats gratis por un día como fundador local</string>
+			<key>other</key>
+			<string>Iniciar chats gratis durante %d días como fundador local</string>
+		</dict>
+	</dict>
 </dict>
 </plist>

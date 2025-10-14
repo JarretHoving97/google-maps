@@ -136,12 +136,10 @@
 			<string>NSStringPluralRuleType</string>
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
-			<key>zero</key>
-			<string>Geen berichten</string>
 			<key>one</key>
-			<string>%d bericht</string>
+			<string>%d antwoord</string>
 			<key>other</key>
-			<string>%d berichten</string>
+			<string>%d antwoorden</string>
 		</dict>
 	</dict>
 	<key>custom.chatTrialNotice.title</key>

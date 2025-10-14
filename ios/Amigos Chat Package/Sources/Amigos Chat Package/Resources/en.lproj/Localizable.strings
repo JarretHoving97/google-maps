@@ -19,7 +19,7 @@
 "channel.no-content.start" = "Start a chat";
 
 "message.actions.inline-reply" = "Reply";
-"message.actions.thread-reply" = "Thread Reply";
+"message.actions.thread-reply" = "Reply in thread";
 "message.actions.edit" = "Edit";
 "message.actions.copy" = "Copy";
 "message.actions.delete" = "Delete";

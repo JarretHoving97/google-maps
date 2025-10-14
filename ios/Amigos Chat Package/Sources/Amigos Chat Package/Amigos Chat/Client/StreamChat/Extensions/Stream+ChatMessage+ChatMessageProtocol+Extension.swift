@@ -9,6 +9,11 @@ import Foundation
 import StreamChat
 
 extension ChatMessage: ChatMessageProtocol {
+
+    public var localThreadParticipants: [LocalChatUser] {
+        threadParticipants.map { LocalChatUser(from: $0 )}
+    }
+    
     public var messageType: String {
         return type.rawValue
     }

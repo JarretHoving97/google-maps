@@ -10,6 +10,8 @@ import SwiftUI
 import StreamChat
 import StreamChatSwiftUI
 
+public typealias MessageThreadNavigationAction = (MessageThreadChannelViewData) -> Void
+
 public class ChatViewControllerComposer {
 
     private init() {}
@@ -28,7 +30,7 @@ public class ChatViewControllerComposer {
         messageId: String?,
         channelCreationService: ChannelCreationService = RemoteFindOrCreateChannelService(),
         in navigationController: UINavigationController,
-        onWillMoveToParent: ((UIViewController?) -> Void)? = nil
+        onWillMoveToParent: ((UIViewController?) -> Void)? = nil,
     ) -> UIHostingController<ChatChannelScreen>? {
 
         // Create detail viewcontroller to be shown
@@ -44,7 +46,10 @@ public class ChatViewControllerComposer {
             with: CustomUIFactory(),
             chatChannelController: channelController,
             viewModel: viewModel,
-            messageId: messageId
+            messageId: messageId,
+            messageThreadNavigationAction: { viewData in
+                adaptRouteToMessageThread(with: viewData, client: chatClient, in: navigationController)
+            }
         )
 
         let viewController = CustomHostingController(rootView: channelView)
@@ -105,7 +110,14 @@ public class ChatViewControllerComposer {
             with: viewFactory,
             chatChannelController: channelController,
             viewModel: viewModel,
-            messageId: messageId
+            messageId: messageId,
+            messageThreadNavigationAction: { viewData in
+                adaptRouteToMessageThread(
+                    with: viewData,
+                    client: client,
+                    in: navigation
+                )
+            }
         )
 
         let viewController = CustomHostingController(rootView: channelView)
@@ -217,6 +229,39 @@ extension ChatViewControllerComposer {
             Task {
                 await viewModel.toggle(popOver: .moreActions(channel))
             }
+        }
+    }
+
+    private static func adaptRouteToMessageThread(
+        with viewData: MessageThreadChannelViewData,
+        client: ChatClient,
+        in navigation: UINavigationController
+    ) {
+        do {
+
+            let channelId = try ChannelId(cid: viewData.channelId)
+
+            let channelController = client.channelController(for: channelId)
+
+            let messageController = client.messageController(
+                cid: channelId,
+                messageId: viewData.messageId
+            )
+
+            let viewModel = MessageThreadChannelViewModel(
+                messageController: messageController,
+                channelController: channelController,
+                navigationTitle: viewData.navigationTitle
+            )
+
+            let viewcontroller = UIHostingController(
+                rootView: MessageThreadChannelView(viewModel: viewModel)
+            )
+
+            navigation.pushViewController(viewcontroller, animated: true)
+
+        } catch {
+            print("Could not create channelId: \(String(describing: error))")
         }
     }
 }

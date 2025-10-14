@@ -198,6 +198,16 @@ public struct CustomMessageListContainerView<Factory: ViewFactory>: View, Keyboa
                                 onMessageReplyHandler: { handleMessageReply(messageId: $0)},
                                 onLongPressHandler: handleLongPressLocally(),
                                 onReactionsTap: { messageReactionPresentationInfo = $0 },
+                                onMessageThreadReplyTap: { id in
+
+                                    guard let message = messages.first(where: {$0.id == id}) else { return }
+
+                                    NotificationCenter.default.post(
+                                        name: .selectedMessageThread,
+                                        object: nil,
+                                        userInfo: [MessageRepliesConstants.selectedMessage: message]
+                                    )
+                                },
                                 width: width ?? .messageWidth
                             )
                             .sheet(isPresented: $messageReactionPresentationInfo.toBoolBinding) {

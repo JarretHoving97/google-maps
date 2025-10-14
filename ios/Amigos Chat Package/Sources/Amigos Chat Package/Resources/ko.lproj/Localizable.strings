@@ -181,7 +181,7 @@
 "message.actions.mark-unread" = "읽지 않음으로 표시";
 "message.actions.pin" = "고정";
 "message.actions.resend" = "다시 보내기";
-"message.actions.thread-reply" = "스레드에서 답장";
+"message.actions.thread-reply" = "스레드에 답변";
 "message.actions.unpin" = "고정 해제";
 "message.actions.user-block" = "차단";
 "message.actions.user-block.confirmation-message" = "이 사용자를 차단하시겠습니까?";

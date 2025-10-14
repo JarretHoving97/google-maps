@@ -43,6 +43,10 @@ public struct Message {
 
     public let actionUrl: String?
 
+    public let replyCount: Int
+
+    public let threadParticipants: [LocalChatUser]
+
     public var quotedMessage: Message? {
         _quotedMessage?()
     }
@@ -72,7 +76,9 @@ public struct Message {
         localState: LocalState? = nil,
         createdAt: Date = Date(),
         type: MessageType = .regular,
-        poll: LocalPoll? = nil
+        poll: LocalPoll? = nil,
+        replyCount: Int = 0,
+        threadParticipants: [LocalChatUser] = []
 
     ) {
         self.id = id
@@ -90,6 +96,8 @@ public struct Message {
         self.translationKey = translationKey
         self.actionUrl = actionUrl
         self.poll = poll
+        self.replyCount = replyCount
+        self.threadParticipants = threadParticipants
     }
 }
 

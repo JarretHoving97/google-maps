@@ -179,7 +179,7 @@
 "message.actions.mark-unread" = "Als ungelesen markieren";
 "message.actions.pin" = "Anheften";
 "message.actions.resend" = "Erneut senden";
-"message.actions.thread-reply" = "In Thread antworten";
+"message.actions.thread-reply" = "Antwort im Thread";
 "message.actions.unpin" = "Lösen";
 "message.actions.user-block" = "Blockieren";
 "message.actions.user-block.confirmation-message" = "Willst du diesen Benutzer wirklich blockieren?";

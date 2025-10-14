@@ -33,6 +33,8 @@ class MessageListViewModel: ObservableObject {
 
     var pollControllerBuilder: PollControllerBuilder?
 
+    let isInThread: Bool
+
     init(
         reactionsForMessage: Message? = nil,
         messageList: [Message],
@@ -42,7 +44,8 @@ class MessageListViewModel: ObservableObject {
         firstUnreadMessageId: String?,
         isReadHandler: HasSeenHandler,
         isReadByAllHandler: @escaping IsReadByAllHandler = {_ in false},
-        config: MessageListDisplayConfiguration
+        config: MessageListDisplayConfiguration,
+        isInThread: Bool = false
     ) {
         self.reactionsForMessage = reactionsForMessage
         self.messageList = messageList
@@ -53,6 +56,7 @@ class MessageListViewModel: ObservableObject {
         self.unreadMessagesCount = unreadMessagesCount
         self.isReadHandler = isReadHandler
         self.isReadByAllHandler = isReadByAllHandler
+        self.isInThread = isInThread
     }
 
     func viewData(
@@ -65,7 +69,8 @@ class MessageListViewModel: ObservableObject {
             isLast: isLastMessage(message),
             isDirectMessageChat: isDirectMessageChat,
             isRead: isReadHandler.hasSeen(for: message),
-            isReadByAllHandler: isReadByAllHandler
+            isInThread: isInThread,
+            isReadByAllHandler: isReadByAllHandler,
         )
 
         // build pollcontroller if message contains a poll

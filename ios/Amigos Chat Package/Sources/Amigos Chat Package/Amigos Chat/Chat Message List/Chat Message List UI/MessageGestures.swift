@@ -11,6 +11,7 @@ typealias LongPressHandler = ((LocalMessageInfo) -> Void)
 typealias QuotedMessageTapHandler = ((String) -> Void)
 typealias MessageReplyHandler = ((String) -> Void)
 typealias ReactionsTapHandler = ((MessageReactionsInfo) -> Void)
+public typealias ThreadRepliesTapHandler = ((String) -> Void)
 
 struct MessageGestureCallbacks {
 
@@ -18,17 +19,20 @@ struct MessageGestureCallbacks {
     var onMessageReply: MessageReplyHandler
     var onLongPress: LongPressHandler
     var onReactionsTap: ReactionsTapHandler
+    var onThreadRepliesTap: ThreadRepliesTapHandler
 
     init(
-        onQuotedMessageTap: @escaping QuotedMessageTapHandler,
-        onMessageReply: @escaping MessageReplyHandler,
-        onLongPress: @escaping LongPressHandler,
-        onReactionsTap: @escaping ReactionsTapHandler
+        onQuotedMessageTap: @escaping QuotedMessageTapHandler = {_ in },
+        onMessageReply: @escaping MessageReplyHandler = {_ in},
+        onLongPress: @escaping LongPressHandler = {_ in},
+        onReactionsTap: @escaping ReactionsTapHandler = {_ in },
+        onThreadRepliesTap: @escaping ThreadRepliesTapHandler = { _ in }
     ) {
         self.onQuotedMessageTap = onQuotedMessageTap
         self.onMessageReply = onMessageReply
         self.onLongPress = onLongPress
         self.onReactionsTap = onReactionsTap
+        self.onThreadRepliesTap = onThreadRepliesTap
     }
 }
 

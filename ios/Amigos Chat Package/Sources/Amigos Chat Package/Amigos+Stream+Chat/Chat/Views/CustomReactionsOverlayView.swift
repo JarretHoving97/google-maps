@@ -134,7 +134,11 @@ public struct CustomReactionsOverlayView<Factory: ViewFactory>: View {
                 factory.makeMessageActionsView(
                     for: messageDisplayInfo.message,
                     channel: channel,
-                    onFinish: { actionInfo in onActionExecuted(actionInfo) },
+                    onFinish: { actionInfo in
+                        dismissReactionsOverlay {
+                            onActionExecuted(actionInfo)
+                        }
+                    },
                     onError: { _ in viewModel.errorShown = true }
                 )
                 .frame(width: layout.overlayWidth, height: layout.actionsHeight, alignment: .topLeading)

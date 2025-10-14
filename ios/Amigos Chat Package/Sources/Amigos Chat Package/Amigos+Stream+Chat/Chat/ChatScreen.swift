@@ -54,16 +54,20 @@ public struct ChatChannelScreen: View {
 
     private var messageId: String?
 
+    private let messageThreadNavigationAction: MessageThreadNavigationAction
+
     public init(
         with viewFactory: CustomUIFactory,
         chatChannelController: ChatChannelController,
         viewModel: ChatChannelScreenViewModel,
-        messageId: String?
+        messageId: String?,
+        messageThreadNavigationAction: @escaping MessageThreadNavigationAction = {_ in }
     ) {
         self.chatChannelController = chatChannelController
         self.messageId = messageId
         self.viewFactory = viewFactory
         self._viewModel = StateObject(wrappedValue: viewModel)
+        self.messageThreadNavigationAction = messageThreadNavigationAction
     }
 
     public var body: some View {
@@ -73,7 +77,8 @@ public struct ChatChannelScreen: View {
             messageId: messageId,
             channelController: chatChannelController,
             onDidLoadChannel: onDidLoadChannel,
-            headerButtonTapHandler: headerButtonTapHandler
+            headerButtonTapHandler: headerButtonTapHandler,
+            messageThreadNavigationAction: messageThreadNavigationAction
         )
         .environment(\.attachmentController, AttachmentEnvironmentController())
         .environment(\.showConsentMediaInGroupChannel, viewModel.isDirectMessageChannel)

@@ -34,6 +34,7 @@ class MessageListUIComposer {
         onMessageReplyHandler: @escaping MessageReplyHandler,
         onLongPressHandler: @escaping LongPressHandler,
         onReactionsTap: @escaping ReactionsTapHandler,
+        onMessageThreadReplyTap: @escaping ThreadRepliesTapHandler,
         width: CGFloat
     ) -> some View {
 
@@ -56,7 +57,8 @@ class MessageListUIComposer {
             onQuotedMessageTap: onQuotedMessageTapHandler,
             onMessageReply: onMessageReplyHandler,
             onLongPress: onLongPressHandler,
-            onReactionsTap: onReactionsTap
+            onReactionsTap: onReactionsTap,
+            onThreadRepliesTap: onMessageThreadReplyTap
         )
 
         return MessageListView(

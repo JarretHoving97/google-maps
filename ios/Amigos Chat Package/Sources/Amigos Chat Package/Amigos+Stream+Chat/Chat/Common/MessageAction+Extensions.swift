@@ -2,6 +2,8 @@ import StreamChat
 import SwiftUI
 import StreamChatSwiftUI
 
+public typealias ChannelControllerBuilder = ((ChatChannel, ChatMessage) -> ChatChannelController?)
+
 extension MessageAction {
     /// Returns the default message actions.
     ///
@@ -19,6 +21,19 @@ extension MessageAction {
         onError: @escaping (Error) -> Void
     ) -> [MessageAction] {
         var messageActions = [MessageAction]()
+
+        let messageController = chatClient.messageController(cid: channel.cid, messageId: message.id)
+
+        let isInsideThreadView = messageController.replies.count > 0
+
+        if channel.config.repliesEnabled && !message.isPartOfThread && !isInsideThreadView {
+            let replyThread = threadReplyAction(
+                factory: factory,
+                for: message,
+                channel: channel
+            )
+            messageActions.append(replyThread)
+        }
 
         if message.localState == .sendingFailed {
             messageActions = messageNotSentActions(
@@ -365,5 +380,44 @@ extension MessageAction {
         messageActions.append(deleteAction)
 
         return messageActions
+    }
+}
+
+
+// MARK: Threads
+
+extension NSNotification.Name {
+    static let selectedMessageThread = NSNotification.Name(MessageRepliesConstants.selectedMessageThread)
+    static let selectedMessage = NSNotification.Name(MessageRepliesConstants.selectedMessage)
+}
+
+enum MessageRepliesConstants {
+    static let selectedMessageThread = "selectedMessageThread"
+    static let selectedMessage = "selectedMessage"
+}
+
+extension MessageAction {
+
+    static func threadReplyAction<Factory: ViewFactory>(
+        factory: Factory,
+        for message: ChatMessage,
+        channel: ChatChannel
+    ) -> MessageAction {
+        let replyThread = MessageAction(
+            id: MessageActionId.threadReply,
+            title: tr("message.actions.thread-reply"),
+            iconName: "icn_thread_reply",
+            action: {
+                NotificationCenter.default.post(
+                    name: .selectedMessageThread,
+                    object: nil,
+                    userInfo: [MessageRepliesConstants.selectedMessage: message]
+                )
+            },
+            confirmationPopup: nil,
+            isDestructive: false
+        )
+
+        return replyThread
     }
 }

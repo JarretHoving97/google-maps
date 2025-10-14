@@ -30,6 +30,11 @@ struct CustomChatChannelMessageListView<Factory: ViewFactory>: View {
 
     private var onReloadChannelHeader: ((ChatChannel) -> Void)?
 
+    // MARK: Maybe not needed after all
+    private let channelControllerBuilder: ChannelControllerBuilder?
+
+    private let messageThreadNavigationAction: MessageThreadNavigationAction
+
     public init(
         viewFactory: Factory = DefaultViewFactory.shared,
         channel: ChatChannel,
@@ -37,7 +42,9 @@ struct CustomChatChannelMessageListView<Factory: ViewFactory>: View {
         viewModel: ChatChannelViewModel? = nil,
         channelController: ChatChannelController,
         messageController: ChatMessageController? = nil,
-        messageId: String? = nil
+        channelControllerBuilder: ChannelControllerBuilder? = nil,
+        messageId: String? = nil,
+        messageThreadNavigationAction: @escaping MessageThreadNavigationAction = {_ in }
     ) {
         _viewModel = StateObject(
             wrappedValue: viewModel ?? ViewModelsFactory.makeChannelViewModel(
@@ -50,10 +57,28 @@ struct CustomChatChannelMessageListView<Factory: ViewFactory>: View {
         self.channel = channel
         self.messageId = messageId
         self.onReloadChannelHeader = onReloadChannelHeader
+        self.channelControllerBuilder = channelControllerBuilder
+        self.messageThreadNavigationAction = messageThreadNavigationAction
     }
 
     private var shouldPresentOverlay: Bool {
-        viewModel.reactionsShown && messageDisplayInfo != nil && viewModel.currentSnapshot != nil
+        viewModel.reactionsShown && messageDisplayInfo != nil
+    }
+
+    // Dismiss the reactions overlay if it is presented
+    private func dismissOverlayIfNeeded(animated: Bool = true) {
+        guard viewModel.reactionsShown || messageDisplayInfo != nil else { return }
+        let changes = {
+            self.messageDisplayInfo = nil
+            self.viewModel.reactionsShown = false
+        }
+        if animated {
+            withAnimation {
+                changes()
+            }
+        } else {
+            changes()
+        }
     }
 
     var body: some View {
@@ -144,28 +169,33 @@ struct CustomChatChannelMessageListView<Factory: ViewFactory>: View {
                     .disabled(isInputDisabled)
                     .opacity(isInputDisabled ? 0.4 : 1)
                 }
-
-                NavigationLink(
-                    isActive: $viewModel.threadMessageShown
-                ) {
-                    if let message = viewModel.threadMessage {
-                        let threadDestination = factory.makeMessageThreadDestination()
-                        threadDestination(channel, message)
-                    } else {
-                        EmptyView()
-                    }
-                } label: {
-                    EmptyView()
-                }
             }
             .accentColor(colors.tintColor)
+        }
+        .onChange(of: viewModel.threadMessage) { newValue in
+            if let message = newValue {
+                // Ensure overlay is dismissed before navigating
+                dismissOverlayIfNeeded(animated: true)
+
+                messageThreadNavigationAction(
+                    MessageThreadChannelViewData(
+                        navigationTitle: channel.name ?? "",
+                        channelId: channel.cid.rawValue,
+                        messageId: message.id
+                    )
+                )
+
+                // reset for onChange retrigger.
+                messageDisplayInfo = nil
+                viewModel.threadMessage = nil
+            }
         }
         .overlayPresenter(
             isPresented: Binding(
                 get: { shouldPresentOverlay },
                 set: { newValue in
+
                     if !newValue {
-                        // Sluiten vanuit presenter of overlay zelf
                         messageDisplayInfo = nil
                         viewModel.reactionsShown = false
                     }
@@ -173,23 +203,23 @@ struct CustomChatChannelMessageListView<Factory: ViewFactory>: View {
             ),
             transition: .crossDissolve
         ) {
-            if let mdi = messageDisplayInfo, let snapshot = viewModel.currentSnapshot {
-                factory.makeReactionsOverlayView(
+            if let mdi = messageDisplayInfo {
+
+                CustomReactionsOverlayView(
+                    factory: factory,
                     channel: channel,
-                    currentSnapshot: snapshot,
-                    messageDisplayInfo: mdi,
-                    onBackgroundTap: {
-                        withAnimation {
-                            viewModel.reactionsShown = false
-                        }
-                    }, onActionExecuted: { actionInfo in
-                        viewModel.messageActionExecuted(actionInfo)
-                        withAnimation {
-                            viewModel.reactionsShown = false
-                        }
+                    currentSnapshot: UIImage(),
+                    messageDisplayInfo: mdi
+                ) {
+                    withAnimation {
+                        viewModel.reactionsShown = false
                     }
-                )
-                .background(Color.clear)
+                } onActionExecuted: { actionInfo in
+                    viewModel.messageActionExecuted(actionInfo)
+                    withAnimation {
+                        viewModel.reactionsShown = false
+                    }
+                }
                 .ignoresSafeArea()
             } else {
                 Color.clear.ignoresSafeArea()

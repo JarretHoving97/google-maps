@@ -39,6 +39,8 @@ public struct CustomChatChannelView<Factory: ViewFactory>: View, KeyboardReadabl
 
     var headerButtonTapHandler: HeaderButtonActionHandler?
 
+    private let messageThreadNavigationAction: MessageThreadNavigationAction
+
     public init(
         viewFactory: Factory = DefaultViewFactory.shared,
         viewModel: ChatChannelViewModel? = nil,
@@ -47,7 +49,8 @@ public struct CustomChatChannelView<Factory: ViewFactory>: View, KeyboardReadabl
         messageController: ChatMessageController? = nil,
         scrollToMessage: ChatMessage? = nil,
         onDidLoadChannel: ((ChatChannel) -> Void)? = nil,
-        headerButtonTapHandler: HeaderButtonActionHandler? = nil
+        headerButtonTapHandler: HeaderButtonActionHandler? = nil,
+        messageThreadNavigationAction: @escaping MessageThreadNavigationAction = {_ in }
     ) {
         _viewModel = StateObject(
             wrappedValue: viewModel ?? ViewModelsFactory.makeChannelViewModel(
@@ -61,6 +64,7 @@ public struct CustomChatChannelView<Factory: ViewFactory>: View, KeyboardReadabl
         self.headerButtonTapHandler = headerButtonTapHandler
         self.scrollToMessage = scrollToMessage
         self.messageId = messageId
+        self.messageThreadNavigationAction = messageThreadNavigationAction
     }
 
     public var body: some View {
@@ -75,7 +79,8 @@ public struct CustomChatChannelView<Factory: ViewFactory>: View, KeyboardReadabl
                         channel: channel,
                         onReloadChannelHeader: onDidLoadChannel,
                         viewModel: viewModel,
-                        channelController: chatClient.channelController(for: channel.cid)
+                        channelController: chatClient.channelController(for: channel.cid),
+                        messageThreadNavigationAction: messageThreadNavigationAction
                     )
                 }
                 .onAppear {

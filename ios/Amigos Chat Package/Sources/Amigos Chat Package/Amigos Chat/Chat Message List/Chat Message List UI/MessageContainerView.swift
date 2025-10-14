@@ -17,7 +17,7 @@ struct MessageContainerView: View {
     private let gestureCallbacks: MessageGestureCallbacks
     private let avatarSize: CGFloat = 32
     private let pollOptionAllVotesViewBuilder: PollOptionAllVotesViewBuilder?
-    
+
     init(
         viewModel: MessageContainerViewModel,
         gestureCallbacks: MessageGestureCallbacks = .noGestures,
@@ -41,9 +41,9 @@ struct MessageContainerView: View {
             if viewModel.isRightAligned {
                 MessageSpacer(spacerWidth: defaultSpacerWidth(width))
             }
-             VStack(
+            VStack(
                 alignment: viewModel.isRightAligned ? .trailing : .leading,
-                spacing: viewModel.message.reactions.isEmpty ? 10 : 18
+                spacing: 6
             ) {
                 content
                 footerView
@@ -117,7 +117,6 @@ struct MessageSpacer: View {
 extension MessageContainerView {
 
     @ViewBuilder private var content: some View {
-
         // check if message contains a poll
         if let messagePollViewData = viewModel.messagePollViewData {
             PollMessageView(
@@ -126,54 +125,62 @@ extension MessageContainerView {
             )
         } else {
             ZStack(alignment: viewModel.isRightAligned ? .bottomTrailing : .bottomLeading) {
-                MessageView(
-                    viewModel: MessageViewModel(
-                        message: viewModel.message,
-                        imageLoader: viewModel.imageLoader,
-                        imageCDN: viewModel.imageCDN,
-                        videoPreviewLoader: viewModel.videoPreviewLoader,
-                        isFirst: viewModel.showsAllInfo
-                    ),
-                    maxWidth: contentWidth,
-                    onQuotedMessageTap: gestureCallbacks.onQuotedMessageTap
-                )
-                .messageGestures(
-                    onSwipe: { gestureCallbacks.onMessageReply(viewModel.message.id) },
-                    onLongPress: { longTapGesture() }
-                )
-                .background(
-                    GeometryReader { proxy in
-                        Rectangle().fill(Color.clear)
-                            .onChange(of: computeFrame, perform: { _ in
-                                DispatchQueue.main.async {
-                                    gestureCallbacks.onLongPress(LocalMessageInfo(id: viewModel.message.id, frame: (proxy.frame(in: .global))))
-                                    computeFrame = false
-                                }
-                            })
-                    }
-                )
-                .onTapGesture {
-                    navigateToOnboardingWebView()
-                }
-                .padding(
-                    .top,
-                    viewModel.showReactionsOverlay ? 24 : 0
-                )
 
-                if !viewModel.reactions.isEmpty {
-                    MessageBottomReactionsView(
-                        viewModel: MessageBottomReactionsViewModel(reactions: viewModel.reactions)
+                VStack(alignment: viewModel.isRightAligned ? .trailing : .leading, spacing: 0) {
+                    MessageView(
+                        viewModel: MessageViewModel(
+                            message: viewModel.message,
+                            imageLoader: viewModel.imageLoader,
+                            imageCDN: viewModel.imageCDN,
+                            videoPreviewLoader: viewModel.videoPreviewLoader,
+                            isFirst: viewModel.showsAllInfo
+                        ),
+                        maxWidth: contentWidth,
+                        onQuotedMessageTap: gestureCallbacks.onQuotedMessageTap
                     )
-                    .padding(
-                        EdgeInsets(
-                            top: 10,
-                            leading: 10,
-                            bottom: -14,
-                            trailing: 10
-                        )
+                    .messageGestures(
+                        onSwipe: { gestureCallbacks.onMessageReply(viewModel.message.id) },
+                        onLongPress: { longTapGesture() }
+                    )
+                    .background(
+                        GeometryReader { proxy in
+                            Rectangle().fill(Color.clear)
+                                .onChange(of: computeFrame, perform: { _ in
+                                    DispatchQueue.main.async {
+                                        gestureCallbacks.onLongPress(LocalMessageInfo(id: viewModel.message.id, frame: (proxy.frame(in: .global))))
+                                        computeFrame = false
+                                    }
+                                })
+                        }
                     )
                     .onTapGesture {
-                        gestureCallbacks.onReactionsTap(MessageReactionsInfo(id: viewModel.message.id))
+                        navigateToOnboardingWebView()
+                    }
+                    .padding(
+                        .top,
+                        viewModel.showReactionsOverlay ? 24 : 0)
+
+                    if !viewModel.reactions.isEmpty {
+                        MessageBottomReactionsView(
+                            viewModel: MessageBottomReactionsViewModel(reactions: viewModel.reactions)
+                        )
+                        .padding(.top, -4)
+                        .padding(.horizontal, 10)
+
+                        .onTapGesture {
+                            gestureCallbacks.onReactionsTap(MessageReactionsInfo(id: viewModel.message.id))
+                        }
+                    }
+
+                    if viewModel.showMessageThreadReplies {
+                        MessageThreadParticipantView(
+                            viewData: viewModel.activeThreadViewData,
+                            isRightAligned: viewModel.isRightAligned
+                        )
+                        .padding(.top, 4)
+                        .padding(.bottom, !viewModel.showsAllInfo ? 10 : 0)
+                        .onTapGesture(perform: { gestureCallbacks.onThreadRepliesTap(viewModel.message.id)})
+                        .frame(maxWidth: .infinity)
                     }
                 }
             }
@@ -183,12 +190,10 @@ extension MessageContainerView {
     private var footerView: some View {
         Group {
             if viewModel.showFooterView {
-
                 if viewModel.isDirectMessageChat {
                     directMessageChatFooter(isCurrentUser: viewModel.isRightAligned)
                 } else {
                     groupChatFooter(isCurrentUser: viewModel.isRightAligned)
-
                 }
             }
         }
@@ -266,6 +271,47 @@ extension MessageContainerView {
     }
 }
 
+struct MessageThreadParticipantView: View {
+
+    private let viewModel: ActiveThreadIndicatorViewData
+
+    private let isRightAligned: Bool
+
+    init(viewData: ActiveThreadIndicatorViewData, isRightAligned: Bool) {
+        self.viewModel = viewData
+        self.isRightAligned = isRightAligned
+    }
+
+    var body: some View {
+
+        if !viewModel.isEmpty {
+            HStack(spacing: 6) {
+
+                if isRightAligned {
+                    Spacer()
+                }
+                // MARK: Disabled to match with android
+                /*  HStack(spacing: -8) {
+                 ForEach(viewModel.participants.prefix(3)) { user in
+                 AvatarView(imageUrl: user.imageUrl, size: 20)
+                 }
+                 }
+                 .frame(height: 24)
+
+                 */
+
+                Text(viewModel.replyLabel)
+                    .font(.caption2)
+                    .foregroundStyle(Color(.purple))
+
+                if !isRightAligned {
+                    Spacer()
+                }
+            }
+        }
+    }
+}
+
 #Preview {
 
     MessageContainerView(
@@ -299,12 +345,23 @@ extension MessageContainerView {
                     name: "Ilon",
                     imageUrl: ImageURLExamples.portraitImageUrl
                 ),
-                isSentByCurrentUser: false,
-                message: TextExamples.largeMessageText,
-                quotedMessage: { Message(message: "Quoted Message")
-                },
+                isSentByCurrentUser: true,
+                message: "Hello i'm under the water",
                 reactions: [ReactionType(rawValue: "haha"): 1],
-                isDeleted: false
+                isDeleted: false,
+                replyCount: 4,
+                threadParticipants: [
+                    LocalChatUser(
+                        id: UUID().uuidString,
+                        name: "",
+                        imageUrl: ImageURLExamples.landscapeImageUrl
+                    ),
+                    LocalChatUser(
+                        id: UUID().uuidString,
+                        name: "",
+                        imageUrl: ImageURLExamples.landscapeImageUrl
+                    ),
+                ]
             ),
             showsAllInfo: true,
             isLast: true,
@@ -327,7 +384,24 @@ extension MessageContainerView {
                 isSentByCurrentUser: false,
                 message: TextExamples.largeMessageText,
                 isDeleted: false,
-                layoutKey: "system"
+                layoutKey: "system",
+                replyCount: 4,
+                threadParticipants: [
+                    LocalChatUser(
+                        id: UUID().uuidString,
+                        name: "",
+                        imageUrl: ImageURLExamples.landscapeImageUrl
+                    ),
+                    LocalChatUser(
+                        id: UUID().uuidString,
+                        name: "",
+                        imageUrl: ImageURLExamples.landscapeImageUrl
+                    ),           LocalChatUser(
+                        id: UUID().uuidString,
+                        name: "",
+                        imageUrl: ImageURLExamples.landscapeImageUrl
+                    )
+                ]
             ),
             showsAllInfo: true,
             isLast: true,

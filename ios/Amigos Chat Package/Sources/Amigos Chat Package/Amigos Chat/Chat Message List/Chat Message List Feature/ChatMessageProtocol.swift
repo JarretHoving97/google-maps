@@ -8,6 +8,27 @@
 import Foundation
 import StreamChat
 
+public struct LocalChatUser: Identifiable {
+    public let id: String
+    let name: String?
+    let imageUrl: URL?
+
+    init(id: String, name: String?, imageUrl: URL?) {
+        self.id = id
+        self.name = name
+        self.imageUrl = imageUrl
+    }
+}
+
+extension LocalChatUser {
+
+    init(from chatUser: ChatUser) {
+        self.id = chatUser.id
+        self.name = chatUser.name
+        self.imageUrl = chatUser.imageURL
+    }
+}
+
 public protocol ChatMessageProtocol {
     var id: String { get }
     var user: Author { get }
@@ -26,6 +47,8 @@ public protocol ChatMessageProtocol {
     var messageType: String { get }
     var translationKey: TranslationKey? { get }
     var localPoll: LocalPoll? { get }
+    var replyCount: Int { get }
+    var localThreadParticipants: [LocalChatUser] { get }
 }
 
 public protocol ChatMessageAttachmentProtocol {

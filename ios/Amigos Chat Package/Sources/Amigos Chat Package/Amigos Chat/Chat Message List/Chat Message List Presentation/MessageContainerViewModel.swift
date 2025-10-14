@@ -9,6 +9,23 @@ import SwiftUI
 
 typealias IsReadByAllHandler = (Message) -> Bool
 
+struct ActiveThreadIndicatorViewData {
+    let replyCount: Int
+    let participants: [LocalChatUser]
+
+    var isEmpty: Bool {
+        return replyCount == 0
+    }
+}
+
+// MARK: Thranslations
+extension ActiveThreadIndicatorViewData {
+
+    var replyLabel: String {
+        tr("message.threads.count", replyCount)
+    }
+}
+
 class MessageContainerViewModel: ObservableObject {
 
     @Published var showReactionsOverlay: Bool = false
@@ -62,6 +79,12 @@ class MessageContainerViewModel: ObservableObject {
         return !isDirectMessageChat && !isSystemMessage
     }
 
+    var showMessageThreadReplies: Bool {
+        !activeThreadViewData.isEmpty &&
+        !isInThread &&
+        !message.isDeleted
+    }
+
     var showAvatar: Bool {
         !isRightAligned &&
         showsAllInfo &&
@@ -99,8 +122,16 @@ class MessageContainerViewModel: ObservableObject {
             controller: pollController
         )
     }
+    var activeThreadViewData: ActiveThreadIndicatorViewData {
+        return ActiveThreadIndicatorViewData(
+            replyCount: message.replyCount,
+            participants: message.threadParticipants
+        )
+    }
 
     let isRead: Bool
+
+    private let isInThread: Bool
 
     private let isReadByAllHandler: IsReadByAllHandler
 
@@ -111,6 +142,7 @@ class MessageContainerViewModel: ObservableObject {
         isDirectMessageChat: Bool,
         isRead: Bool = false,
         pollController: PollControllerProtocol? = nil,
+        isInThread: Bool = false,
         isReadByAllHandler: @escaping IsReadByAllHandler = { _ in false },
         imageLoader: ImageLoader = DefaultImageLoader(),
         imageCDN: ImageCDNhandler = MockImageCDN(),
@@ -126,6 +158,7 @@ class MessageContainerViewModel: ObservableObject {
         self.isLast = isLast
         self.isDirectMessageChat = isDirectMessageChat
         self.pollController = pollController
+        self.isInThread = isInThread
     }
 
     var isReadByAll: Bool {

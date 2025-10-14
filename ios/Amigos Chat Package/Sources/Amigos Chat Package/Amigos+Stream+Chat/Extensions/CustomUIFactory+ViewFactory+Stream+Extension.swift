@@ -315,59 +315,6 @@ extension CustomUIFactory: ViewFactory {
         )
     }
 
-    public typealias ReactionsOverlayViewType = CustomReactionsOverlayView<CustomUIFactory>
-
-    public func makeReactionsOverlayView(
-        channel: ChatChannel,
-        currentSnapshot: UIImage,
-        messageDisplayInfo: MessageDisplayInfo,
-        onBackgroundTap: @escaping () -> Void,
-        onActionExecuted: @escaping (MessageActionInfo) -> Void
-    ) -> CustomReactionsOverlayView<CustomUIFactory> {
-        CustomReactionsOverlayView(
-            factory: self,
-            channel: channel,
-            currentSnapshot: currentSnapshot,
-            messageDisplayInfo: messageDisplayInfo,
-            onBackgroundTap: onBackgroundTap,
-            onActionExecuted: onActionExecuted
-        )
-    }
-
-    public func supportedMessageActions(
-        for message: ChatMessage,
-        channel: ChatChannel,
-        onFinish: @escaping (MessageActionInfo) -> Void,
-        onError: @escaping (Error) -> Void
-    ) -> [MessageAction] {
-        MessageAction.customActions(
-            factory: self,
-            for: message,
-            channel: channel,
-            chatClient: chatClient,
-            onFinish: onFinish,
-            onError: onError
-        )
-    }
-
-    public typealias MessageActionsViewType = CustomMessageActionsView
-
-    public func makeMessageActionsView(
-        for message: ChatMessage,
-        channel: ChatChannel,
-        onFinish: @escaping (MessageActionInfo) -> Void,
-        onError: @escaping (Error) -> Void
-    ) -> CustomMessageActionsView {
-        let messageActions = supportedMessageActions(
-            for: message,
-            channel: channel,
-            onFinish: onFinish,
-            onError: onError
-        )
-
-        return CustomMessageActionsView(for: message, messageActions: messageActions)
-    }
-
     public typealias DeletedMessageViewType = DeletedMessageView
 
     public func makeDeletedMessageView(
@@ -422,5 +369,37 @@ extension CustomUIFactory: ViewFactory {
         colors: ColorPalette
     ) -> CustomEmptyMessagesView {
         CustomEmptyMessagesView(channel: channel)
+    }
+
+    public func supportedMessageActions(
+        for message: ChatMessage,
+        channel: ChatChannel,
+        onFinish: @escaping (MessageActionInfo) -> Void,
+        onError: @escaping (Error) -> Void
+    ) -> [MessageAction] {
+        MessageAction.customActions(
+            factory: self,
+            for: message,
+            channel: channel,
+            chatClient: chatClient,
+            onFinish: onFinish,
+            onError: onError
+        )
+    }
+
+    public func makeMessageActionsView(
+        for message: ChatMessage,
+        channel: ChatChannel,
+        onFinish: @escaping (MessageActionInfo) -> Void,
+        onError: @escaping (Error) -> Void
+    ) -> CustomMessageActionsView {
+        let messageActions = supportedMessageActions(
+            for: message,
+            channel: channel,
+            onFinish: onFinish,
+            onError: onError
+        )
+
+        return CustomMessageActionsView(for: message, messageActions: messageActions)
     }
 }
