@@ -10,6 +10,7 @@ import androidx.compose.foundation.text.appendInlineContent
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
@@ -68,6 +69,7 @@ fun formatSystemMessageText(
 fun formatMessagePreview(
     message: Message,
     showSenderName: Boolean,
+    iconColor: Color,
     /**
      * Only allowed to be `null` if `showSenderName == false`
      */
@@ -101,7 +103,7 @@ fun formatMessagePreview(
                             .fillMaxSize()
                             .padding(end = 4.dp),
                         contentDescription = "",
-                        colorFilter = ColorFilter.tint(CustomTheme.colorScheme.onSurfaceSoft)
+                        colorFilter = ColorFilter.tint(iconColor)
                     )
                 }
             }

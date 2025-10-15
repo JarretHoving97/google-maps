@@ -166,6 +166,7 @@ fun AmiChannelItem(
                         formatMessagePreview(
                             message = lastMessage,
                             showSenderName = true,
+                            iconColor = CustomTheme.colorScheme.onSurfaceSoft,
                             isMine = lastMessage.user.id == currentUser?.id,
                             isDirectMessageChannel = itemState.channel.isDirectMessageChannel()
                         )

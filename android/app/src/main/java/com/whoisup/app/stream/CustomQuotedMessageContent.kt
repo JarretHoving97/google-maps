@@ -92,6 +92,7 @@ fun CustomQuotedMessageContent(
             val quotedMessagePreview = formatMessagePreview(
                 message = message,
                 showSenderName = false,
+                iconColor = bodyTextColor,
                 isMine = null,
                 isDirectMessageChannel = null
             )

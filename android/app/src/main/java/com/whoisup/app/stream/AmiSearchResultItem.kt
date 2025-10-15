@@ -76,6 +76,7 @@ fun AmiSearchResultItem(
             val foundMessagePreview = formatMessagePreview(
                     message = itemState.message,
                     showSenderName = true,
+                    iconColor = CustomTheme.colorScheme.onSurfaceSoft,
                     isMine = itemState.message.user.id == currentUser?.id,
                     isDirectMessageChannel = isDirectMessageChannel
                 )
