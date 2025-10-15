@@ -27,6 +27,7 @@ import com.whoisup.app.helpers.customLinkifyWithMarkdown
 import com.whoisup.app.stream.extensions.isSupportTeamMember
 import com.whoisup.app.ui.theme.CustomTheme
 import io.getstream.chat.android.client.utils.message.isDeleted
+import io.getstream.chat.android.client.utils.message.isPoll
 import io.getstream.chat.android.client.utils.message.isSystem
 import io.getstream.chat.android.models.Message
 
@@ -87,8 +88,18 @@ fun formatMessagePreview(
         } else if (message.isSystem()) {
             append(formatSystemMessageText(message))
         } else {
-            val attachmentContent = findFirstAttachmentWithFactory(message)?.let {
-                it.factory.previewText.invoke(it.attachment)
+            val attachmentWithFactory = findFirstAttachmentWithFactory(message)
+
+            val attachmentContent = if (attachmentWithFactory != null) {
+                attachmentWithFactory.factory.previewText.invoke(attachmentWithFactory.attachment)
+            } else if (message.isPoll()) {
+                // Poll is not an actual attachment, so we cannot use the factory for this
+                AttachmentContent(
+                    iconId = io.getstream.chat.android.compose.R.drawable.stream_compose_ic_poll,
+                    description = message.poll?.name ?: ""
+                )
+            } else {
+                null
             }
 
             if (attachmentContent != null) {

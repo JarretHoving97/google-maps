@@ -18,6 +18,7 @@ import io.getstream.chat.android.compose.viewmodel.messages.AttachmentsPickerVie
 import io.getstream.chat.android.compose.viewmodel.messages.MessageComposerViewModel
 import io.getstream.chat.android.compose.viewmodel.messages.MessageListViewModel
 import io.getstream.chat.android.ui.common.state.messages.Delete
+import io.getstream.chat.android.ui.common.state.messages.poll.PollSelectionType
 
 @Composable
 fun AmiChannelMenus(
@@ -47,6 +48,15 @@ fun AmiChannelMenus(
     )
 
     MessageDialogs(listViewModel = listViewModel)
+
+    val selectedPoll = listViewModel.pollState.selectedPoll
+
+    if (selectedPoll?.pollSelectionType == PollSelectionType.ViewResult) {
+        AmiPollViewResultDialog(
+            selectedPoll = selectedPoll,
+            onDismissRequest = { listViewModel.displayPollMoreOptions(null) },
+        )
+    }
 
     // We don't need the following component,
     // because we do not have more than 5 reactions anyways

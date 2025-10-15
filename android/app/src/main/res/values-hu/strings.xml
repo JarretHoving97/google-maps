@@ -149,4 +149,11 @@
     <string name="stream_compose_message_deleted">Üzenet törölve</string>
     <string name="stream_compose_download">Letöltés</string>
     <string name="stream_compose_grant_permission">Engedély megadása</string>
+
+    <!-- Poll -->
+    <plurals name="AmiPoll_votesCount">
+        <item quantity="one">%d szavazat</item>
+        <item quantity="other">%d szavazatok</item>
+    </plurals>
+    <string name="AmiPoll_viewVotes">Szavazatok megtekintése</string>
 </resources>

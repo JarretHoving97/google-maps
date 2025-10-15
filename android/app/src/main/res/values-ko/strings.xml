@@ -152,4 +152,11 @@
     <string name="stream_compose_message_deleted">메시지가 삭제되었습니다</string>
     <string name="stream_compose_download">다운로드</string>
     <string name="stream_compose_grant_permission">권한 부여</string>
+
+    <!-- Poll -->
+    <plurals name="AmiPoll_votesCount">
+        <item quantity="one">%d표</item>
+        <item quantity="other">%d표</item>
+    </plurals>
+    <string name="AmiPoll_viewVotes">투표 보기</string>
 </resources>

@@ -160,4 +160,13 @@
     <string name="stream_compose_message_deleted">Wiadomość usunięta</string>
     <string name="stream_compose_download">Pobierz</string>
     <string name="stream_compose_grant_permission">Udziel uprawnienia</string>
+
+    <!-- Poll -->
+    <plurals name="AmiPoll_votesCount">
+        <item quantity="one">%d głos</item>
+        <item quantity="few">%d głosy</item>
+        <item quantity="many">%d głosów</item>
+        <item quantity="other">%d głosu</item>
+    </plurals>
+    <string name="AmiPoll_viewVotes">Wyświetl głosy</string>
 </resources>

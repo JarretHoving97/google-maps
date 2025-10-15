@@ -152,4 +152,11 @@
     <string name="stream_compose_message_deleted">Nachricht gelöscht</string>
     <string name="stream_compose_download">Herunterladen</string>
     <string name="stream_compose_grant_permission">Berechtigung erteilen</string>
+
+    <!-- Poll -->
+    <plurals name="AmiPoll_votesCount">
+        <item quantity="one">%d Stimme</item>
+        <item quantity="other">%d Stimmen</item>
+    </plurals>
+    <string name="AmiPoll_viewVotes">Stimmung ansehen</string>
 </resources>

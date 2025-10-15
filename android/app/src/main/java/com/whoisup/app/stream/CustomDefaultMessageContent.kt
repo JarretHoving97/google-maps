@@ -10,6 +10,7 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.text.BasicText
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clipToBounds
@@ -22,6 +23,8 @@ import com.whoisup.app.components.AmiClickableText
 import com.whoisup.app.components.DcIcon
 import com.whoisup.app.stream.extensions.isSupportTeamMember
 import com.whoisup.app.ui.theme.CustomTheme
+import io.getstream.chat.android.client.utils.message.isDeleted
+import io.getstream.chat.android.client.utils.message.isPoll
 import io.getstream.chat.android.compose.viewmodel.messages.MessageComposerViewModel
 import io.getstream.chat.android.compose.viewmodel.messages.MessageListViewModel
 import io.getstream.chat.android.ui.common.state.messages.list.MessageItemState
@@ -82,6 +85,32 @@ internal fun CustomDefaultMessageContent(
             }
             MessageLayoutKeyEnum.HowToJoin.value -> {
                 AmiMessageWalkthrough(R.drawable.walkthrough_04)
+            }
+        }
+
+        if (messageItem.message.isPoll()) {
+            // Since `listViewModel.pollState.selectedPoll` is not reactive,
+            // we need to re-assign it if we notice changes on `messageItem.message.poll`
+            // The next couple of lines are a workaround for that.
+            // See: https://amigostech.slack.com/archives/C06U2JU0T9D/p1758800726294289
+            val poll = messageItem.message.poll
+            LaunchedEffect(poll) {
+                if (poll != null) {
+                    val selectedPoll = listViewModel.pollState.selectedPoll
+                    if (selectedPoll != null && selectedPoll.poll.id == poll.id) {
+                        listViewModel.updatePollState(poll, messageItem.message, selectedPoll.pollSelectionType)
+                    }
+                }
+            }
+        }
+
+        if (messageItem.message.isPoll() && !messageItem.message.isDeleted()) {
+            messageItem.message.poll?.let { poll ->
+                PollMessageContent(
+                    messageItem,
+                    listViewModel,
+                    poll
+                )
             }
         }
 

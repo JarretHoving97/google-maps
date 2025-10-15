@@ -151,4 +151,11 @@
     <string name="stream_compose_message_deleted">Mesaj silindi</string>
     <string name="stream_compose_download">İndir</string>
     <string name="stream_compose_grant_permission">İzin ver</string>
+
+    <!-- Poll -->
+    <plurals name="AmiPoll_votesCount">
+        <item quantity="one">%d oy</item>
+        <item quantity="other">%d oylar</item>
+    </plurals>
+    <string name="AmiPoll_viewVotes">Oyları görüntüle</string>
 </resources>

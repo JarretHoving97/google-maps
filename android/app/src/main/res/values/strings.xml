@@ -169,4 +169,11 @@
     <string name="stream_compose_message_deleted">Message deleted</string>
     <string name="stream_compose_download">Download</string>
     <string name="stream_compose_grant_permission">Grant permission</string>
+
+    <!-- Poll -->
+    <plurals name="AmiPoll_votesCount">
+        <item quantity="one">%d vote</item>
+        <item quantity="other">%d votes</item>
+    </plurals>
+    <string name="AmiPoll_viewVotes">View votes</string>
 </resources>
