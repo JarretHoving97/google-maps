@@ -8,7 +8,7 @@
 import SwiftUI
 
 @MainActor
-class PollMessageViewModel: ObservableObject {
+public class PollMessageViewModel: ObservableObject {
 
     @Published private var isClosingPoll = false
 

@@ -10,4 +10,6 @@ import Foundation
 struct LocalMessageInfo {
     let id: String
     let frame: CGRect
+
+    let pollViewData: PollMessageViewModel?
 }

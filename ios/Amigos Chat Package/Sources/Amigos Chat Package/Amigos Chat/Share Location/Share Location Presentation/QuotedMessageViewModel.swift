@@ -25,6 +25,10 @@ class QuotedMessageViewModel {
         return message.location
     }
 
+    public var pollAttachment: LocalPoll? {
+        return message.poll
+    }
+
     let imageLoader: ImageLoader
 
     let imageCDN: ImageCDNhandler

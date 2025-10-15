@@ -22,7 +22,7 @@ struct MessageThreadChannelView: View, KeyboardReadable {
 
     @State private var reactionsShown: Bool = false
 
-    @State private var overlayDisplayInfo: MessageDisplayInfo?
+    @State private var overlayDisplayInfo: LocalMessageDisplayInfo?
 
     private var onMoreTapped: onMoreTappedAction?
 
@@ -95,7 +95,6 @@ struct MessageThreadChannelView: View, KeyboardReadable {
                 CustomReactionsOverlayView(
                     factory: factory,
                     channel: channel,
-                    currentSnapshot: UIImage(),
                     messageDisplayInfo: mdi
                 ) {
                     withAnimation {
@@ -131,11 +130,12 @@ struct MessageThreadChannelView: View, KeyboardReadable {
         return { [allMessages] info in
             guard let message = allMessages.first(where: {$0.id == info.id}) else { return }
 
-            overlayDisplayInfo = MessageDisplayInfo(
+            overlayDisplayInfo = LocalMessageDisplayInfo(
                 message: message,
                 frame: info.frame,
                 contentWidth: max(240, info.frame.width),
-                isFirst: false
+                isFirst: false,
+                pollViewData: info.pollViewData
             )
         }
     }
@@ -179,8 +179,9 @@ extension MessageThreadChannelView {
                             message: mapper.map(message),
                             showsAllInfo: true,
                             isLast: true,
-                            isDirectMessageChat: false,
-                            isInThread: true
+                            isDirectMessageChat: true,
+                            isRead: false,
+                            pollController: viewModel.repliedMessagePollController
                         ),
                         gestureCallbacks: MessageGestureCallbacks(
                             onQuotedMessageTap: { channelViewModel.scrolledId = $0},
@@ -226,7 +227,8 @@ extension MessageThreadChannelView {
                                 firstUnreadMessageId: nil,
                                 isReadHandler: DefaultsHasSeenHandler(),
                                 config: MessageListDisplayConfiguration(),
-                                isInThread: true
+                                isInThread: true,
+                                pollControllerBuilder: viewModel.pollControllerbuilder
                             ),
                             callbacks: MessageGestureCallbacks(
                                 onQuotedMessageTap: { channelViewModel.scrolledId = $0},

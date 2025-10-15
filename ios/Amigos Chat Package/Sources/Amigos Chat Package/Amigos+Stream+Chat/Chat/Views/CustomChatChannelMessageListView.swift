@@ -19,7 +19,7 @@ struct CustomChatChannelMessageListView<Factory: ViewFactory>: View {
 
     @Environment(\.presentationMode) var presentationMode
 
-    @State private var messageDisplayInfo: MessageDisplayInfo?
+    @State private var messageDisplayInfo: LocalMessageDisplayInfo?
     @State private var tabBarAvailable: Bool = false
 
     private var factory: Factory
@@ -204,11 +204,9 @@ struct CustomChatChannelMessageListView<Factory: ViewFactory>: View {
             transition: .crossDissolve
         ) {
             if let mdi = messageDisplayInfo {
-
                 CustomReactionsOverlayView(
                     factory: factory,
                     channel: channel,
-                    currentSnapshot: UIImage(),
                     messageDisplayInfo: mdi
                 ) {
                     withAnimation {
@@ -221,6 +219,7 @@ struct CustomChatChannelMessageListView<Factory: ViewFactory>: View {
                     }
                 }
                 .ignoresSafeArea()
+
             } else {
                 Color.clear.ignoresSafeArea()
             }

@@ -37,6 +37,8 @@ public class MessageViewModel: ObservableObject {
         return message.location
     }
 
+    private(set) var pollAttachment: PollMessageViewModel?
+
     public var singleMediaAttachment: SingleMediaAttachmentViewModel? {
         guard let attachment = message.attachments.first, let singleMediaAttachment = attachment.toSingleMediaAttachmentType() else { return nil }
 
@@ -97,6 +99,7 @@ public class MessageViewModel: ObservableObject {
         imageLoader: ImageLoader = DefaultImageLoader(),
         imageCDN: ImageCDNhandler = MockImageCDN(),
         videoPreviewLoader: PreviewVideoLoader = DefaultPreviewVideoLoader(),
+        pollAttachment: PollMessageViewModel? = nil,
         isFirst: Bool = true,
         forceLeftToRight: Bool = false
     ) {
@@ -107,6 +110,7 @@ public class MessageViewModel: ObservableObject {
         self.videoPreviewLoader = videoPreviewLoader
         self.isFirst = isFirst
         self.forceLeftToRight = forceLeftToRight
+        self.pollAttachment = pollAttachment
     }
 
     public func resolveMessageType() {
@@ -152,6 +156,7 @@ public extension MessageViewModel {
         imageLoader: ImageLoader = DefaultImageLoader(),
         imageCDN: ImageCDNhandler = MockImageCDN(),
         videoPreviewLoader: PreviewVideoLoader = DefaultPreviewVideoLoader(),
+        pollAttachment: PollMessageViewModel? = nil,
         isFirst: Bool = true,
         forceLeftToRight: Bool = false
     ) {
@@ -163,6 +168,7 @@ public extension MessageViewModel {
             imageLoader: imageLoader,
             imageCDN: imageCDN,
             videoPreviewLoader: videoPreviewLoader,
+            pollAttachment: pollAttachment,
             isFirst: isFirst,
             forceLeftToRight: forceLeftToRight
         )

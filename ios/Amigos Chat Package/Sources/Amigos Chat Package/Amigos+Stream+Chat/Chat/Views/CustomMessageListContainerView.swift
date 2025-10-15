@@ -55,7 +55,7 @@ public struct CustomMessageListContainerView<Factory: ViewFactory>: View, Keyboa
     private var extendedOnMessageAppear: (Int, LocalScrollDirection) -> Void { {onMessageAppear($0, $1.toStream) }}
 
     var onScrollToBottom: () -> Void
-    var onLongPress: (MessageDisplayInfo) -> Void
+    var onLongPress: (LocalMessageDisplayInfo) -> Void
     var onJumpToMessage: ((String) -> Bool)?
 
     @State private var width: CGFloat?
@@ -103,7 +103,7 @@ public struct CustomMessageListContainerView<Factory: ViewFactory>: View, Keyboa
         firstUnreadMessageId: Binding<MessageId?> = .constant(nil),
         onMessageAppear: @escaping (Int, ScrollDirection) -> Void,
         onScrollToBottom: @escaping () -> Void,
-        onLongPress: @escaping (MessageDisplayInfo) -> Void,
+        onLongPress: @escaping (LocalMessageDisplayInfo) -> Void,
         onJumpToMessage: ((String) -> Bool)? = nil
     ) {
         self.factory = factory
@@ -147,12 +147,13 @@ public struct CustomMessageListContainerView<Factory: ViewFactory>: View, Keyboa
         { info in
             if let message = messages.first(where: { $0.id == info.id }) {
                 resignFirstResponder()
-                let updatedDisplayInfo = MessageDisplayInfo(
+                let updatedDisplayInfo = LocalMessageDisplayInfo(
                     message: message,
                     frame: info.frame,
                     contentWidth: (max(240, info.frame.width)),
                     isFirst: showsAllData(for: message),
-                    keyboardWasShown: true
+                    keyboardWasShown: true,
+                    pollViewData: info.pollViewData
                 )
                 onLongPress(updatedDisplayInfo)
             }

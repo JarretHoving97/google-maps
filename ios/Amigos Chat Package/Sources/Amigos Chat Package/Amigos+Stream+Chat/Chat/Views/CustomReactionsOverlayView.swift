@@ -14,7 +14,7 @@ public struct CustomReactionsOverlayView<Factory: ViewFactory>: View {
     var channel: ChatChannel
 
     var bottomOffset: CGFloat = 0
-    var messageDisplayInfo: MessageDisplayInfo
+    var messageDisplayInfo: LocalMessageDisplayInfo
     var onBackgroundTap: () -> Void
     var onActionExecuted: (MessageActionInfo) -> Void
 
@@ -38,8 +38,7 @@ public struct CustomReactionsOverlayView<Factory: ViewFactory>: View {
     public init(
         factory: Factory,
         channel: ChatChannel,
-        currentSnapshot: UIImage,
-        messageDisplayInfo: MessageDisplayInfo,
+        messageDisplayInfo: LocalMessageDisplayInfo,
         bottomOffset: CGFloat = 0,
         onBackgroundTap: @escaping () -> Void,
         onActionExecuted: @escaping (MessageActionInfo) -> Void
@@ -73,6 +72,8 @@ public struct CustomReactionsOverlayView<Factory: ViewFactory>: View {
                 actionsCount: messageActionsCount
             )
 
+            let pollViewData = messageDisplayInfo.pollViewData
+
             ZStack(alignment: .topLeading) {
                 VisualEffectBlur(blurStyle: .systemThinMaterialLight)
                     .ignoresSafeArea()
@@ -81,7 +82,10 @@ public struct CustomReactionsOverlayView<Factory: ViewFactory>: View {
 
                 ScrollView(.vertical, showsIndicators: true) {
                     MessageView(
-                        viewModel: MessageViewModel(message: message)
+                        viewModel: MessageViewModel(
+                            message: message,
+                            pollAttachment: pollViewData
+                        )
                     )
                     .fixedSize(horizontal: false, vertical: true)
                     .allowsHitTesting(false)
@@ -179,7 +183,8 @@ public struct CustomReactionsOverlayView<Factory: ViewFactory>: View {
     private struct Layout {
 
         let geo: GeometryProxy
-        let messageDisplayInfo: MessageDisplayInfo
+        let messageDisplayInfo: LocalMessageDisplayInfo
+
         let bottomOffset: CGFloat
         let actionsCount: Int
 

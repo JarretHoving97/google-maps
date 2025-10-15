@@ -51,7 +51,7 @@ class MessageListUIComposer {
             config: messageDisplayConfig
         )
 
-        viewModel.pollControllerBuilder = pollBuilder(client: client)
+        viewModel.pollControllerBuilder = PollBuilderFactory.build(client: client)
 
         let messageGestureCallbacks = MessageGestureCallbacks(
             onQuotedMessageTap: onQuotedMessageTapHandler,
@@ -72,14 +72,10 @@ class MessageListUIComposer {
     }
 }
 
-extension MessageListUIComposer {
 
-    static func pollBuilder(client: ChatClient) -> PollControllerBuilder? {
-        return { [weak client] messageId, pollId in
-            guard let client else { return nil }
-            return PollControllerAdapter(client.pollController(messageId: messageId, pollId: pollId))
-        }
-    }
+
+
+extension MessageListUIComposer {
 
     static func pollAllVotesViewBuilder(with client: ChatClient) -> PollOptionAllVotesViewBuilder {
 

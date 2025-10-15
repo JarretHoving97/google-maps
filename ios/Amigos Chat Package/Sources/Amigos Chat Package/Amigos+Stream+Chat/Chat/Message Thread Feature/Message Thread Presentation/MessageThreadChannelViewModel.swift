@@ -17,6 +17,15 @@ public class MessageThreadChannelViewModel: ObservableObject {
 
     private(set) var channelController: ChatChannelController
 
+    let pollControllerbuilder: PollControllerBuilder?
+
+    @MainActor
+    var repliedMessagePollController: PollControllerProtocol? {
+        guard let messageId = repliedMessage?.id, let pollId = repliedMessage?.poll?.id else { return nil }
+
+        return pollControllerbuilder?(messageId, pollId)
+    }
+
     var channel: ChatChannel? {
         return channelController.channel
     }
@@ -46,11 +55,12 @@ public class MessageThreadChannelViewModel: ObservableObject {
     init(
         messageController: ChatMessageController,
         channelController: ChatChannelController,
+        pollControllerbuilder: PollControllerBuilder?,
         navigationTitle: String,
     ) {
         self.messageController = messageController
         self.channelController = channelController
         self.navigationTitle = navigationTitle
+        self.pollControllerbuilder = pollControllerbuilder
     }
 }
-

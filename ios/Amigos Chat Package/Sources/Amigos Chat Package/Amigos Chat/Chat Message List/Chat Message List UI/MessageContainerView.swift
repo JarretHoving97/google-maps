@@ -117,71 +117,70 @@ struct MessageSpacer: View {
 extension MessageContainerView {
 
     @ViewBuilder private var content: some View {
-        // check if message contains a poll
-        if let messagePollViewData = viewModel.messagePollViewData {
-            PollMessageView(
-                viewModel: messagePollViewData,
-                pollOptionAllVotesViewBuilder: pollOptionAllVotesViewBuilder
-            )
-        } else {
-            ZStack(alignment: viewModel.isRightAligned ? .bottomTrailing : .bottomLeading) {
+        ZStack(alignment: viewModel.isRightAligned ? .bottomTrailing : .bottomLeading) {
 
-                VStack(alignment: viewModel.isRightAligned ? .trailing : .leading, spacing: 0) {
-                    MessageView(
-                        viewModel: MessageViewModel(
-                            message: viewModel.message,
-                            imageLoader: viewModel.imageLoader,
-                            imageCDN: viewModel.imageCDN,
-                            videoPreviewLoader: viewModel.videoPreviewLoader,
-                            isFirst: viewModel.showsAllInfo
-                        ),
-                        maxWidth: contentWidth,
-                        onQuotedMessageTap: gestureCallbacks.onQuotedMessageTap
+            VStack(alignment: viewModel.isRightAligned ? .trailing : .leading, spacing: 0) {
+                MessageView(
+                    viewModel: MessageViewModel(
+                        message: viewModel.message,
+                        imageLoader: viewModel.imageLoader,
+                        imageCDN: viewModel.imageCDN,
+                        videoPreviewLoader: viewModel.videoPreviewLoader,
+                        pollAttachment: viewModel.messagePollViewData,
+                        isFirst: viewModel.showsAllInfo,
+                    ),
+                    maxWidth: contentWidth,
+                    onQuotedMessageTap: gestureCallbacks.onQuotedMessageTap
+                )
+                .messageGestures(
+                    onSwipe: { gestureCallbacks.onMessageReply(viewModel.message.id) },
+                    onLongPress: { longTapGesture() }
+                )
+                .background(
+                    GeometryReader { proxy in
+                        Rectangle().fill(Color.clear)
+                            .onChange(of: computeFrame, perform: { _ in
+                                DispatchQueue.main.async {
+                                    gestureCallbacks.onLongPress(
+                                        LocalMessageInfo(
+                                            id: viewModel.message.id,
+                                            frame: (proxy.frame(in: .global)),
+                                            pollViewData: viewModel.messagePollViewData
+                                        )
+                                    )
+                                    computeFrame = false
+                                }
+                            })
+                    }
+                )
+                .onTapGesture {
+                    navigateToOnboardingWebView()
+                }
+                .padding(
+                    .top,
+                    viewModel.showReactionsOverlay ? 24 : 0)
+
+                if !viewModel.reactions.isEmpty {
+                    MessageBottomReactionsView(
+                        viewModel: MessageBottomReactionsViewModel(reactions: viewModel.reactions)
                     )
-                    .messageGestures(
-                        onSwipe: { gestureCallbacks.onMessageReply(viewModel.message.id) },
-                        onLongPress: { longTapGesture() }
-                    )
-                    .background(
-                        GeometryReader { proxy in
-                            Rectangle().fill(Color.clear)
-                                .onChange(of: computeFrame, perform: { _ in
-                                    DispatchQueue.main.async {
-                                        gestureCallbacks.onLongPress(LocalMessageInfo(id: viewModel.message.id, frame: (proxy.frame(in: .global))))
-                                        computeFrame = false
-                                    }
-                                })
-                        }
-                    )
+                    .padding(.top, -4)
+                    .padding(.horizontal, 10)
+
                     .onTapGesture {
-                        navigateToOnboardingWebView()
+                        gestureCallbacks.onReactionsTap(MessageReactionsInfo(id: viewModel.message.id))
                     }
-                    .padding(
-                        .top,
-                        viewModel.showReactionsOverlay ? 24 : 0)
+                }
 
-                    if !viewModel.reactions.isEmpty {
-                        MessageBottomReactionsView(
-                            viewModel: MessageBottomReactionsViewModel(reactions: viewModel.reactions)
-                        )
-                        .padding(.top, -4)
-                        .padding(.horizontal, 10)
-
-                        .onTapGesture {
-                            gestureCallbacks.onReactionsTap(MessageReactionsInfo(id: viewModel.message.id))
-                        }
-                    }
-
-                    if viewModel.showMessageThreadReplies {
-                        MessageThreadParticipantView(
-                            viewData: viewModel.activeThreadViewData,
-                            isRightAligned: viewModel.isRightAligned
-                        )
-                        .padding(.top, 4)
-                        .padding(.bottom, !viewModel.showsAllInfo ? 10 : 0)
-                        .onTapGesture(perform: { gestureCallbacks.onThreadRepliesTap(viewModel.message.id)})
-                        .frame(maxWidth: .infinity)
-                    }
+                if viewModel.showMessageThreadReplies {
+                    MessageThreadParticipantView(
+                        viewData: viewModel.activeThreadViewData,
+                        isRightAligned: viewModel.isRightAligned
+                    )
+                    .padding(.top, 4)
+                    .padding(.bottom, !viewModel.showsAllInfo ? 10 : 0)
+                    .onTapGesture(perform: { gestureCallbacks.onThreadRepliesTap(viewModel.message.id)})
+                    .frame(maxWidth: .infinity)
                 }
             }
         }

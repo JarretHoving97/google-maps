@@ -64,6 +64,7 @@ struct QuotedMessageMapper {
                     isDeleted: quotedMessage.isDeleted,
                     attachments: attachmentsMapper.mapAttachmentsFactory(quotedMessage.attachments),
                     type: MessageType(rawValue: quotedMessage.messageType) ?? .regular,
+                    poll: quotedMessage.localPoll
                 )
             }
         }

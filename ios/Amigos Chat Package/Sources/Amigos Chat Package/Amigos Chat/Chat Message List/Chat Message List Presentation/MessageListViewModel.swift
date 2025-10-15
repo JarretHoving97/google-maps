@@ -45,7 +45,8 @@ class MessageListViewModel: ObservableObject {
         isReadHandler: HasSeenHandler,
         isReadByAllHandler: @escaping IsReadByAllHandler = {_ in false},
         config: MessageListDisplayConfiguration,
-        isInThread: Bool = false
+        isInThread: Bool = false,
+        pollControllerBuilder: PollControllerBuilder? = nil
     ) {
         self.reactionsForMessage = reactionsForMessage
         self.messageList = messageList
@@ -57,6 +58,7 @@ class MessageListViewModel: ObservableObject {
         self.isReadHandler = isReadHandler
         self.isReadByAllHandler = isReadByAllHandler
         self.isInThread = isInThread
+        self.pollControllerBuilder = pollControllerBuilder
     }
 
     func viewData(

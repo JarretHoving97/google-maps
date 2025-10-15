@@ -38,27 +38,36 @@ struct QuotedMessageView: View {
     private var content: some View {
         VStack(alignment: .leading, spacing: 10) {
 
-            if let attachment = viewModel.mediaAttachments.first {
-                LazyLoadImage(source: attachment, width: 40, height: 40)
-                    .clipShape(RoundedRectangle(cornerRadius: 4))
-                    .frame(width: 40, height: 40)
-            }
+            if let poll = viewModel.pollAttachment {
+                Text("📊 \(poll.name)")
+                    .font(.caption1)
+                    .foregroundColor(Color(.grey))
+            } else {
 
-            if let location = viewModel.locationAttachment {
-                QuotedLocationView(
-                    viewModel: QuotedLocationViewModel(
-                        locationAttachment: location,
-                        isSentByCurrentUser: viewModel.isSentByCurrentUser
+                if let attachment = viewModel.mediaAttachments.first {
+                    LazyLoadImage(source: attachment, width: 40, height: 40)
+                        .clipShape(RoundedRectangle(cornerRadius: 4))
+                        .frame(width: 40, height: 40)
+                }
+
+                if let location = viewModel.locationAttachment {
+                    QuotedLocationView(
+                        viewModel: QuotedLocationViewModel(
+                            locationAttachment: location,
+                            isSentByCurrentUser: viewModel.isSentByCurrentUser
+                        )
                     )
-                )
-            }
-            if !viewModel.messageText.isEmpty {
-                Text(viewModel.messageText)
-                    .frame(alignment: .leading)
-                    .multilineTextAlignment(.leading)
-                    .font(.caption)
-                    .foregroundStyle(.gray)
-                    .lineLimit(3)
+                }
+
+                if !viewModel.messageText.isEmpty {
+                    Text(viewModel.messageText)
+                        .frame(alignment: .leading)
+                        .multilineTextAlignment(.leading)
+                        .font(.caption)
+                        .foregroundStyle(.gray)
+                        .lineLimit(3)
+                }
+
             }
         }
     }

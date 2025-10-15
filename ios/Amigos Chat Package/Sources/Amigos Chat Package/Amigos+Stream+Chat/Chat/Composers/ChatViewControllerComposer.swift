@@ -251,11 +251,14 @@ extension ChatViewControllerComposer {
             let viewModel = MessageThreadChannelViewModel(
                 messageController: messageController,
                 channelController: channelController,
+                pollControllerbuilder: PollBuilderFactory.build(client: client),
                 navigationTitle: viewData.navigationTitle
             )
 
             let viewcontroller = UIHostingController(
-                rootView: MessageThreadChannelView(viewModel: viewModel)
+                rootView: MessageThreadChannelView(
+                    viewModel: viewModel
+                )
             )
 
             navigation.pushViewController(viewcontroller, animated: true)

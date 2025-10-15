@@ -88,6 +88,10 @@ public struct CustomQuotedMessageView<Factory: ViewFactory>: View {
                     .cornerRadius(8)
                     .padding(.vertical, 2)
                     .allowsHitTesting(false)
+                } else if let poll = quotedMessage.poll, !quotedMessage.isDeleted {
+                    Text("📊 \(poll.name)")
+                        .font(.caption1)
+                        .foregroundColor(Color("Grey"))
                 }
 
                 Text(textForMessage)

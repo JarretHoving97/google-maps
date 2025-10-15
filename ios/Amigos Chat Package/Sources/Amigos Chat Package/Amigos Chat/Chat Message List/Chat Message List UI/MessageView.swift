@@ -27,16 +27,20 @@ struct MessageView: View {
         trailing: 16
     )
 
+    private(set) var pollOptionViewBuilder: PollOptionAllVotesViewBuilder?
+
     let maxWidth: CGFloat
 
     init(
         viewModel: MessageViewModel,
         maxWidth: CGFloat = .messageWidth,
-        onQuotedMessageTap: ((String) -> Void)? = nil
+        onQuotedMessageTap: ((String) -> Void)? = nil,
+        pollOptionViewBuilder: PollOptionAllVotesViewBuilder? = nil
     ) {
         self.viewModel = viewModel
         self.onQuotedMessageTap = onQuotedMessageTap
         self.maxWidth = maxWidth
+        self.pollOptionViewBuilder = pollOptionViewBuilder
         viewModel.resolveMessageType()
     }
 
@@ -49,6 +53,11 @@ struct MessageView: View {
             )
             .modifier(bubbleResolvedModifier)
 
+        } else if let pollAttachment = viewModel.pollAttachment {
+            PollMessageView(
+                viewModel: pollAttachment,
+                pollOptionAllVotesViewBuilder: pollOptionViewBuilder
+            )
         } else if viewModel.messageType == .system {
 
             SystemMessageView(message: viewModel.message)
