@@ -17,6 +17,8 @@ class ChannelThreadActivity : BaseComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        val activity = this
+
         val channelId = intent.getStringExtra(KEY_CHANNEL_ID)
         val messageId = intent.getStringExtra(KEY_MESSAGE_ID)
         val parentMessageId = intent.getStringExtra(KEY_PARENT_MESSAGE_ID)
@@ -48,6 +50,9 @@ class ChannelThreadActivity : BaseComponentActivity() {
                             // statefulStreamMediaRecorder = StatefulStreamMediaRecorder(streamMediaRecorder = ChatTheme.streamMediaRecorder),
                             onBackClick = {
                                 // ExtendedStreamPlugin.notifyNavigateBackListeners(activity) // only enable this line when it becomes a real route in the web client as well
+                                if (ExtendedStreamPlugin.shared == null && activity.isTaskRoot) {
+                                    activity.startActivity(Intent(activity, MainActivity::class.java))
+                                }
                                 finish()
                             },
                             onUserAvatarClick = {
