@@ -127,6 +127,7 @@
     <string name="stream_compose_message_list_unsupported_attachment">Nicht unterstützter Anhang</string>
 
     <!-- Selected Message Menu -->
+    <string name="stream_compose_send">Senden</string>
     <string name="stream_compose_resend_message">Erneut senden</string>
     <string name="stream_compose_reply">Antworten</string>
     <string name="stream_compose_thread_reply">Antwort im Thread</string>
@@ -154,9 +155,21 @@
     <string name="stream_compose_grant_permission">Berechtigung erteilen</string>
 
     <!-- Poll -->
+    <string name="AmiPoll_poll">Abstimmung</string>
     <plurals name="AmiPoll_votesCount">
         <item quantity="one">%d Stimme</item>
         <item quantity="other">%d Stimmen</item>
     </plurals>
     <string name="AmiPoll_viewVotes">Stimmung ansehen</string>
+    <string name="AmiPoll_createPoll">Abstimmung erstellen</string>
+    <string name="AmiPoll_question_label">Frage</string>
+    <string name="AmiPoll_question_placeholder">Stelle eine Frage</string>
+    <string name="AmiPoll_options_label">Optionen</string>
+    <string name="AmiPoll_option_placeholder">+ Text hinzufugen</string>
+    <string name="AmiPoll_optionAlreadyExists">Diese Option existiert bereits</string>
+    <string name="AmiPoll_allowMultipleAnswers">Mehrere Antworten erlauben</string>
+    <string name="AmiPoll_leavePoll_title">Abstimmung verlassen?</string>
+    <string name="AmiPoll_leavePoll_body">Deine Änderungen werden nicht gespeichert</string>
+    <string name="AmiPoll_leavePoll_keepEditing">Weiter bearbeiten</string>
+    <string name="AmiPoll_leavePoll_leave">Verlassen</string>
 </resources>

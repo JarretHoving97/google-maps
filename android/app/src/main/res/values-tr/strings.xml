@@ -126,6 +126,7 @@
     <string name="stream_compose_message_list_unsupported_attachment">Desteklenmeyen ek</string>
 
     <!-- Selected Message Menu -->
+    <string name="stream_compose_send">Gönder</string>
     <string name="stream_compose_resend_message">Yeniden gönder</string>
     <string name="stream_compose_reply">Yanıtla</string>
     <string name="stream_compose_thread_reply">Konuda yanıtla</string>
@@ -153,9 +154,21 @@
     <string name="stream_compose_grant_permission">İzin ver</string>
 
     <!-- Poll -->
+    <string name="AmiPoll_poll">Anket</string>
     <plurals name="AmiPoll_votesCount">
         <item quantity="one">%d oy</item>
         <item quantity="other">%d oylar</item>
     </plurals>
     <string name="AmiPoll_viewVotes">Oyları görüntüle</string>
+    <string name="AmiPoll_createPoll">Anket Oluştur</string>
+    <string name="AmiPoll_question_label">Soru</string>
+    <string name="AmiPoll_question_placeholder">Soru sorun</string>
+    <string name="AmiPoll_options_label">Seçenekler</string>
+    <string name="AmiPoll_option_placeholder">+ Metin ekle</string>
+    <string name="AmiPoll_optionAlreadyExists">Bu seçenek zaten eklendi</string>
+    <string name="AmiPoll_allowMultipleAnswers">Birden çok yanıta izin ver</string>
+    <string name="AmiPoll_leavePoll_title">Anketten çıkılsın mı?</string>
+    <string name="AmiPoll_leavePoll_body">Yaptığınız düzenlemeler kaydedilmeyecek</string>
+    <string name="AmiPoll_leavePoll_keepEditing">Düzenlemeye devam et</string>
+    <string name="AmiPoll_leavePoll_leave">Çık</string>
 </resources>

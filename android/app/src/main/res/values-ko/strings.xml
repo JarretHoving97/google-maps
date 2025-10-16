@@ -127,6 +127,7 @@
     <string name="stream_compose_message_list_unsupported_attachment">지원되지 않는 첨부 파일</string>
 
     <!-- Selected Message Menu -->
+    <string name="stream_compose_send">보내다</string>
     <string name="stream_compose_resend_message">다시 보내기</string>
     <string name="stream_compose_reply">답장하기</string>
     <string name="stream_compose_thread_reply">스레드에 답변</string>
@@ -154,9 +155,21 @@
     <string name="stream_compose_grant_permission">권한 부여</string>
 
     <!-- Poll -->
+    <string name="AmiPoll_poll">설문 조사</string>
     <plurals name="AmiPoll_votesCount">
         <item quantity="one">%d표</item>
         <item quantity="other">%d표</item>
     </plurals>
     <string name="AmiPoll_viewVotes">투표 보기</string>
+    <string name="AmiPoll_createPoll">설문 조사 만들기</string>
+    <string name="AmiPoll_question_label">질문</string>
+    <string name="AmiPoll_question_placeholder">질문하기</string>
+    <string name="AmiPoll_options_label">옵션</string>
+    <string name="AmiPoll_option_placeholder">+ A텍스트 추가</string>
+    <string name="AmiPoll_optionAlreadyExists">이미 옵션에 포함된 항목입니다</string>
+    <string name="AmiPoll_allowMultipleAnswers">복수 응답 허용</string>
+    <string name="AmiPoll_leavePoll_title">설문을 나가시겠어요?</string>
+    <string name="AmiPoll_leavePoll_body">편집 사항이 저장되지 않습니다</string>
+    <string name="AmiPoll_leavePoll_keepEditing">계속 편집</string>
+    <string name="AmiPoll_leavePoll_leave">나가기</string>
 </resources>

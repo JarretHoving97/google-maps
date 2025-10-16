@@ -135,6 +135,7 @@
     <string name="stream_compose_message_list_unsupported_attachment">Nieobsługiwany załącznik</string>
 
     <!-- Selected Message Menu -->
+    <string name="stream_compose_send">Wysłać</string>
     <string name="stream_compose_resend_message">Wyślij ponownie</string>
     <string name="stream_compose_reply">Odpowiedz</string>
     <string name="stream_compose_thread_reply">Odpowiedz w wątku</string>
@@ -162,6 +163,7 @@
     <string name="stream_compose_grant_permission">Udziel uprawnienia</string>
 
     <!-- Poll -->
+    <string name="AmiPoll_poll">Ankieta</string>
     <plurals name="AmiPoll_votesCount">
         <item quantity="one">%d głos</item>
         <item quantity="few">%d głosy</item>
@@ -169,4 +171,15 @@
         <item quantity="other">%d głosu</item>
     </plurals>
     <string name="AmiPoll_viewVotes">Wyświetl głosy</string>
+    <string name="AmiPoll_createPoll">Utwórz ankietę</string>
+    <string name="AmiPoll_question_label">Pytanie</string>
+    <string name="AmiPoll_question_placeholder">Zadaj pytanie</string>
+    <string name="AmiPoll_options_label">Opcje</string>
+    <string name="AmiPoll_option_placeholder">+ Dodaj tekst</string>
+    <string name="AmiPoll_optionAlreadyExists">Taka opcja już istnieje</string>
+    <string name="AmiPoll_allowMultipleAnswers">Zezwól na wiele odpowiedzi</string>
+    <string name="AmiPoll_leavePoll_title">Opuścić ankietę?</string>
+    <string name="AmiPoll_leavePoll_body">Wprowadzone zmiany nie zostaną zapisane</string>
+    <string name="AmiPoll_leavePoll_keepEditing">Kontynuuj edycję</string>
+    <string name="AmiPoll_leavePoll_leave">Opuść</string>
 </resources>

@@ -124,6 +124,7 @@
     <string name="stream_compose_message_list_unsupported_attachment">Nem támogatott csatolmány</string>
 
     <!-- Selected Message Menu -->
+    <string name="stream_compose_send">Elküld</string>
     <string name="stream_compose_resend_message">Újraküldés</string>
     <string name="stream_compose_reply">Válasz</string>
     <string name="stream_compose_thread_reply">Válasz a szálban</string>
@@ -151,9 +152,21 @@
     <string name="stream_compose_grant_permission">Engedély megadása</string>
 
     <!-- Poll -->
+    <string name="AmiPoll_poll">Szavazás</string>
     <plurals name="AmiPoll_votesCount">
         <item quantity="one">%d szavazat</item>
         <item quantity="other">%d szavazatok</item>
     </plurals>
     <string name="AmiPoll_viewVotes">Szavazatok megtekintése</string>
+    <string name="AmiPoll_createPoll">Szavazás létrehozása</string>
+    <string name="AmiPoll_question_label">Kérdés</string>
+    <string name="AmiPoll_question_placeholder">Tegyél fel egy kérdést</string>
+    <string name="AmiPoll_options_label">Opciók</string>
+    <string name="AmiPoll_option_placeholder">+ Szöveg hozzáadása</string>
+    <string name="AmiPoll_optionAlreadyExists">Ez már egy meglévő válaszlehetőség</string>
+    <string name="AmiPoll_allowMultipleAnswers">Több válasz engedélyezése</string>
+    <string name="AmiPoll_leavePoll_title">Kilépsz a szavazásból?</string>
+    <string name="AmiPoll_leavePoll_body">A módosításokat nem menti a rendszer</string>
+    <string name="AmiPoll_leavePoll_keepEditing">Szerkesztés folytatása</string>
+    <string name="AmiPoll_leavePoll_leave">Kilépés</string>
 </resources>

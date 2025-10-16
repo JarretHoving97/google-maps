@@ -144,6 +144,7 @@
     <string name="stream_compose_message_list_unsupported_attachment">Unsupported attachment</string>
 
     <!-- Selected Message Menu -->
+    <string name="stream_compose_send">Send</string>
     <string name="stream_compose_resend_message">Resend</string>
     <string name="stream_compose_reply">Reply</string>
     <string name="stream_compose_thread_reply">Reply in thread</string>
@@ -171,9 +172,21 @@
     <string name="stream_compose_grant_permission">Grant permission</string>
 
     <!-- Poll -->
+    <string name="AmiPoll_poll">Poll</string>
     <plurals name="AmiPoll_votesCount">
         <item quantity="one">%d vote</item>
         <item quantity="other">%d votes</item>
     </plurals>
     <string name="AmiPoll_viewVotes">View votes</string>
+    <string name="AmiPoll_createPoll">Create poll</string>
+    <string name="AmiPoll_question_label">Question</string>
+    <string name="AmiPoll_question_placeholder">Ask question</string>
+    <string name="AmiPoll_options_label">Options</string>
+    <string name="AmiPoll_option_placeholder">+ Add text</string>
+    <string name="AmiPoll_optionAlreadyExists">This is already an option</string>
+    <string name="AmiPoll_allowMultipleAnswers">Allow multiple answers</string>
+    <string name="AmiPoll_leavePoll_title">Leave poll?</string>
+    <string name="AmiPoll_leavePoll_body">Your edits won\'t be saved</string>
+    <string name="AmiPoll_leavePoll_keepEditing">Keep editing</string>
+    <string name="AmiPoll_leavePoll_leave">Leave</string>
 </resources>

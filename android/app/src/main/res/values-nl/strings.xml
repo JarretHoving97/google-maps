@@ -127,6 +127,7 @@
     <string name="stream_compose_message_list_unsupported_attachment">Niet ondersteunde bijlage</string>
 
     <!-- Selected Message Menu -->
+    <string name="stream_compose_send">Versturen</string>
     <string name="stream_compose_resend_message">Opnieuw versturen</string>
     <string name="stream_compose_reply">Reageren</string>
     <string name="stream_compose_thread_reply">Antwoorden in thread</string>
@@ -154,9 +155,21 @@
     <string name="stream_compose_grant_permission">Toegang verlenen</string>
 
     <!-- Poll -->
+    <string name="AmiPoll_poll">Peiling</string>
     <plurals name="AmiPoll_votesCount">
         <item quantity="one">%d stem</item>
         <item quantity="other">%d stemmen</item>
     </plurals>
     <string name="AmiPoll_viewVotes">Stemmen bekijken</string>
+    <string name="AmiPoll_createPoll">Peiling maken</string>
+    <string name="AmiPoll_question_label">Vraag</string>
+    <string name="AmiPoll_question_placeholder">Vraag stellen</string>
+    <string name="AmiPoll_options_label">Opties</string>
+    <string name="AmiPoll_option_placeholder">+ Tekst toevoegen</string>
+    <string name="AmiPoll_optionAlreadyExists">Deze optie bestaat al</string>
+    <string name="AmiPoll_allowMultipleAnswers">Meerdere antwoorden toestaan</string>
+    <string name="AmiPoll_leavePoll_title">Peiling verlaten?</string>
+    <string name="AmiPoll_leavePoll_body">Je wijzigingen worden niet opgeslagen</string>
+    <string name="AmiPoll_leavePoll_keepEditing">Doorgaan met bewerken</string>
+    <string name="AmiPoll_leavePoll_leave">Afsluiten</string>
 </resources>

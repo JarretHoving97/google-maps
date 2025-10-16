@@ -9,4 +9,5 @@ fun attachmentsPickerTabFactories(): List<AttachmentsPickerTabFactory> = listOf(
     AttachmentsPickerMediaCaptureTabFactory(
         AttachmentsPickerMediaCaptureTabFactory.PickerMediaMode.PHOTO_AND_VIDEO,
     ),
+    AttachmentsPickerPollCreationTabFactory(),
 )

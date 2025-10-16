@@ -35,6 +35,7 @@ import androidx.compose.ui.platform.LocalLayoutDirection
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import com.whoisup.app.MAX_OPTIONS
 import com.whoisup.app.components.DcIcon
 import com.whoisup.app.stream.extensions.isDirectMessageChannel
 import com.whoisup.app.ui.theme.CustomTheme
@@ -43,6 +44,8 @@ import io.getstream.chat.android.compose.state.messages.attachments.AttachmentsP
 import io.getstream.chat.android.compose.state.messages.attachments.Files
 import io.getstream.chat.android.compose.state.messages.attachments.Images
 import io.getstream.chat.android.compose.state.messages.attachments.MediaCapture
+import io.getstream.chat.android.compose.ui.messages.attachments.factory.AttachmentPickerBack
+import io.getstream.chat.android.compose.ui.messages.attachments.factory.AttachmentPickerPollCreation
 import io.getstream.chat.android.compose.ui.messages.attachments.factory.AttachmentsPickerTabFactory
 import io.getstream.chat.android.compose.ui.theme.ChatTheme
 import io.getstream.chat.android.compose.ui.util.mirrorRtl
@@ -51,6 +54,7 @@ import io.getstream.chat.android.compose.viewmodel.messages.MessageComposerViewM
 import io.getstream.chat.android.compose.viewmodel.messages.MessageListViewModel
 import io.getstream.chat.android.models.Attachment
 import io.getstream.chat.android.models.Channel
+import io.getstream.chat.android.models.PollConfig
 
 @OptIn(ExperimentalAnimationApi::class)
 @Composable
@@ -168,7 +172,28 @@ fun AnimatedVisibilityScope.AmiAttachmentsPicker(
                             tabFactory.attachmentsPickerMode == attachmentsPickerMode
                         }
                         ?.PickerTabContent(
-                            onAttachmentPickerAction = {},
+                            onAttachmentPickerAction = {
+                                if (it is AttachmentPickerBack) {
+                                    attachmentsPickerViewModel.changeAttachmentState(false)
+                                }
+
+                                if (it is AttachmentPickerPollCreation) {
+                                    val multipleVotesAllowed = it.switches.any {
+                                        switch -> switch.key == "multipleVotesAllowed" && switch.enabled
+                                    }
+
+                                    composerViewModel.createPoll(
+                                        pollConfig = PollConfig(
+                                            name = it.question,
+                                            options = it.options.map { option -> option.title },
+                                            maxVotesAllowed = if (multipleVotesAllowed) { MAX_OPTIONS } else { 1 },
+                                            enforceUniqueVote = !multipleVotesAllowed,
+                                        ),
+                                    )
+
+                                    attachmentsPickerViewModel.changeAttachmentState(false)
+                                }
+                            },
                             attachments = attachmentsPickerViewModel.attachments,
                             onAttachmentItemSelected = attachmentsPickerViewModel::changeSelectedAttachments,
                             onAttachmentsChanged = { attachmentsPickerViewModel.attachments = it },

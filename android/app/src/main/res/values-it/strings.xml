@@ -130,6 +130,7 @@
     <string name="stream_compose_message_list_unsupported_attachment">Allegato non supportato</string>
 
     <!-- Selected Message Menu -->
+    <string name="stream_compose_send">Inviare</string>
     <string name="stream_compose_resend_message">Invia di nuovo</string>
     <string name="stream_compose_reply">Rispondi</string>
     <string name="stream_compose_thread_reply">Rispondi nel thread</string>
@@ -157,10 +158,22 @@
     <string name="stream_compose_grant_permission">Concedi permesso</string>
 
     <!-- Poll -->
+    <string name="AmiPoll_poll">Sondaggio</string>
     <plurals name="AmiPoll_votesCount">
         <item quantity="one">%d voto</item>
         <item quantity="many">%d voti</item>
         <item quantity="other">%d voti</item>
     </plurals>
     <string name="AmiPoll_viewVotes">Visualizza voti</string>
+    <string name="AmiPoll_createPoll">Crea sondaggio</string>
+    <string name="AmiPoll_question_label">Domanda</string>
+    <string name="AmiPoll_question_placeholder">Fai una domanda</string>
+    <string name="AmiPoll_options_label">Opzioni</string>
+    <string name="AmiPoll_option_placeholder">+ Aggiungi testo</string>
+    <string name="AmiPoll_optionAlreadyExists">Questa opzione esiste già</string>
+    <string name="AmiPoll_allowMultipleAnswers">Consenti più risposte</string>
+    <string name="AmiPoll_leavePoll_title">Vuoi uscire dal sondaggio?</string>
+    <string name="AmiPoll_leavePoll_body">Le modifiche non verranno salvate</string>
+    <string name="AmiPoll_leavePoll_keepEditing">Continua a modificare</string>
+    <string name="AmiPoll_leavePoll_leave">Esci</string>
 </resources>
