@@ -44,6 +44,7 @@ import io.getstream.chat.android.compose.state.messages.attachments.AttachmentsP
 import io.getstream.chat.android.compose.state.messages.attachments.Files
 import io.getstream.chat.android.compose.state.messages.attachments.Images
 import io.getstream.chat.android.compose.state.messages.attachments.MediaCapture
+import io.getstream.chat.android.compose.state.messages.attachments.Poll
 import io.getstream.chat.android.compose.ui.messages.attachments.factory.AttachmentPickerBack
 import io.getstream.chat.android.compose.ui.messages.attachments.factory.AttachmentPickerPollCreation
 import io.getstream.chat.android.compose.ui.messages.attachments.factory.AttachmentsPickerTabFactory
@@ -55,6 +56,7 @@ import io.getstream.chat.android.compose.viewmodel.messages.MessageListViewModel
 import io.getstream.chat.android.models.Attachment
 import io.getstream.chat.android.models.Channel
 import io.getstream.chat.android.models.PollConfig
+import io.getstream.chat.android.ui.common.state.messages.MessageMode
 
 @OptIn(ExperimentalAnimationApi::class)
 @Composable
@@ -119,6 +121,7 @@ fun AnimatedVisibilityScope.AmiAttachmentsPicker(
         ) {
             Column {
                 AttachmentPickerOptions(
+                    listViewModel = listViewModel,
                     hasPickedAttachments = attachmentsPickerViewModel.hasPickedAttachments,
                     tabFactories = tabFactories,
                     attachmentsPickerMode = attachmentsPickerViewModel.attachmentsPickerMode,
@@ -222,6 +225,7 @@ fun AnimatedVisibilityScope.AmiAttachmentsPicker(
 @Suppress("LongParameterList")
 @Composable
 private fun AttachmentPickerOptions(
+    listViewModel: MessageListViewModel,
     hasPickedAttachments: Boolean,
     tabFactories: List<AttachmentsPickerTabFactory>,
     attachmentsPickerMode: AttachmentsPickerMode,
@@ -236,8 +240,18 @@ private fun AttachmentPickerOptions(
         Row(horizontalArrangement = Arrangement.SpaceEvenly) {
             tabFactories.forEach { tabFactory ->
                 val isSelected = attachmentsPickerMode == tabFactory.attachmentsPickerMode
+                val isPickerTabEnabled = if (tabFactory.isPickerTabEnabled(channel)) {
+                    if (tabFactory.attachmentsPickerMode is Poll) {
+                        // This attachment picker should only be enabled when NOT in a thread
+                        listViewModel.messageMode !is MessageMode.MessageThread
+                    } else {
+                        true
+                    }
+                } else {
+                    false
+                }
 
-                if (tabFactory.isPickerTabEnabled(channel)) {
+                if (isPickerTabEnabled) {
                     val isEnabled = isSelected || !hasPickedAttachments
                     IconButton(
                         content = {
