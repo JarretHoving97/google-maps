@@ -79,7 +79,7 @@ struct CustomPickerTypeButton: View {
                     showPaperclip ? Color(colors.textLowEmphasis) :  Color("Purple")
                 )
         }
-
+        .frame(width: 24, height: 24)
         .onChange(of: pickerTypeState) { value in
 
             /// .collapsed is an unused state for our custom implementation which we can't access
