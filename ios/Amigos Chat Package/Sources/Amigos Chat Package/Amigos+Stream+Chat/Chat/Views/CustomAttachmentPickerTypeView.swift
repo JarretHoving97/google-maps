@@ -74,12 +74,15 @@ struct CustomPickerTypeButton: View {
             Image(systemName: !showPaperclip ? "xmark.circle.fill" : "paperclip")
                 .renderingMode(.template)
                 .aspectRatio(contentMode: .fit)
-                .frame(height: 16)
+                .frame(width: 24, height: 24)
+                .contentShape(Rectangle())
                 .foregroundColor(
                     showPaperclip ? Color(colors.textLowEmphasis) :  Color("Purple")
                 )
         }
+        .buttonStyle(.plain)
         .frame(width: 24, height: 24)
+        .contentShape(Rectangle())
         .onChange(of: pickerTypeState) { value in
 
             /// .collapsed is an unused state for our custom implementation which we can't access
