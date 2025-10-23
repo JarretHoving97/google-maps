@@ -1,6 +1,6 @@
 require_relative '../../node_modules/@capacitor/ios/scripts/pods_helpers'
 
-platform :ios, '15.0'
+platform :ios, '17.0'
 use_frameworks!
 
 # workaround to avoid Xcode caching of Pods that requires
@@ -33,13 +33,13 @@ end
 
 target 'Amigos' do
   capacitor_pods
+  pod 'GoogleMaps', '~> 10.4.0'
   # Branch.io
   pod 'BranchSDK', '~> 3.2.0'
   # Facebook Pods
   pod 'FBSDKCoreKit', '~> 15.0.0'
   pod 'FBSDKLoginKit', '~> 15.0.0'
   # Miscellaneous
-  pod 'SDWebImageSwiftUI', '~> 3.0'
   pod 'SDWebImageSVGCoder', '~> 1.7'
   # Firebase Pods
   # For apps that use CocoaPods, the Firebase pod is deprecated in v9.0 and higher. 

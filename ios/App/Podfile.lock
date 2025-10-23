@@ -111,11 +111,9 @@ PODS:
     - GoogleUtilities/Environment (~> 7.7)
     - nanopb (< 2.30910.0, >= 2.30908.0)
     - PromisesObjC (< 3.0, >= 1.2)
-  - GoogleMaps (6.2.1):
-    - GoogleMaps/Maps (= 6.2.1)
-  - GoogleMaps/Base (6.2.1)
-  - GoogleMaps/Maps (6.2.1):
-    - GoogleMaps/Base
+  - GoogleMaps (10.4.0):
+    - GoogleMaps/Maps (= 10.4.0)
+  - GoogleMaps/Maps (10.4.0)
   - GoogleUtilities/AppDelegateSwizzler (7.11.0):
     - GoogleUtilities/Environment
     - GoogleUtilities/Logger
@@ -153,8 +151,6 @@ PODS:
   - SDWebImage/Core (5.14.3)
   - SDWebImageSVGCoder (1.7.0):
     - SDWebImage/Core (~> 5.6)
-  - SDWebImageSwiftUI (3.0.4):
-    - SDWebImage (~> 5.10)
   - SwiftKeychainWrapper (4.0.1)
 
 DEPENDENCIES:
@@ -182,9 +178,9 @@ DEPENDENCIES:
   - FBSDKLoginKit (~> 15.0.0)
   - FirebaseAnalytics
   - FirebaseMessaging
+  - GoogleMaps (~> 10.4.0)
   - "RevenuecatPurchasesCapacitor (from `../../node_modules/@revenuecat/purchases-capacitor`)"
   - SDWebImageSVGCoder (~> 1.7)
-  - SDWebImageSwiftUI (~> 3.0)
 
 SPEC REPOS:
   trunk:
@@ -209,7 +205,6 @@ SPEC REPOS:
     - RevenueCat
     - SDWebImage
     - SDWebImageSVGCoder
-    - SDWebImageSwiftUI
     - SwiftKeychainWrapper
 
 EXTERNAL SOURCES:
@@ -286,7 +281,7 @@ SPEC CHECKSUMS:
   FirebaseMessaging: e345b219fd15d325f0cf2fef28cb8ce00d851b3f
   GoogleAppMeasurement: c7d6fff39bf2d829587d74088d582e32d75133c3
   GoogleDataTransport: 1c8145da7117bd68bbbed00cf304edb6a24de00f
-  GoogleMaps: 20d7b12be49a14287f797e88e0e31bc4156aaeb4
+  GoogleMaps: a40d3b1f511f0fa2036e7b08c920c33279b1d5fd
   GoogleUtilities: c2bdc4cf2ce786c4d2e6b3bcfd599a25ca78f06f
   nanopb: b552cce312b6c8484180ef47159bc0f65a1f0431
   OAuthSwift: 75efbb5bd9a4b2b71a37bd7e986bf3f55ddd54c6
@@ -296,9 +291,8 @@ SPEC CHECKSUMS:
   RevenuecatPurchasesCapacitor: 6727a4dc1455bdf2374259420719ce5dfbe957fa
   SDWebImage: 9c36e66c8ce4620b41a7407698dda44211a96764
   SDWebImageSVGCoder: 15a300a97ec1c8ac958f009c02220ac0402e936c
-  SDWebImageSwiftUI: 824628d8220906aa101f62b39a7492edd138449d
   SwiftKeychainWrapper: 807ba1d63c33a7d0613288512399cd1eda1e470c
 
-PODFILE CHECKSUM: 5c957476fc66022c843436ca7e0ab3f3ec9e1d15
+PODFILE CHECKSUM: 1d7771777b8d687b2257c0e2c65b9b94919f4255
 
 COCOAPODS: 1.16.2

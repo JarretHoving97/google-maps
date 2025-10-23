@@ -7,7 +7,7 @@ let package = Package(
     name: "Amigos Chat Package",
     defaultLocalization: "en",
     platforms: [
-        .iOS(.v15)
+        .iOS(.v17)
     ],
     products: [
         .library(
