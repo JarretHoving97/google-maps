@@ -114,3 +114,7 @@ struct LocalChannel: ChatChannelProtocol {
         return readUsers
     }
 }
+
+extension LocalChannel {
+    public var isDirectMessageChannel: Bool { id.hasPrefix("messaging:!members") }
+}

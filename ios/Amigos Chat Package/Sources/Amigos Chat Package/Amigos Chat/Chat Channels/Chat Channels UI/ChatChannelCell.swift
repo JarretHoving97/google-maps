@@ -61,13 +61,13 @@ extension ChatChannelCell {
                 switch viewModel.relatedConceptType {
 
                 case .activity, .mixer:
-                    CustomActivityImageView(url: viewModel.imageUrl)
+                    CustomActivityImageView(image: viewModel.image)
 
                 case .community:
-                    CommunityChatImageView(url: viewModel.imageUrl)
+                    CommunityChatImageView(image: viewModel.image)
 
                 case .standard:
-                    AvatarView(imageUrl: viewModel.imageUrl)
+                    AvatarView(image: viewModel.image)
                 }
             }
         }
@@ -134,8 +134,10 @@ extension ChatChannelCell {
                     id: UUID().uuidString,
                     name: "Daisy",
                     imageURL: ImageURLExamples.Community.coverURL
-                )
+                ),
             ),
+            name: "Party",
+            image: UIImage()
 
         )
     )
@@ -151,6 +153,8 @@ extension ChatChannelCell {
                 lastMessageAt: Date(),
                 subtitleText: "Meet me at the park",
             ),
+            name: "Party",
+            image: UIImage()
         )
     )
 }
@@ -169,6 +173,8 @@ extension ChatChannelCell {
                 ),
                 subtitleText: "Ilon: Meet me at the park"
             ),
+            name: "Party",
+            image: UIImage()
         )
     )
 }

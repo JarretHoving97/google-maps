@@ -67,7 +67,9 @@ extension CustomUIFactory: ViewFactory {
 
         let viewModel = ChatChannelCellViewModel(
             channel: localChannel,
-            currentUserId: self.chatClient.currentUserId
+            currentUserId: self.chatClient.currentUserId,
+            name: channelName,
+            image: avatar
         )
 
         let view = ChatChannelCell(viewModel: viewModel, onTap: { onItemTap(channel) })

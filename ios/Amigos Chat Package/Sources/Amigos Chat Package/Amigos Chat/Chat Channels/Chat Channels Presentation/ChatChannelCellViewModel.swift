@@ -13,26 +13,22 @@ class ChatChannelCellViewModel: ObservableObject {
 
     let currentUserId: String?
 
-    var name: String {
-        // check if DM
-        if relatedConceptType == .standard {
-            return channel.localOtherUser?.name ?? "Unknown"
+    let name: String
+
+    private let receivedChannelImage: UIImage
+
+    var image: AmiImage {
+        // return channel imageURL
+        if !channel.isDirectMessageChannel {
+            return .url(channel.imageURL)
         }
 
-        return channel.name ?? "Unknown"
+        // return received image from loader
+        return .image(receivedChannelImage)
     }
 
     var subtitle: String {
         return channel.subtitleText ?? ""
-    }
-
-    var imageUrl: URL? {
-        // check if DM
-        if relatedConceptType == .standard {
-            return channel.localOtherUser?.imageURL
-        }
-
-        return channel.imageURL
     }
 
     var lastMessageDate: String? {
@@ -85,10 +81,14 @@ class ChatChannelCellViewModel: ObservableObject {
     init(
         channel: LocalChannel,
         currentUserId: String? = nil,
-        localeSettings: LocaleSettings = .shared
+        localeSettings: LocaleSettings = .shared,
+        name: String,
+        image: UIImage
     ) {
         self.channel = channel
         self.currentUserId = currentUserId
         self.localeSettings = localeSettings
+        self.name = name
+        self.receivedChannelImage = image
     }
 }
