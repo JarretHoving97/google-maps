@@ -80,9 +80,11 @@ public struct ChatChannelScreen: View {
             headerButtonTapHandler: headerButtonTapHandler,
             messageThreadNavigationAction: messageThreadNavigationAction
         )
+        .onAppear { chatChannelController.markRead() }
         .environment(\.attachmentController, AttachmentEnvironmentController())
         .environment(\.showConsentMediaInGroupChannel, viewModel.isDirectMessageChannel)
         .overlay(customViewOverlay(popOver: viewModel.popOver).ignoresSafeArea(edges: [.top]))
+
     }
 
     @ViewBuilder
@@ -158,6 +160,5 @@ public struct ChatScreen: View {
                 UNUserNotificationCenter.resetAppBadge()
             }
         }
-
     }
 }
