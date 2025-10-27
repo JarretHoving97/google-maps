@@ -80,6 +80,7 @@ extension ExtendedStreamPlugin {
                 routeHandler: routeAction(),
                 messageId: channel.messageId,
                 navigation: chatNavigationController,
+                appInfo: getAppInfo(),
                 client: client
             )
 
@@ -100,6 +101,7 @@ extension ExtendedStreamPlugin {
                 chatChannel: chatChannel,
                 routeHandler: routeAction(),
                 messageId: messageId,
+                appInfo: getAppInfo(),
                 in: navigationController,
                 onWillMoveToParent: adaptOnWillMoveToParent()
             ) else { return }
@@ -193,6 +195,7 @@ extension ExtendedStreamPlugin {
             messageId: channel.messageId,
             navigation: navigationController,
             onWillMoveToParent: adaptOnWillMoveToParent(),
+            appInfo: getAppInfo(),
             client: client
         )
 
@@ -217,6 +220,7 @@ extension ExtendedStreamPlugin {
             messageId: channel.messageId,
             navigation: navigationController,
             onWillMoveToParent: adaptOnWillMoveToParent(),
+            appInfo: getAppInfo(),
             client: client
         )
 
@@ -237,5 +241,18 @@ extension ExtendedStreamPlugin {
         navigationController.modalPresentationStyle = .fullScreen
 
         return navigationController
+    }
+}
+
+extension ExtendedStreamPlugin {
+
+    func getAppInfo() -> AppInfo? {
+        guard let appStoreId = Bundle.main.object(forInfoDictionaryKey: "AppStoreID") as? String else {
+
+            print("Could not get any AppStoreID, did you add this in the info.plist file?")
+            return nil
+        }
+
+        return AppInfo(appstoreId: appStoreId)
     }
 }

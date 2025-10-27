@@ -23,3 +23,10 @@
 "repeat_activity" = "활동이 성공적이었나요? 아래를 탭하여 활동을 반복하고 같은 친구들을 초대하세요.";
 
 "chat_channel_community_admin_only_notice" = "(공동) 관리자만 여기에 메시지를 게시할 수 있습니다.";
+
+// unsupported attachment in message
+"chat_message_attachment_unsupported_os" = "이런! 이 메시지에는 현재 iOS 버전에서 사용할 수 없는 항목이 포함되어 있어요. 새로운 기능은 iOS 17 이상에서만 사용할 수 있어요.";
+
+"chat_message_attachment_unsupported_app_update" = "이 메시지는 앱의 최신 버전에서만 동작해요. 최신 버전을 받으려면 여기를 탭하세요:";
+
+"chat_message_attachment_unsupported_open_app_store" = "App Store 열기";

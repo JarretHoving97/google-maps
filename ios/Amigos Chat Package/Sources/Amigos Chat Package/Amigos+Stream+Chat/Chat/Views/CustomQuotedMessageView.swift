@@ -44,7 +44,11 @@ public struct CustomQuotedMessageView<Factory: ViewFactory>: View {
                         .padding(.bottom, 2)
                 }
 
-                if messageTypeResolver.hasCustomAttachment(message: quotedMessage) {
+                if hasUnsupportedAttachment {
+
+                    UnsupportedAttachmentView()
+
+                } else if messageTypeResolver.hasCustomAttachment(message: quotedMessage) {
                     factory.makeCustomAttachmentQuotedView(for: quotedMessage)
                 } else if !quotedMessage.attachmentCounts.isEmpty {
                     ZStack {
@@ -75,12 +79,12 @@ public struct CustomQuotedMessageView<Factory: ViewFactory>: View {
                             )
                         } else if !quotedMessage.linkAttachments.isEmpty {
                             AsyncImage(url: quotedMessage.linkAttachments[0].previewURL ?? quotedMessage.linkAttachments[0].originalURL) { image in
-                                 image.resizable()
-                             } placeholder: {
-                                 ProgressView()
-                             }
-                             .frame(width: attachmentWidth, height: attachmentWidth)
-                             .clipShape(RoundedRectangle(cornerRadius: 8))
+                                image.resizable()
+                            } placeholder: {
+                                ProgressView()
+                            }
+                            .frame(width: attachmentWidth, height: attachmentWidth)
+                            .clipShape(RoundedRectangle(cornerRadius: 8))
                         }
                     }
                     .frame(width: hasVoiceAttachments ? nil : attachmentWidth, height: attachmentWidth)
@@ -147,7 +151,7 @@ public struct CustomQuotedMessageView<Factory: ViewFactory>: View {
 
         var colors = colors
         let color = quotedMessage.isSentByCurrentUser ?
-            colors.quotedMessageBackgroundCurrentUser : colors.quotedMessageBackgroundOtherUser
+        colors.quotedMessageBackgroundCurrentUser : colors.quotedMessageBackgroundOtherUser
         return color
     }
 
@@ -161,21 +165,25 @@ public struct CustomQuotedMessageView<Factory: ViewFactory>: View {
             return quotedMessage.adjustedText
         }
 
-//        if !quotedMessage.imageAttachments.isEmpty {
-//            return L10n.Composer.Quoted.photo
-//        } else if !quotedMessage.giphyAttachments.isEmpty {
-//            return L10n.Composer.Quoted.giphy
-//        } else if !quotedMessage.fileAttachments.isEmpty {
-//            return quotedMessage.fileAttachments[0].title ?? ""
-//        } else if !quotedMessage.videoAttachments.isEmpty {
-//            return L10n.Composer.Quoted.video
-//        }
+        //        if !quotedMessage.imageAttachments.isEmpty {
+        //            return L10n.Composer.Quoted.photo
+        //        } else if !quotedMessage.giphyAttachments.isEmpty {
+        //            return L10n.Composer.Quoted.giphy
+        //        } else if !quotedMessage.fileAttachments.isEmpty {
+        //            return quotedMessage.fileAttachments[0].title ?? ""
+        //        } else if !quotedMessage.videoAttachments.isEmpty {
+        //            return L10n.Composer.Quoted.video
+        //        }
 
         return ""
     }
 
     private var hasVoiceAttachments: Bool {
         !quotedMessage.voiceRecordingAttachments.isEmpty
+    }
+
+    private var hasUnsupportedAttachment: Bool {
+        return quotedMessage.attachments.contains(where: {$0.localType == .notsupported })
     }
 }
 
@@ -191,7 +199,7 @@ struct CustomVoiceRecordingPreview: View {
         self.voiceAttachment = voiceAttachment
         self.foregroundStyleDark = foregroundStyleDark
     }
-
+    
     var body: some View {
         HStack {
             CustomWaveformViewSwiftUI(

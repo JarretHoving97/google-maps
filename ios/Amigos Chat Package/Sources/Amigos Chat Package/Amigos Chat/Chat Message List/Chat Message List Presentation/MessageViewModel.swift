@@ -37,6 +37,10 @@ public class MessageViewModel: ObservableObject {
         return message.location
     }
 
+    public var hasUnsupportedAttachment: Bool {
+        return messageResolver.hasUnsupportedAttachment()
+    }
+
     private(set) var pollAttachment: PollMessageViewModel?
 
     public var singleMediaAttachment: SingleMediaAttachmentViewModel? {
@@ -178,7 +182,11 @@ public extension MessageViewModel {
 extension MessageViewModel {
 
     var bubbleHidden: Bool {
-        return isDeleted || asSuperEmoji && quotedMessage == nil
+        return isDeleted ||
+        asSuperEmoji && quotedMessage == nil ||
+        // hide bubble when the message contains unsupported any attachment and has a empty text message
+        // this way the corner radius won't be fully rounded.
+        hasUnsupportedAttachment && messageText.isEmpty
     }
 
     var layoutMessageType: LayoutMessageType? {

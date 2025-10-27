@@ -38,4 +38,8 @@ public class MessageTypeResolver: AmigosMessageTypeResolving {
     public func hasCustomAttachment() -> Bool {
         return false
     }
+
+    public func hasUnsupportedAttachment() -> Bool {
+        return message.attachments.contains(.notsupported)
+    }
 }

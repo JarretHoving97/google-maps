@@ -23,3 +23,10 @@
 "repeat_activity" = "Etkinlik başarılı oldu mu? Aşağıya dokunarak etkinliği tekrarlayın ve aynı amigosları davet edin.";
 
 "chat_channel_community_admin_only_notice" = "Yalnızca (co-)adminler burada mesaj paylaşabilir.";
+
+// unsupported attachment in message
+"chat_message_attachment_unsupported_os" = "Hoppala! Bu mesaj, iOS sürümünde çalışmayan bir öğe içeriyor. Yeni özellikler iOS 17 ve sonrasında kullanılabilir.";
+
+"chat_message_attachment_unsupported_app_update" = "Bu mesaj yalnızca uygulamanın en son sürümünde çalışır. En son sürümü edinmek için buraya dokun:";
+
+"chat_message_attachment_unsupported_open_app_store" = "App Store’u aç";

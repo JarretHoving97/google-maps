@@ -38,7 +38,10 @@ struct QuotedMessageView: View {
     private var content: some View {
         VStack(alignment: .leading, spacing: 10) {
 
-            if let poll = viewModel.pollAttachment {
+            if viewModel.hasUnsupportedAttachment {
+                UnsupportedAttachmentView()
+
+            } else if let poll = viewModel.pollAttachment {
                 Text("📊 \(poll.name)")
                     .font(.caption1)
                     .foregroundColor(Color(.grey))

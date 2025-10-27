@@ -29,6 +29,10 @@ class QuotedMessageViewModel {
         return message.poll
     }
 
+    public var hasUnsupportedAttachment: Bool {
+        return message.attachments.contains { $0 == .notsupported }
+    }
+
     let imageLoader: ImageLoader
 
     let imageCDN: ImageCDNhandler

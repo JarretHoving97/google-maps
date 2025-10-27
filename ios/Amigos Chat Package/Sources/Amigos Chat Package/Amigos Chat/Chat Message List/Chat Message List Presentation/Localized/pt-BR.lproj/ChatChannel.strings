@@ -23,3 +23,10 @@
 "repeat_activity" = "A atividade foi um sucesso? Toque abaixo para repetir a atividade e convidar os mesmos amigos.";
 
 "chat_channel_community_admin_only_notice" = "Apenas os (co)administradores podem postar mensagens aqui.";
+
+// unsupported attachment in message
+"chat_message_attachment_unsupported_os" = "Opa! Esta mensagem contém algo que não funciona na sua versão do iOS. Novos recursos estão disponíveis no iOS 17 ou posterior.";
+
+"chat_message_attachment_unsupported_app_update" = "Esta mensagem contém algo que funciona apenas na versão mais recente do app. Toque aqui para obter a versão mais recente:";
+
+"chat_message_attachment_unsupported_open_app_store" = "Abrir App Store";

@@ -46,7 +46,6 @@ struct MessageView: View {
 
     var body: some View {
         if viewModel.isDeleted {
-
             LocalDeletedMessageView(
                 isRightAligned: viewModel.isSentByCurrentUser,
                 isSentByCurrentUser: viewModel.isSentByCurrentUser
@@ -74,19 +73,9 @@ struct MessageView: View {
 
         } else {
             VStack(alignment: .leading, spacing: 0) {
-                VStack(spacing: 6) {
-                    quotedMessageView
-                    sharedLocationView
-                    mediaAttachmentView
-                    walkthroughView
-                }
-
-                VStack(alignment: .leading, spacing: 12) {
-                    messageTextView
-                    messageButtonView
-                }
+                attachmentsStackView
+                textView
             }
-
             .modifier(bubbleResolvedModifier)
         }
     }
@@ -222,7 +211,8 @@ extension MessageView {
             !viewModel.mediaAttachments.isEmpty ||
             (viewModel.asSuperEmoji && viewModel.quotedMessage == nil) ||
             viewModel.locationAttachment != nil ||
-            viewModel.layoutMessageType != nil {
+            viewModel.layoutMessageType != nil ||
+            viewModel.hasUnsupportedAttachment {
             return EdgeInsets(.zero)
         }
 
@@ -271,47 +261,41 @@ extension MessageView {
             }
         }
     }
+
+    @ViewBuilder
+    private var attachmentsStackView: some View {
+
+        if viewModel.hasUnsupportedAttachment {
+            UnsupportedAttachmentView()
+                /// adds padding only when the view contains in a message bubble
+                .padding(viewModel.messageText.isEmpty ? 0 : 4)
+
+        } else {
+            VStack(spacing: 6) {
+                quotedMessageView
+                sharedLocationView
+                mediaAttachmentView
+                walkthroughView
+            }
+        }
+    }
+
+    @ViewBuilder
+    private var textView: some View {
+        VStack(alignment: .leading, spacing: 12) {
+            messageTextView
+            messageButtonView
+        }
+    }
 }
 
 #Preview {
     MessageView(
         viewModel: MessageViewModel(
             message: Message(
-                isSentByCurrentUser: true,
-                message: TextExamples.messageWithLinks,
-                quotedMessage: { Message(
-                    message: TextExamples.largeMessageText,
-                    attachments: [
-                        .image(
-                            ImageAttachment(
-                                imageUrl: ImageURLExamples.portraitImageUrl,
-                                uploadingState: .none
-                            )
-                        )
-                    ]
-                )
-                },
+                isSentByCurrentUser: false,
                 isDeleted: false,
-                attachments: [
-                    .image(
-                        ImageAttachment(
-                            imageUrl: ImageURLExamples.portraitImageUrl,
-                            uploadingState: .none
-                        )
-                    ),
-                    .image(
-                        ImageAttachment(
-                            imageUrl: ImageURLExamples.landscapeImageUrl,
-                            uploadingState: .some(UploadingState(localFileURL: ImageURLExamples.portraitImageUrl, state: .uploading(progress: 0.9)))
-                        )
-                    ),
-                    .video(
-                        VideoAttachment(
-                            url: VideoURLExamples.example1,
-                            uploadingState: .none
-                        )
-                    )
-                ]
+                attachments: [.notsupported]
             )
         )
     )
@@ -328,7 +312,6 @@ extension MessageView {
                     imageUrl: ImageURLExamples.portraitImageUrl
                 ),
                 isSentByCurrentUser: false,
-                message: TextExamples.largeMessageText,
                 isDeleted: false,
                 replyCount: 4,
                 threadParticipants: [

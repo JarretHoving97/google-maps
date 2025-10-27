@@ -23,4 +23,6 @@ public protocol AmigosMessageTypeResolving {
     func hasFileAttachment() -> Bool
 
     func hasCustomAttachment() -> Bool
+
+    func hasUnsupportedAttachment() -> Bool
 }

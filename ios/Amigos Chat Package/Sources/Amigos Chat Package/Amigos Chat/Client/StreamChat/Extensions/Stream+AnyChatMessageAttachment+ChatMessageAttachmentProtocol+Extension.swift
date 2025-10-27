@@ -14,6 +14,9 @@ extension AnyChatMessageAttachment: ChatMessageAttachmentProtocol {
 
         switch self.type {
 
+            // MARK: Disabled
+            /// We don't support files yet. altough the logic is available. It should no be implemented.
+            /**
         case .file:
 
             guard let codable = payload.decoded(to: CodableFileAttachment.self) else {
@@ -21,6 +24,7 @@ extension AnyChatMessageAttachment: ChatMessageAttachmentProtocol {
             }
 
             return .file(codable.toLocal())
+             */
 
         case .image:
 

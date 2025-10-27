@@ -28,6 +28,7 @@ public class ChatViewControllerComposer {
         chatChannel: ChatChannel,
         routeHandler: @escaping routeAction,
         messageId: String?,
+        appInfo: AppInfo?,
         channelCreationService: ChannelCreationService = RemoteFindOrCreateChannelService(),
         in navigationController: UINavigationController,
         onWillMoveToParent: ((UIViewController?) -> Void)? = nil,
@@ -35,6 +36,9 @@ public class ChatViewControllerComposer {
 
         // Create detail viewcontroller to be shown
         RouteController.setupRouteAction(action: routeHandler)
+
+        // inject app info
+        InjectedValues[\.appInfo] = appInfo
 
         let viewModel = ChatChannelScreenViewModel(
             isDirectMessageChannel: chatChannel.isDirectMessageChannel
@@ -100,11 +104,17 @@ public class ChatViewControllerComposer {
         messageId: String?,
         navigation: UINavigationController,
         onWillMoveToParent: ((UIViewController?) -> Void)? = nil,
+        appInfo: AppInfo?,
         client: ChatClient,
         channelCreationService: ChannelCreationService = RemoteFindOrCreateChannelService(),
     ) -> UIHostingController<ChatChannelScreen> {
 
         RouteController.setupRouteAction(action: routeHandler)
+
+        // inject app info if there is any
+        if let appInfo {
+            InjectedValues[\.appInfo] = appInfo
+        }
 
         let channelView = ChatChannelScreen(
             with: viewFactory,
@@ -174,6 +184,7 @@ extension ChatViewControllerComposer {
                             routeHandler: routeHandler,
                             messageId: nil,
                             navigation: navigation,
+                            appInfo: nil, // already injected, so not needed
                             client: client
                         )
                         navigation.pushViewController(channelView, animated: true)

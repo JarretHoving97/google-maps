@@ -97,7 +97,7 @@ extension Localized {
                 comment: "System message in the community chat"
             )
         }
-        
+
         static var repeatActivity: String {
             NSLocalizedString(
                 "repeat_activity",
@@ -106,9 +106,38 @@ extension Localized {
                 comment: "System message in the chat"
             )
         }
-        
+
+        // Unsupported attachments
+
+        static var unsupportedAttachmentOnCurrentOS: String {
+            NSLocalizedString(
+                "chat_message_attachment_unsupported_os",
+                tableName: table,
+                bundle: bundle,
+                comment: "Unsupported attachment view in chat message for current OS version"
+            )
+        }
+
+        static var unsupportedAttachmentRequiresAppUpdate: String {
+            NSLocalizedString(
+                "chat_message_attachment_unsupported_app_update",
+                tableName: table,
+                bundle: bundle,
+                comment: "Unsupported attachment view in chat message that requires app update"
+            )
+        }
+
+        static var unsupportedAttachmentOpenAppStore: String {
+            NSLocalizedString(
+                "chat_message_attachment_unsupported_open_app_store",
+                tableName: table,
+                bundle: bundle,
+                comment: "Unsupported attachment view in chat message with action to open App Store"
+            )
+        }
+
         // notices
-        
+
         static var communityAdminOnlyNotice: String {
             String(
                 format: NSLocalizedString(

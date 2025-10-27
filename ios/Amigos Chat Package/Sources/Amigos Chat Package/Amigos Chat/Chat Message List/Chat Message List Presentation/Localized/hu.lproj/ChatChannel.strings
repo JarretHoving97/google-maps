@@ -24,3 +24,9 @@
 
 "chat_channel_community_admin_only_notice" = "Csak a (tár)adminok tehetnek közzé üzeneteket itt.";
 
+// unsupported attachment in message
+"chat_message_attachment_unsupported_os" = "Hoppá! Ez az üzenet olyan elemet tartalmaz, ami nem működik az iOS-verzióddal. Az új funkciók iOS 17-től érhetők el.";
+
+"chat_message_attachment_unsupported_app_update" = "Ez az üzenet csak az alkalmazás legújabb verziójában működik. Koppints ide a legújabb verzió letöltéséhez:";
+
+"chat_message_attachment_unsupported_open_app_store" = "App Store megnyitása";
