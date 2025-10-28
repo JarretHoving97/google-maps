@@ -10,6 +10,8 @@
 		2D493B40E1B7A3A0E35F19BD /* Pods_Amigos.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 48822AA27B06A141DA02D04F /* Pods_Amigos.framework */; };
 		316829482DBA38DA00E9FD9D /* NotificationService.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 316829412DBA38DA00E9FD9D /* NotificationService.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		316829512DBA394B00E9FD9D /* AmigosChat in Frameworks */ = {isa = PBXBuildFile; productRef = 316829502DBA394B00E9FD9D /* AmigosChat */; };
+		317E423F2EB0EEC20022D68D /* FacebookCore in Frameworks */ = {isa = PBXBuildFile; productRef = 317E423E2EB0EEC20022D68D /* FacebookCore */; };
+		317E42412EB0EEC20022D68D /* FacebookLogin in Frameworks */ = {isa = PBXBuildFile; productRef = 317E42402EB0EEC20022D68D /* FacebookLogin */; };
 		31EE02162DE48F13006DDC42 /* AmigosShared in Frameworks */ = {isa = PBXBuildFile; productRef = 31EE02152DE48F13006DDC42 /* AmigosShared */; };
 		31EE02182DE48F4B006DDC42 /* AmigosShared in Frameworks */ = {isa = PBXBuildFile; productRef = 31EE02172DE48F4B006DDC42 /* AmigosShared */; };
 		D793A0B82D478809008AAD5A /* AmigosChat in Frameworks */ = {isa = PBXBuildFile; productRef = D793A0B72D478809008AAD5A /* AmigosChat */; };
@@ -122,9 +124,11 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				317E42412EB0EEC20022D68D /* FacebookLogin in Frameworks */,
 				D793A0B82D478809008AAD5A /* AmigosChat in Frameworks */,
 				31EE02182DE48F4B006DDC42 /* AmigosShared in Frameworks */,
 				2D493B40E1B7A3A0E35F19BD /* Pods_Amigos.framework in Frameworks */,
+				317E423F2EB0EEC20022D68D /* FacebookCore in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -245,6 +249,8 @@
 			packageProductDependencies = (
 				D793A0B72D478809008AAD5A /* AmigosChat */,
 				31EE02172DE48F4B006DDC42 /* AmigosShared */,
+				317E423E2EB0EEC20022D68D /* FacebookCore */,
+				317E42402EB0EEC20022D68D /* FacebookLogin */,
 			);
 			productName = App;
 			productReference = 504EC3041FED79650016851F /* Amigos.app */;
@@ -286,6 +292,9 @@
 				ko,
 			);
 			mainGroup = 504EC2FB1FED79650016851F;
+			packageReferences = (
+				317E423D2EB0EEC20022D68D /* XCRemoteSwiftPackageReference "facebook-ios-sdk" */,
+			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 504EC3051FED79650016851F /* Products */;
 			projectDirPath = "";
@@ -782,10 +791,31 @@
 		};
 /* End XCConfigurationList section */
 
+/* Begin XCRemoteSwiftPackageReference section */
+		317E423D2EB0EEC20022D68D /* XCRemoteSwiftPackageReference "facebook-ios-sdk" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/facebook/facebook-ios-sdk";
+			requirement = {
+				kind = exactVersion;
+				version = 18.0.1;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
 /* Begin XCSwiftPackageProductDependency section */
 		316829502DBA394B00E9FD9D /* AmigosChat */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = AmigosChat;
+		};
+		317E423E2EB0EEC20022D68D /* FacebookCore */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 317E423D2EB0EEC20022D68D /* XCRemoteSwiftPackageReference "facebook-ios-sdk" */;
+			productName = FacebookCore;
+		};
+		317E42402EB0EEC20022D68D /* FacebookLogin */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 317E423D2EB0EEC20022D68D /* XCRemoteSwiftPackageReference "facebook-ios-sdk" */;
+			productName = FacebookLogin;
 		};
 		31EE02152DE48F13006DDC42 /* AmigosShared */ = {
 			isa = XCSwiftPackageProductDependency;
