@@ -36,6 +36,9 @@ target 'Amigos' do
   pod 'GoogleMaps', '~> 10.4.0'
   # Branch.io
   pod 'BranchSDK', '~> 3.2.0'
+  # Facebook Pods
+  pod 'FBSDKCoreKit', '~> 15.0.0'
+  pod 'FBSDKLoginKit', '~> 15.0.0'
   # Miscellaneous
   pod 'SDWebImageSVGCoder', '~> 1.7'
   # Firebase Pods
