@@ -28,9 +28,37 @@ class AmiReactionIconFactory(
             iconResId = R.drawable.reaction_astonished,
             selectedIconResId = R.drawable.reaction_astonished,
         ),
+        SAD_BUT_RELIEVED to ReactionDrawable(
+            iconResId = R.drawable.reaction_sad_but_relieved,
+            selectedIconResId = R.drawable.reaction_sad_but_relieved,
+        ),
+        FOLDED_HANDS to ReactionDrawable(
+            iconResId = R.drawable.reaction_folded_hands,
+            selectedIconResId = R.drawable.reaction_folded_hands,
+        ),
         FIRE to ReactionDrawable(
             iconResId = R.drawable.reaction_fire,
             selectedIconResId = R.drawable.reaction_fire,
+        ),
+        PARTY_POPPER to ReactionDrawable(
+            iconResId = R.drawable.reaction_party_popper,
+            selectedIconResId = R.drawable.reaction_party_popper,
+        ),
+        THUMBS_DOWN to ReactionDrawable(
+            iconResId = R.drawable.reaction_thumbs_down,
+            selectedIconResId = R.drawable.reaction_thumbs_down,
+        ),
+        STAR_STRUCK to ReactionDrawable(
+            iconResId = R.drawable.reaction_star_struck,
+            selectedIconResId = R.drawable.reaction_star_struck,
+        ),
+        CHECK_MARK_BUTTON to ReactionDrawable(
+            iconResId = R.drawable.reaction_check_mark_button,
+            selectedIconResId = R.drawable.reaction_check_mark_button,
+        ),
+        THINKING to ReactionDrawable(
+            iconResId = R.drawable.reaction_thinking,
+            selectedIconResId = R.drawable.reaction_thinking,
         ),
     ),
 ) : ReactionIconFactory {
@@ -50,8 +78,14 @@ class AmiReactionIconFactory(
 
     @Composable
     override fun createReactionIcons(): Map<String, ReactionIcon> {
-        return supportedReactions.mapValues {
-            createReactionIcon(it.key)
+        return listOf(
+            THUMBS_UP,
+            HEART,
+            TEARS_OF_JOY,
+            ASTONISHED,
+            FIRE,
+        ).associateWith {
+            createReactionIcon(it)
         }
     }
 
@@ -60,6 +94,13 @@ class AmiReactionIconFactory(
         private const val HEART: String = "heart"
         private const val TEARS_OF_JOY: String = "tears-of-joy"
         private const val ASTONISHED: String = "astonished"
+        private const val SAD_BUT_RELIEVED: String = "sad-but-relieved"
+        private const val FOLDED_HANDS: String = "folded-hands"
         private const val FIRE: String = "fire"
+        private const val PARTY_POPPER: String = "party-popper"
+        private const val THUMBS_DOWN: String = "thumbs-down"
+        private const val STAR_STRUCK: String = "star-struck"
+        private const val CHECK_MARK_BUTTON: String = "check-mark-button"
+        private const val THINKING: String = "thinking"
     }
 }

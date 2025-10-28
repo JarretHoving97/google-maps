@@ -43,7 +43,7 @@ fun AmiReactionOptions(
 
                 Image(
                     modifier = Modifier
-                        .size(40.dp)
+                        .size(48.dp)
                         .clip(CircleShape)
                         .background(if (isSelected) {
                             CustomTheme.colorScheme.surfaceHard

@@ -2,6 +2,7 @@ package com.whoisup.app.stream
 
 import androidx.annotation.DrawableRes
 import androidx.compose.foundation.background
+import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -110,6 +111,7 @@ fun AmiMessageMenu(
                             .fillMaxWidth()
                             .clip(CircleShape)
                             .background(CustomTheme.colorScheme.surface)
+                            .horizontalScroll(rememberScrollState())
                             .padding(4.dp)
                     )
                 }
