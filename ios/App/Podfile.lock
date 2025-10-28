@@ -11,7 +11,7 @@ PODS:
   - CapacitorCommunityGenericOauth2 (6.0.0):
     - Capacitor
     - OAuthSwift (= 2.2.0)
-  - CapacitorCommunityGoogleMaps (2.0.0-beta.11):
+  - CapacitorCommunityGoogleMaps (2.0.0-beta.12):
     - Capacitor
     - GoogleMaps
     - SDWebImage
@@ -256,7 +256,7 @@ SPEC CHECKSUMS:
   CapacitorCamera: 9bc7b005d0e6f1d5f525b8137045b60cffffce79
   CapacitorCommunityContacts: 9cde99c2cd212f6594677aae542436e2174c4ef2
   CapacitorCommunityGenericOauth2: 1c435de1813fc8a4b842bc1c105e1d3bb8c04506
-  CapacitorCommunityGoogleMaps: 2b72a0d916f1a042657860ead4ad9030509dc0d0
+  CapacitorCommunityGoogleMaps: b2c6f51017052de12c7652a358cb1b316ba92d7d
   CapacitorCommunityInAppReview: e5c93959637a956ce993134734d7df90390ea167
   CapacitorCommunityPrivacyScreen: 5ac93e09bbd78884ca9c8f3c0a9084ec2cc9a4fe
   CapacitorCordova: b33e7f4aa4ed105dd43283acdd940964374a87d9
