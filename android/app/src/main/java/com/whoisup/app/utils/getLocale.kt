@@ -1,5 +1,7 @@
 package com.whoisup.app.utils
 
+import android.content.Context
+import android.content.res.Configuration
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.ReadOnlyComposable
 import androidx.compose.ui.platform.LocalConfiguration
@@ -11,5 +13,13 @@ import java.util.Locale
 @ReadOnlyComposable
 fun getLocale(): Locale {
     val configuration = LocalConfiguration.current
+    return getLocale(configuration)
+}
+
+fun getLocale(context: Context): Locale {
+    return getLocale(context.resources.configuration)
+}
+
+private fun getLocale(configuration: Configuration): Locale {
     return ConfigurationCompat.getLocales(configuration).get(0) ?: LocaleListCompat.getDefault()[0]!!
 }

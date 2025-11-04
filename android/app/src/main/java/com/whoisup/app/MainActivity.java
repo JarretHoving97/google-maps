@@ -20,6 +20,7 @@ public class MainActivity extends BridgeActivity {
     registerPlugin(BranchDeepLinksPlugin.class);
     registerPlugin(ExtendedBranchPlugin.class);
     registerPlugin(ExtendedStreamPlugin.class);
+    registerPlugin(ExtendedDeviceSettingsPlugin.class);
     super.onCreate(savedInstanceState);
 
     callbackManager = CallbackManager.Factory.create();
