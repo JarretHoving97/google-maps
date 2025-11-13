@@ -10,11 +10,13 @@ import SwiftUI
 extension View {
 
     func messageGestures(
+        disabled: Bool = false,
         onSwipe: @escaping () -> Void,
         onLongPress: @escaping () -> Void
     ) -> some View {
         self.modifier(
             MessageGesturesModifier(
+                disabled: disabled,
                 onSwipe: onSwipe,
                 onLongPress: onLongPress
             )

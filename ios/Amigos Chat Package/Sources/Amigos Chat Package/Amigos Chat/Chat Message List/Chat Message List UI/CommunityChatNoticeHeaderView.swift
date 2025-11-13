@@ -25,9 +25,8 @@ struct CommunityChatNoticeHeaderView: View {
         }
         .padding(16)
         .frame(maxWidth: .infinity)
-        .background(Color.white)
+        .background(Color(.noticeHeader))
         .cornerRadius(12)
-        .shadow(color: Color(red: 0, green: 0, blue: 0, opacity: 0.04), radius: 8, x: 0, y: 2)
         .padding(12)
     }
 

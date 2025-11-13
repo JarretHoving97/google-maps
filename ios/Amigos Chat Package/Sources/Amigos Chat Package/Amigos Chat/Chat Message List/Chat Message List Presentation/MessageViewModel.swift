@@ -80,8 +80,6 @@ public class MessageViewModel: ObservableObject {
         return message.user
     }
 
-    let isFirst: Bool
-
     let forceLeftToRight: Bool
 
     let imageLoader: ImageLoader
@@ -96,6 +94,12 @@ public class MessageViewModel: ObservableObject {
 
     let message: Message
 
+    private let position: MessagePosition
+
+    var messageShape: BubbleShape {
+        return position.getShape(isSentByCurrentUser: isSentByCurrentUser)
+    }
+
     /// used when we want other than the default `messageResolver` behaviour
     public init(
         message: Message,
@@ -104,7 +108,7 @@ public class MessageViewModel: ObservableObject {
         imageCDN: ImageCDNhandler = MockImageCDN(),
         videoPreviewLoader: PreviewVideoLoader = DefaultPreviewVideoLoader(),
         pollAttachment: PollMessageViewModel? = nil,
-        isFirst: Bool = true,
+        messagePosition: MessagePosition = .alone,
         forceLeftToRight: Bool = false
     ) {
         self.message = message
@@ -112,9 +116,9 @@ public class MessageViewModel: ObservableObject {
         self.imageLoader = imageLoader
         self.imageCDN = imageCDN
         self.videoPreviewLoader = videoPreviewLoader
-        self.isFirst = isFirst
         self.forceLeftToRight = forceLeftToRight
         self.pollAttachment = pollAttachment
+        self.position = messagePosition
     }
 
     public func resolveMessageType() {
@@ -161,7 +165,7 @@ public extension MessageViewModel {
         imageCDN: ImageCDNhandler = MockImageCDN(),
         videoPreviewLoader: PreviewVideoLoader = DefaultPreviewVideoLoader(),
         pollAttachment: PollMessageViewModel? = nil,
-        isFirst: Bool = true,
+        messagePosition: MessagePosition = .alone,
         forceLeftToRight: Bool = false
     ) {
         let resolver = MessageTypeResolver(message: message)
@@ -173,7 +177,7 @@ public extension MessageViewModel {
             imageCDN: imageCDN,
             videoPreviewLoader: videoPreviewLoader,
             pollAttachment: pollAttachment,
-            isFirst: isFirst,
+            messagePosition: messagePosition,
             forceLeftToRight: forceLeftToRight
         )
     }

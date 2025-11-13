@@ -17,9 +17,9 @@ struct PollMessageView: View {
 
     private let defaultTextPadding = EdgeInsets(
         top: 12,
-        leading: 16,
-        bottom: 16,
-        trailing: 16
+        leading: 14,
+        bottom: 12,
+        trailing: 14
     )
 
     private let pollOptionAllVotesViewBuilder: PollOptionAllVotesViewBuilder?
@@ -29,20 +29,13 @@ struct PollMessageView: View {
         self.pollOptionAllVotesViewBuilder = pollOptionAllVotesViewBuilder
     }
 
-    private var bubbleInfo: MessageBubbleViewModifier.MessageBubbleModel {
-        .init(
-            isSentByCurrentUser: viewModel.isSentByCurrentUser,
-            isFirst: true,
-            forceLeftToRight: false,
-        )
-    }
-
     private var bubbleResolvedModifier: ResolvedViewModifier {
         return ResolvedViewModifier(
             MessageBubbleViewModifier(
                 contentInsets: defaultTextPadding,
+                isSentByCurrentUser: viewModel.isSentByCurrentUser,
                 hidden: false,
-                model: bubbleInfo
+                shape: BubbleShape(cornerRadius: 16)
             )
         )
     }

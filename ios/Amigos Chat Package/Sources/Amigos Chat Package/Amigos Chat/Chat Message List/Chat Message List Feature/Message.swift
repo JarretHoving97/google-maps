@@ -59,6 +59,8 @@ public struct Message {
 
     public let poll: LocalPoll?
 
+    public let textUpdatedAt: Date?
+
     let createdAt: Date
 
     public init(
@@ -78,7 +80,8 @@ public struct Message {
         type: MessageType = .regular,
         poll: LocalPoll? = nil,
         replyCount: Int = 0,
-        threadParticipants: [LocalChatUser] = []
+        threadParticipants: [LocalChatUser] = [],
+        textUpdatedAt: Date? = nil
 
     ) {
         self.id = id
@@ -98,6 +101,7 @@ public struct Message {
         self.poll = poll
         self.replyCount = replyCount
         self.threadParticipants = threadParticipants
+        self.textUpdatedAt = textUpdatedAt
     }
 }
 

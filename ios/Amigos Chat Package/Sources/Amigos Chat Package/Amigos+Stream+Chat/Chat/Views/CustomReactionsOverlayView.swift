@@ -75,7 +75,7 @@ public struct CustomReactionsOverlayView<Factory: ViewFactory>: View {
             let pollViewData = messageDisplayInfo.pollViewData
 
             ZStack(alignment: .topLeading) {
-                VisualEffectBlur(blurStyle: .systemThinMaterialLight)
+                VisualEffectBlur(blurStyle: .systemThinMaterial)
                     .ignoresSafeArea()
                     .onTapGesture { dismissReactionsOverlay { } }
                     .alert(isPresented: $viewModel.errorShown) { Alert.defaultErrorAlert }

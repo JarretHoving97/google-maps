@@ -125,8 +125,6 @@ struct CustomSafetyCheckNotice: View {
                             updateChannel: updateChannel
                         )
                     }
-
-
                     AmiThumbButton(positive: true) {
                         updateChannel(.positive)
                     }
@@ -134,9 +132,8 @@ struct CustomSafetyCheckNotice: View {
             }
             .frame(maxWidth: .infinity)
             .padding(.all, 12)
-            .background(Color.white)
+            .background(Color(.noticeHeader))
             .clipShape(RoundedRectangle(cornerRadius: 12))
-            .modifier(ShadowModifier())
             .padding(.all, 12)
         }
     }

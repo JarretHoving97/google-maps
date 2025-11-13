@@ -42,7 +42,6 @@ class MessageContainerViewModel: ObservableObject {
 
     let message: Message
     let showsAllInfo: Bool
-    let isLast: Bool
     let isDirectMessageChat: Bool
 
     var imageLoader: ImageLoader
@@ -59,8 +58,10 @@ class MessageContainerViewModel: ObservableObject {
         return imageCDN.thumbnailURL(originalURL: url, preferredSize: CGSize(width: 36, height: 36))
     }()
 
-    var time: String {
-        return dateFormatter.string(from: message.createdAt)
+    var timeLabel: String {
+        let isEdited = message.textUpdatedAt != nil
+        let dateLabel = dateFormatter.string(from: message.createdAt)
+        return isEdited ? "\(tr("message.cell.edited")) - \(dateLabel)" : dateLabel
     }
 
     var isRightAligned: Bool {
@@ -93,7 +94,6 @@ class MessageContainerViewModel: ObservableObject {
 
     var showFooterView: Bool {
         showsAllInfo &&
-        !message.isDeleted &&
         !isAnonymous &&
         !isSystemMessage
     }
@@ -112,6 +112,10 @@ class MessageContainerViewModel: ObservableObject {
 
     private var isSystemMessage: Bool {
         return message.type == .system
+    }
+
+    var isDisabled: Bool {
+        return message.isDeleted
     }
 
     @MainActor
@@ -135,10 +139,12 @@ class MessageContainerViewModel: ObservableObject {
 
     private let isReadByAllHandler: IsReadByAllHandler
 
+    private let messagePosition: (Message) -> MessagePosition
+
     init(
         message: Message,
         showsAllInfo: Bool,
-        isLast: Bool,
+        messagePosition: @escaping (Message) -> MessagePosition = {_ in .alone},
         isDirectMessageChat: Bool,
         isRead: Bool = false,
         pollController: PollControllerProtocol? = nil,
@@ -150,12 +156,12 @@ class MessageContainerViewModel: ObservableObject {
     ) {
         self.message = message
         self.showsAllInfo = showsAllInfo
+        self.messagePosition = messagePosition
         self.imageLoader = imageLoader
         self.isRead = isRead
         self.isReadByAllHandler = isReadByAllHandler
         self.imageCDN = imageCDN
         self.videoPreviewLoader = videoPreviewLoader
-        self.isLast = isLast
         self.isDirectMessageChat = isDirectMessageChat
         self.pollController = pollController
         self.isInThread = isInThread
@@ -163,5 +169,16 @@ class MessageContainerViewModel: ObservableObject {
 
     var isReadByAll: Bool {
         return isReadByAllHandler(message)
+    }
+
+    var showNameForMessageGroup: Bool {
+        return !isDirectMessageChat &&
+        !message.isSentByCurrentUser &&
+        !isSystemMessage &&
+        (position == .top || position == .alone)
+    }
+
+    var position: MessagePosition {
+        return messagePosition(message)
     }
 }

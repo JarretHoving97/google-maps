@@ -16,36 +16,36 @@ struct MessageBottomReactionsView: View {
     }
 
     var body: some View {
-        HStack(spacing: 4) {
+        HStack(alignment: .center, spacing: 4) {
             ForEach(viewModel.reactions) { reaction in
-                HStack(spacing: 0) {
+                HStack(alignment: .center, spacing: 2) {
                     Text(reaction.icon)
-                        .font(.system(size: 12))
-                        .minimumScaleFactor(0.5)
+                        .font(.custom(size: 13, weight: .regular))
 
                     if reaction.count > 1 {
                         Text(reaction.count.description)
-                            .font(Font.custom(size: 10, weight: ThemeFontWeight.medium))
-                            .foregroundStyle(.black)
+                            .font(Font.custom(size: 11, weight: .medium))
+                            .foregroundStyle(Color(.gray))
                             .padding(.trailing, 2)
                     }
                 }
             }
         }
-        .padding(EdgeInsets(top: 2, leading: 4, bottom: 2, trailing: 4))
-        .reactionsBubble(background: reactionsBgColor)
-        .overlay(
-            RoundedRectangle(cornerRadius: 12)
-                .stroke(borderColor, lineWidth: 1)
-        )
+        .padding(4)
+        .reactionsBubble(background: Color(.reactionBubbleBackground))
+        .overlay(overlayView)
     }
 
-    private var borderColor: Color {
-        Color(hex: "#DBDDE1")
-    }
-
-    private var reactionsBgColor: UIColor {
-        UIColor(hexString: "#F2F2F2", alpha: 1)!
+    private var overlayView: some View {
+        Group {
+            if viewModel.reactions.count == 1 && viewModel.reactions[0].count == 1 {
+                Circle()
+                    .stroke(.white, lineWidth: 2)
+            } else {
+                RoundedRectangle(cornerRadius: 16)
+                    .stroke(.white, lineWidth: 2)
+            }
+        }
     }
 }
 

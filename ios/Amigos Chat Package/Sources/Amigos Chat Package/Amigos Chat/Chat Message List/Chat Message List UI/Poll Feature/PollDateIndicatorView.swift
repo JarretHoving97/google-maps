@@ -9,12 +9,10 @@ import SwiftUI
 
 struct PollDateIndicatorView: View {
 
-    let localeSettings: LocaleSettings = .shared
-
     let date: Date
 
     var formattedDate: String {
-        formatRelative(date: date, locale: localeSettings.locale)
+        formatRelative(date: date, locale: .autoupdatingCurrent)
     }
 
     var body: some View {

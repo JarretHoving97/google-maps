@@ -22,17 +22,11 @@ struct LocalDeletedMessageView: View {
                 Text(tr("message.deleted-message-placeholder"))
                     .font(.caption)
                     .italic()
-
-                Image(systemName: "trash.fill")
-                    .resizable()
-                    .scaledToFit()
-                    .font(.system(size: 12, weight: .semibold))
-                    .frame(width: 12, height: 12, alignment: .center)
+                    .foregroundColor(isSentByCurrentUser ? .white : Color(.darkGray))
             }
             .padding(.horizontal, 16)
             .padding(.vertical, 8)
-            .background(Color("Grey Light"))
-            .foregroundColor(Color(.black.withAlphaComponent(0.8)))
+            .background(Color(isSentByCurrentUser ? Color(.purple).opacity(0.75) : Color(.greyLight).opacity(0.75)))
             .cornerRadius(12)
             .accessibilityIdentifier("DeletedMessageText")
 
@@ -42,8 +36,6 @@ struct LocalDeletedMessageView: View {
                         Spacer()
                     }
                 }
-                .foregroundColor(Color(.gray))
-
             }
         }
         .accessibilityElement(children: .contain)
@@ -55,5 +47,10 @@ struct LocalDeletedMessageView: View {
     LocalDeletedMessageView(
         isRightAligned: false,
         isSentByCurrentUser: true
+    )
+
+    LocalDeletedMessageView(
+        isRightAligned: false,
+        isSentByCurrentUser: false
     )
 }

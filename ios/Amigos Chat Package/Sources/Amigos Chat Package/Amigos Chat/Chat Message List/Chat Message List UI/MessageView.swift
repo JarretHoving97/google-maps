@@ -22,14 +22,21 @@ struct MessageView: View {
 
     private let defaultTextPadding = EdgeInsets(
         top: 8,
-        leading: 16,
+        leading: 12,
         bottom: 8,
-        trailing: 16
+        trailing: 12,
     )
 
     private(set) var pollOptionViewBuilder: PollOptionAllVotesViewBuilder?
 
     let maxWidth: CGFloat
+
+    // Make attachments align with the text on the left inside the bubble.
+    // The text has a leading inset (defaultTextPadding.leading), so we subtract it
+    // from maxWidth to give media the same starting x-position.
+    private var attachmentWidth: CGFloat {
+        return maxWidth - defaultTextPadding.leading
+    }
 
     init(
         viewModel: MessageViewModel,
@@ -79,14 +86,6 @@ struct MessageView: View {
             .modifier(bubbleResolvedModifier)
         }
     }
-
-    private var bubbleInfo: MessageBubbleViewModifier.MessageBubbleModel {
-        .init(
-            isSentByCurrentUser: viewModel.isSentByCurrentUser,
-            isFirst: viewModel.isFirst,
-            forceLeftToRight: viewModel.forceLeftToRight
-        )
-    }
 }
 
 // MARK: View Components
@@ -113,7 +112,7 @@ extension MessageView {
                 .multilineTextAlignment(.leading)
                 /// when `attachmentsPadding` is zero. We need to add an other padding because we don't want the same padding when there are any attachments or quoted messages
                 .padding(attachmentsPadding == EdgeInsets(.zero) ? defaultTextPadding : EdgeInsets(.zero))
-                .frame(width: viewModel.hasAttachment ? maxWidth : nil, alignment: .leading)
+                .frame(width: viewModel.hasAttachment ? attachmentWidth : nil, alignment: .leading)
             } else {
                 EmptyView()
             }
@@ -171,7 +170,7 @@ extension MessageView {
                     user: viewModel.author,
                     sources: viewModel.mediaAttachments,
                     isSentByCurrentUser: viewModel.isSentByCurrentUser,
-                    width: maxWidth
+                    width: attachmentWidth
                 )
                 .clipShape(
                     RoundedRectangle(
@@ -190,7 +189,7 @@ extension MessageView {
             if let viewData = viewModel.singleMediaAttachment {
                 SingleMediaAttachmentView(
                     viewModel: viewData,
-                    maxWidth: maxWidth
+                    maxWidth: attachmentWidth
                 )
             }
         }
@@ -200,8 +199,9 @@ extension MessageView {
         return ResolvedViewModifier(
             MessageBubbleViewModifier(
                 contentInsets: attachmentsPadding,
+                isSentByCurrentUser: viewModel.isSentByCurrentUser,
                 hidden: viewModel.bubbleHidden,
-                model: bubbleInfo
+                shape: viewModel.messageShape
             )
         )
     }
@@ -323,7 +323,6 @@ extension MessageView {
                 ]
             ),
             showsAllInfo: true,
-            isLast: true,
             isDirectMessageChat: false,
 
         ),

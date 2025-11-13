@@ -9,26 +9,33 @@ import SwiftUI
 
 /// in iOS 18 and later, the swipeable modifier does not conflict with the scroll view.
 struct MessageGesturesModifier: ViewModifier {
+    let disabled: Bool
     let onSwipe: () -> Void
     let onLongPress: () -> Void
 
     func body(content: Content) -> some View {
         Group {
-            if #available(iOS 18, *) {
+            if disabled {
+                // When disabled, prevent any interaction from reaching the content or overlay gestures.
                 content
-                    .swipeable(onSwipeCompleted: onSwipe)
-                    .simultaneousGesture(
-                        LongPressGesture(minimumDuration: 0.2, maximumDistance: 20)
-                            .onEnded { _ in onLongPress() }
-                    )
+                    .allowsHitTesting(false)
             } else {
-                content
-                    .overlay(LongTapGesureView(callback: onLongPress))
+                if #available(iOS 18, *) {
+                    content
+                        .swipeable(onSwipeCompleted: onSwipe)
+                        .simultaneousGesture(
+                            LongPressGesture(minimumDuration: 0.2, maximumDistance: 20)
+                                .onEnded { _ in onLongPress() }
+                        )
+                } else {
+                    // On older iOS versions, we attach a UIKit long-press recognizer via overlay.
+                    content
+                        .overlay(LongTapGesureView(callback: onLongPress))
+                }
             }
         }
     }
 }
-
 
 /// A work around for long press gesture on iOS versions before 18.0.
 /// So it does not conflict with the scrollview.
@@ -66,4 +73,3 @@ fileprivate struct LongTapGesureView: UIViewRepresentable {
         Coordinator(callback: callback)
     }
 }
-

@@ -11,11 +11,11 @@ import SwiftUI
 public struct ReactionsBubbleModifier: ViewModifier {
 
     private let cornerRadius: CGFloat = 18
-    let color: UIColor
+    let color: Color
 
     public func body(content: Content) -> some View {
         content
-            .background(Color(uiColor: color))
+            .background(color)
             .clipShape(
                 BubbleBackgroundShape(
                     cornerRadius: cornerRadius,
@@ -30,7 +30,7 @@ public struct ReactionsBubbleModifier: ViewModifier {
 }
 
 extension View {
-    public func reactionsBubble(background: UIColor? = nil) -> some View {
+    public func reactionsBubble(background: Color? = nil) -> some View {
         modifier(ReactionsBubbleModifier(color: background ?? .clear))
     }
 }

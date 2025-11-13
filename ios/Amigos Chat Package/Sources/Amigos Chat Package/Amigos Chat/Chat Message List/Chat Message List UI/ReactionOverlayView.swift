@@ -141,7 +141,6 @@ public struct ReactionsHStack<Content: View>: View {
                 isDeleted: false
             ),
             showsAllInfo: true,
-            isLast: true,
             isDirectMessageChat: false
         ), pollOptionAllVotesViewBuilder: nil
     )

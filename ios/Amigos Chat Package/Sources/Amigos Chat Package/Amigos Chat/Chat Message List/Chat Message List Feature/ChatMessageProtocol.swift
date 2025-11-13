@@ -49,6 +49,7 @@ public protocol ChatMessageProtocol {
     var localPoll: LocalPoll? { get }
     var replyCount: Int { get }
     var localThreadParticipants: [LocalChatUser] { get }
+    var textUpdatedAt: Date? { get }
 }
 
 public protocol ChatMessageAttachmentProtocol {

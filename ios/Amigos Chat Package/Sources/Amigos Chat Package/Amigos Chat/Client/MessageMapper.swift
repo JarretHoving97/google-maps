@@ -45,7 +45,8 @@ public class MessageMapper {
             type: MessageType(rawValue: remoteMessage.messageType) ?? .regular,
             poll: remoteMessage.localPoll,
             replyCount: remoteMessage.replyCount,
-            threadParticipants: remoteMessage.localThreadParticipants
+            threadParticipants: remoteMessage.localThreadParticipants,
+            textUpdatedAt: remoteMessage.textUpdatedAt
         )
     }
 }

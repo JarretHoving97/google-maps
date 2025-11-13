@@ -32,7 +32,9 @@ struct MessageContainerView: View {
 
     var body: some View {
 
-        HStack(alignment: .bottom) {
+        let alignment: HorizontalAlignment = viewModel.isRightAligned ? .trailing : .leading
+
+        HStack(alignment: .bottom, spacing: 6) {
 
             if viewModel.showLeftPadding {
                 avatarView
@@ -41,12 +43,22 @@ struct MessageContainerView: View {
             if viewModel.isRightAligned {
                 MessageSpacer(spacerWidth: defaultSpacerWidth(width))
             }
+
             VStack(
-                alignment: viewModel.isRightAligned ? .trailing : .leading,
-                spacing: 6
+                alignment: alignment,
+                spacing: 0
             ) {
-                content
-                footerView
+
+                nameLabel
+
+                VStack(
+                    alignment: alignment,
+                    spacing: 2
+                ) {
+                    content
+                    threadRepliesView
+                    footerView
+                }
             }
 
             if !viewModel.isRightAligned {
@@ -54,9 +66,7 @@ struct MessageContainerView: View {
             }
         }
         .padding(.horizontal, 12)
-        .padding(.bottom, viewModel.showsAllInfo ? 20 : 2)
-        .padding(.top, viewModel.isLast ? 20 : 0)
-        .padding(.bottom, !viewModel.message.reactions.isEmpty ? 16 : 0)
+        .padding(.bottom, viewModel.showFooterView ? 20 : 2)
     }
 
     public var defaultSpacerWidth: (CGFloat) -> (CGFloat) {
@@ -127,12 +137,13 @@ extension MessageContainerView {
                         imageCDN: viewModel.imageCDN,
                         videoPreviewLoader: viewModel.videoPreviewLoader,
                         pollAttachment: viewModel.messagePollViewData,
-                        isFirst: viewModel.showsAllInfo,
-                    ),
-                    maxWidth: contentWidth,
-                    onQuotedMessageTap: gestureCallbacks.onQuotedMessageTap
+                        messagePosition: viewModel.position
+                        ),
+                        maxWidth: contentWidth,
+                        onQuotedMessageTap: gestureCallbacks.onQuotedMessageTap
                 )
                 .messageGestures(
+                    disabled: viewModel.isDisabled,
                     onSwipe: { gestureCallbacks.onMessageReply(viewModel.message.id) },
                     onLongPress: { longTapGesture() }
                 )
@@ -164,23 +175,12 @@ extension MessageContainerView {
                     MessageBottomReactionsView(
                         viewModel: MessageBottomReactionsViewModel(reactions: viewModel.reactions)
                     )
-                    .padding(.top, -4)
-                    .padding(.horizontal, 10)
+                    .padding(.top, -6)
+                    .padding(.horizontal, 8)
 
                     .onTapGesture {
                         gestureCallbacks.onReactionsTap(MessageReactionsInfo(id: viewModel.message.id))
                     }
-                }
-
-                if viewModel.showMessageThreadReplies {
-                    MessageThreadParticipantView(
-                        viewData: viewModel.activeThreadViewData,
-                        isRightAligned: viewModel.isRightAligned
-                    )
-                    .padding(.top, 4)
-                    .padding(.bottom, !viewModel.showsAllInfo ? 10 : 0)
-                    .onTapGesture(perform: { gestureCallbacks.onThreadRepliesTap(viewModel.message.id)})
-                    .frame(maxWidth: .infinity)
                 }
             }
         }
@@ -201,7 +201,10 @@ extension MessageContainerView {
     @ViewBuilder private func groupChatFooter(isCurrentUser: Bool) -> some View {
 
         if isCurrentUser {
-            HStack(spacing: 4) {
+            HStack(spacing: 6) {
+
+                Spacer()
+
                 ReadIndicatorView(
                     viewModel: ReadIndicatorViewModel(
                         isRead: viewModel.isRead,
@@ -210,23 +213,18 @@ extension MessageContainerView {
                     )
                 )
                 timeView
+                    .padding(.trailing, 8)
             }
-
         } else {
 
             HStack(spacing: 0) {
 
                 VStack(alignment: .leading, spacing: 4) {
-                    Text(viewModel.author.name)
-                        .font(Font.custom(size: 12, weight: .bold))
-                        .lineLimit(1)
-                        .foregroundColor(colorByString(viewModel.author.name))
-                        .accessibilityIdentifier("MessageDateView")
-
                     timeView
+                        .padding(.leading, 8)
                 }
+                .accessibilityIdentifier("MessageDateView")
             }
-
         }
     }
 
@@ -246,7 +244,7 @@ extension MessageContainerView {
     }
 
     private var timeView: some View {
-        Text(viewModel.time)
+        Text(viewModel.timeLabel)
             .font(.footnote1)
             .foregroundColor(Color(.black).opacity(0.6))
     }
@@ -266,6 +264,30 @@ extension MessageContainerView {
                         .frame(width: avatarSize)
                 }
             }
+        }
+    }
+
+    @ViewBuilder
+    private var nameLabel: some View {
+        if viewModel.showNameForMessageGroup {
+            Text(viewModel.author.name)
+                .font(Font.custom(size: 12, weight: .bold))
+                .lineLimit(1)
+                .foregroundColor(colorByString(viewModel.author.name))
+                .padding(.horizontal, 8)
+        }
+    }
+
+    @ViewBuilder private var threadRepliesView: some View {
+        if viewModel.showMessageThreadReplies {
+            MessageThreadParticipantView(
+                viewData: viewModel.activeThreadViewData,
+                isRightAligned: viewModel.isRightAligned
+            )
+            .padding(.horizontal, 8)
+            .padding(.bottom, !viewModel.showFooterView ? 8 : 0)
+            .onTapGesture(perform: { gestureCallbacks.onThreadRepliesTap(viewModel.message.id)})
+            .frame(maxWidth: .infinity)
         }
     }
 }
@@ -321,13 +343,9 @@ struct MessageThreadParticipantView: View {
                     name: "Ilon",
                     imageUrl: ImageURLExamples.portraitImageUrl
                 ),
-                poll: LocalPoll(
-                    name: "Waar gaan we drinken vanavond?",
-                    options: LocalPollOption.mockOptions
-                )
+                message: "Hallo there!"
             ),
-            showsAllInfo: true,
-            isLast: true,
+            showsAllInfo: true, messagePosition: {_ in .top},
             isDirectMessageChat: false,
             isRead: false,
             pollController: MockPollController(localOwnVotes: [])
@@ -344,26 +362,17 @@ struct MessageThreadParticipantView: View {
                     name: "Ilon",
                     imageUrl: ImageURLExamples.portraitImageUrl
                 ),
-                isSentByCurrentUser: true,
-                message: "Hello i'm under the water",
-                reactions: [ReactionType(rawValue: "haha"): 1],
+                isSentByCurrentUser: false,
+                message: "",
                 isDeleted: false,
-                replyCount: 4,
-                threadParticipants: [
-                    LocalChatUser(
-                        id: UUID().uuidString,
-                        name: "",
-                        imageUrl: ImageURLExamples.landscapeImageUrl
-                    ),
-                    LocalChatUser(
-                        id: UUID().uuidString,
-                        name: "",
-                        imageUrl: ImageURLExamples.landscapeImageUrl
-                    ),
-                ]
+                attachments: [.image(
+                    ImageAttachment(
+                        imageUrl: ImageURLExamples.landscapeImageUrl,
+                        uploadingState: .none
+                    )
+                )],
             ),
             showsAllInfo: true,
-            isLast: true,
             isDirectMessageChat: false
         ),
         width: UIScreen.main.bounds.width,
@@ -381,7 +390,7 @@ struct MessageThreadParticipantView: View {
                     imageUrl: ImageURLExamples.portraitImageUrl
                 ),
                 isSentByCurrentUser: false,
-                message: TextExamples.largeMessageText,
+                message: "a",
                 isDeleted: false,
                 layoutKey: "system",
                 replyCount: 4,
@@ -390,12 +399,12 @@ struct MessageThreadParticipantView: View {
                         id: UUID().uuidString,
                         name: "",
                         imageUrl: ImageURLExamples.landscapeImageUrl
-                    ),
-                    LocalChatUser(
+                    ),           LocalChatUser(
                         id: UUID().uuidString,
                         name: "",
                         imageUrl: ImageURLExamples.landscapeImageUrl
-                    ),           LocalChatUser(
+                    ),
+                    LocalChatUser(
                         id: UUID().uuidString,
                         name: "",
                         imageUrl: ImageURLExamples.landscapeImageUrl
@@ -403,7 +412,6 @@ struct MessageThreadParticipantView: View {
                 ]
             ),
             showsAllInfo: true,
-            isLast: true,
             isDirectMessageChat: false
         ),
         width: UIScreen.main.bounds.width,

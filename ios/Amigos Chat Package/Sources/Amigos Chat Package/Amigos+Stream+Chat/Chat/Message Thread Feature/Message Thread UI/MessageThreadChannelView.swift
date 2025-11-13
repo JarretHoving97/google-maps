@@ -178,8 +178,8 @@ extension MessageThreadChannelView {
                         viewModel: MessageContainerViewModel(
                             message: mapper.map(message),
                             showsAllInfo: true,
-                            isLast: true,
-                            isDirectMessageChat: true,
+                            messagePosition: { _ in .alone }, // show name
+                            isDirectMessageChat: false,
                             isRead: false,
                             pollController: viewModel.repliedMessagePollController
                         ),
@@ -198,7 +198,8 @@ extension MessageThreadChannelView {
 
                 Divider()
             }
-            .background(Color(.greyLight))
+            .padding(.top, 20)
+            .background(Color(uiColor: UIColor(hexString: "#FAFAFA", alpha: 1)!))
             .flippedUpsideDown()
         }
     }
@@ -224,7 +225,7 @@ extension MessageThreadChannelView {
                                 messageList: viewModel.messages.map { mapper.map($0) },
                                 messagesGroupingInfo: channelViewModel.messagesGroupingInfo,
                                 isDirectMessageChat: false,
-                                firstUnreadMessageId: nil,
+                                firstUnreadMessageId: viewModel.channelController.firstUnreadMessageId,
                                 isReadHandler: DefaultsHasSeenHandler(),
                                 config: MessageListDisplayConfiguration(),
                                 isInThread: true,
@@ -242,6 +243,8 @@ extension MessageThreadChannelView {
                             pollOptionAllVotesViewBuilder: nil, // TBA
                         )
                     }
+                    .padding(.bottom, 10)
+
                     headerView()
                 }
             }

@@ -8,64 +8,31 @@
 import SwiftUI
 
 struct MessageBubbleViewModifier: ViewModifier {
-    let model: MessageBubbleModel
-    let cornerRadius: CGFloat = 18
+    let shape: BubbleShape
+    let isSentByCurrentUser: Bool
     let contentInsets: EdgeInsets
     let hidden: Bool
 
-    init(contentInsets: EdgeInsets, hidden: Bool = false, model: MessageBubbleModel) {
-        self.model = model
+    init(contentInsets: EdgeInsets, isSentByCurrentUser: Bool, hidden: Bool = false, shape: BubbleShape) {
+        self.shape = shape
         self.contentInsets = contentInsets
         self.hidden = hidden
-    }
-
-    private var corners: UIRectCorner {
-        bubbleCorners(
-            isFirst: model.isFirst,
-            forceLeftToRight: model.forceLeftToRight
-        )
+        self.isSentByCurrentUser = isSentByCurrentUser
     }
 
     private var background: some View {
-        model.isSentByCurrentUser ? Color(.purple) : .white
+        isSentByCurrentUser ? Color(.purple) : Color(.backgroundBubble)
     }
 
     func body(content: Content) -> some View {
         content
             .padding(contentInsets)
             .background(background.opacity(hidden ? 0 : 1))
-            .clipShape(
-                BubbleBackgroundShape(
-                    cornerRadius: !hidden ? cornerRadius : 0,
-                    corners: corners
-                )
-            )
-            .shadow(
-                color: Color(red: 0, green: 0, blue: 0, opacity: 0.04),
-                radius: 8, x: 0, y: 2
-            )
+            .clipShape(shape)
     }
 }
 
 extension MessageBubbleViewModifier {
-
-    /// Returns the default corners that will be rounded by the message bubble modifier.
-    /// - Parameters:
-    ///  - isFirst: whether the message is first.
-    ///  - forceLeftToRight: whether left to right should be forced.
-    /// - Returns: the corners to be rounded in the message cell.
-    private func bubbleCorners(isFirst: Bool, forceLeftToRight: Bool) -> UIRectCorner {
-        if !isFirst {
-            return [.topLeft, .topRight, .bottomLeft, .bottomRight]
-        }
-
-        if model.isSentByCurrentUser && !model.forceLeftToRight {
-            return [.topLeft, .topRight, .bottomLeft]
-        } else {
-            return [.topLeft, .topRight, .bottomRight]
-        }
-    }
-
     /// Shape that allows rounding of arbitrary corners.
     public struct BubbleBackgroundShape: Shape {
         var cornerRadius: CGFloat
@@ -83,17 +50,38 @@ extension MessageBubbleViewModifier {
     }
 }
 
-extension MessageBubbleViewModifier {
+public enum MessagePosition {
 
-    public struct MessageBubbleModel {
-        let isSentByCurrentUser: Bool
-        let isFirst: Bool
-        let forceLeftToRight: Bool
+    case top
+    case middle
+    case bottom
+    case alone
 
-        public init(isSentByCurrentUser: Bool, isFirst: Bool, forceLeftToRight: Bool) {
-            self.isFirst = isFirst
-            self.forceLeftToRight = forceLeftToRight
-            self.isSentByCurrentUser = isSentByCurrentUser
+    func getShape(isSentByCurrentUser: Bool) -> BubbleShape {
+        switch self {
+        case .top:
+            if isSentByCurrentUser {
+                BubbleShape(topLeft: 16, topRight: 16, bottomLeft: 16, bottomRight: 3)
+            } else {
+                BubbleShape(topLeading: 16, topTrailing: 16, bottomLeading: 3, bottomTrailing: 16)
+            }
+
+        case .middle:
+            if isSentByCurrentUser {
+                BubbleShape(topLeft: 16, topRight: 3, bottomLeft: 16, bottomRight: 3)
+            } else {
+                BubbleShape(topLeft: 3, topRight: 16, bottomLeft: 3, bottomRight: 16)
+            }
+
+        case .bottom:
+            if isSentByCurrentUser {
+                BubbleShape(topLeft: 16, topRight: 3, bottomLeft: 16, bottomRight: 16)
+            } else {
+                BubbleShape(topLeft: 3, topRight: 16, bottomLeft: 16, bottomRight: 16)
+            }
+
+        case .alone:
+            BubbleShape(cornerRadius: 16)
         }
     }
 }

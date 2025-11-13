@@ -10,20 +10,16 @@ extension View {
 
     func chatBubble(
         isSentByCurrentUser: Bool,
-        isFirst: Bool,
+        messagePosition: MessagePosition,
         forceLeftToRight: Bool,
         contentInsets: EdgeInsets
     ) -> some View {
-        modifier(MessageBubbleViewModifier(
-            contentInsets: contentInsets, model: .init(
+        modifier(
+            MessageBubbleViewModifier(
+                contentInsets: contentInsets,
                 isSentByCurrentUser: isSentByCurrentUser,
-                isFirst: isFirst,
-                forceLeftToRight: forceLeftToRight)
+                shape: messagePosition.getShape(isSentByCurrentUser: isSentByCurrentUser)
             )
         )
-    }
-
-    func chatBubble(_ model: MessageBubbleViewModifier.MessageBubbleModel, contentInsets: EdgeInsets) -> some View {
-        modifier(MessageBubbleViewModifier(contentInsets: contentInsets, model: model))
     }
 }

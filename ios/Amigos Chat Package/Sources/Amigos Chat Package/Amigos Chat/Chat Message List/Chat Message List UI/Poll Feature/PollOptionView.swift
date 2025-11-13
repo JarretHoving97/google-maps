@@ -28,19 +28,24 @@ struct PollOptionView: View {
         HStack(alignment: .center, spacing: checkboxButtonSpacing) {
 
             if !viewModel.pollIsClosed {
-                Button {
-                    castVoteAction(viewModel.option)
-                } label: {
-                    Image(systemName: viewModel.optionVotedByCurrentUser ? "checkmark.circle.fill" : "circle")
-                        .tint(viewModel.isSentByCurrentUser ? Color(.white) : Color(.purple))
-                }
+                PollRadioButtonView(
+                    isSelected: viewModel.optionVotedByCurrentUser,
+                    isSentByCurrentUser: viewModel.isSentByCurrentUser,
+                    action: { castVoteAction(viewModel.option) }
+                )
+                .accessibilityLabel(
+                    viewModel.optionVotedByCurrentUser
+                    ? tr("message.polls.accessibility.voted")
+                    : tr("message.polls.accessibility.not-voted")
+                )
+                .accessibilityAddTraits(.isButton)
             }
 
             VStack(spacing: 4) {
-                HStack(alignment: .top, spacing: 8) {
+                HStack(alignment: .center, spacing: 8) {
                     Group {
                         Text(viewModel.option.text)
-                            .font(.body)
+                            .font(.caption1)
                             .onTapGesture {
                                 guard !viewModel.pollIsClosed else { return }
                                 castVoteAction(viewModel.option)
@@ -60,6 +65,7 @@ struct PollOptionView: View {
                         .animation(.easeInOut(duration: 0.2), value: viewModel.showVoters)
 
                         Text(viewModel.votersForOption.count.description)
+                            .font(.footnote)
                             .modifier(NumericTransitionModifier())
                             .animation(
                                 .spring(response: 0.35, dampingFraction: 0.85, blendDuration: 0.2),

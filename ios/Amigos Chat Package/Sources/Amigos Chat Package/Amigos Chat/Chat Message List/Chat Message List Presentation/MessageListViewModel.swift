@@ -68,11 +68,11 @@ class MessageListViewModel: ObservableObject {
        let viewModel = MessageContainerViewModel(
             message: message,
             showsAllInfo: showsAllData(for: message),
-            isLast: isLastMessage(message),
+            messagePosition: messagePosition,
             isDirectMessageChat: isDirectMessageChat,
             isRead: isReadHandler.hasSeen(for: message),
             isInThread: isInThread,
-            isReadByAllHandler: isReadByAllHandler,
+            isReadByAllHandler: isReadByAllHandler
         )
 
         // build pollcontroller if message contains a poll
@@ -147,5 +147,41 @@ class MessageListViewModel: ObservableObject {
 
     private func dateLabelOffset() -> CGFloat {
         return messageListConfig.messageDisplayOptions.dateLabelSize
+    }
+
+    private func showNameForMessageGroup(message: Message) -> Bool {
+         let groupInfo = messagesGroupingInfo[message.id] ?? []
+         return groupInfo.contains(lastMessageKey)
+     }
+
+    var messagePosition: (Message) -> MessagePosition {
+
+        return { [weak self] message in
+            guard let self = self else { return .alone }
+
+            if self.messageList.count == 1 {
+                return .alone
+            }
+
+            // no grouping info available
+            guard let group = self.messagesGroupingInfo[message.id] else {
+                return .middle
+            }
+
+            let isFirst = group.contains(self.firstMessageKey)
+            let isLast = group.contains(self.lastMessageKey)
+
+            if isFirst && isLast {
+                return .alone
+            } else if isLast {
+                /// last message = top message as the list view UI logic is reverted
+                return .top
+            } else if isFirst {
+                /// first message = bottom message as the list view UI logic is reverted
+                return .bottom
+            } else {
+                return .middle
+            }
+        }
     }
 }

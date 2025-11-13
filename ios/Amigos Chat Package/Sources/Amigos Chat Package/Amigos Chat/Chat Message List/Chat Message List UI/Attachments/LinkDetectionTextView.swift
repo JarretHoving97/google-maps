@@ -17,6 +17,7 @@ struct LinkDetectionTextView: View {
 
     public var body: some View {
         Text(viewModel.messageText)
+            .font(.body)
             .environment(\.openURL, OpenURLAction { url in
                 switch url.scheme?.lowercased() {
                 case "http", "https":

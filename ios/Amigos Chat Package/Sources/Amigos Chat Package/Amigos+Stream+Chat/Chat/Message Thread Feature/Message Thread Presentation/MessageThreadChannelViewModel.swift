@@ -47,7 +47,8 @@ public class MessageThreadChannelViewModel: ObservableObject {
         [repliedMessage].compactMap { $0 } + messages
     }
 
-    @Published var messageReactionPresentationInfo: MessageReactionsInfo?
+    @Published
+    var messageReactionPresentationInfo: MessageReactionsInfo?
 
     private let firstMessageKey = "firstMessage"
     private let lastMessageKey = "lastMessage"
