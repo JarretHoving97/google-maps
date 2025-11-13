@@ -77,12 +77,6 @@ extension CustomUIFactory: ViewFactory {
         return view
     }
 
-    public typealias MessageListDateIndicatorViewType = CustomDateIndicatorView
-
-    public func makeMessageListDateIndicator(date: Date) -> CustomDateIndicatorView {
-        CustomDateIndicatorView(date: date)
-    }
-
     public  typealias ChannelListDividerItem = EmptyView
 
     public func makeChannelListDividerItem() -> EmptyView {
@@ -250,12 +244,6 @@ extension CustomUIFactory: ViewFactory {
 
     public func makeMessageAuthorAndDateView(for message: ChatMessage) -> CustomMessageAuthorAndDateView {
         CustomMessageAuthorAndDateView(message: message)
-    }
-
-    public typealias DateIndicatorViewType = CustomDateIndicatorView
-
-    public func makeDateIndicatorView(dateString: String) -> CustomDateIndicatorView {
-        CustomDateIndicatorView(dateString: dateString)
     }
 
     public typealias MessageReadIndicatorViewType = CustomMessageReadIndicatorView

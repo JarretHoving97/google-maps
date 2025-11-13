@@ -537,11 +537,11 @@ public struct DateIndicatorView: View {
     public var body: some View {
         VStack {
             Text(dateString)
-                .font(fonts.footnote)
+                .font(fonts.caption2)
                 .padding(.vertical, 4)
                 .padding(.horizontal, 8)
-                .foregroundColor(.white)
-                .background(Color(colors.textLowEmphasis))
+                .foregroundColor(Color(.grey))
+                .background(Color(.pale))
                 .cornerRadius(16)
                 .padding(.all, 8)
             Spacer()

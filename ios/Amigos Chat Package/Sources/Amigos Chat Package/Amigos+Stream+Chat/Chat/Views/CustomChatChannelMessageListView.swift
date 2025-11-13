@@ -128,11 +128,6 @@ struct CustomChatChannelMessageListView<Factory: ViewFactory>: View {
                             )
                             .frame(maxWidth: .infinity, maxHeight: 18)
                     }
-                    .overlay(
-                        viewModel.currentDateString != nil ?
-                        factory.makeDateIndicatorView(dateString: viewModel.currentDateString!)
-                        : nil
-                    )
                 } else {
                     ZStack {
                         factory.makeEmptyMessagesView(for: channel, colors: colors)

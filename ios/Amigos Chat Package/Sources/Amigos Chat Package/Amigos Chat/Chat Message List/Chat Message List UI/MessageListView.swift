@@ -44,7 +44,10 @@ struct MessageListView: View {
 
     var body: some View {
         ForEach(viewModel.messageList) { message in
-            listItemView(message)
+
+            let index = viewModel.indexForMessageDate(message: message)
+
+            listItemView(message, precomputedIndex: index)
 
             if message == firstUnreadMessage {
                 CustomNewMessagesIndicatorView(
@@ -53,12 +56,17 @@ struct MessageListView: View {
                 )
                 .flippedUpsideDown()
             }
+
+            if let index = index, let date = viewModel.showMessageDate(for: index) {
+                DateIndicatorView(date: date)
+                    .flippedUpsideDown()
+            }
         }
     }
 
-    private func listItemView(_ message: Message) -> some View {
+    private func listItemView(_ message: Message, precomputedIndex: Int?) -> some View {
 
-        var index: Int? = viewModel.indexForMessageDate(message: message)
+        var index: Int? = precomputedIndex
         let viewData = viewModel.viewData(for: message)
 
         return MessageContainerView(
