@@ -2,7 +2,7 @@ import StreamChat
 import SwiftUI
 import StreamChatSwiftUI
 
-public struct CustomReactionsOverlayView<Factory: ViewFactory>: View {
+public struct CustomReactionsOverlayView: View {
 
     @StateObject var viewModel: ReactionsOverlayViewModel
 
@@ -10,7 +10,7 @@ public struct CustomReactionsOverlayView<Factory: ViewFactory>: View {
     @State private var willPopOut = false
     @Environment(\.colorScheme) private var colorScheme
 
-    var factory: Factory
+    var factory = CustomUIFactory()
     var channel: ChatChannel
 
     var bottomOffset: CGFloat = 0
@@ -36,7 +36,6 @@ public struct CustomReactionsOverlayView<Factory: ViewFactory>: View {
     private var messageActionsCount: Int
 
     public init(
-        factory: Factory,
         channel: ChatChannel,
         messageDisplayInfo: LocalMessageDisplayInfo,
         bottomOffset: CGFloat = 0,
@@ -49,7 +48,6 @@ public struct CustomReactionsOverlayView<Factory: ViewFactory>: View {
             )
         )
         self.channel = channel
-        self.factory = factory
         self.bottomOffset = bottomOffset
         self.messageDisplayInfo = messageDisplayInfo
         self.onBackgroundTap = onBackgroundTap
@@ -57,6 +55,7 @@ public struct CustomReactionsOverlayView<Factory: ViewFactory>: View {
         self.messageActionsCount = factory.supportedMessageActions(
             for: messageDisplayInfo.message,
             channel: channel,
+            isInthread: messageDisplayInfo.isInThread,
             onFinish: { _ in },
             onError: { _ in }
         ).count
@@ -138,6 +137,7 @@ public struct CustomReactionsOverlayView<Factory: ViewFactory>: View {
                 factory.makeMessageActionsView(
                     for: messageDisplayInfo.message,
                     channel: channel,
+                    isInThread: messageDisplayInfo.isInThread,
                     onFinish: { actionInfo in
                         dismissReactionsOverlay {
                             onActionExecuted(actionInfo)

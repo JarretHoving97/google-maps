@@ -361,9 +361,10 @@ extension CustomUIFactory: ViewFactory {
         CustomEmptyMessagesView(channel: channel)
     }
 
-    public func supportedMessageActions(
+    func supportedMessageActions(
         for message: ChatMessage,
         channel: ChatChannel,
+        isInthread: Bool,
         onFinish: @escaping (MessageActionInfo) -> Void,
         onError: @escaping (Error) -> Void
     ) -> [MessageAction] {
@@ -372,6 +373,7 @@ extension CustomUIFactory: ViewFactory {
             for: message,
             channel: channel,
             chatClient: chatClient,
+            isInThread: isInthread,
             onFinish: onFinish,
             onError: onError
         )
@@ -380,12 +382,14 @@ extension CustomUIFactory: ViewFactory {
     public func makeMessageActionsView(
         for message: ChatMessage,
         channel: ChatChannel,
+        isInThread: Bool,
         onFinish: @escaping (MessageActionInfo) -> Void,
         onError: @escaping (Error) -> Void
     ) -> CustomMessageActionsView {
         let messageActions = supportedMessageActions(
             for: message,
             channel: channel,
+            isInthread: isInThread,
             onFinish: onFinish,
             onError: onError
         )

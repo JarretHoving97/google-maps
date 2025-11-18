@@ -19,6 +19,7 @@ public struct LocalMessageDisplayInfo {
     public var showsMessageActions: Bool = true
     public var showsBottomContainer: Bool = true
     public var keyboardWasShown: Bool = false
+    public var isInThread: Bool
 
     public var pollViewData: PollMessageViewModel?
 
@@ -30,6 +31,7 @@ public struct LocalMessageDisplayInfo {
         showsMessageActions: Bool = true,
         showsBottomContainer: Bool = true,
         keyboardWasShown: Bool = false,
+        isInThread: Bool = false,
         pollViewData: PollMessageViewModel?
     ) {
         self.message = message
@@ -39,6 +41,7 @@ public struct LocalMessageDisplayInfo {
         self.showsMessageActions = showsMessageActions
         self.keyboardWasShown = keyboardWasShown
         self.showsBottomContainer = showsBottomContainer
+        self.isInThread = isInThread
         self.pollViewData = pollViewData
     }
 }

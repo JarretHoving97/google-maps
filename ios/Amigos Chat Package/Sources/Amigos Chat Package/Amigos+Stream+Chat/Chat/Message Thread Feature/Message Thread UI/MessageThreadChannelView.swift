@@ -93,7 +93,6 @@ struct MessageThreadChannelView: View, KeyboardReadable {
         ) {
             if let mdi = overlayDisplayInfo, let channel = channelViewModel.channel {
                 CustomReactionsOverlayView(
-                    factory: factory,
                     channel: channel,
                     messageDisplayInfo: mdi
                 ) {
@@ -135,6 +134,7 @@ struct MessageThreadChannelView: View, KeyboardReadable {
                 frame: info.frame,
                 contentWidth: max(240, info.frame.width),
                 isFirst: false,
+                isInThread: true,
                 pollViewData: info.pollViewData
             )
         }

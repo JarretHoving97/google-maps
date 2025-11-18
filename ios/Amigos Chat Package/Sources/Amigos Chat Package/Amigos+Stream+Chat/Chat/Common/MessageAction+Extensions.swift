@@ -17,23 +17,11 @@ extension MessageAction {
         for message: ChatMessage,
         channel: ChatChannel,
         chatClient: ChatClient,
+        isInThread: Bool,
         onFinish: @escaping (MessageActionInfo) -> Void,
         onError: @escaping (Error) -> Void
     ) -> [MessageAction] {
         var messageActions = [MessageAction]()
-
-        let messageController = chatClient.messageController(cid: channel.cid, messageId: message.id)
-
-        let isInsideThreadView = messageController.replies.count > 0
-
-        if channel.config.repliesEnabled && !message.isPartOfThread && !isInsideThreadView {
-            let replyThread = threadReplyAction(
-                factory: factory,
-                for: message,
-                channel: channel
-            )
-            messageActions.append(replyThread)
-        }
 
         if message.localState == .sendingFailed {
             messageActions = messageNotSentActions(
@@ -80,6 +68,18 @@ extension MessageAction {
                 onFinish: onFinish
             )
             messageActions.append(quoteAction)
+        }
+
+        // Show thread reply only if:
+        // - replies are enabled
+        // - we are not already in a thread view
+        if channel.config.repliesEnabled && !isInThread {
+            let replyThread = threadReplyAction(
+                factory: factory,
+                for: message,
+                channel: channel
+            )
+            messageActions.append(replyThread)
         }
 
         if !message.text.isEmpty {
@@ -382,7 +382,6 @@ extension MessageAction {
         return messageActions
     }
 }
-
 
 // MARK: Threads
 

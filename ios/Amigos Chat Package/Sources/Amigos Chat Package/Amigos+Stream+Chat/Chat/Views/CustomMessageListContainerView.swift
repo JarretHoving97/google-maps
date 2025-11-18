@@ -153,6 +153,7 @@ public struct CustomMessageListContainerView<Factory: ViewFactory>: View, Keyboa
                     contentWidth: (max(240, info.frame.width)),
                     isFirst: showsAllData(for: message),
                     keyboardWasShown: true,
+                    isInThread: false,
                     pollViewData: info.pollViewData
                 )
                 onLongPress(updatedDisplayInfo)

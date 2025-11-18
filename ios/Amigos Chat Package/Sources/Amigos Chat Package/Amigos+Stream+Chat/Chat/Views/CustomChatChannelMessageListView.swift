@@ -200,7 +200,6 @@ struct CustomChatChannelMessageListView<Factory: ViewFactory>: View {
         ) {
             if let mdi = messageDisplayInfo {
                 CustomReactionsOverlayView(
-                    factory: factory,
                     channel: channel,
                     messageDisplayInfo: mdi
                 ) {
