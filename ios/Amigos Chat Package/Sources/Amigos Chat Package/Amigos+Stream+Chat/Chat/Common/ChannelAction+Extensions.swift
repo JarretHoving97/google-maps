@@ -5,6 +5,18 @@ public struct ChannelActionCallbacks {
     let onDismiss: () -> Void
     let onError: (Error) -> Void
     let onClose: () -> Void
+
+    init(onDismiss: @escaping () -> Void, onError: @escaping (Error) -> Void, onClose: @escaping () -> Void) {
+        self.onDismiss = onDismiss
+        self.onError = onError
+        self.onClose = onClose
+    }
+
+    init(from actions: ChannelActionsView.CallBackActions) {
+        self.onError = actions.onError
+        self.onClose = actions.onClose
+        self.onDismiss = actions.onDissmiss
+    }
 }
 
 extension ChannelAction {
@@ -60,7 +72,7 @@ extension ChannelAction {
                 let leaveAction = leaveChat(
                     for: channel,
                     chatClient: chatClient,
-                    onDismiss: callbacks.onClose,
+                    onDismiss: callbacks.onDismiss,
                     onError: callbacks.onError
                 )
 
@@ -70,7 +82,7 @@ extension ChannelAction {
             let archiveAction = archiveChat(
                 for: channel,
                 chatClient: chatClient,
-                onDismiss: callbacks.onClose,
+                onDismiss: callbacks.onDismiss,
                 onError: callbacks.onError,
             )
 
@@ -104,7 +116,7 @@ extension ChannelAction {
 
         return ChannelAction(
             title: tr("custom.channel.action.delete.title"),
-            iconName: "chevron.right",
+            iconName: "binIcon",
             action: action,
             confirmationPopup: confirmationPopup,
             isDestructive: true
@@ -139,7 +151,7 @@ extension ChannelAction {
 
         return ChannelAction(
             title: tr("custom.channel.action.leave.title"),
-            iconName: "chevron.right",
+            iconName: "chevronRight",
             action: action,
             confirmationPopup: confirmationPopup,
             isDestructive: true
@@ -173,7 +185,7 @@ extension ChannelAction {
 
         return ChannelAction(
             title: tr("custom.channel.action.archive.title"),
-            iconName: "chevron.right",
+            iconName: "binIcon",
             action: action,
             confirmationPopup: confirmationPopup,
             isDestructive: true
@@ -191,6 +203,9 @@ extension ChannelAction {
                 if let error = error {
                     callbacks.onError(error)
                 } else {
+                    // onDismiss() instead of onClose() for now
+                    // How Stream's API works, for toggling notifications we probably need a new instance of `ChatChannel`
+                    // which we have if we just leave the channel
                     callbacks.onDismiss()
                 }
             }
@@ -198,7 +213,7 @@ extension ChannelAction {
 
         return ChannelAction(
             title: tr("custom.channel.action.mute.title"),
-            iconName: "chevron.right",
+            iconName: "notificationOn",
             action: action,
             confirmationPopup: nil,
             isDestructive: false
@@ -216,6 +231,9 @@ extension ChannelAction {
                 if let error = error {
                     callbacks.onError(error)
                 } else {
+                    // onDismiss() instead of onClose() for now
+                    // How Stream's API works, for toggling notifications we probably need a new instance of `ChatChannel`
+                    // which we have if we just leave the channel
                     callbacks.onDismiss()
                 }
             }
@@ -223,7 +241,7 @@ extension ChannelAction {
 
         return ChannelAction(
             title: tr("custom.channel.action.unmute.title"),
-            iconName: "chevron.right",
+            iconName: "notificationOff",
             action: action,
             confirmationPopup: nil,
             isDestructive: false
@@ -240,7 +258,7 @@ extension ChannelAction {
         if case .standard = channel.relatedConceptType, let userId = otherUser?.id {
             let profileAction = ChannelAction(
                 title: tr("custom.channel.action.profile.title"),
-                iconName: "chevron.right",
+                iconName: "chevronRight",
                 action: { RouteController.routeAction?(RouteInfo(route: .profileRoute(id: userId), dismiss: true))},
                 confirmationPopup: nil,
                 isDestructive: false
@@ -248,7 +266,7 @@ extension ChannelAction {
 
             let inviteAction = ChannelAction(
                 title: tr("custom.channel.action.invite.title"),
-                iconName: "chevron.right",
+                iconName: "chevronRight",
                 action: {RouteController.routeAction?(RouteInfo(route: .profileInviteRoute(id: userId), dismiss: true))},
                 confirmationPopup: nil,
                 isDestructive: false
@@ -260,7 +278,7 @@ extension ChannelAction {
         if case .mixer(let mixerId) = channel.relatedConceptType {
             let viewAction = ChannelAction(
                 title: tr("custom.channel.action.mixer.title"),
-                iconName: "chevron.right",
+                iconName: "chevronRight",
                 action: {RouteController.routeAction?(RouteInfo(route: .mixerRoute(id: mixerId), dismiss: true))},
                 confirmationPopup: nil,
                 isDestructive: false
@@ -272,7 +290,7 @@ extension ChannelAction {
         if case .activity(let activityId) = channel.relatedConceptType {
             let viewAction = ChannelAction(
                 title: tr("custom.channel.action.activity.title"),
-                iconName: "chevron.right",
+                iconName: "chevronRight",
                 action: { RouteController.routeAction?(RouteInfo(route: .activityRoute(id: activityId), dismiss: true))},
                 confirmationPopup: nil,
                 isDestructive: false
@@ -285,7 +303,7 @@ extension ChannelAction {
                 if channel.membership?.memberRole == MemberRole.coOrganizer || channel.isCurrentUserOrganizer {
                     let inviteAction = ChannelAction(
                         title: tr("custom.channel.action.inviteAmigos.title"),
-                        iconName: "chevron.right",
+                        iconName: "chevronRight",
                         action: { RouteController.routeAction?(RouteInfo(route: .inviteToActivityRoute(id: activityId), dismiss: true))},
                         confirmationPopup: nil,
                         isDestructive: false
@@ -295,7 +313,7 @@ extension ChannelAction {
 
                     let manageAction = ChannelAction(
                         title: tr("custom.channel.action.manageParticipants.title"),
-                        iconName: "chevron.right",
+                        iconName: "chevronRight",
                         action: { RouteController.routeAction?(RouteInfo(route: .manageActivityParticipantsRoute(id: activityId), dismiss: true))},
                         confirmationPopup: nil,
                         isDestructive: false
@@ -314,7 +332,7 @@ extension ChannelAction {
 
             let viewAction = ChannelAction(
                 title: Localized.ChatChannel.viewCommunityActionLabel,
-                iconName: "chevron.right",
+                iconName: "chevronRight",
                 action: { RouteController.routeAction?(RouteInfo(route: .communityRoute(id: id), dismiss: true))},
                 confirmationPopup: nil,
                 isDestructive: false
@@ -330,7 +348,7 @@ extension ChannelAction {
 
 //                let inviteViewAction = ChannelAction(
 //                    title: tr("custom.channel.action.inviteAmigos.title"),
-//                    iconName:  "chevron.right",
+//                    iconName:  "chevronRight",
 //                    action: {
 //                        RouteController.routeAction?(
 //                            RouteInfo(route: .communityActivityInviteRoute(id: id), dismiss: true)
@@ -344,7 +362,7 @@ extension ChannelAction {
 
                 let communityParticipantsAction = ChannelAction(
                     title: tr("custom.channel.action.manageParticipants.title"),
-                    iconName: "chevron.right",
+                    iconName: "chevronRight",
                     action: {
                         RouteController.routeAction?(
                             RouteInfo(route: .manageCommunityParticipantsRoute(id: id), dismiss: true)

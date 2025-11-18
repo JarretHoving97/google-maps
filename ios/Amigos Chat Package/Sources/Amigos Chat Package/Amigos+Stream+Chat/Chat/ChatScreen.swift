@@ -44,6 +44,10 @@ public struct ChatChannelScreen: View {
 
     @Environment(\.presentationMode) var presentationMode
 
+    private let channel: ChatChannel?
+
+    private let chatClient: ChatClient
+
     public var chatChannelController: ChatChannelController
 
     var onDidLoadChannel: ((ChatChannel) -> Void)?
@@ -56,13 +60,21 @@ public struct ChatChannelScreen: View {
 
     private let messageThreadNavigationAction: MessageThreadNavigationAction
 
+    private var shouldPresentOverlay: Bool {
+        viewModel.popOver != nil
+    }
+
     public init(
         with viewFactory: CustomUIFactory,
+        channel: ChatChannel?,
+        chatClient: ChatClient,
         chatChannelController: ChatChannelController,
         viewModel: ChatChannelScreenViewModel,
         messageId: String?,
         messageThreadNavigationAction: @escaping MessageThreadNavigationAction = {_ in }
     ) {
+        self.channel = channel
+        self.chatClient = chatClient
         self.chatChannelController = chatChannelController
         self.messageId = messageId
         self.viewFactory = viewFactory
@@ -83,30 +95,39 @@ public struct ChatChannelScreen: View {
         .onAppear { chatChannelController.markRead() }
         .environment(\.attachmentController, AttachmentEnvironmentController())
         .environment(\.showConsentMediaInGroupChannel, viewModel.isDirectMessageChannel)
-        .overlay(customViewOverlay(popOver: viewModel.popOver).ignoresSafeArea(edges: [.top]))
+        .overlayPresenter(
+            isPresented: Binding(
+                get: { shouldPresentOverlay },
+                set: { newValue in
+                    if !newValue {
+                        viewModel.toggle(popOver: nil)
+                    }
+                }
+            ),
+            content: {
+                if let channel {
+                    ChannelActionsViewStreamContainer(
+                        channel: channel,
+                        chatClient: chatClient,
+                        onDismiss: {
+                            viewModel.toggle(popOver: nil)
+                            presentationMode.wrappedValue.dismiss()
+                        },
+                        onError: { error in
+                            viewModel.toggle(popOver: .error(error))
+                        },
+                        onClose: {
+                            withAnimation {
+                                viewModel.toggle(popOver: nil)
 
-    }
-
-    @ViewBuilder
-    private func customViewOverlay(popOver: PopoverType?) -> some View {
-
-        if case let .moreActions(channel) = viewModel.popOver {
-
-            let callbacks = ChannelActionCallbacks(
-                onDismiss: { viewModel.toggle(popOver: nil) },
-                onError: { viewModel.toggle(popOver: .error($0)) },
-                onClose: { presentationMode.wrappedValue.dismiss() }
-            )
-
-            CustomMoreChannelActionsContainerView(
-                factory: viewFactory,
-                channel: channel,
-                callbacks: callbacks
-            )
-        }
+                            }
+                        }
+                    )
+                }
+            }
+        )
     }
 }
-
 public struct ChatScreen: View {
     @Injected(\.chatClient) private var chatClient
 

@@ -1,0 +1,54 @@
+//
+//  ChannelActionsViewStreamContainer.swift
+//  Amigos Chat Package
+//
+//  Created by Jarret on 10/11/2025.
+//
+
+import SwiftUI
+import StreamChatSwiftUI
+import StreamChat
+
+/// A lightweight container that bridges Stream Chat actions and callbacks
+/// into our own module. It converts Stream channel actions into our custom
+/// view model and forwards them to `ChannelActionsView`.
+struct ChannelActionsViewStreamContainer: View {
+
+    let viewModel: CustomChannelActionViewModel
+
+    let callbackActions: ChannelActionsView.CallBackActions
+
+    init(
+        viewModel: CustomChannelActionViewModel,
+        callbackActions: ChannelActionsView.CallBackActions = ChannelActionsView.CallBackActions()
+    ) {
+        self.viewModel = viewModel
+        self.callbackActions = callbackActions
+    }
+
+    init(
+        channel: ChatChannel,
+        chatClient: ChatClient,
+        onDismiss: @escaping () -> Void,
+        onError: @escaping (Error) -> Void,
+        onClose: @escaping () -> Void
+    ) {
+        let callbacks = ChannelActionsView.CallBackActions(
+            onDissmiss: onDismiss,
+            onError: onError,
+            onClose: onClose
+        )
+        let actionCallbacks = ChannelActionCallbacks(from: callbacks)
+        let channelActions = ChannelAction.customActions(for: channel, chatClient: chatClient, callbacks: actionCallbacks)
+
+        self.viewModel = CustomChannelActionViewModel(from: channelActions)
+        self.callbackActions = callbacks
+    }
+
+    var body: some View {
+        ChannelActionsView(
+            viewModel: viewModel,
+            callbackActions: callbackActions
+        )
+    }
+}

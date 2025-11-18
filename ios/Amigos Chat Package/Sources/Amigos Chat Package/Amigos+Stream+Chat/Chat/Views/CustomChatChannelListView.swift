@@ -53,7 +53,6 @@ public struct CustomChatChannelListView<Factory: ViewFactory>: View {
 
     public var body: some View {
         content()
-            .overlay(viewModel.customAlertShown ? customViewOverlay() : nil)
             .accentColor(colors.tintColor)
             .accessibilityIdentifier("ChatChannelListView")
     }
@@ -104,27 +103,6 @@ public struct CustomChatChannelListView<Factory: ViewFactory>: View {
             tabBarAppearance.configureWithDefaultBackground()
             UITabBar.appearance().standardAppearance = tabBarAppearance
             UITabBar.appearance().scrollEdgeAppearance = tabBarAppearance
-        }
-    }
-
-    @ViewBuilder
-    private func customViewOverlay() -> some View {
-        switch viewModel.customChannelPopupType {
-        case let .moreActions(channel):
-            viewFactory.makeMoreChannelActionsView(
-                for: channel,
-                swipedChannelId: $viewModel.swipedChannelId
-            ) {
-                withAnimation {
-                    viewModel.customChannelPopupType = nil
-                    viewModel.swipedChannelId = nil
-                }
-            } onError: { error in
-                viewModel.showErrorPopup(error)
-            }
-            .edgesIgnoringSafeArea(.bottom)
-        default:
-            EmptyView()
         }
     }
 }

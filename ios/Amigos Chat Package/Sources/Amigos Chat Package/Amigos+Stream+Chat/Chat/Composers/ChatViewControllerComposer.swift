@@ -48,6 +48,8 @@ public class ChatViewControllerComposer {
 
         let channelView = ChatChannelScreen(
             with: CustomUIFactory(),
+            channel: chatChannel,
+            chatClient: chatClient,
             chatChannelController: channelController,
             viewModel: viewModel,
             messageId: messageId,
@@ -118,6 +120,8 @@ public class ChatViewControllerComposer {
 
         let channelView = ChatChannelScreen(
             with: viewFactory,
+            channel: channelController.channel,
+            chatClient: client,
             chatChannelController: channelController,
             viewModel: viewModel,
             messageId: messageId,

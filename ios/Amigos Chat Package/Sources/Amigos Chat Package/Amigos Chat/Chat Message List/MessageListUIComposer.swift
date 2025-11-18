@@ -72,7 +72,6 @@ class MessageListUIComposer {
     }
 }
 
-
 extension MessageListUIComposer {
 
     static func pollAllVotesViewBuilder(with client: ChatClient) -> PollOptionAllVotesViewBuilder {
