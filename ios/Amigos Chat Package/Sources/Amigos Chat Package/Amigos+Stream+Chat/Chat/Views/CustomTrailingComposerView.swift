@@ -42,13 +42,12 @@ public struct CustomTrailingComposerView: View {
     }
 
     private var background: Color {
-        var color = Color("Purple")
 
         if buttonType == .disabled {
-            color = color.opacity(0.3)
+            return Color(.pale)
         }
 
-        return color
+        return Color("Purple")
     }
 
     private var systemImage: String {
@@ -101,10 +100,10 @@ public struct CustomTrailingComposerView: View {
                 .scaledToFit()
                 .font(.system(size: 16, weight: .semibold))
                 .frame(width: 16, height: 16, alignment: .center)
-                .foregroundColor(Color.white)
+                .foregroundColor(buttonType == .disabled ? Color(.grey) : Color.white)
                 .id(systemImage)
                 .transition(.scale.animation(.easeOut))
-        }
+            }
             .frame(width: 44, height: 44, alignment: .center)
             .background(background)
             .animation(.easeInOut, value: buttonType == .sendable)

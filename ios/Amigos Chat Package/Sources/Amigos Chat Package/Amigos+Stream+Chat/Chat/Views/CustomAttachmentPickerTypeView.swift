@@ -74,10 +74,10 @@ struct CustomPickerTypeButton: View {
             Image(systemName: !showPaperclip ? "xmark.circle.fill" : "paperclip")
                 .renderingMode(.template)
                 .aspectRatio(contentMode: .fit)
-                .frame(width: 24, height: 24)
                 .contentShape(Rectangle())
+                .font(.custom(size: 16, weight: .medium))
                 .foregroundColor(
-                    showPaperclip ? Color(colors.textLowEmphasis) :  Color("Purple")
+                    showPaperclip ? Color(.greyDark) :  Color("Purple")
                 )
         }
         .buttonStyle(.plain)

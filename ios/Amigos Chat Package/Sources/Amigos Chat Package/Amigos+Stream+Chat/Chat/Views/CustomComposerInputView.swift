@@ -230,13 +230,10 @@ public struct CustomComposerInputView<Factory: ViewFactory>: View, KeyboardReada
         .padding(.leading, inputPaddingsConfig.leading)
         .padding(.trailing, inputPaddingsConfig.trailing)
         .padding(.bottom, inputPaddingsConfig.bottom)
-        .background(composerInputBackground)
+        .background(.white)
         .overlay(
-            RoundedRectangle(cornerRadius: TextSizeConstants.cornerRadius)
-                .stroke(Color(keyboardShown ? highlightedBorder : colors.innerBorder))
-        )
-        .clipShape(
-            RoundedRectangle(cornerRadius: TextSizeConstants.cornerRadius)
+            RoundedRectangle(cornerRadius: 8)
+                .stroke(keyboardShown ? Color(.purple) : Color(.greyLight), lineWidth: 2)
         )
         .onReceive(keyboardWillChangePublisher) { visible in
             keyboardShown = visible
@@ -311,8 +308,26 @@ public struct CustomComposerInputContainerView<Factory: ViewFactory>: View {
     public var body: some View {
         Spacer()
 
-        if shouldScroll {
-            ScrollView {
+        Group {
+            if shouldScroll {
+                ScrollView {
+                    CustomComposerInputView(
+                        factory: factory,
+                        text: $text,
+                        selectedRangeLocation: $selectedRangeLocation,
+                        command: $command,
+                        addedAssets: addedAssets,
+                        addedFileURLs: addedFileURLs,
+                        addedCustomAttachments: addedCustomAttachments,
+                        quotedMessage: quotedMessage,
+                        maxMessageLength: maxMessageLength,
+                        cooldownDuration: cooldownDuration,
+                        onCustomAttachmentTap: onCustomAttachmentTap,
+                        removeAttachmentWithId: removeAttachmentWithId
+                    )
+                }
+                .frame(height: 240)
+            } else {
                 CustomComposerInputView(
                     factory: factory,
                     text: $text,
@@ -328,22 +343,7 @@ public struct CustomComposerInputContainerView<Factory: ViewFactory>: View {
                     removeAttachmentWithId: removeAttachmentWithId
                 )
             }
-            .frame(height: 240)
-        } else {
-            CustomComposerInputView(
-                factory: factory,
-                text: $text,
-                selectedRangeLocation: $selectedRangeLocation,
-                command: $command,
-                addedAssets: addedAssets,
-                addedFileURLs: addedFileURLs,
-                addedCustomAttachments: addedCustomAttachments,
-                quotedMessage: quotedMessage,
-                maxMessageLength: maxMessageLength,
-                cooldownDuration: cooldownDuration,
-                onCustomAttachmentTap: onCustomAttachmentTap,
-                removeAttachmentWithId: removeAttachmentWithId
-            )
         }
+        .padding(.top, 5)
     }
 }
