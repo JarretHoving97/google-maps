@@ -85,6 +85,8 @@
 	<string>This is needed to upload photos.</string>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>This is needed to upload photos.</string>
+	<key>NSUserTrackingUsageDescription</key>
+	<string>This is needed to optimize your experience when logging in using social media.</string>
 	<key>UIAppFonts</key>
 	<array>
 		<string>Poppins-SemiBoldItalic.ttf</string>

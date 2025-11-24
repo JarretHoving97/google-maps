@@ -2,7 +2,7 @@
 
 import BranchSDK
 import Capacitor
-import FBSDKCoreKit
+import FacebookCore
 import FirebaseCore
 import FirebaseMessaging
 import SDWebImageSVGCoder
