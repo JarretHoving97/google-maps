@@ -128,4 +128,8 @@ extension LocalPoll {
         let optionsWithMostVotes = voteCountsByOption?.filter { $0.value == currentMaximumVoteCount }
         return optionsWithMostVotes?.count == 1 && optionsWithMostVotes?[option.id] != nil
     }
+
+    func voteCount(for option: LocalPollOption) -> Int {
+        return voteCountsByOption?[option.id] ?? 0
+    }
 }

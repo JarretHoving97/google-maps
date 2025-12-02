@@ -46,6 +46,7 @@ public class PollMessageViewModel: ObservableObject {
                 isSentByCurrentUser: isSentByCurrentUser,
                 optionVotedByCurrentUser: currentUserVoteId(for: $0) != nil,
                 maxVotes: maxVotes,
+                votes: poll.voteCount(for: $0),
                 pollIsClosed: pollClosed
             )
         }

@@ -54,7 +54,7 @@ struct PollOptionView: View {
                         Spacer()
 
                         HStack(spacing: -8) {
-                            ForEach(viewModel.votersForOption.prefix(2)) { user in
+                            ForEach(viewModel.latestVoters.prefix(2)) { user in
                                 AvatarView(imageUrl: user.imageUrl, size: 20)
                             }
                         }
@@ -64,24 +64,24 @@ struct PollOptionView: View {
                         .allowsHitTesting(viewModel.showVoters)
                         .animation(.easeInOut(duration: 0.2), value: viewModel.showVoters)
 
-                        Text(viewModel.votersForOption.count.description)
+                        Text(viewModel.votes.description)
                             .font(.footnote)
                             .modifier(NumericTransitionModifier())
                             .animation(
                                 .spring(response: 0.35, dampingFraction: 0.85, blendDuration: 0.2),
-                                value: viewModel.votersForOption.count
+                                value: viewModel.latestVoters.count
                             )
                     }
                     .foregroundStyle(viewModel.isSentByCurrentUser ? Color(.white) : Color(.darkText))
                 }
                 PollVotesIndicatorView(
                     isSentByCurrentUser: viewModel.isSentByCurrentUser,
-                    optionVotes: viewModel.votersForOption.count,
+                    optionVotes: viewModel.latestVoters.count,
                     maxVotes: viewModel.maxVotes
                 )
                 .animation(
                     .spring(response: 0.35, dampingFraction: 0.85, blendDuration: 0.2),
-                    value: viewModel.votersForOption.count
+                    value: viewModel.latestVoters.count
                 )
             }
         }
@@ -106,6 +106,7 @@ struct NumericTransitionModifier: ViewModifier {
             option: .mockOptions.first!,
             isSentByCurrentUser: false,
             maxVotes: 3,
+            votes: 2,
             pollIsClosed: false
         )
     )

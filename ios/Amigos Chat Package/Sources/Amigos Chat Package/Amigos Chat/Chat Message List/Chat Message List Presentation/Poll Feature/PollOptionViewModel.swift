@@ -19,7 +19,9 @@ struct PollOptionViewModel: Hashable {
 
     let maxVotes: Int
 
-    var votersForOption: [LocalUser] {
+    let votes: Int
+
+    var latestVoters: [LocalUser] {
         return option.latestVotes.compactMap { $0.user }
     }
 
@@ -32,12 +34,14 @@ struct PollOptionViewModel: Hashable {
         isSentByCurrentUser: Bool,
         optionVotedByCurrentUser: Bool = false,
         maxVotes: Int,
+        votes: Int,
         pollIsClosed: Bool
     ) {
         self.isSentByCurrentUser = isSentByCurrentUser
         self.option = option
         self.maxVotes = maxVotes
         self.pollIsClosed = pollIsClosed
+        self.votes = votes
         self.optionVotedByCurrentUser = optionVotedByCurrentUser
     }
 }
