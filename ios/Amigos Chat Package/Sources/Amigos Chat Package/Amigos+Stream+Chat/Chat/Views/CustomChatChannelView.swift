@@ -82,6 +82,7 @@ public struct CustomChatChannelView<Factory: ViewFactory>: View, KeyboardReadabl
                     )
                 }
                 .onAppear {
+                    ChatFeatureState.shared.set(screen: .channel(channelId: channel.id))
                     onDidLoadChannel?(channel)
                 }
             } else {

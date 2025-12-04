@@ -1,5 +1,6 @@
 import Foundation
 import NotificationCenter
+import Amigos_Chat_Package
 
 final class NotificationHandler: NSObject, UNUserNotificationCenterDelegate {
     static var current = NotificationHandler()
@@ -12,6 +13,22 @@ final class NotificationHandler: NSObject, UNUserNotificationCenterDelegate {
         willPresent notification: UNNotification,
         withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void
     ) {
+        let info = notification.request.content.userInfo
+
+        /// Hide notification if user is already in current channel
+        let incomingChannelId = info["cid"] as? String
+        if case let .channel(currentChannelId) = ChatFeatureState.shared.currentScreen, let incomingChannelId, incomingChannelId == currentChannelId {
+            completionHandler([])
+            return
+        }
+
+        /// also hide notification while in channels list.
+        /// channels with new notifications pops up already
+        if case .channelsList = ChatFeatureState.shared.currentScreen {
+            completionHandler([])
+        }
+
+        // show notification
         completionHandler([[.banner, .badge, .sound]])
     }
 

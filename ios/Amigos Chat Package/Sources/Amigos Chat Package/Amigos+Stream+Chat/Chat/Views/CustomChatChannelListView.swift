@@ -179,5 +179,9 @@ public struct ChatChannelListContentView<Factory: ViewFactory>: View {
             viewFactory.makeChannelListStickyFooterView()
         }
         .modifier(viewFactory.makeChannelListContentModifier())
+
+        .onAppear {
+            ChatFeatureState.shared.set(screen: .channelsList)
+        }
     }
 }

@@ -138,6 +138,7 @@ public class ExtendedStreamPlugin: CAPPlugin, CAPBridgedPlugin {
     @objc func dismiss() {
         self.bridge?.viewController?.dismiss(animated: true)
         self.chatNavigationController = nil
+        ChatFeatureState.shared.set(screen: .none)
     }
 
     @objc func notifyNavigateBackToListeners(dismiss: Bool = false) {
