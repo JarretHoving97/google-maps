@@ -15,8 +15,8 @@ let package = Package(
             targets: ["Amigos Chat Package"])
     ],
     dependencies: [
-        .package(url: "https://github.com/GetStream/stream-chat-swift", exact: "4.81.0"),
-        .package(url: "https://github.com/GetStream/stream-chat-swiftui", exact: "4.81.0"),
+        .package(url: "https://github.com/GetStream/stream-chat-swift", exact: "4.91.0"),
+        .package(url: "https://github.com/GetStream/stream-chat-swiftui", exact: "4.91.0"),
         .package(url: "https://github.com/SDWebImage/SDWebImageSwiftUI", exact: "3.1.3"),
         .package(url: "https://github.com/SimplyDanny/SwiftLintPlugins", exact: "0.58.2")
     ],

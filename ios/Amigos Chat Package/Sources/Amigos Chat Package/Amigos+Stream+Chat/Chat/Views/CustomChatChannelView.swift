@@ -23,8 +23,6 @@ public struct CustomChatChannelView<Factory: ViewFactory>: View, KeyboardReadabl
 
     private let customViewModel = CustomChatChannelViewModel()
 
-    @Environment(\.presentationMode) var presentationMode
-
     @State private var messageDisplayInfo: MessageDisplayInfo?
     @State private var keyboardShown = false
     @State private var tabBarAvailable: Bool = false
@@ -103,13 +101,6 @@ public struct CustomChatChannelView<Factory: ViewFactory>: View, KeyboardReadabl
         .onDisappear {
             viewModel.onViewDissappear()
         }
-        .onChange(of: presentationMode.wrappedValue, perform: { newValue in
-            if newValue.isPresented == false {
-                viewModel.onViewDissappear()
-            } else {
-                viewModel.setActive()
-            }
-        })
         .background(
             isIphone ?
                 Color.clear.background(

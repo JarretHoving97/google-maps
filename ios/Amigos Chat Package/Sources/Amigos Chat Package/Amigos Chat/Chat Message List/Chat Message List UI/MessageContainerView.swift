@@ -140,7 +140,8 @@ extension MessageContainerView {
                         messagePosition: viewModel.position
                         ),
                         maxWidth: contentWidth,
-                        onQuotedMessageTap: gestureCallbacks.onQuotedMessageTap
+                        onQuotedMessageTap: gestureCallbacks.onQuotedMessageTap,
+                        pollOptionViewBuilder: pollOptionAllVotesViewBuilder
                 )
                 .messageGestures(
                     disabled: viewModel.isDisabled,

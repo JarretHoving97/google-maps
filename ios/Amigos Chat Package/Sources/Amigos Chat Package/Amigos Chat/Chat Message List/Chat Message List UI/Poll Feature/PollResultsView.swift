@@ -48,14 +48,12 @@ struct PollResultsView: View {
                 .padding(.bottom, 8)
 
                 ForEach(viewModel.options, id: \.id) { option in
-                    /// Temporarily hide "See all" in PollResultsView only due to an upstream bug when navigating to the full votes list (PollAllOptionsHostingView/LocalPollOptionAllVotesView).
-                    /// Track: https://amigostech.slack.com/archives/C06U2JU0T9D/p1756977417347439. Re-enable by setting this to true.
                     PollOptionResultsView(
                         poll: viewModel.poll,
                         option: option,
                         votes: option.latestVotes,
                         hasMostVotes: viewModel.hasMostVotes(for: option),
-                        allButtonShown: false /* option.latestVotes.count > numberOfItemsShown */,
+                        allButtonShown: option.latestVotes.count > numberOfItemsShown,
                         pollOptionAllVotesViewBuilder: pollOptionAllVotesViewBuilder
                     )
                 }

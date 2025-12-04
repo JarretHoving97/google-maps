@@ -14,8 +14,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/SDWebImage/SDWebImage.git",
       "state" : {
-        "revision" : "b62cb63bf4ed1f04c961a56c9c6c9d5ab8524ec6",
-        "version" : "5.21.1"
+        "revision" : "e53f6226eaab490291096cfbd9b2b109ea968e8d",
+        "version" : "5.21.4"
       }
     },
     {
@@ -32,8 +32,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/GetStream/stream-chat-swift",
       "state" : {
-        "revision" : "3ea8ab7fb8367cf53255ab0f1effcb239efd8fa1",
-        "version" : "4.81.0"
+        "revision" : "61ee0eb8bf72dd55dbe3a7fb5221c096204d7ff1",
+        "version" : "4.91.0"
       }
     },
     {
@@ -41,8 +41,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/GetStream/stream-chat-swiftui",
       "state" : {
-        "revision" : "04cb99f6ea61a8339af423687d5d47e9348c0ead",
-        "version" : "4.81.0"
+        "revision" : "5aa483aa9ba7c4d566086bf57ba9e2cdd896b817",
+        "version" : "4.91.0"
       }
     },
     {

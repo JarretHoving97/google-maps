@@ -76,6 +76,8 @@ struct PollOptionResultsView: View {
             }
 
             if allButtonShown {
+                Divider()
+
                 NavigationLink {
                     PollAllOptionsHostingView(
                         poll: poll,
@@ -84,6 +86,8 @@ struct PollOptionResultsView: View {
                     )
                 } label: {
                     Text(tr("message.polls.button.show-all"))
+                        .frame(maxWidth: .infinity, alignment: .center)
+                        .font(.subheadline)
                 }
             }
         }
