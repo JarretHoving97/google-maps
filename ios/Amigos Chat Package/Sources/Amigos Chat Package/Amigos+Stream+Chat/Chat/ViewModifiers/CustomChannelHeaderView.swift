@@ -60,10 +60,6 @@ public struct CustomChatChannelHeader<Factory: ViewFactory>: View {
 
         var route: ChannelRoute?
 
-        if case .mixer(let mixerId) = channel.relatedConceptType {
-            route = .mixerRoute(id: mixerId)
-        }
-
         if case .activity(let activityId) = channel.relatedConceptType {
             route = .activityRoute(id: activityId)
         }

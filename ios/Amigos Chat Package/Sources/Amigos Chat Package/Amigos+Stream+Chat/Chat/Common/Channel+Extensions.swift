@@ -3,6 +3,8 @@ import StreamChatSwiftUI
 import SwiftUI
 
 enum ChatChannelRelatedConceptType: Equatable {
+
+    @available(*, deprecated, message: "Mixer is deprecated and kept only for backward compatibility with existing data.")
     case mixer(id: String)
     case activity(id: String)
     case community(id: String)
@@ -19,6 +21,7 @@ extension ChatChannelRelatedConceptType {
 
 extension ChatChannel {
 
+    @available(*, deprecated, message: "Mixer is deprecated and kept only for backward compatibility with existing data.")
     var mixerId: String? {
         if isDirectMessageChannel {
             return nil

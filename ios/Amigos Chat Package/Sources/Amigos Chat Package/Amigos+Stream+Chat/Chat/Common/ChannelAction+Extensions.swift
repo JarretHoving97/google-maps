@@ -275,18 +275,6 @@ extension ChannelAction {
             return [profileAction, inviteAction]
         }
 
-        if case .mixer(let mixerId) = channel.relatedConceptType {
-            let viewAction = ChannelAction(
-                title: tr("custom.channel.action.mixer.title"),
-                iconName: "chevronRight",
-                action: {RouteController.routeAction?(RouteInfo(route: .mixerRoute(id: mixerId), dismiss: true))},
-                confirmationPopup: nil,
-                isDestructive: false
-            )
-
-            return [viewAction]
-        }
-
         if case .activity(let activityId) = channel.relatedConceptType {
             let viewAction = ChannelAction(
                 title: tr("custom.channel.action.activity.title"),

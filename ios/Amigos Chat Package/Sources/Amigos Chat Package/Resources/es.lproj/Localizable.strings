@@ -100,7 +100,6 @@
 "current-selection" = "%d de %d";
 "custom.becomeSuperAmigo" = "Conviértete en Super amigo";
 "custom.channel.action.activity.title" = "Ver actividad";
-"custom.channel.action.mixer.title" = "Ver aperitivo";
 "custom.channel.action.archive.confirmation-body" = "¿Estás seguro de que quieres eliminar el chat?";
 "custom.channel.action.archive.confirmation-confirm" = "Eliminar";
 "custom.channel.action.archive.title" = "Eliminar chat";

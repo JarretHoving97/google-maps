@@ -26,6 +26,8 @@ extension ChatChannel: ChatChannelProtocol {
             return .standard
         }
 
+        // Legacy: mixer support for existing data only.
+        // TODO: Remove when legacy mixer data is no longer present.
         if let mixerId = extraData["mixerId"]?.stringValue {
             return .mixer(id: mixerId)
         }
