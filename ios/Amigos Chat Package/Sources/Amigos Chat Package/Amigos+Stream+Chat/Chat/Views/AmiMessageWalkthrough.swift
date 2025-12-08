@@ -1,7 +1,7 @@
 import SwiftUI
 import StreamChat
 
-enum MessageWalkthroughType: String {
+public enum MessageWalkthroughType: String {
     case onboardingHowToHost = "onboarding"
     case onboardingHowToJoin = "how_to_host"
     case onboardingDefault = "how_to_join"

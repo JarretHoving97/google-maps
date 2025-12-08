@@ -22,6 +22,10 @@ extension ChatMessage: ChatMessageProtocol {
         return extraData["layoutKey"]?.stringValue
     }
 
+    public var layoutType: LayoutMessageType? {
+        return LayoutMessageType(rawValue: layoutKey ?? "")
+    }
+
     public var translationKey: TranslationKey? {
         if let key = extraData["translationKey"]?.stringValue {
             return TranslationKey(rawValue: key)

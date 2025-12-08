@@ -20,7 +20,7 @@ public extension Utils {
                 isVoiceRecordingEnabled: true,
                 inputViewCornerRadius: 16,
                 inputFont: UIFont(name: "Poppins-Regular", size: 14)!,
-                inputPaddingsConfig: PaddingsConfig(top: 4, bottom: 4, leading: 4, trailing: 4)
+                inputPaddingsConfig: PaddingsConfig(top: 4, bottom: 4, leading: 4, trailing: 4),
             ),
             pollsConfig: PollsConfig(
                 multipleAnswers: .init(configurable: true, defaultValue: false),

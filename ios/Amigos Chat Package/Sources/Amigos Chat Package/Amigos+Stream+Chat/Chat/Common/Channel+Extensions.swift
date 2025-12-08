@@ -115,7 +115,7 @@ extension ChatChannel {
             return content
         }
 
-        if let authorName = latestMessage.author.name {
+        if let authorName = latestMessage.author.name, latestMessage.layoutType != .anonymous {
             return "\(authorName): \(content)"
         }
 

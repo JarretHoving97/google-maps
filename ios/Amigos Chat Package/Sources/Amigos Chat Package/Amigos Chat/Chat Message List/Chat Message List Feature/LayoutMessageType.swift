@@ -7,7 +7,7 @@
 
 import Foundation
 
-enum LayoutMessageType: Equatable {
+public enum LayoutMessageType: Equatable {
     // system messages
     case anonymous
     // default messages
@@ -32,7 +32,7 @@ enum LayoutMessageType: Equatable {
         }
      }
 
-    static func == (lhs: LayoutMessageType, rhs: LayoutMessageType) -> Bool {
+    static public func == (lhs: LayoutMessageType, rhs: LayoutMessageType) -> Bool {
         return lhs.rawValue == rhs.rawValue
     }
 }
