@@ -22,7 +22,7 @@ public enum LayoutMessageType: Equatable {
         }
     }
 
-    init?(rawValue: String) {
+    public init?(rawValue: String) {
         if rawValue == "anonymous" {
             self = .anonymous
         } else if let childType = MessageWalkthroughType(rawValue: rawValue) {
@@ -32,7 +32,7 @@ public enum LayoutMessageType: Equatable {
         }
      }
 
-    static public func == (lhs: LayoutMessageType, rhs: LayoutMessageType) -> Bool {
+    public static func == (lhs: LayoutMessageType, rhs: LayoutMessageType) -> Bool {
         return lhs.rawValue == rhs.rawValue
     }
 }

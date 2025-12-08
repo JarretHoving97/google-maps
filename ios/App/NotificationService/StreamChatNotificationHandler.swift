@@ -57,7 +57,7 @@ extension StreamChatNotificationHandler {
         completion: @escaping (UNMutableNotificationContent) -> Void
     ) -> ChatNotificationHandler {
         return { [weak self] chatContent in
-            
+
             guard let self else { return }
 
             switch chatContent {
@@ -76,31 +76,39 @@ extension StreamChatNotificationHandler {
 
                 let members = messageNotification.channel?.lastActiveMembers ?? []
 
-                // check if we have a sender image
-                guard let senderImage = author.imageURL else {
-                    completion(content)
-                    return
-                }
+                let layoutType = LayoutMessageType(rawValue: messageNotification.message.layoutKey ?? "")
+
+                let isAnonymous = layoutType == .anonymous
+
+                // Resolve sender image URL only when not anonymous
+                let senderImageURL: URL? = isAnonymous ? nil : author.imageURL
 
                 makeCommunicationNotification(
-                    channelId: channelId,
-                    imageURL: senderImage,
-                    title: channelName,
-                    body: message,
-                    author: author,
-                    members: members,
+                    info: ChatNotificationInfo(
+                        channelId: channelId,
+                        imageURL: senderImageURL,
+                        title: channelName,
+                        body: message,
+                        author: author,
+                        isAnonymous: isAnonymous,
+                        members: members
+                    ),
                     content: content
 
                 ) { [weak self, completion, imageAttachments] content in
                     // download attachments if any
                     guard let self else { return }
 
-                    // download only first attachments for now..
+                    // Skip attachments for anonymous messages
+                    guard !isAnonymous else {
+                        completion(content)
+                        return
+                    }
+                    // download only first attachment for now
                     guard let url = imageAttachments.first?.imageURL else {
                         completion(content)
                         return
                     }
-
                     addAttachments(url: url, content: content, completion: completion)
                 }
             default:
@@ -108,94 +116,123 @@ extension StreamChatNotificationHandler {
                 completion(content)
             }
         }
+
     }
+
     private func makeCommunicationNotification(
-        channelId: String,
-        imageURL: URL,
-        title: String,
-        body: String,
-        author: ChatUser,
-        members: [ChatChannelMember],
+        info: ChatNotificationInfo,
         content: UNMutableNotificationContent,
         completion: @escaping (UNMutableNotificationContent) -> Void
     ) {
-        downloadAndSaveImageTemporaly(url: imageURL) { localURL in
+        // only download sender image if not anonymous and URL exists
+        if !info.isAnonymous, let imageURL = info.imageURL {
 
-            guard let url = localURL, let senderImageData = try? Data(contentsOf: url) else {
-                return
+            downloadAndSaveImageTemporaly(url: imageURL) { localURL in
+
+                var senderDisplayName = PersonNameComponents()
+
+                senderDisplayName.nickname = info.isAnonymous ? nil : info.author.name
+
+                var senderImage: INImage?
+
+                if let localURL, let data = try? Data(contentsOf: localURL) {
+                    senderImage = INImage(imageData: data)
+                }
+
+                // build and finalize notification using a helper to avoid duplication
+                self.finishBuildingCommunicationNotification(
+                    info: info,
+                    content: content,
+                    senderImage: senderImage,
+                    completion: completion
+                )
             }
+        } else {
+            // anonymous or no image URL: build without sender image
+            self.finishBuildingCommunicationNotification(
+                info: info,
+                content: content,
+                senderImage: nil,
+                completion: completion
+            )
+        }
+    }
 
-            let senderAvatar: INImage = INImage(imageData: senderImageData)
+    private func finishBuildingCommunicationNotification(
+        info: ChatNotificationInfo,
+        content: UNMutableNotificationContent,
+        senderImage: INImage?,
+        completion: @escaping (UNMutableNotificationContent) -> Void
+    ) {
+        var senderDisplayName = PersonNameComponents()
 
-            var senderDisplayName = PersonNameComponents()
-            senderDisplayName.nickname = author.name
+        senderDisplayName.nickname = info.isAnonymous ? nil : info.author.name
 
-            let senderPerson = INPerson(
+        let senderPerson = INPerson(
+            personHandle: INPersonHandle(
+                value: info.author.id,
+                type: .unknown
+            ),
+            nameComponents: senderDisplayName,
+            displayName: info.isAnonymous ? Bundle.appDisplayName : info.author.name,
+            image: senderImage,
+            contactIdentifier: nil,
+            customIdentifier: nil
+        )
+        /// Mapping all channel members to INPerson
+        /// `https://developer.apple.com/documentation/usernotifications/implementing-communication-notifications`
+        ///  could be important for grouping notifications
+        let recipents = info.members.map { member in
+            let name = member.name
+            var personNameComponents = PersonNameComponents()
+            personNameComponents.nickname = member.name
+
+            return INPerson(
                 personHandle: INPersonHandle(
-                    value: author.id,
+                    value: member.userId,
                     type: .unknown
                 ),
-                nameComponents: senderDisplayName,
-                displayName: author.name,
-                image: senderAvatar,
+                nameComponents: personNameComponents,
+                displayName: name,
+                image: nil,
                 contactIdentifier: nil,
                 customIdentifier: nil
             )
-            /// Mapping all channel members to INPerson
-            /// `https://developer.apple.com/documentation/usernotifications/implementing-communication-notifications`
-            ///  could be important for grouping notifications
-            let recipents = members.map { member in
-                let name = member.name
-                var personNameComponents = PersonNameComponents()
-                personNameComponents.nickname = member.name
+        }
 
-                return INPerson(
-                    personHandle: INPersonHandle(
-                        value: member.userId,
-                        type: .unknown
-                    ),
-                    nameComponents: personNameComponents,
-                    displayName: name,
-                    image: nil,
-                    contactIdentifier: nil,
-                    customIdentifier: nil
-                )
-            }
+        let incomingMessagingIntent = INSendMessageIntent(
+            recipients: recipents, // > 1 == showing groupname if there there is one
+            outgoingMessageType: .unknown,
+            content: info.body,
+            speakableGroupName: INSpeakableString(spokenPhrase: info.title),
+            conversationIdentifier: info.title,
+            serviceName: nil,
+            sender: senderPerson,
+            attachments: nil
+        )
 
+        if !info.isAnonymous {
+            incomingMessagingIntent.setImage(senderImage, forParameterNamed: \.speakableGroupName)
+        }
 
-            let incomingMessagingIntent = INSendMessageIntent(
-                recipients: recipents, // > 1 == showing groupname if there there is one
-                outgoingMessageType: .unknown,
-                content: body,
-                speakableGroupName: INSpeakableString(spokenPhrase: title),
-                conversationIdentifier: title,
-                serviceName: nil,
-                sender: senderPerson,
-                attachments: nil
-            )
+        let interaction = INInteraction(intent: incomingMessagingIntent, response: nil)
 
-            incomingMessagingIntent.setImage(senderAvatar, forParameterNamed: \.speakableGroupName)
+        interaction.direction = .incoming
+        content.threadIdentifier = info.title
+        content.body = info.body
 
-            let interaction = INInteraction(intent: incomingMessagingIntent, response: nil)
+        do {
+            // we now update / patch / convert our attempt to a communication notification.
+            let bestAttemptContent = try content.updating(from: incomingMessagingIntent) as? UNMutableNotificationContent
 
-            interaction.direction = .incoming
+            // group by channel
+            bestAttemptContent?.threadIdentifier = info.channelId
 
-            content.threadIdentifier = title
-            content.body = body
+            // everything went alright, we are ready to display our notification.
+            completion(bestAttemptContent!)
 
-            do {
-                // we now update / patch / convert our attempt to a communication notification.
-                let bestAttemptContent = try content.updating(from: incomingMessagingIntent) as? UNMutableNotificationContent
-
-                // group by channel
-                bestAttemptContent?.threadIdentifier = channelId
-
-                // everything went alright, we are ready to display our notification.
-                completion(bestAttemptContent!)
-
-            } catch let error {
-                print("error \(error)")
-            }
+        } catch let error {
+            print("error \(error)")
         }
     }
 
@@ -219,7 +256,7 @@ extension StreamChatNotificationHandler {
             completion(content)
         }
     }
-    
+
     // downloads image, and saves it to temporary directory returning the local URL
     private func downloadAndSaveImageTemporaly(
         url: URL,
