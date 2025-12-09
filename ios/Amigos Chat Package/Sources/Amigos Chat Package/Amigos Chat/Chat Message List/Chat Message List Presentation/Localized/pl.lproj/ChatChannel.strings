@@ -30,3 +30,5 @@
 "chat_message_attachment_unsupported_app_update" = "Ta wiadomość zawiera element działający tylko w najnowszej wersji aplikacji. Stuknij tutaj, aby pobrać najnowszą wersję:";
 
 "chat_message_attachment_unsupported_open_app_store" = "Otwórz App Store";
+
+"chat_message_action_reply_privately" = "Odpowiedz prywatnie";

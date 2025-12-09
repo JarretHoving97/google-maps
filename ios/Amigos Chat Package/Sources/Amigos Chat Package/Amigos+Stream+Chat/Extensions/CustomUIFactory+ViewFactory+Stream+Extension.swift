@@ -40,7 +40,7 @@ extension CustomUIFactory: ViewFactory {
         { [unowned self] selectionInfo in
             return CustomChatChannelView(
                 viewFactory: self,
-                messageId: nil,
+                messageId: selectionInfo.message?.id,
                 channelController: chatClient.channelController(for: selectionInfo.channel.cid)
             )
         }
@@ -359,42 +359,6 @@ extension CustomUIFactory: ViewFactory {
         colors: ColorPalette
     ) -> CustomEmptyMessagesView {
         CustomEmptyMessagesView(channel: channel)
-    }
-
-    func supportedMessageActions(
-        for message: ChatMessage,
-        channel: ChatChannel,
-        isInthread: Bool,
-        onFinish: @escaping (MessageActionInfo) -> Void,
-        onError: @escaping (Error) -> Void
-    ) -> [MessageAction] {
-        MessageAction.customActions(
-            factory: self,
-            for: message,
-            channel: channel,
-            chatClient: chatClient,
-            isInThread: isInthread,
-            onFinish: onFinish,
-            onError: onError
-        )
-    }
-
-    public func makeMessageActionsView(
-        for message: ChatMessage,
-        channel: ChatChannel,
-        isInThread: Bool,
-        onFinish: @escaping (MessageActionInfo) -> Void,
-        onError: @escaping (Error) -> Void
-    ) -> CustomMessageActionsView {
-        let messageActions = supportedMessageActions(
-            for: message,
-            channel: channel,
-            isInthread: isInThread,
-            onFinish: onFinish,
-            onError: onError
-        )
-
-        return CustomMessageActionsView(for: message, messageActions: messageActions)
     }
 
     public typealias MessageComposerViewType = MessageComposerViewContainer<CustomUIFactory>

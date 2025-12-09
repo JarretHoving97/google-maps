@@ -31,3 +31,5 @@
 "chat_message_attachment_unsupported_app_update" = "Dit bericht bevat iets dat alleen werkt in de nieuwste versie van de app. Tik hier om de nieuwste versie te krijgen:";
 
 "chat_message_attachment_unsupported_open_app_store" = "App Store openen";
+
+"chat_message_action_reply_privately" = "Privé beantwoorden";

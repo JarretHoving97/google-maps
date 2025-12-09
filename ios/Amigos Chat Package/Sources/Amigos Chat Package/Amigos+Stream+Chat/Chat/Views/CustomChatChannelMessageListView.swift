@@ -30,10 +30,9 @@ struct CustomChatChannelMessageListView<Factory: ViewFactory>: View {
 
     private var onReloadChannelHeader: ((ChatChannel) -> Void)?
 
-    // MARK: Maybe not needed after all
-    private let channelControllerBuilder: ChannelControllerBuilder?
-
     private let messageThreadNavigationAction: MessageThreadNavigationAction
+
+    private let messageActionsViewBuilder: OnCreateMessageActionsFactory?
 
     public init(
         viewFactory: Factory = DefaultViewFactory.shared,
@@ -42,9 +41,9 @@ struct CustomChatChannelMessageListView<Factory: ViewFactory>: View {
         viewModel: ChatChannelViewModel? = nil,
         channelController: ChatChannelController,
         messageController: ChatMessageController? = nil,
-        channelControllerBuilder: ChannelControllerBuilder? = nil,
         messageId: String? = nil,
-        messageThreadNavigationAction: @escaping MessageThreadNavigationAction = {_ in }
+        messageThreadNavigationAction: @escaping MessageThreadNavigationAction = {_ in },
+        messageActionsViewBuilder: OnCreateMessageActionsFactory?,
     ) {
         _viewModel = StateObject(
             wrappedValue: viewModel ?? ViewModelsFactory.makeChannelViewModel(
@@ -57,8 +56,8 @@ struct CustomChatChannelMessageListView<Factory: ViewFactory>: View {
         self.channel = channel
         self.messageId = messageId
         self.onReloadChannelHeader = onReloadChannelHeader
-        self.channelControllerBuilder = channelControllerBuilder
         self.messageThreadNavigationAction = messageThreadNavigationAction
+        self.messageActionsViewBuilder = messageActionsViewBuilder
     }
 
     private var shouldPresentOverlay: Bool {
@@ -201,7 +200,8 @@ struct CustomChatChannelMessageListView<Factory: ViewFactory>: View {
             if let mdi = messageDisplayInfo {
                 CustomReactionsOverlayView(
                     channel: channel,
-                    messageDisplayInfo: mdi
+                    messageDisplayInfo: mdi,
+                    messageActionsBuilder: messageActionsViewBuilder?(MessageActionViewInfo(message: mdi.message, isInthread: false))
                 ) {
                     withAnimation {
                         viewModel.reactionsShown = false

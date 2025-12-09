@@ -30,3 +30,5 @@
 "chat_message_attachment_unsupported_app_update" = "Bu mesaj yalnızca uygulamanın en son sürümünde çalışır. En son sürümü edinmek için buraya dokun:";
 
 "chat_message_attachment_unsupported_open_app_store" = "App Store’u aç";
+
+"chat_message_action_reply_privately" = "Özel olarak cevapla";

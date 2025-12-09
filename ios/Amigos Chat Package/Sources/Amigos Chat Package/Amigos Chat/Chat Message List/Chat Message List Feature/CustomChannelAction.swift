@@ -31,7 +31,7 @@ struct CustomChannelAction: Identifiable {
     }
 }
 
-struct CustomConfirmationInfo {
+public struct CustomConfirmationInfo {
     let title: String
     let buttonTitle: String
     let message: String

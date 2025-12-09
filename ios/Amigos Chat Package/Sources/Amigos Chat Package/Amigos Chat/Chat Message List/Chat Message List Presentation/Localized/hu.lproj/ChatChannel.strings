@@ -30,3 +30,5 @@
 "chat_message_attachment_unsupported_app_update" = "Ez az üzenet csak az alkalmazás legújabb verziójában működik. Koppints ide a legújabb verzió letöltéséhez:";
 
 "chat_message_attachment_unsupported_open_app_store" = "App Store megnyitása";
+
+"chat_message_action_reply_privately" = "Válasz privát üzenetben";

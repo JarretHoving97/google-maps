@@ -10,8 +10,8 @@ import SwiftUI
 import StreamChat
 
 typealias PollControllerBuilder = (_ messageId: String, _ pollId: String) -> PollControllerProtocol?
-
 typealias PollOptionAllVotesViewBuilder = (LocalPoll, LocalPollOption) -> LocalPollOptionAllVotesView
+typealias MessageActionBuilder = ()
 
 class MessageListUIComposer {
 

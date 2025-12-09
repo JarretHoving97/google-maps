@@ -60,6 +60,8 @@ public struct ChatChannelScreen: View {
 
     private let messageThreadNavigationAction: MessageThreadNavigationAction
 
+    private let messageActionsViewBuilder: OnCreateMessageActionsFactory?
+
     private var shouldPresentOverlay: Bool {
         viewModel.popOver != nil
     }
@@ -71,7 +73,8 @@ public struct ChatChannelScreen: View {
         chatChannelController: ChatChannelController,
         viewModel: ChatChannelScreenViewModel,
         messageId: String?,
-        messageThreadNavigationAction: @escaping MessageThreadNavigationAction = {_ in }
+        messageThreadNavigationAction: @escaping MessageThreadNavigationAction = {_ in },
+        messageActionsViewBuilder: OnCreateMessageActionsFactory? = nil,
     ) {
         self.channel = channel
         self.chatClient = chatClient
@@ -80,6 +83,7 @@ public struct ChatChannelScreen: View {
         self.viewFactory = viewFactory
         self._viewModel = StateObject(wrappedValue: viewModel)
         self.messageThreadNavigationAction = messageThreadNavigationAction
+        self.messageActionsViewBuilder = messageActionsViewBuilder
     }
 
     public var body: some View {
@@ -90,7 +94,8 @@ public struct ChatChannelScreen: View {
             channelController: chatChannelController,
             onDidLoadChannel: onDidLoadChannel,
             headerButtonTapHandler: headerButtonTapHandler,
-            messageThreadNavigationAction: messageThreadNavigationAction
+            messageThreadNavigationAction: messageThreadNavigationAction,
+            messageActionsViewBuilder: messageActionsViewBuilder
         )
         .onAppear { chatChannelController.markRead() }
         .environment(\.attachmentController, AttachmentEnvironmentController())

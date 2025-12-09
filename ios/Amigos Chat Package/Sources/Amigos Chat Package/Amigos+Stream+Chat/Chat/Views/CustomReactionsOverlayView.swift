@@ -18,6 +18,8 @@ public struct CustomReactionsOverlayView: View {
     var onBackgroundTap: () -> Void
     var onActionExecuted: (MessageActionInfo) -> Void
 
+    @StateObject private var messageActionsViewModel: MessageActionsViewModel
+
     private struct UI {
         static var padding: CGFloat { 12 }
         static var reactionHeight: CGFloat { 56 }
@@ -33,11 +35,10 @@ public struct CustomReactionsOverlayView: View {
         static var overlayFixedWidth: CGFloat { 240 }
     }
 
-    private var messageActionsCount: Int
-
     public init(
         channel: ChatChannel,
         messageDisplayInfo: LocalMessageDisplayInfo,
+        messageActionsBuilder: MessageActionService?,
         bottomOffset: CGFloat = 0,
         onBackgroundTap: @escaping () -> Void,
         onActionExecuted: @escaping (MessageActionInfo) -> Void
@@ -47,18 +48,15 @@ public struct CustomReactionsOverlayView: View {
                 message: messageDisplayInfo.message
             )
         )
+
+        let builder = messageActionsBuilder ?? EmptyMessageActionViewBuilder()
+        _messageActionsViewModel = StateObject(wrappedValue: MessageActionsViewModel(messageActionsBuilder: builder))
+
         self.channel = channel
         self.bottomOffset = bottomOffset
         self.messageDisplayInfo = messageDisplayInfo
         self.onBackgroundTap = onBackgroundTap
         self.onActionExecuted = onActionExecuted
-        self.messageActionsCount = factory.supportedMessageActions(
-            for: messageDisplayInfo.message,
-            channel: channel,
-            isInthread: messageDisplayInfo.isInThread,
-            onFinish: { _ in },
-            onError: { _ in }
-        ).count
     }
 
     public var body: some View {
@@ -68,7 +66,7 @@ public struct CustomReactionsOverlayView: View {
                 geo: geo,
                 messageDisplayInfo: messageDisplayInfo,
                 bottomOffset: bottomOffset,
-                actionsCount: messageActionsCount
+                actionsCount: messageActionsViewModel.messageActions.count
             )
 
             let pollViewData = messageDisplayInfo.pollViewData
@@ -134,16 +132,21 @@ public struct CustomReactionsOverlayView: View {
                 .animation(popAnimation, value: popIn)
                 .zIndex(2)
 
-                factory.makeMessageActionsView(
-                    for: messageDisplayInfo.message,
-                    channel: channel,
-                    isInThread: messageDisplayInfo.isInThread,
-                    onFinish: { actionInfo in
-                        dismissReactionsOverlay {
-                            onActionExecuted(actionInfo)
+                MessageActionsView(
+                    viewModel: messageActionsViewModel,
+                    onAction: { result in
+
+                        switch result {
+
+                        case .failure:
+                            viewModel.errorShown = true
+
+                        case let .success(info):
+                            dismissReactionsOverlay {
+                                onActionExecuted(MessageActionInfo(message: info.message, identifier: info.identifier))
+                            }
                         }
-                    },
-                    onError: { _ in viewModel.errorShown = true }
+                    }
                 )
                 .frame(width: layout.overlayWidth, height: layout.actionsHeight, alignment: .topLeading)
                 .offset(x: layout.overlayLocalX, y: layout.actionsLocalY)
@@ -343,6 +346,17 @@ public struct CustomReactionsOverlayView: View {
                 let keyWindow = windowScene.windows.first(where: { $0.isKeyWindow })
             else { return .zero }
             return keyWindow.safeAreaInsets
+        }
+    }
+}
+
+extension CustomReactionsOverlayView {
+
+    // placeholder so we can keep `messageActionsViewModel` observable
+    // because the compiler won't allow optional ObservableObjects
+    private struct EmptyMessageActionViewBuilder: MessageActionService {
+        func createMessageActions(on actionCallback: @escaping MessageActionCompletion) -> [CustomMessageAction] {
+            return []
         }
     }
 }

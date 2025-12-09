@@ -30,3 +30,5 @@
 "chat_message_attachment_unsupported_app_update" = "이 메시지는 앱의 최신 버전에서만 동작해요. 최신 버전을 받으려면 여기를 탭하세요:";
 
 "chat_message_attachment_unsupported_open_app_store" = "App Store 열기";
+
+"chat_message_action_reply_privately" = "개별 답장";

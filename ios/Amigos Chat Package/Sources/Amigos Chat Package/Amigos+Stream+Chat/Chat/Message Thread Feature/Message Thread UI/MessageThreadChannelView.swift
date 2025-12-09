@@ -24,6 +24,8 @@ struct MessageThreadChannelView: View, KeyboardReadable {
 
     @State private var overlayDisplayInfo: LocalMessageDisplayInfo?
 
+    private var messageActionsBuilder: MessageActionService
+
     private var onMoreTapped: onMoreTappedAction?
 
     private let mapper = MessageMapper()
@@ -53,6 +55,7 @@ struct MessageThreadChannelView: View, KeyboardReadable {
     init(
         viewModel: MessageThreadChannelViewModel,
         onMoreTapped: onMoreTappedAction? = nil,
+        messageActonsBuilder: MessageActionService,
         handleMessageAction: @escaping (MessageActionInfo) -> Void = {_ in }
     ) {
         _channelViewModel = StateObject(
@@ -64,6 +67,7 @@ struct MessageThreadChannelView: View, KeyboardReadable {
         )
         self._viewModel = StateObject(wrappedValue: viewModel)
         self.onMoreTapped = onMoreTapped
+        self.messageActionsBuilder = messageActonsBuilder
     }
 
     var body: some View {
@@ -92,9 +96,11 @@ struct MessageThreadChannelView: View, KeyboardReadable {
             transition: .crossDissolve
         ) {
             if let mdi = overlayDisplayInfo, let channel = channelViewModel.channel {
+
                 CustomReactionsOverlayView(
                     channel: channel,
-                    messageDisplayInfo: mdi
+                    messageDisplayInfo: mdi,
+                    messageActionsBuilder: messageActionsBuilder
                 ) {
                     withAnimation {
                         overlayDisplayInfo = nil

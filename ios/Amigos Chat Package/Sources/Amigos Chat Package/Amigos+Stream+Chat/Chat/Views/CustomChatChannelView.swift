@@ -24,6 +24,7 @@ public struct CustomChatChannelView<Factory: ViewFactory>: View, KeyboardReadabl
     private let customViewModel = CustomChatChannelViewModel()
 
     @State private var messageDisplayInfo: MessageDisplayInfo?
+
     @State private var keyboardShown = false
     @State private var tabBarAvailable: Bool = false
 
@@ -39,6 +40,8 @@ public struct CustomChatChannelView<Factory: ViewFactory>: View, KeyboardReadabl
 
     private let messageThreadNavigationAction: MessageThreadNavigationAction
 
+    private let messageActionsViewBuilder: OnCreateMessageActionsFactory?
+
     public init(
         viewFactory: Factory = DefaultViewFactory.shared,
         viewModel: ChatChannelViewModel? = nil,
@@ -48,7 +51,8 @@ public struct CustomChatChannelView<Factory: ViewFactory>: View, KeyboardReadabl
         scrollToMessage: ChatMessage? = nil,
         onDidLoadChannel: ((ChatChannel) -> Void)? = nil,
         headerButtonTapHandler: HeaderButtonActionHandler? = nil,
-        messageThreadNavigationAction: @escaping MessageThreadNavigationAction = {_ in }
+        messageThreadNavigationAction: @escaping MessageThreadNavigationAction = {_ in },
+        messageActionsViewBuilder: OnCreateMessageActionsFactory? = nil
     ) {
         _viewModel = StateObject(
             wrappedValue: viewModel ?? ViewModelsFactory.makeChannelViewModel(
@@ -63,6 +67,7 @@ public struct CustomChatChannelView<Factory: ViewFactory>: View, KeyboardReadabl
         self.scrollToMessage = scrollToMessage
         self.messageId = messageId
         self.messageThreadNavigationAction = messageThreadNavigationAction
+        self.messageActionsViewBuilder = messageActionsViewBuilder
     }
 
     public var body: some View {
@@ -78,7 +83,8 @@ public struct CustomChatChannelView<Factory: ViewFactory>: View, KeyboardReadabl
                         onReloadChannelHeader: onDidLoadChannel,
                         viewModel: viewModel,
                         channelController: chatClient.channelController(for: channel.cid),
-                        messageThreadNavigationAction: messageThreadNavigationAction
+                        messageThreadNavigationAction: messageThreadNavigationAction,
+                        messageActionsViewBuilder: messageActionsViewBuilder
                     )
                 }
                 .onAppear {

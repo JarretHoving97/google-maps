@@ -10,6 +10,8 @@ import SwiftUI
 import StreamChat
 import StreamChatSwiftUI
 
+public typealias OnCreateMessageActionsFactory = (MessageActionViewInfo) -> MessageActionService?
+
 public typealias MessageThreadNavigationAction = (MessageThreadChannelViewData) -> Void
 
 public class ChatViewControllerComposer {
@@ -46,6 +48,8 @@ public class ChatViewControllerComposer {
 
         let channelController = chatClient.channelController(for: chatChannel.cid)
 
+        let channelCreationLoader = MainTheadDispatchDecorator(decoratee: channelCreationService)
+
         let channelView = ChatChannelScreen(
             with: CustomUIFactory(),
             channel: chatChannel,
@@ -55,7 +59,15 @@ public class ChatViewControllerComposer {
             messageId: messageId,
             messageThreadNavigationAction: { viewData in
                 adaptRouteToMessageThread(with: viewData, client: chatClient, in: navigationController)
-            }
+            },
+
+            messageActionsViewBuilder: adaptOnMessageActionsView(
+                client: chatClient,
+                channelController: channelController,
+                routeHandler: routeHandler,
+                loader: channelCreationLoader,
+                in: navigationController
+            )
         )
 
         let viewController = CustomHostingController(rootView: channelView)
@@ -79,7 +91,7 @@ public class ChatViewControllerComposer {
         viewController.rootView.headerButtonTapHandler = adaptOnChannelHeaderButtonTap(
             client: chatClient,
             routeHandler: routeHandler,
-            loader: MainTheadDispatchDecorator(decoratee: channelCreationService),
+            loader: channelCreationLoader,
             in: navigationController
         )
 
@@ -118,6 +130,8 @@ public class ChatViewControllerComposer {
             InjectedValues[\.appInfo] = appInfo
         }
 
+        let channelCreationLoader = MainTheadDispatchDecorator(decoratee: channelCreationService)
+
         let channelView = ChatChannelScreen(
             with: viewFactory,
             channel: channelController.channel,
@@ -131,7 +145,15 @@ public class ChatViewControllerComposer {
                     client: client,
                     in: navigation
                 )
-            }
+            },
+
+            messageActionsViewBuilder: adaptOnMessageActionsView(
+                client: client,
+                channelController: channelController,
+                routeHandler: routeHandler,
+                loader: channelCreationLoader,
+                in: navigation
+            )
         )
 
         let viewController = CustomHostingController(rootView: channelView)
@@ -153,11 +175,35 @@ public class ChatViewControllerComposer {
         viewController.rootView.headerButtonTapHandler = adaptOnChannelHeaderButtonTap(
             client: client,
             routeHandler: routeHandler,
-            loader: MainTheadDispatchDecorator(decoratee: channelCreationService),
+            loader: channelCreationLoader,
             in: navigation
         )
 
         return viewController
+    }
+
+    private static func navigate(
+        to channel: ChannelId,
+        client: ChatClient,
+        routeHandler: @escaping routeAction,
+        loader: ChannelCreationService,
+        in navigation: UINavigationController
+    ) {
+        let viewModel = ChatChannelScreenViewModel(isDirectMessageChannel: true)
+
+        let channelView = lazyLoadCompose(
+            viewFactory: CustomUIFactory(),
+            viewModel: viewModel,
+            channelController: client.channelController(for: channel),
+            routeHandler: routeHandler,
+            messageId: nil,
+            navigation: navigation,
+            appInfo: nil, // already injected, so not needed
+            client: client
+        )
+
+        navigation.pushViewController(channelView, animated: true)
+        routeHandler(RouteInfo(route: .path("/channels/\(channel)")))
     }
 }
 
@@ -178,20 +224,13 @@ extension ChatViewControllerComposer {
             case let .messageHost(userId: userId):
                 loader.load(for: userId) { result in
                     if case let .success(channel) = result, let channelId = try? ChannelId(cid: channel) {
-
-                        let viewModel = ChatChannelScreenViewModel(isDirectMessageChannel: true)
-
-                        let channelView = lazyLoadCompose(
-                            viewFactory: CustomUIFactory(),
-                            viewModel: viewModel,
-                            channelController: client.channelController(for: channelId),
+                        navigate(
+                            to: channelId,
+                            client: client,
                             routeHandler: routeHandler,
-                            messageId: nil,
-                            navigation: navigation,
-                            appInfo: nil, // already injected, so not needed
-                            client: client
+                            loader: loader,
+                            in: navigation
                         )
-                        navigation.pushViewController(channelView, animated: true)
                     }
                 }
 
@@ -257,6 +296,10 @@ extension ChatViewControllerComposer {
             let channelId = try ChannelId(cid: viewData.channelId)
 
             let channelController = client.channelController(for: channelId)
+            guard let message = channelController.messages.first(where: { $0.id == viewData.messageId}) else {
+                debugPrint("❌ Could not find message with id: \(viewData.messageId)")
+                return
+            }
 
             let messageController = client.messageController(
                 cid: channelId,
@@ -272,7 +315,13 @@ extension ChatViewControllerComposer {
 
             let viewcontroller = UIHostingController(
                 rootView: MessageThreadChannelView(
-                    viewModel: viewModel
+                    viewModel: viewModel,
+                    messageActonsBuilder: StreamMessageActionService(
+                        chatClient: client,
+                        channelController: channelController,
+                        isInThread: true,
+                        message: message
+                    )
                 )
             )
 
@@ -280,6 +329,40 @@ extension ChatViewControllerComposer {
 
         } catch {
             print("Could not create channelId: \(String(describing: error))")
+        }
+    }
+
+    static func adaptOnMessageActionsView(
+        client: ChatClient,
+        channelController: ChatChannelController,
+        routeHandler: @escaping routeAction,
+        loader: ChannelCreationService,
+        in navigation: UINavigationController
+    ) -> OnCreateMessageActionsFactory? {
+
+        return { [weak client, weak channelController] info in
+
+            guard let client, let channelController else { return nil }
+
+            return StreamMessageActionService(
+                chatClient: client,
+                channelController: channelController,
+                isInThread: info.isInthread,
+                navigateToChannelAction: {
+                    loader.load(for: info.message.user.userId) { result in
+                        if case let .success(channel) = result, let channelId = try? ChannelId(cid: channel) {
+                            navigate(
+                                to: channelId,
+                                client: client,
+                                routeHandler: routeHandler,
+                                loader: loader,
+                                in: navigation
+                            )
+                        }
+                    }
+                },
+                message: info.message
+            )
         }
     }
 }

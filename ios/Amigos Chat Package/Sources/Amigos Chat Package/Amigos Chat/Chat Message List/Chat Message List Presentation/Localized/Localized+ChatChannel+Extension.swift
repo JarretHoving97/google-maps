@@ -148,5 +148,19 @@ extension Localized {
                 )
             )
         }
+
+
+        // Message actions
+
+        static var replyPrivatelyMessageAction: String {
+            String(
+                format: NSLocalizedString(
+                    "chat_message_action_reply_privately",
+                    tableName: table,
+                    bundle: bundle,
+                    comment: "a message action to reply a message privately"
+                )
+            )
+        }
     }
 }
