@@ -16,8 +16,8 @@ android {
         applicationId "com.whoisup.app"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 1092600
-        versionName "1.9.26"
+        versionCode 1092700
+        versionName "1.9.27"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 
         Properties properties = new Properties()
