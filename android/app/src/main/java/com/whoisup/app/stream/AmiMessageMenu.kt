@@ -11,6 +11,7 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.key
 import androidx.compose.runtime.mutableStateOf
@@ -41,9 +42,11 @@ import io.getstream.chat.android.ui.common.state.messages.Delete
 import io.getstream.chat.android.ui.common.state.messages.Edit
 import io.getstream.chat.android.ui.common.state.messages.MarkAsUnread
 import io.getstream.chat.android.ui.common.state.messages.MessageAction
+import io.getstream.chat.android.ui.common.state.messages.MessageMode
 import io.getstream.chat.android.ui.common.state.messages.Reply
 import io.getstream.chat.android.ui.common.state.messages.Resend
 import io.getstream.chat.android.ui.common.state.messages.ThreadReply
+import io.getstream.chat.android.ui.common.state.messages.composer.MessageComposerState
 import io.getstream.chat.android.ui.common.state.messages.list.SelectedMessageOptionsState
 import io.getstream.chat.android.ui.common.state.messages.list.SelectedMessageState
 import io.getstream.chat.android.ui.common.state.messages.updateMessage
@@ -68,7 +71,10 @@ fun AmiMessageMenu(
 
     val ownCapabilities = selectedMessageState?.ownCapabilities ?: setOf()
 
+    val messageComposerState by composerViewModel.messageComposerState.collectAsState()
+
     val newMessageOptions = messageOptions(
+        messageComposerState = messageComposerState,
         selectedMessage = selectedMessage,
         currentUser = currentUser,
         isInThread = listViewModel.isInThread,
@@ -156,6 +162,7 @@ internal class MessageOptionItemState(
 
 @Composable
 internal fun messageOptions(
+    messageComposerState: MessageComposerState,
     selectedMessage: Message,
     currentUser: User?,
     isInThread: Boolean,
@@ -186,7 +193,12 @@ internal fun messageOptions(
     val canMarkAsUnread = ownCapabilities.contains(ChannelCapabilities.READ_EVENTS)
 
     val isThreadReplyPossible = !isInThread && isMessageSynced && canThreadReply
-    val isQuoteMessagePossible = isMessageSynced && canQuoteMessage && !selectedMessage.user.isSupportTeamMember
+    val canSendMessageOrReply = if (messageComposerState.messageMode is MessageMode.MessageThread) {
+        messageComposerState.ownCapabilities.contains(ChannelCapabilities.SEND_REPLY)
+    } else {
+        messageComposerState.ownCapabilities.contains(ChannelCapabilities.SEND_MESSAGE)
+    }
+    val isQuoteMessagePossible = canSendMessageOrReply && isMessageSynced && canQuoteMessage && !selectedMessage.user.isSupportTeamMember
 
     val isAllowedByCreatedAt = selectedMessage.createdAt?.let {
         val diffInMinutes = Duration.between(
