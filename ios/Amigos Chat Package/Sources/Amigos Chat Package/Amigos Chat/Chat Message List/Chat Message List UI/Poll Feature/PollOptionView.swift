@@ -76,7 +76,7 @@ struct PollOptionView: View {
                 }
                 PollVotesIndicatorView(
                     isSentByCurrentUser: viewModel.isSentByCurrentUser,
-                    optionVotes: viewModel.latestVoters.count,
+                    optionVotes: viewModel.votes,
                     maxVotes: viewModel.maxVotes
                 )
                 .animation(
