@@ -3,18 +3,6 @@
 	"appName": "Amigos",
 	"bundledWebRuntime": false,
 	"webDir": "www",
-	"server": {
-		"url": "https://app.amigosapp.nl",
-		"allowNavigation": [
-			"*.amigosapp.nl",
-			"app.amigosapp.nl",
-			"*.test.app.amigosapp.nl",
-			"qa.app.amigosapp.nl",
-			"client.qa.app.amigosapp.nl",
-			"com.whoisup.app"
-		],
-		"androidScheme": "http"
-	},
 	"plugins": {
 		"PrivacyScreen": {
 			"enable": false
@@ -28,7 +16,20 @@
 		}
 	},
 	"ios": {
+		"scheme": "App",
 		"contentInset": "never",
 		"handleApplicationNotifications": false
+	},
+	"server": {
+		"url": "https://app.amigosapp.nl",
+		"allowNavigation": [
+			"*.amigosapp.nl",
+			"app.amigosapp.nl",
+			"*.test.app.amigosapp.nl",
+			"qa.app.amigosapp.nl",
+			"client.qa.app.amigosapp.nl",
+			"com.whoisup.app"
+		],
+		"androidScheme": "http"
 	}
 }

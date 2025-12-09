@@ -10,8 +10,8 @@
 		2D493B40E1B7A3A0E35F19BD /* Pods_Amigos.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 48822AA27B06A141DA02D04F /* Pods_Amigos.framework */; };
 		316829482DBA38DA00E9FD9D /* NotificationService.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 316829412DBA38DA00E9FD9D /* NotificationService.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		316829512DBA394B00E9FD9D /* AmigosChat in Frameworks */ = {isa = PBXBuildFile; productRef = 316829502DBA394B00E9FD9D /* AmigosChat */; };
-		317E423F2EB0EEC20022D68D /* FacebookCore in Frameworks */ = {isa = PBXBuildFile; productRef = 317E423E2EB0EEC20022D68D /* FacebookCore */; };
-		317E42412EB0EEC20022D68D /* FacebookLogin in Frameworks */ = {isa = PBXBuildFile; productRef = 317E42402EB0EEC20022D68D /* FacebookLogin */; };
+		31E8CE032ED890D2008AA17E /* FacebookCore in Frameworks */ = {isa = PBXBuildFile; productRef = 31E8CE022ED890D2008AA17E /* FacebookCore */; };
+		31E8CE052ED890D2008AA17E /* FacebookLogin in Frameworks */ = {isa = PBXBuildFile; productRef = 31E8CE042ED890D2008AA17E /* FacebookLogin */; };
 		31EE02162DE48F13006DDC42 /* AmigosShared in Frameworks */ = {isa = PBXBuildFile; productRef = 31EE02152DE48F13006DDC42 /* AmigosShared */; };
 		31EE02182DE48F4B006DDC42 /* AmigosShared in Frameworks */ = {isa = PBXBuildFile; productRef = 31EE02172DE48F4B006DDC42 /* AmigosShared */; };
 		D793A0B82D478809008AAD5A /* AmigosChat in Frameworks */ = {isa = PBXBuildFile; productRef = D793A0B72D478809008AAD5A /* AmigosChat */; };
@@ -56,6 +56,7 @@
 		317942F72DEDC83B00D687D1 /* CI_iOS.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CI_iOS.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		48822AA27B06A141DA02D04F /* Pods_Amigos.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Amigos.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		504EC3041FED79650016851F /* Amigos.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Amigos.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		5E50A7C0A99A221A591A7834 /* Pods-Amigos.qa.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Amigos.qa.xcconfig"; path = "Target Support Files/Pods-Amigos/Pods-Amigos.qa.xcconfig"; sourceTree = "<group>"; };
 		D37AEC20C1B4531B05D5DC81 /* Pods-Amigos.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Amigos.debug.xcconfig"; path = "Target Support Files/Pods-Amigos/Pods-Amigos.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -124,11 +125,11 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				317E42412EB0EEC20022D68D /* FacebookLogin in Frameworks */,
+				31E8CE052ED890D2008AA17E /* FacebookLogin in Frameworks */,
 				D793A0B82D478809008AAD5A /* AmigosChat in Frameworks */,
 				31EE02182DE48F4B006DDC42 /* AmigosShared in Frameworks */,
 				2D493B40E1B7A3A0E35F19BD /* Pods_Amigos.framework in Frameworks */,
-				317E423F2EB0EEC20022D68D /* FacebookCore in Frameworks */,
+				31E8CE032ED890D2008AA17E /* FacebookCore in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -140,6 +141,7 @@
 			children = (
 				D37AEC20C1B4531B05D5DC81 /* Pods-Amigos.debug.xcconfig */,
 				288CFD35D914FE59CC0CD026 /* Pods-Amigos.release.xcconfig */,
+				5E50A7C0A99A221A591A7834 /* Pods-Amigos.qa.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -249,8 +251,8 @@
 			packageProductDependencies = (
 				D793A0B72D478809008AAD5A /* AmigosChat */,
 				31EE02172DE48F4B006DDC42 /* AmigosShared */,
-				317E423E2EB0EEC20022D68D /* FacebookCore */,
-				317E42402EB0EEC20022D68D /* FacebookLogin */,
+				31E8CE022ED890D2008AA17E /* FacebookCore */,
+				31E8CE042ED890D2008AA17E /* FacebookLogin */,
 			);
 			productName = App;
 			productReference = 504EC3041FED79650016851F /* Amigos.app */;
@@ -293,7 +295,7 @@
 			);
 			mainGroup = 504EC2FB1FED79650016851F;
 			packageReferences = (
-				317E423D2EB0EEC20022D68D /* XCRemoteSwiftPackageReference "facebook-ios-sdk" */,
+				31E8CE012ED890D2008AA17E /* XCRemoteSwiftPackageReference "facebook-ios-sdk" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 504EC3051FED79650016851F /* Products */;
@@ -379,8 +381,12 @@
 			);
 			inputFileListPaths = (
 			);
+			inputPaths = (
+			);
 			name = "[CP] Embed Pods Frameworks";
 			outputFileListPaths = (
+			);
+			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -394,8 +400,12 @@
 			);
 			inputFileListPaths = (
 			);
+			inputPaths = (
+			);
 			name = "[CP] Copy Pods Resources";
 			outputFileListPaths = (
+			);
+			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -580,6 +590,166 @@
 			};
 			name = Release;
 		};
+		31BAE7652ED492D800530382 /* QA */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_BITCODE = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = QA;
+		};
+		31BAE7662ED492D800530382 /* QA */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 5E50A7C0A99A221A591A7834 /* Pods-Amigos.qa.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = App/App.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = G3578K4W58;
+				INFOPLIST_FILE = App/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.9.26;
+				OTHER_SWIFT_FLAGS = "$(inherited) \"-D\" \"COCOAPODS\" \"-DDEBUG\"";
+				PRODUCT_BUNDLE_IDENTIFIER = com.whoisup.app.qa;
+				PRODUCT_NAME = "$(TARGET_NAME) QA";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OBJC_BRIDGING_HEADER = "App/App-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = QA;
+		};
+		31BAE7672ED492D800530382 /* QA */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CODE_SIGN_ENTITLEMENTS = NotificationService/NotificationServiceDebug.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = G3578K4W58;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = NotificationService/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = NotificationService;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MARKETING_VERSION = 1.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = com.whoisup.app.qa.NotificationService;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = QA;
+		};
+		31BAE7682ED492D800530382 /* QA */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = G3578K4W58;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MARKETING_VERSION = 1.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.whoisup.CI-iOS";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Amigos.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Amigos";
+			};
+			name = QA;
+		};
 		504EC3141FED79650016851F /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -757,6 +927,7 @@
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				3168294B2DBA38DA00E9FD9D /* Debug */,
+				31BAE7672ED492D800530382 /* QA */,
 				3168294C2DBA38DA00E9FD9D /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
@@ -766,6 +937,7 @@
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				317942FD2DEDC83B00D687D1 /* Debug */,
+				31BAE7682ED492D800530382 /* QA */,
 				317942FE2DEDC83B00D687D1 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
@@ -775,6 +947,7 @@
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				504EC3141FED79650016851F /* Debug */,
+				31BAE7652ED492D800530382 /* QA */,
 				504EC3151FED79650016851F /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
@@ -784,6 +957,7 @@
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				504EC3171FED79650016851F /* Debug */,
+				31BAE7662ED492D800530382 /* QA */,
 				504EC3181FED79650016851F /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
@@ -792,7 +966,7 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		317E423D2EB0EEC20022D68D /* XCRemoteSwiftPackageReference "facebook-ios-sdk" */ = {
+		31E8CE012ED890D2008AA17E /* XCRemoteSwiftPackageReference "facebook-ios-sdk" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/facebook/facebook-ios-sdk";
 			requirement = {
@@ -807,14 +981,14 @@
 			isa = XCSwiftPackageProductDependency;
 			productName = AmigosChat;
 		};
-		317E423E2EB0EEC20022D68D /* FacebookCore */ = {
+		31E8CE022ED890D2008AA17E /* FacebookCore */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 317E423D2EB0EEC20022D68D /* XCRemoteSwiftPackageReference "facebook-ios-sdk" */;
+			package = 31E8CE012ED890D2008AA17E /* XCRemoteSwiftPackageReference "facebook-ios-sdk" */;
 			productName = FacebookCore;
 		};
-		317E42402EB0EEC20022D68D /* FacebookLogin */ = {
+		31E8CE042ED890D2008AA17E /* FacebookLogin */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 317E423D2EB0EEC20022D68D /* XCRemoteSwiftPackageReference "facebook-ios-sdk" */;
+			package = 31E8CE012ED890D2008AA17E /* XCRemoteSwiftPackageReference "facebook-ios-sdk" */;
 			productName = FacebookLogin;
 		};
 		31EE02152DE48F13006DDC42 /* AmigosShared */ = {

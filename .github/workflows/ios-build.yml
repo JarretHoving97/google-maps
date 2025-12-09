@@ -1,18 +1,33 @@
-name: iOS QA Build
+name: iOS Build (reusable)
 
 on:
-  # Manually run this function.
-  workflow_dispatch:
-
-env:
-  APP_FRONTEND_URL: https://app.amigosapp.nl
-  PACKAGE_NAME: com.whoisup.app
+  workflow_call:
+    inputs:
+      app_frontend_url:
+        required: true
+        type: string
+      package_name:
+        required: true
+        type: string
+      environment:
+        required: true
+        type: string
+      lane:
+        required: true
+        type: string
+      node_env:
+        required: false
+        type: string
 
 jobs:
   build:
     name: Build
-    environment: staging
+    environment: ${{ inputs.environment }}
     runs-on: macos-15
+
+    env:
+      APP_FRONTEND_URL: ${{ inputs.app_frontend_url }}
+      PACKAGE_NAME: ${{ inputs.package_name }}
 
     steps:
       - uses: actions/checkout@v4
@@ -32,8 +47,15 @@ jobs:
         run: |
           npm install --legacy-peer-deps
 
-      - run: |
-          npx cap sync ios
+      - name: Prepare iOS project
+        run: |
+          if [ -n "${{ inputs.node_env }}" ]; then
+            echo "Using NODE_ENV=${{ inputs.node_env }}"
+            NODE_ENV=${{ inputs.node_env }} npx cap sync ios
+          else
+            echo "No NODE_ENV provided, running plain cap sync"
+            npx cap sync ios
+          fi
 
       - name: Install Bundler and Fastlane
         run: |
@@ -89,7 +111,7 @@ jobs:
           KEY_ID: ${{ secrets.IOS_APP_STORE_CONNECT_KEY_ID }}
           KEY_CONTENT_BASE64: ${{ secrets.IOS_APP_STORE_CONNECT_API_KEY_BASE64 }}
         run: |
-          bundle exec fastlane ios internal
+          bundle exec fastlane ios ${{ inputs.lane }}
 
       - name: Upload Xcode build logs
         if: failure()

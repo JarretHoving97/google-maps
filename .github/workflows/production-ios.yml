@@ -1,0 +1,14 @@
+name: iOS Production Build
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build:
+    uses: ./.github/workflows/ios-build.yml
+    secrets: inherit
+    with:
+      app_frontend_url: https://app.amigosapp.nl
+      package_name: com.whoisup.app
+      environment: staging
+      lane: internal

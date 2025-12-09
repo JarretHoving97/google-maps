@@ -54,7 +54,7 @@ public enum BuildConfiguration {
             return "4jwx8cxk6zhe"
 
         case .staging:
-            return "kcmnhnu98xhw"
+            return "6ur6es9uw86j"
 
         default:
             return "aetbj83fpknp"

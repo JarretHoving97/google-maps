@@ -4,14 +4,10 @@
 <dict>
 	<key>AppStoreID</key>
 	<string>1555857817</string>
-	<key>NSUserActivityTypes</key>
-	<array>
-		<string>INSendMessageIntent</string>
-	</array>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
 	<key>CFBundleDisplayName</key>
-	<string>Amigos</string>
+	<string>$(APP_DISPLAY_NAME)</string>
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleIdentifier</key>
@@ -89,6 +85,10 @@
 	<string>This is needed to upload photos.</string>
 	<key>NSUserTrackingUsageDescription</key>
 	<string>This is needed to optimize your experience when logging in using social media.</string>
+	<key>NSUserActivityTypes</key>
+	<array>
+		<string>INSendMessageIntent</string>
+	</array>
 	<key>UIAppFonts</key>
 	<array>
 		<string>Poppins-SemiBoldItalic.ttf</string>
