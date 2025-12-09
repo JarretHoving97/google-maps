@@ -47,6 +47,14 @@ jobs:
         run: |
           npm install --legacy-peer-deps
 
+      - name: Install Bundler 2.7.2
+        run: |
+          gem install bundler:2.7.2
+
+      - name: Install Ruby gems
+        run: |
+          bundle _2.7.2_ install
+
       - name: Prepare iOS project
         run: |
           if [ -n "${{ inputs.node_env }}" ]; then
@@ -56,10 +64,6 @@ jobs:
             echo "No NODE_ENV provided, running plain cap sync"
             npx cap sync ios
           fi
-
-      - name: Install Bundler and Fastlane
-        run: |
-          bundle install
 
       - name: Generate random keychain password
         run: |
