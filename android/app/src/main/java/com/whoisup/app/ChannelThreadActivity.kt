@@ -9,6 +9,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.platform.LocalContext
 import com.whoisup.app.stream.AmiChannelThreadScreen
 import com.whoisup.app.ui.theme.CustomTheme
+import com.whoisup.app.utils.enableEdgeToEdgeCustom
 import io.getstream.chat.android.client.ChatClient
 import io.getstream.chat.android.compose.viewmodel.messages.MessagesViewModelFactory
 import io.getstream.chat.android.models.InitializationState
@@ -16,6 +17,8 @@ import io.getstream.chat.android.models.InitializationState
 class ChannelThreadActivity : BaseComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        enableEdgeToEdgeCustom()
 
         val activity = this
 

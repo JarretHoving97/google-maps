@@ -1,45 +1,46 @@
 PODS:
   - BranchSDK (3.2.0)
-  - Capacitor (6.2.0):
+  - Capacitor (7.4.4):
     - CapacitorCordova
-  - CapacitorApp (6.0.2):
+  - CapacitorApp (7.1.0):
     - Capacitor
-  - CapacitorCamera (6.1.2):
+  - CapacitorCamera (7.0.2):
     - Capacitor
-  - CapacitorCommunityContacts (6.1.1):
+  - CapacitorCommunityContacts (7.0.0):
     - Capacitor
-  - CapacitorCommunityGenericOauth2 (6.0.0):
+  - CapacitorCommunityGenericOauth2 (7.0.0):
     - Capacitor
     - OAuthSwift (= 2.2.0)
-  - CapacitorCommunityGoogleMaps (2.0.0-beta.12):
+  - CapacitorCommunityGoogleMaps (2.0.0-beta.13):
     - Capacitor
     - GoogleMaps
     - SDWebImage
-  - CapacitorCommunityInAppReview (6.0.0):
+  - CapacitorCommunityInAppReview (7.1.0):
     - Capacitor
-  - CapacitorCommunityPrivacyScreen (5.2.1):
+  - CapacitorCommunityPrivacyScreen (6.0.0):
     - Capacitor
-  - CapacitorCordova (6.2.0)
-  - CapacitorDevice (6.0.2):
+  - CapacitorCommunitySafeArea (7.0.0-beta.6):
     - Capacitor
-  - CapacitorGeolocation (6.1.0):
+  - CapacitorCordova (7.4.4)
+  - CapacitorDevice (7.0.2):
     - Capacitor
-  - CapacitorKeyboard (6.0.3):
+  - CapacitorGeolocation (7.1.6):
     - Capacitor
-  - CapacitorNativeSettings (6.0.0):
+    - IONGeolocationLib (= 1.0.1)
+  - CapacitorKeyboard (7.0.3):
     - Capacitor
-  - CapacitorPreferences (6.0.3):
+  - CapacitorNativeSettings (7.0.2):
     - Capacitor
-  - CapacitorPushNotifications (6.0.4):
+  - CapacitorPreferences (7.0.2):
     - Capacitor
-  - CapacitorSecureStoragePlugin (0.10.0):
+  - CapacitorPushNotifications (7.0.3):
+    - Capacitor
+  - CapacitorSecureStoragePlugin (0.12.0):
     - Capacitor
     - SwiftKeychainWrapper
-  - CapacitorShare (6.0.3):
+  - CapacitorShare (7.0.2):
     - Capacitor
-  - CapacitorSplashScreen (6.0.3):
-    - Capacitor
-  - CapacitorStatusBar (6.0.2):
+  - CapacitorSplashScreen (7.0.3):
     - Capacitor
   - FirebaseAnalytics (10.3.0):
     - FirebaseAnalytics/AdIdSupport (= 10.3.0)
@@ -125,6 +126,7 @@ PODS:
     - GoogleUtilities/Logger
   - GoogleUtilities/UserDefaults (7.11.0):
     - GoogleUtilities/Logger
+  - IONGeolocationLib (1.0.1)
   - nanopb (2.30909.0):
     - nanopb/decode (= 2.30909.0)
     - nanopb/encode (= 2.30909.0)
@@ -132,12 +134,12 @@ PODS:
   - nanopb/encode (2.30909.0)
   - OAuthSwift (2.2.0)
   - PromisesObjC (2.1.1)
-  - PurchasesHybridCommon (13.26.0):
-    - RevenueCat (= 5.20.0)
-  - RevenueCat (5.20.0)
-  - RevenuecatPurchasesCapacitor (9.2.2):
+  - PurchasesHybridCommon (17.16.1):
+    - RevenueCat (= 5.46.3)
+  - RevenueCat (5.46.3)
+  - RevenuecatPurchasesCapacitor (11.2.12):
     - Capacitor
-    - PurchasesHybridCommon (= 13.26.0)
+    - PurchasesHybridCommon (= 17.16.1)
   - SDWebImage (5.14.3):
     - SDWebImage/Core (= 5.14.3)
   - SDWebImage/Core (5.14.3)
@@ -155,6 +157,7 @@ DEPENDENCIES:
   - "CapacitorCommunityGoogleMaps (from `../../node_modules/@capacitor-community/google-maps`)"
   - "CapacitorCommunityInAppReview (from `../../node_modules/@capacitor-community/in-app-review`)"
   - "CapacitorCommunityPrivacyScreen (from `../../node_modules/@capacitor-community/privacy-screen`)"
+  - "CapacitorCommunitySafeArea (from `../../node_modules/@capacitor-community/safe-area`)"
   - "CapacitorCordova (from `../../node_modules/@capacitor/ios`)"
   - "CapacitorDevice (from `../../node_modules/@capacitor/device`)"
   - "CapacitorGeolocation (from `../../node_modules/@capacitor/geolocation`)"
@@ -165,7 +168,6 @@ DEPENDENCIES:
   - CapacitorSecureStoragePlugin (from `../../node_modules/capacitor-secure-storage-plugin`)
   - "CapacitorShare (from `../../node_modules/@capacitor/share`)"
   - "CapacitorSplashScreen (from `../../node_modules/@capacitor/splash-screen`)"
-  - "CapacitorStatusBar (from `../../node_modules/@capacitor/status-bar`)"
   - FirebaseAnalytics
   - FirebaseMessaging
   - GoogleMaps (~> 10.4.0)
@@ -184,6 +186,7 @@ SPEC REPOS:
     - GoogleDataTransport
     - GoogleMaps
     - GoogleUtilities
+    - IONGeolocationLib
     - nanopb
     - OAuthSwift
     - PromisesObjC
@@ -210,6 +213,8 @@ EXTERNAL SOURCES:
     :path: "../../node_modules/@capacitor-community/in-app-review"
   CapacitorCommunityPrivacyScreen:
     :path: "../../node_modules/@capacitor-community/privacy-screen"
+  CapacitorCommunitySafeArea:
+    :path: "../../node_modules/@capacitor-community/safe-area"
   CapacitorCordova:
     :path: "../../node_modules/@capacitor/ios"
   CapacitorDevice:
@@ -230,32 +235,30 @@ EXTERNAL SOURCES:
     :path: "../../node_modules/@capacitor/share"
   CapacitorSplashScreen:
     :path: "../../node_modules/@capacitor/splash-screen"
-  CapacitorStatusBar:
-    :path: "../../node_modules/@capacitor/status-bar"
   RevenuecatPurchasesCapacitor:
     :path: "../../node_modules/@revenuecat/purchases-capacitor"
 
 SPEC CHECKSUMS:
   BranchSDK: ffa2a71be00efb4cd6e54b55f46349750a5a7625
-  Capacitor: 05d35014f4425b0740fc8776481f6a369ad071bf
-  CapacitorApp: e1e6b7d05e444d593ca16fd6d76f2b7c48b5aea7
-  CapacitorCamera: 9bc7b005d0e6f1d5f525b8137045b60cffffce79
-  CapacitorCommunityContacts: 9cde99c2cd212f6594677aae542436e2174c4ef2
-  CapacitorCommunityGenericOauth2: 1c435de1813fc8a4b842bc1c105e1d3bb8c04506
-  CapacitorCommunityGoogleMaps: b2c6f51017052de12c7652a358cb1b316ba92d7d
-  CapacitorCommunityInAppReview: e5c93959637a956ce993134734d7df90390ea167
-  CapacitorCommunityPrivacyScreen: 5ac93e09bbd78884ca9c8f3c0a9084ec2cc9a4fe
-  CapacitorCordova: b33e7f4aa4ed105dd43283acdd940964374a87d9
-  CapacitorDevice: 9efd479d71d1baad74b75df531184c3f730eaa48
-  CapacitorGeolocation: 3f6c960e6d9d11c83fcdd181c4912604857afb51
-  CapacitorKeyboard: e89189ad398b815b6ff7e52271f0fb4f911a0a0a
-  CapacitorNativeSettings: ef920042d55d3bc594655e5180a717d73faa609b
-  CapacitorPreferences: f3eadae2369ac3ab8e21743a2959145b0d1286a3
-  CapacitorPushNotifications: b3f20973cb167cb8fee622e309ec521134798241
-  CapacitorSecureStoragePlugin: 545b51d782d35e61a39231ecf99a966b060a2cbb
-  CapacitorShare: d2a742baec21c8f3b92b361a2fbd2401cdd8288e
-  CapacitorSplashScreen: fd8bf1bf9081d9aa8817b7cd37d740d1bdaf2fb2
-  CapacitorStatusBar: b16799a26320ffa52f6c8b01737d5a95bbb8f3eb
+  Capacitor: 358dd1c3fdd71d969547b17e159fd8a7736cb45f
+  CapacitorApp: 26587c2ce485d88ddb39adb21cac64f8e481afe3
+  CapacitorCamera: f9e54db0a18bb218a8dc360907d63aaefe9209ff
+  CapacitorCommunityContacts: aaa9f95f2da72b5de15d5fa935d736d07c644db2
+  CapacitorCommunityGenericOauth2: d9e4afb9199a420a3f46a21ad1d9fe1ce0a7047d
+  CapacitorCommunityGoogleMaps: 5cac7151ae387dcfca0fb1b9723e2b4fba7dc03b
+  CapacitorCommunityInAppReview: 3756d05524c5cf2eccbc8ed460f77f8f8db6c141
+  CapacitorCommunityPrivacyScreen: 682470c41cce325d7a85b95907887919d4694066
+  CapacitorCommunitySafeArea: 991eede7e6fa13e407e999f85cb37eecdf2d1827
+  CapacitorCordova: bf648a636f3c153f652d312ae145fb508b6ffced
+  CapacitorDevice: 81ae78d5d1942707caad79276badd458bf6ec603
+  CapacitorGeolocation: a65213fef581c7b8c5d486abbd5a6d00192a179e
+  CapacitorKeyboard: 62f36104f26d53d8b3a2a43f2a69fe714f1777d5
+  CapacitorNativeSettings: 3cd2e2ef431fe471674f381609cfb29154ddfcfa
+  CapacitorPreferences: 65107ed7437d96ee72583df5763985e3c0ff2bc2
+  CapacitorPushNotifications: bdd621fbd562be34a41f4a7b1750efa000447d5a
+  CapacitorSecureStoragePlugin: 50de0808ad398aa401e00f9e58adf88c77cb3c25
+  CapacitorShare: be166411fa995ead2d39b104aa0aae56d8615c66
+  CapacitorSplashScreen: e388b8e0ed0e982a9d3a40417f478e7a018a8763
   FirebaseAnalytics: 036232b6a1e2918e5f67572417be1173576245f3
   FirebaseCore: 988754646ab3bd4bdcb740f1bfe26b9f6c0d5f2a
   FirebaseCoreInternal: 29b76f784d607df8b2a1259d73c3f04f1210137b
@@ -265,16 +268,17 @@ SPEC CHECKSUMS:
   GoogleDataTransport: 1c8145da7117bd68bbbed00cf304edb6a24de00f
   GoogleMaps: a40d3b1f511f0fa2036e7b08c920c33279b1d5fd
   GoogleUtilities: c2bdc4cf2ce786c4d2e6b3bcfd599a25ca78f06f
+  IONGeolocationLib: 20f9d0248a0b5264511fb57a37e25dd2badf797a
   nanopb: b552cce312b6c8484180ef47159bc0f65a1f0431
   OAuthSwift: 75efbb5bd9a4b2b71a37bd7e986bf3f55ddd54c6
   PromisesObjC: ab77feca74fa2823e7af4249b8326368e61014cb
-  PurchasesHybridCommon: fa166fc8b385cf80f581f923c91d8ccffe5dd7f8
-  RevenueCat: e47ff90dfd271fde155a4befe48e8fc02e8281e4
-  RevenuecatPurchasesCapacitor: 6727a4dc1455bdf2374259420719ce5dfbe957fa
+  PurchasesHybridCommon: aa143077ae699019b615a9fe72cdf52b0ae5273e
+  RevenueCat: 635d32f21556b036ac6138a3ec44ac8e5a7c79b6
+  RevenuecatPurchasesCapacitor: d54057ab47d3ac3dbb7660cc524eab1c58d8c490
   SDWebImage: 9c36e66c8ce4620b41a7407698dda44211a96764
   SDWebImageSVGCoder: 15a300a97ec1c8ac958f009c02220ac0402e936c
   SwiftKeychainWrapper: 807ba1d63c33a7d0613288512399cd1eda1e470c
 
-PODFILE CHECKSUM: 0a69b393ec206dfa4265bacda3fb1602c9af6aba
+PODFILE CHECKSUM: 18f195c6bb71d099fd27b6691c9b34b31b136ca2
 
 COCOAPODS: 1.16.2

@@ -8,7 +8,6 @@ let config: CapacitorConfig;
 const baseConfig: CapacitorConfig = {
   appId: 'com.whoisup.app',
   appName: 'Amigos',
-  bundledWebRuntime: false,
   webDir: 'www',
   plugins: {
     PrivacyScreen: {

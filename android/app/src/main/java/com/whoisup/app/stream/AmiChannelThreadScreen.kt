@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.ime
+import androidx.compose.foundation.layout.safeDrawingPadding
 import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -86,7 +87,7 @@ fun AmiChannelThreadScreen(
         }
     }
 
-    Box(modifier = Modifier.fillMaxSize()) {
+    Box(modifier = Modifier.safeDrawingPadding().fillMaxSize()) {
         Column(
             modifier = Modifier
                 .fillMaxSize()

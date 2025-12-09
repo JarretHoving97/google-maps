@@ -20,6 +20,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.safeDrawingPadding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.widthIn
 import androidx.compose.foundation.lazy.LazyColumn
@@ -56,6 +57,7 @@ import com.whoisup.app.components.AmiTextField
 import com.whoisup.app.components.DcIcon
 import com.whoisup.app.stream.PollCreationResult
 import com.whoisup.app.ui.theme.CustomTheme
+import com.whoisup.app.utils.enableEdgeToEdgeCustom
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.update
@@ -71,9 +73,11 @@ class PollCreationActivity : BaseComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        enableEdgeToEdgeCustom()
+
         setContent {
             CustomTheme {
-                Box(modifier = Modifier.fillMaxSize()) {
+                Box(modifier = Modifier.safeDrawingPadding().fillMaxSize()) {
                     Column(
                         modifier = Modifier
                             .fillMaxSize()

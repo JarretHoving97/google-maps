@@ -19,6 +19,7 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.safeDrawingPadding
 import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.PagerState
 import androidx.compose.foundation.pager.rememberPagerState
@@ -42,6 +43,7 @@ import com.whoisup.app.stream.MediaGalleryPreviewActivityState
 import com.whoisup.app.stream.PlayButton
 import com.whoisup.app.stream.toMediaGalleryPreviewActivityState
 import com.whoisup.app.ui.theme.CustomTheme
+import com.whoisup.app.utils.enableEdgeToEdgeCustom
 import io.getstream.chat.android.client.ChatClient
 import io.getstream.chat.android.client.utils.attachment.isImage
 import io.getstream.chat.android.client.utils.attachment.isVideo
@@ -95,6 +97,9 @@ class MediaGalleryPreviewActivity : AppCompatActivity() {
      */
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        enableEdgeToEdgeCustom()
+
         val mediaGalleryPreviewActivityState = intent?.getParcelableExtra<MediaGalleryPreviewActivityState>(
             KeyMediaGalleryPreviewActivityState,
         )
@@ -125,7 +130,7 @@ class MediaGalleryPreviewActivity : AppCompatActivity() {
                     return@CustomTheme
                 }
 
-                Box(modifier = Modifier.fillMaxSize()) {
+                Box(modifier = Modifier.safeDrawingPadding().fillMaxSize()) {
                     Column(
                         modifier = Modifier
                             .fillMaxSize()

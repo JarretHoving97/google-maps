@@ -3,7 +3,6 @@ package com.whoisup.app;
 import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
-import android.os.Build;
 import android.view.View;
 import android.webkit.WebResourceError;
 import android.webkit.WebResourceRequest;
@@ -11,8 +10,6 @@ import android.webkit.WebResourceResponse;
 import android.webkit.WebView;
 import android.widget.Button;
 import android.widget.TextView;
-
-import androidx.annotation.RequiresApi;
 
 import com.getcapacitor.Bridge;
 import com.getcapacitor.BridgeWebViewClient;
@@ -87,17 +84,15 @@ public class OfflinePlugin extends Plugin {
                 webView.setVisibility(View.VISIBLE);
             }
 
-            super.onPageFinished(view, url);
+            super.onPageCommitVisible(view, url);
         }
 
-        @RequiresApi(api = Build.VERSION_CODES.M)
         @Override
         public void onReceivedError(WebView view, WebResourceRequest request, WebResourceError error) {
             handleError(request);
             super.onReceivedError(view, request, error);
         }
 
-        @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
         @Override
         public void onReceivedHttpError(WebView view, WebResourceRequest request, WebResourceResponse errorResponse) {
             handleError(request);

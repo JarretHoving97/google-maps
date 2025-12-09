@@ -1,7 +1,6 @@
 {
 	"appId": "com.whoisup.app",
 	"appName": "Amigos",
-	"bundledWebRuntime": false,
 	"webDir": "www",
 	"plugins": {
 		"PrivacyScreen": {
@@ -38,6 +37,7 @@
 		"CapacitorGoogleMaps",
 		"InAppReviewPlugin",
 		"PrivacyScreenPlugin",
+		"SafeAreaPlugin",
 		"AppPlugin",
 		"CAPCameraPlugin",
 		"DevicePlugin",
@@ -47,7 +47,6 @@
 		"PushNotificationsPlugin",
 		"SharePlugin",
 		"SplashScreenPlugin",
-		"StatusBarPlugin",
 		"PurchasesPlugin",
 		"NativeSettingsPlugin",
 		"SecureStoragePlugin"

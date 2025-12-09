@@ -1,7 +1,6 @@
 {
 	"appId": "com.whoisup.app",
 	"appName": "Amigos",
-	"bundledWebRuntime": false,
 	"webDir": "www",
 	"plugins": {
 		"PrivacyScreen": {

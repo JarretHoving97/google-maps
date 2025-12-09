@@ -9,12 +9,15 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.platform.LocalContext
 import com.whoisup.app.stream.AmiChannelsScreen
 import com.whoisup.app.ui.theme.CustomTheme
+import com.whoisup.app.utils.enableEdgeToEdgeCustom
 import io.getstream.chat.android.client.ChatClient
 import io.getstream.chat.android.models.InitializationState
 
 class ChannelsActivity : BaseComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        enableEdgeToEdgeCustom()
 
         val activity = this
 

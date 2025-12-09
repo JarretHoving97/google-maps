@@ -5,9 +5,12 @@ import android.os.Bundle;
 
 import android.webkit.CookieManager;
 
+import androidx.activity.EdgeToEdge;
+
 import com.facebook.CallbackManager;
 
 import com.getcapacitor.BridgeActivity;
+import com.getcapacitor.community.safearea.SafeAreaPlugin;
 
 public class MainActivity extends BridgeActivity {
 
@@ -22,6 +25,9 @@ public class MainActivity extends BridgeActivity {
     registerPlugin(ExtendedStreamPlugin.class);
     registerPlugin(ExtendedDeviceSettingsPlugin.class);
     super.onCreate(savedInstanceState);
+
+    EdgeToEdge.enable(this);
+    SafeAreaPlugin.setSystemBarsStyle(this, SafeAreaPlugin.SystemBarsStyle.LIGHT);
 
     callbackManager = CallbackManager.Factory.create();
   }

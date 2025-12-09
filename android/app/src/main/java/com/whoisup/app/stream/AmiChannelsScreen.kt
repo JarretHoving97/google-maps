@@ -11,6 +11,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.safeDrawingPadding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.text.BasicText
 import androidx.compose.material.CircularProgressIndicator
@@ -75,7 +76,7 @@ fun AmiChannelsScreen(
 
     var searchQuery by rememberSaveable { mutableStateOf("") }
 
-    Box(modifier = Modifier.fillMaxSize()) {
+    Box(modifier = Modifier.safeDrawingPadding().fillMaxSize()) {
         Column(
             modifier = Modifier
                 .fillMaxSize()

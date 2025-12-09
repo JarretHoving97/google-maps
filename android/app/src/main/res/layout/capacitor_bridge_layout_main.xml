@@ -47,9 +47,10 @@
         app:layout_anchor="@+id/offlineview"
         app:layout_anchorGravity="center" />
 
-    <WebView
+    <com.getcapacitor.CapacitorWebView
         android:id="@+id/webview"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:background="@android:color/transparent"/>
+        android:background="@android:color/transparent" />
+
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
