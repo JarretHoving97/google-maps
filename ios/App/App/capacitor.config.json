@@ -15,12 +15,12 @@
 		}
 	},
 	"ios": {
-		"scheme": "App QA",
+		"scheme": "App",
 		"contentInset": "never",
 		"handleApplicationNotifications": false
 	},
 	"server": {
-		"url": "https://qa.app.amigosapp.nl",
+		"url": "https://app.amigosapp.nl",
 		"allowNavigation": [
 			"*.amigosapp.nl",
 			"app.amigosapp.nl",
