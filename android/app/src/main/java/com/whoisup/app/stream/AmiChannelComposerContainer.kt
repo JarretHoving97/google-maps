@@ -20,7 +20,7 @@ import com.whoisup.app.ui.theme.CustomTheme
 import io.getstream.chat.android.compose.viewmodel.messages.AttachmentsPickerViewModel
 import io.getstream.chat.android.compose.viewmodel.messages.MessageComposerViewModel
 import io.getstream.chat.android.compose.viewmodel.messages.MessageListViewModel
-import io.getstream.chat.android.models.ChannelCapabilities
+import io.getstream.chat.android.ui.common.feature.messages.composer.capabilities.canSendMessage
 
 @Composable
 fun AmiChannelComposerContainer(
@@ -41,11 +41,7 @@ fun AmiChannelComposerContainer(
 
     val messageComposerState by composerViewModel.messageComposerState.collectAsState()
 
-    val canSendMessageOrReply = if (listViewModel.isInThread) {
-        messageComposerState.ownCapabilities.contains(ChannelCapabilities.SEND_REPLY)
-    } else {
-        messageComposerState.ownCapabilities.contains(ChannelCapabilities.SEND_MESSAGE)
-    }
+    val canSendMessageOrReply = messageComposerState.canSendMessage()
 
     if (otherUser?.isSupportTeamMember == true) {
         // You are not allowed to chat if the other user is part of our support team.

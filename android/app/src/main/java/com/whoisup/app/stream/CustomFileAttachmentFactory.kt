@@ -82,7 +82,7 @@ fun FileAttachmentPreviewItem(
                 .padding(vertical = 8.dp, horizontal = 8.dp),
             verticalAlignment = Alignment.CenterVertically,
         ) {
-            FileAttachmentImage(attachment = attachment)
+            FileAttachmentImage(attachment = attachment, isMine = false)
 
             Column(
                 modifier = Modifier
@@ -125,10 +125,9 @@ fun FileAttachmentContent(
     attachmentState: AttachmentState,
     modifier: Modifier = Modifier,
 ) {
-    val (message, onItemLongClick) = attachmentState
     val previewHandlers = ChatTheme.attachmentPreviewHandlers
 
-    val attachments = message.attachments.filter {
+    val attachments = attachmentState.message.attachments.filter {
         it.isAnyFileType()
     }
 
@@ -138,7 +137,7 @@ fun FileAttachmentContent(
                 indication = null,
                 interactionSource = remember { MutableInteractionSource() },
                 onClick = {},
-                onLongClick = { onItemLongClick(message) },
+                onLongClick = { attachmentState.onLongItemClick(attachmentState.message) },
             ),
         ) {
             for (attachment in attachments) {
@@ -152,10 +151,11 @@ fun FileAttachmentContent(
                             onClick = {
                                 previewHandlers.firstOrNull { it.canHandle(attachment) }?.handleAttachmentPreview(attachment)
                             },
-                            onLongClick = { onItemLongClick(message) },
+                            onLongClick = { attachmentState.onLongItemClick(attachmentState.message) },
                         ),
                     attachment = attachment,
                     showFileSize = { true },
+                    isMine = attachmentState.isMine
                 )
             }
         }

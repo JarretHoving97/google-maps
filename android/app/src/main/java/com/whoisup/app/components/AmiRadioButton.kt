@@ -6,7 +6,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.text.BasicText
-import androidx.compose.material.ripple.rememberRipple
+import androidx.compose.material.ripple
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -51,7 +51,7 @@ fun AmiRadioButton(
             modifier = Modifier
                 .clickable(
                     interactionSource = interactionSource,
-                    indication = rememberRipple(),
+                    indication = ripple(),
                     onClick = onClick
                 ),
             disabled = disabled

@@ -16,7 +16,7 @@ import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.BasicText
-import androidx.compose.material.ripple.rememberRipple
+import androidx.compose.material.ripple
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
@@ -27,9 +27,9 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
-import coil.compose.AsyncImage
-import coil.decode.SvgDecoder
-import coil.request.ImageRequest
+import coil3.compose.AsyncImage
+import coil3.request.ImageRequest
+import coil3.svg.SvgDecoder
 import com.whoisup.app.R
 import com.whoisup.app.components.AmiAvatar
 import com.whoisup.app.components.AmiIconButton
@@ -71,7 +71,7 @@ fun AmiChannelItem(
                         singleChannelViewModel.openModal(itemState.channel)
                     }
                 },
-                indication = rememberRipple(),
+                indication = ripple(),
                 interactionSource = remember { MutableInteractionSource() },
             )
             .padding(16.dp),
@@ -138,7 +138,7 @@ fun AmiChannelItem(
                     modifier = Modifier.weight(1f, false),
                     style = CustomTheme.typography.paragraph.copy(
                         color = CustomTheme.colorScheme.onBackground,
-                        fontWeight = if (itemState.channel.currentUserUnreadCount > 0) {
+                        fontWeight = if (itemState.channel.currentUserUnreadCount() > 0) {
                             FontWeight.W500
                         } else {
                             FontWeight.W400
@@ -197,7 +197,7 @@ fun AmiChannelItem(
             )
         }
 
-        if (itemState.channel.currentUserUnreadCount > 0) {
+        if (itemState.channel.currentUserUnreadCount() > 0) {
             Box(
                 modifier = Modifier
                     .clip(RoundedCornerShape(12.dp))
@@ -207,10 +207,10 @@ fun AmiChannelItem(
                 contentAlignment = Alignment.Center
             ) {
                 BasicText(
-                    text = if (itemState.channel.currentUserUnreadCount > 99) {
+                    text = if (itemState.channel.currentUserUnreadCount() > 99) {
                         "99+"
                     } else {
-                        itemState.channel.currentUserUnreadCount.toString()
+                        itemState.channel.currentUserUnreadCount().toString()
                     },
                     style = CustomTheme.typography.captionSmall.copy(color = CustomTheme.colorScheme.onSecondary),
                 )

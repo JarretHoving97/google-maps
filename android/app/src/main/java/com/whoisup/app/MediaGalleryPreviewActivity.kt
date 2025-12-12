@@ -36,8 +36,9 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.viewinterop.AndroidView
-import coil.compose.AsyncImage
-import coil.request.ImageRequest
+import coil3.compose.AsyncImage
+import coil3.request.ImageRequest
+import coil3.request.crossfade
 import com.whoisup.app.components.AmiHeader
 import com.whoisup.app.stream.MediaGalleryPreviewActivityState
 import com.whoisup.app.stream.PlayButton

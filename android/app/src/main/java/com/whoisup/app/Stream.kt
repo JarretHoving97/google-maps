@@ -42,7 +42,12 @@ class Stream {
             val notificationConfig = NotificationConfig(
                 ignorePushMessagesWhenUserOnline = false,
                 requestPermissionOnAppLaunch = { false },
-                pushDeviceGenerators = listOf(FirebasePushDeviceGenerator(providerName = "Firebase"))
+                pushDeviceGenerators = listOf(
+                    FirebasePushDeviceGenerator(
+                        providerName = "Firebase",
+                        context = applicationContext
+                    )
+                )
             )
 
             val notificationHandler = NotificationHandlerFactory.createNotificationHandler(

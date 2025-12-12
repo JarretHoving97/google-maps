@@ -37,6 +37,7 @@ import io.getstream.chat.android.models.ChannelCapabilities
 import io.getstream.chat.android.models.Message
 import io.getstream.chat.android.models.SyncStatus
 import io.getstream.chat.android.models.User
+import io.getstream.chat.android.ui.common.feature.messages.composer.capabilities.canSendMessage
 import io.getstream.chat.android.ui.common.state.messages.Copy
 import io.getstream.chat.android.ui.common.state.messages.Delete
 import io.getstream.chat.android.ui.common.state.messages.Edit
@@ -77,7 +78,7 @@ fun AmiMessageMenu(
         messageComposerState = messageComposerState,
         selectedMessage = selectedMessage,
         currentUser = currentUser,
-        isInThread = listViewModel.isInThread,
+        isInThread = listViewModel.messageMode is MessageMode.MessageThread,
         ownCapabilities = ownCapabilities,
     )
 
@@ -193,12 +194,7 @@ internal fun messageOptions(
     val canMarkAsUnread = ownCapabilities.contains(ChannelCapabilities.READ_EVENTS)
 
     val isThreadReplyPossible = !isInThread && isMessageSynced && canThreadReply
-    val canSendMessageOrReply = if (messageComposerState.messageMode is MessageMode.MessageThread) {
-        messageComposerState.ownCapabilities.contains(ChannelCapabilities.SEND_REPLY)
-    } else {
-        messageComposerState.ownCapabilities.contains(ChannelCapabilities.SEND_MESSAGE)
-    }
-    val isQuoteMessagePossible = canSendMessageOrReply && isMessageSynced && canQuoteMessage && !selectedMessage.user.isSupportTeamMember
+    val isQuoteMessagePossible = messageComposerState.canSendMessage() && isMessageSynced && canQuoteMessage && !selectedMessage.user.isSupportTeamMember
 
     val isAllowedByCreatedAt = selectedMessage.createdAt?.let {
         val diffInMinutes = Duration.between(

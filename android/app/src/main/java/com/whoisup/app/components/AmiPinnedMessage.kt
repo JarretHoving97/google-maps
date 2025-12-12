@@ -13,7 +13,7 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.BasicText
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material.ripple.rememberRipple
+import androidx.compose.material.ripple
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
@@ -40,7 +40,7 @@ fun AmiPinnedMessage(
                 if (isAllowedToUpdatePinnedMessage) {
                     Modifier.clickable(
                         interactionSource = interactionSource,
-                        indication = rememberRipple(),
+                        indication = ripple(),
                         onClick = onClick
                     )
                 } else {

@@ -27,6 +27,7 @@ import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.BasicText
 import androidx.compose.material.Icon
+import androidx.compose.material.ripple
 import androidx.compose.material.ripple.rememberRipple
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
@@ -102,7 +103,7 @@ fun AmiChannelMessageItem(
     } else {
         Modifier.combinedClickable(
             interactionSource = interactionSource,
-            indication = rememberRipple(),
+            indication = ripple(),
             onClick = {
                 val layoutKey = messageItem.message.extraData["layoutKey"] as? String
 

@@ -26,7 +26,7 @@ fun AmiChannelMenus(
     attachmentsPickerViewModel: AttachmentsPickerViewModel,
     composerViewModel: MessageComposerViewModel,
 ) {
-    val selectedMessageState = listViewModel.currentMessagesState.selectedMessageState
+    val selectedMessageState = listViewModel.currentMessagesState.value.selectedMessageState
     val currentUser by listViewModel.user.collectAsState()
 
     AmiMessageMenu(

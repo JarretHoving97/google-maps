@@ -222,7 +222,7 @@ fun AmiChannelScreen(
                 }
 
                 when {
-                    currentState.isLoading -> {
+                    currentState.value.isLoading -> {
                         CircularProgressIndicator(
                             modifier = Modifier.align(Alignment.Center),
                             color = CustomTheme.colorScheme.primary,
@@ -230,7 +230,7 @@ fun AmiChannelScreen(
                         )
                     }
 
-                    currentState.messageItems.isNotEmpty() -> AmiChannelMessages(
+                    currentState.value.messageItems.isNotEmpty() -> AmiChannelMessages(
                         listViewModel = listViewModel,
                         composerViewModel = composerViewModel,
                         contentPaddingTop = contentPaddingTop,

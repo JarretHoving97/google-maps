@@ -35,7 +35,6 @@ import androidx.compose.ui.platform.LocalLayoutDirection
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
-import com.whoisup.app.MAX_OPTIONS
 import com.whoisup.app.components.DcIcon
 import com.whoisup.app.stream.extensions.isDirectMessageChannel
 import com.whoisup.app.ui.theme.CustomTheme
@@ -55,7 +54,6 @@ import io.getstream.chat.android.compose.viewmodel.messages.MessageComposerViewM
 import io.getstream.chat.android.compose.viewmodel.messages.MessageListViewModel
 import io.getstream.chat.android.models.Attachment
 import io.getstream.chat.android.models.Channel
-import io.getstream.chat.android.models.PollConfig
 import io.getstream.chat.android.ui.common.state.messages.MessageMode
 
 @OptIn(ExperimentalAnimationApi::class)
@@ -181,19 +179,7 @@ fun AnimatedVisibilityScope.AmiAttachmentsPicker(
                                 }
 
                                 if (it is AttachmentPickerPollCreation) {
-                                    val multipleVotesAllowed = it.switches.any {
-                                        switch -> switch.key == "multipleVotesAllowed" && switch.enabled
-                                    }
-
-                                    composerViewModel.createPoll(
-                                        pollConfig = PollConfig(
-                                            name = it.question,
-                                            options = it.options.map { option -> option.title },
-                                            maxVotesAllowed = if (multipleVotesAllowed) { MAX_OPTIONS } else { 1 },
-                                            enforceUniqueVote = !multipleVotesAllowed,
-                                        ),
-                                    )
-
+                                    composerViewModel.createPoll(it.pollConfig)
                                     attachmentsPickerViewModel.changeAttachmentState(false)
                                 }
                             },

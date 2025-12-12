@@ -28,7 +28,7 @@ import io.getstream.chat.android.compose.ui.components.composer.CoolDownIndicato
 import io.getstream.chat.android.compose.viewmodel.messages.AttachmentsPickerViewModel
 import io.getstream.chat.android.compose.viewmodel.messages.MessageComposerViewModel
 import io.getstream.chat.android.compose.viewmodel.messages.MessageListViewModel
-import io.getstream.chat.android.models.ChannelCapabilities
+import io.getstream.chat.android.ui.common.feature.messages.composer.capabilities.canUploadFile
 import io.getstream.chat.android.ui.common.state.messages.Edit
 
 @Composable
@@ -50,9 +50,9 @@ fun AmiChannelComposer(
     Column {
         val isInEditMode = messageComposerState.action is Edit
 
-        val canSendAttachments = messageComposerState.ownCapabilities.contains(ChannelCapabilities.UPLOAD_FILE)
+        val canUploadFile = messageComposerState.canUploadFile()
 
-        val showAttachmentsButton = !isInEditMode && enabled && canSendAttachments
+        val showAttachmentsButton = !isInEditMode && enabled && canUploadFile
 
         Box(
             modifier = Modifier

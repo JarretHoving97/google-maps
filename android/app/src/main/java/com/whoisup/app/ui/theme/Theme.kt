@@ -2,7 +2,7 @@ package com.whoisup.app.ui.theme
 
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.compose.foundation.LocalIndication
-import androidx.compose.material.ripple.rememberRipple
+import androidx.compose.material.ripple
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.ReadOnlyComposable
@@ -37,7 +37,7 @@ fun CustomTheme(darkTheme: Boolean = false, content: @Composable () -> Unit) {
       darkTheme -> DarkColorScheme
       else -> LightColorScheme
     }
-  val rippleIndication = rememberRipple()
+  val rippleIndication = ripple()
   val customTypography = CustomTypography()
   val customAttachmentFactories = attachmentFactories(mediaGalleryPreviewLauncher)
 

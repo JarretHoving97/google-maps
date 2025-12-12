@@ -1,11 +1,11 @@
 package com.whoisup.app.stream
 
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import io.getstream.chat.android.compose.ui.messages.list.Messages
-import io.getstream.chat.android.compose.ui.messages.list.ThreadMessagesStart
 import io.getstream.chat.android.compose.ui.util.rememberMessageListState
 import io.getstream.chat.android.compose.viewmodel.messages.MessageComposerViewModel
 import io.getstream.chat.android.compose.viewmodel.messages.MessageListViewModel
@@ -26,9 +26,10 @@ fun AmiChannelMessages(
             top = contentPaddingTop,
             bottom = 16.dp
         ),
-        messagesState = currentState,
-        messagesLazyListState = rememberMessageListState(parentMessageId = currentState.parentMessageId),
-        threadMessagesStart = ThreadMessagesStart.TOP,
+        messagesState = currentState.value,
+        messagesLazyListState = rememberMessageListState(parentMessageId = currentState.value.parentMessageId),
+        verticalArrangement = Arrangement.Bottom,
+        threadsVerticalArrangement = Arrangement.Top,
         onMessagesStartReached = { listViewModel.loadOlderMessages() },
         onLastVisibleMessageChanged = { listViewModel.updateLastSeenMessage(it) },
         onScrolledToBottom = { listViewModel.clearNewMessageState() },

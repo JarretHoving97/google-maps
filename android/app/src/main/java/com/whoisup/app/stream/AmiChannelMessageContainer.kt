@@ -18,6 +18,7 @@ import io.getstream.chat.android.ui.common.state.messages.list.DateSeparatorItem
 import io.getstream.chat.android.ui.common.state.messages.list.EmptyThreadPlaceholderItemState
 import io.getstream.chat.android.ui.common.state.messages.list.MessageItemState
 import io.getstream.chat.android.ui.common.state.messages.list.MessageListItemState
+import io.getstream.chat.android.ui.common.state.messages.list.ModeratedMessageItemState
 import io.getstream.chat.android.ui.common.state.messages.list.StartOfTheChannelItemState
 import io.getstream.chat.android.ui.common.state.messages.list.SystemMessageItemState
 import io.getstream.chat.android.ui.common.state.messages.list.ThreadDateSeparatorItemState
@@ -87,6 +88,9 @@ fun AmiChannelMessageContainer(
         is UnreadSeparatorItemState -> AmiChannelUnreadSeparator(messageListItemState)
         is StartOfTheChannelItemState -> {
             // has no default stream implementation
+        }
+        is ModeratedMessageItemState -> {
+            // not implemented
         }
     }
 }

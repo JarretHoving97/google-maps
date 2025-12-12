@@ -105,7 +105,7 @@ fun AmiChannelThreadScreen(
                 val currentState = listViewModel.currentMessagesState
 
                 when {
-                    currentState.isLoading -> {
+                    currentState.value.isLoading -> {
                         CircularProgressIndicator(
                             modifier = Modifier.align(Alignment.Center),
                             color = CustomTheme.colorScheme.primary,
@@ -113,7 +113,7 @@ fun AmiChannelThreadScreen(
                         )
                     }
 
-                    listViewModel.messageMode is MessageMode.MessageThread && currentState.messageItems.isNotEmpty() -> AmiChannelMessages(
+                    listViewModel.messageMode is MessageMode.MessageThread && currentState.value.messageItems.isNotEmpty() -> AmiChannelMessages(
                         listViewModel = listViewModel,
                         composerViewModel = composerViewModel,
                         onUserAvatarClick = onUserAvatarClick,

@@ -68,28 +68,21 @@ class CustomMediaAttachmentFactory(
     },
     content = @Composable { modifier, state ->
         MediaAttachmentContent(
+            state = state,
             modifier = modifier,
-            attachmentState = state,
+            onItemClick = {
+                mediaGalleryPreviewLauncher?.launch(
+                    MediaGalleryPreviewContract.Input(
+                        message = it.message,
+                        initialPosition = it.attachmentPosition,
+                    ),
+                )
+            },
             itemOverlayContent = { attachmentType ->
                 if (attachmentType == AttachmentType.VIDEO) {
                     PlayButton()
                 }
-            },
-            onItemClick = {
-                    _,
-                    message,
-                    attachmentPosition,
-                    _,
-                    _,
-                    _,
-                ->
-                mediaGalleryPreviewLauncher?.launch(
-                    MediaGalleryPreviewContract.Input(
-                        message = message,
-                        initialPosition = attachmentPosition,
-                    ),
-                )
-            },
+            }
         )
     },
     quotedContent = @Composable { modifier, attachment ->

@@ -15,12 +15,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
-import coil.ImageLoader
-import coil.compose.rememberAsyncImagePainter
-import coil.decode.GifDecoder
-import coil.decode.ImageDecoderDecoder
-import coil.request.ImageRequest
-import coil.size.Size
+import coil3.ImageLoader
+import coil3.compose.rememberAsyncImagePainter
+import coil3.gif.AnimatedImageDecoder
+import coil3.gif.GifDecoder
+import coil3.request.ImageRequest
+import coil3.size.Size
 
 @Composable
 fun AmiMessageWalkthrough(@DrawableRes gifId: Int) {
@@ -36,7 +36,7 @@ fun AmiMessageWalkthrough(@DrawableRes gifId: Int) {
         val imageLoader = ImageLoader.Builder(context)
             .components {
                 if (Build.VERSION.SDK_INT >= 28) {
-                    add(ImageDecoderDecoder.Factory())
+                    add(AnimatedImageDecoder.Factory())
                 } else {
                     add(GifDecoder.Factory())
                 }
