@@ -134,12 +134,12 @@ PODS:
   - nanopb/encode (2.30909.0)
   - OAuthSwift (2.2.0)
   - PromisesObjC (2.1.1)
-  - PurchasesHybridCommon (17.16.1):
-    - RevenueCat (= 5.46.3)
-  - RevenueCat (5.46.3)
-  - RevenuecatPurchasesCapacitor (11.2.12):
+  - PurchasesHybridCommon (17.21.2):
+    - RevenueCat (= 5.49.2)
+  - RevenueCat (5.49.2)
+  - RevenuecatPurchasesCapacitor (11.2.17):
     - Capacitor
-    - PurchasesHybridCommon (= 17.16.1)
+    - PurchasesHybridCommon (= 17.21.2)
   - SDWebImage (5.14.3):
     - SDWebImage/Core (= 5.14.3)
   - SDWebImage/Core (5.14.3)
@@ -272,9 +272,9 @@ SPEC CHECKSUMS:
   nanopb: b552cce312b6c8484180ef47159bc0f65a1f0431
   OAuthSwift: 75efbb5bd9a4b2b71a37bd7e986bf3f55ddd54c6
   PromisesObjC: ab77feca74fa2823e7af4249b8326368e61014cb
-  PurchasesHybridCommon: aa143077ae699019b615a9fe72cdf52b0ae5273e
-  RevenueCat: 635d32f21556b036ac6138a3ec44ac8e5a7c79b6
-  RevenuecatPurchasesCapacitor: d54057ab47d3ac3dbb7660cc524eab1c58d8c490
+  PurchasesHybridCommon: 71c94158ff8985657d37d5f3be05602881227619
+  RevenueCat: d185cbff8be9425b5835042afd6889389bb756c8
+  RevenuecatPurchasesCapacitor: d6cca993813f124f48c777d9f2b199c98b69f8f9
   SDWebImage: 9c36e66c8ce4620b41a7407698dda44211a96764
   SDWebImageSVGCoder: 15a300a97ec1c8ac958f009c02220ac0402e936c
   SwiftKeychainWrapper: 807ba1d63c33a7d0613288512399cd1eda1e470c
