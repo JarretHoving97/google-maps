@@ -23,10 +23,16 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import com.whoisup.app.ChannelActivity
+import com.whoisup.app.ExtendedStreamPlugin
+import com.whoisup.app.R
 import com.whoisup.app.components.AmiButtonLabel
 import com.whoisup.app.components.AmiSimpleMenu
 import com.whoisup.app.components.TextColor
+import com.whoisup.app.helpers.findOrCreateChat
+import com.whoisup.app.stream.extensions.ChatChannelRelatedConceptType
 import com.whoisup.app.stream.extensions.isSupportTeamMember
+import com.whoisup.app.stream.extensions.relatedConceptType
 import com.whoisup.app.ui.theme.CustomTheme
 import com.whoisup.app.utils.startThreadActivity
 import io.getstream.chat.android.client.utils.message.isGiphy
@@ -39,6 +45,7 @@ import io.getstream.chat.android.models.SyncStatus
 import io.getstream.chat.android.models.User
 import io.getstream.chat.android.ui.common.feature.messages.composer.capabilities.canSendMessage
 import io.getstream.chat.android.ui.common.state.messages.Copy
+import io.getstream.chat.android.ui.common.state.messages.CustomAction
 import io.getstream.chat.android.ui.common.state.messages.Delete
 import io.getstream.chat.android.ui.common.state.messages.Edit
 import io.getstream.chat.android.ui.common.state.messages.MarkAsUnread
@@ -75,10 +82,10 @@ fun AmiMessageMenu(
     val messageComposerState by composerViewModel.messageComposerState.collectAsState()
 
     val newMessageOptions = messageOptions(
+        listViewModel = listViewModel,
         messageComposerState = messageComposerState,
         selectedMessage = selectedMessage,
         currentUser = currentUser,
-        isInThread = listViewModel.messageMode is MessageMode.MessageThread,
         ownCapabilities = ownCapabilities,
     )
 
@@ -131,7 +138,18 @@ fun AmiMessageMenu(
                             textColor = option.textColor,
                             onClick = {
                                 option.action.updateMessage(option.action.message).let {
-                                    if (it is ThreadReply) {
+                                    if (it is CustomAction && it.extraProperties[CUSTOM_ACTION_KEY] === CUSTOM_ACTION_REPLY_PRIVATELY) {
+                                        coroutineScope.launch(Dispatchers.Default) {
+                                            findOrCreateChat(context, it.message.user.id)?.let { channelId ->
+                                                ExtendedStreamPlugin.notifyNavigateToListeners(
+                                                    context,
+                                                    "/channels/${channelId}",
+                                                    false
+                                                )
+                                                context.startActivity(ChannelActivity.getIntent(context, channelId))
+                                            }
+                                        }
+                                    } else if (it is ThreadReply) {
                                         // We override this particular action behavior,
                                         // because the default behavior is just not acceptable.
                                         // The default behavior transforms the current view into a thread,
@@ -156,22 +174,29 @@ fun AmiMessageMenu(
 
 internal class MessageOptionItemState(
     val title: String,
-    @DrawableRes val iconId: Int = com.whoisup.app.R.drawable.angle_right,
+    @DrawableRes val iconId: Int = R.drawable.angle_right,
     val textColor: TextColor? = null,
     val action: MessageAction,
 )
 
+
+private const val CUSTOM_ACTION_KEY = "actionKey"
+private const val CUSTOM_ACTION_REPLY_PRIVATELY = "REPLY_PRIVATELY"
+
 @Composable
 internal fun messageOptions(
+    listViewModel: MessageListViewModel,
     messageComposerState: MessageComposerState,
     selectedMessage: Message,
     currentUser: User?,
-    isInThread: Boolean,
     ownCapabilities: Set<String>,
 ): List<MessageOptionItemState> {
     if (selectedMessage.id.isEmpty()) {
         return emptyList()
     }
+
+    val isCommunity = listViewModel.channel.relatedConceptType is ChatChannelRelatedConceptType.Community
+    val isInThread = listViewModel.messageMode is MessageMode.MessageThread
 
     val selectedMessageUserId = selectedMessage.user.id
 
@@ -235,6 +260,15 @@ internal fun messageOptions(
                 title = stringResource(id = io.getstream.chat.android.compose.R.string.stream_compose_thread_reply),
                 iconId = io.getstream.chat.android.compose.R.drawable.stream_compose_ic_thread,
                 action = ThreadReply(selectedMessage),
+            )
+        } else {
+            null
+        },
+        if (isCommunity && !isInThread && !isOwnMessage) {
+            MessageOptionItemState(
+                title = stringResource(id = R.string.stream_compose_reply_privately),
+                iconId = io.getstream.chat.android.compose.R.drawable.stream_compose_ic_reply,
+                action = CustomAction(selectedMessage, mapOf(CUSTOM_ACTION_KEY to CUSTOM_ACTION_REPLY_PRIVATELY)),
             )
         } else {
             null

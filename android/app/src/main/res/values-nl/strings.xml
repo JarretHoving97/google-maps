@@ -130,6 +130,7 @@
     <string name="stream_compose_send">Versturen</string>
     <string name="stream_compose_resend_message">Opnieuw versturen</string>
     <string name="stream_compose_reply">Reageren</string>
+    <string name="stream_compose_reply_privately">Privé beantwoorden</string>
     <string name="stream_compose_thread_reply">Antwoorden in thread</string>
     <string name="stream_compose_mark_as_unread">Markeren als ongelezen</string>
     <string name="stream_compose_copy_message">Bericht kopiëren</string>

@@ -133,6 +133,7 @@
     <string name="stream_compose_send">Inviare</string>
     <string name="stream_compose_resend_message">Invia di nuovo</string>
     <string name="stream_compose_reply">Rispondi</string>
+    <string name="stream_compose_reply_privately">Rispondi in privato</string>
     <string name="stream_compose_thread_reply">Rispondi nel thread</string>
     <string name="stream_compose_mark_as_unread">Segna come non letto</string>
     <string name="stream_compose_copy_message">Copia messaggio</string>

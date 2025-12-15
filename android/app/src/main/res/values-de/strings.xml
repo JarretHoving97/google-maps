@@ -130,6 +130,7 @@
     <string name="stream_compose_send">Senden</string>
     <string name="stream_compose_resend_message">Erneut senden</string>
     <string name="stream_compose_reply">Antworten</string>
+    <string name="stream_compose_reply_privately">Privat antworten</string>
     <string name="stream_compose_thread_reply">Antwort im Thread</string>
     <string name="stream_compose_mark_as_unread">Als ungelesen markieren</string>
     <string name="stream_compose_copy_message">Kopieren</string>

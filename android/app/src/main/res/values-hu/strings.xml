@@ -127,6 +127,7 @@
     <string name="stream_compose_send">Elküld</string>
     <string name="stream_compose_resend_message">Újraküldés</string>
     <string name="stream_compose_reply">Válasz</string>
+    <string name="stream_compose_reply_privately">Válasz privát üzenetben</string>
     <string name="stream_compose_thread_reply">Válasz a szálban</string>
     <string name="stream_compose_mark_as_unread">Megjelölés olvasatlanként</string>
     <string name="stream_compose_copy_message">Üzenet másolása</string>

@@ -129,6 +129,7 @@
     <string name="stream_compose_send">Gönder</string>
     <string name="stream_compose_resend_message">Yeniden gönder</string>
     <string name="stream_compose_reply">Yanıtla</string>
+    <string name="stream_compose_reply_privately">Özel olarak cevapla</string>
     <string name="stream_compose_thread_reply">Konuda yanıtla</string>
     <string name="stream_compose_mark_as_unread">Okunmamış olarak işaretle</string>
     <string name="stream_compose_copy_message">Mesajı kopyala</string>

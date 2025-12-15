@@ -147,6 +147,7 @@
     <string name="stream_compose_send">Send</string>
     <string name="stream_compose_resend_message">Resend</string>
     <string name="stream_compose_reply">Reply</string>
+    <string name="stream_compose_reply_privately">Reply privately</string>
     <string name="stream_compose_thread_reply">Reply in thread</string>
     <string name="stream_compose_mark_as_unread">Mark as unread</string>
     <string name="stream_compose_copy_message">Copy message</string>
