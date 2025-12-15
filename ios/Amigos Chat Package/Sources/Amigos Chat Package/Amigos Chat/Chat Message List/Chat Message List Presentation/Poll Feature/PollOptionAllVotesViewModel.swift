@@ -10,10 +10,9 @@ import SwiftUI
 
 class PollOptionAllVotesViewModel: ObservableObject {
 
-    let poll: LocalPoll
     let option: LocalPollOption
     let controller: PollVoteListControllerProtocol
-
+    @Published var poll: LocalPoll
     @Published var pollVotes = [LocalPollVote]()
     @Published var errorShown = false
 
@@ -47,26 +46,34 @@ class PollOptionAllVotesViewModel: ObservableObject {
                 if error != nil {
                     self?.errorShown = true
                 }
-                print(self?.controller.votes.map {$0.user?.name ?? ""} ?? "")
                 self?.pollVotes = self?.controller.votes ?? []
             }
         }
     }
 
     func onAppear(vote: LocalPollVote) {
-        guard !loadingVotes,
-              !controller.hasLoadedAllVotes,
-              let index = pollVotes.firstIndex(where: { $0 == vote }),
-              index >= max(0, pollVotes.count - 10) else { return }
+
+        guard let index = pollVotes.firstIndex(where: { $0 == vote }) else {
+            return
+        }
+
+        guard index > pollVotes.count - 10 && pollVotes.count > 24 else {
+            return
+        }
 
         loadVotes()
+
     }
 
-    private func loadVotes() {
+    func loadVotes() {
+
+        if loadingVotes || controller.hasLoadedAllVotes {
+            return
+        }
 
         loadingVotes = true
 
-        controller.loadMoreVotes(limit: nil) { [weak self] error in
+        self.controller.loadMoreVotes(limit: nil) { [weak self] error in
             DispatchQueue.main.async { [error] in
                 self?.loadingVotes = false
                 if error != nil { self?.errorShown = true }
@@ -78,12 +85,11 @@ class PollOptionAllVotesViewModel: ObservableObject {
 
 extension PollOptionAllVotesViewModel: LocalPollVotesProviderDelegate {
 
+    func controller(_ controller: any PollVoteListControllerProtocol, didUpdatePoll poll: LocalPoll) {
+        self.poll = poll
+    }
+
     func provider(_ provider: PollVoteListControllerProtocol, didUpdateVotes votes: [LocalPollVote]) {
-//        print("controller votes: ")
-//        print(self.controller.votes.map {$0.user?.name ?? ""} ?? "")
-//
-//        print("received votes:)")
-//        print(votes.map {$0.user?.name ?? ""})
 
         if animateChanges {
             DispatchQueue.main.async { [weak self] in

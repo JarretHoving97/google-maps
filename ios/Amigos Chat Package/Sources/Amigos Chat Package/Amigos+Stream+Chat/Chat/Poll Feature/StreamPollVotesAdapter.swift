@@ -11,6 +11,7 @@ import StreamChat
 final class StreamPollVotesAdapter: NSObject, PollVoteListControllerProtocol {
 
     private let controller: PollVoteListController
+
     weak var delegate: LocalPollVotesProviderDelegate?
 
     init(controller: PollVoteListController) {
@@ -57,8 +58,15 @@ extension StreamPollVotesAdapter: PollVoteListControllerDelegate {
     func controller(_ controller: PollVoteListController, didChangeVotes changes: [ListChange<PollVote>]) {
 
         DispatchQueue.main.async { [weak self] in
-            guard let self = self else { return }
+            guard let self else { return }
             self.delegate?.provider(self, didUpdateVotes: self.votes)
+        }
+    }
+
+    func controller(_ controller: PollVoteListController, didUpdatePoll poll: Poll) {
+        DispatchQueue.main.async { [weak self] in
+            guard let self else { return }
+            self.delegate?.controller(self, didUpdatePoll: poll.toLocal())
         }
     }
 }

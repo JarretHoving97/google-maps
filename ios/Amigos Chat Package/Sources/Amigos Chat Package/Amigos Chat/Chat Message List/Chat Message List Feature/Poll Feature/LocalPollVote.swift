@@ -45,7 +45,7 @@ public struct LocalPollVote: Identifiable, Hashable, Equatable {
         lhs.createdAt == rhs.createdAt &&
         lhs.updatedAt == rhs.updatedAt &&
         lhs.pollId == rhs.pollId &&
-        lhs.optionId == rhs.pollId &&
+        lhs.optionId == rhs.optionId &&
         lhs.isAnswer == rhs.isAnswer &&
         lhs.user?.id == rhs.user?.id
     }

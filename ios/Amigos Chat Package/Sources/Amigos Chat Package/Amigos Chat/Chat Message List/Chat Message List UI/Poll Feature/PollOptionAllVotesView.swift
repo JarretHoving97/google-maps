@@ -6,7 +6,6 @@
 //
 
 import SwiftUI
-import StreamChat
 
 struct LocalPollOptionAllVotesView: View {
 
@@ -24,15 +23,13 @@ struct LocalPollOptionAllVotesView: View {
 
     var body: some View {
         ScrollView {
-            LazyVStack {
-                PollOptionResultsView(
-                    poll: viewModel.poll,
-                    option: viewModel.option,
-                    votes: viewModel.pollVotes,
-                    onVoteAppear: viewModel.onAppear(vote:),
-                    pollOptionAllVotesViewBuilder: pollOptionAllVotesViewBuilder
-                )
-            }
+            PollOptionResultsView(
+                poll: viewModel.poll,
+                option: viewModel.option,
+                votes: viewModel.pollVotes,
+                onVoteAppear: viewModel.onAppear(vote:),
+                pollOptionAllVotesViewBuilder: pollOptionAllVotesViewBuilder
+            )
         }
     }
 }

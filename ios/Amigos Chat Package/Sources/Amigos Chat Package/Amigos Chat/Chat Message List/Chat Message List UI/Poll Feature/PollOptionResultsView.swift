@@ -36,7 +36,7 @@ struct PollOptionResultsView: View {
     }
 
     var body: some View {
-        VStack(spacing: 16) {
+        LazyVStack(spacing: 16) {
             HStack {
                 Text(option.text)
                     .font(.subheadline)
@@ -47,21 +47,18 @@ struct PollOptionResultsView: View {
                         .aspectRatio(contentMode: .fit)
                         .frame(height: 12)
                 }
-                Text(tr("message.polls.votes", (poll.voteCountsByOption?[option.id] ?? 0)))
+                Text(tr("message.polls.votes", (poll.voteCount(for: option))))
                     .font(.caption1)
             }
             .padding(.horizontal)
 
-            if poll.voteCountsByOption?[option.id] ?? 0 > 0 {
+            if poll.voteCount(for: option) > 0 {
                 Divider()
-
-                VStack(spacing: 16) {
                     ForEach(votes, id: \.displayId) { vote in
                         HStack {
                             if poll.votingVisibility != .anonymous {
                                 AvatarView(imageUrl: vote.user?.imageUrl, size: 24)
                             }
-
                             Text(vote.user?.name ?? tr("message.polls.unknown-vote-author"))
                                 .font(.body)
                             Spacer()
@@ -70,7 +67,6 @@ struct PollOptionResultsView: View {
                         .onAppear {
                             onVoteAppear?(vote)
                         }
-                    }
                 }
                 .padding(.horizontal)
             }

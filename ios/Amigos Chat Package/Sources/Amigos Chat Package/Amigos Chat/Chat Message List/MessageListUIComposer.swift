@@ -91,7 +91,11 @@ extension MessageListUIComposer {
             }
 
             let controller = client.pollVoteListController(
-                query: PollVoteListQuery(pollId: poll.id, optionId: option.id)
+                query: PollVoteListQuery(
+                    pollId: poll.id,
+                    optionId: option.id,
+                    pagination: .init(pageSize: 25)
+                )
             )
 
             let viewModel = PollOptionAllVotesViewModel(

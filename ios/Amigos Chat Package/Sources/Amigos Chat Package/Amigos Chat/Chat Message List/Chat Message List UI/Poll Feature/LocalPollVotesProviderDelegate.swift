@@ -10,4 +10,5 @@ import Foundation
 public protocol LocalPollVotesProviderDelegate: AnyObject {
     func provider(_ provider: PollVoteListControllerProtocol, didUpdateVotes votes: [LocalPollVote])
     func provider(_ provider: PollVoteListControllerProtocol, didEncounterError error: Error)
+    func controller(_ controller: PollVoteListControllerProtocol, didUpdatePoll poll: LocalPoll)
 }

@@ -51,7 +51,7 @@ struct PollResultsView: View {
                     PollOptionResultsView(
                         poll: viewModel.poll,
                         option: option,
-                        votes: option.latestVotes,
+                        votes: Array(option.latestVotes.prefix(numberOfItemsShown)),
                         hasMostVotes: viewModel.hasMostVotes(for: option),
                         allButtonShown: option.latestVotes.count > numberOfItemsShown,
                         pollOptionAllVotesViewBuilder: pollOptionAllVotesViewBuilder
