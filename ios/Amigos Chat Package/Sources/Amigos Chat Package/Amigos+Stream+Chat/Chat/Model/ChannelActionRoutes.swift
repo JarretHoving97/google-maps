@@ -7,7 +7,7 @@
 
 import Foundation
 
-public enum ChannelRoute: Equatable {
+public enum ClientRoute: Equatable, Hashable {
 
     // direct message
     case profileRoute(id: String)
@@ -22,6 +22,7 @@ public enum ChannelRoute: Equatable {
     case communityRoute(id: String)
     case communityActivityInviteRoute(id: String)
     case manageCommunityParticipantsRoute(id: String)
+    case upsertCommunityActivity(id: String)
 
     // other
     case superAmigoRoute
@@ -47,6 +48,9 @@ public enum ChannelRoute: Equatable {
 
         case .communityRoute(let id):
             "/community/\(id)"
+
+        case .upsertCommunityActivity(id: let id):
+            "/upsert-activity?communityId=\(id)"
 
         case .communityActivityInviteRoute(id: let id):
             "/community/\(id)/invite"

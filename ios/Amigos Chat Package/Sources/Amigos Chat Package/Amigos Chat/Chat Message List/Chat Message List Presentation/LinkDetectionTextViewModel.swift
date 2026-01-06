@@ -9,6 +9,8 @@ import SwiftUI
 
 class LinkDetectionTextViewModel: ObservableObject {
 
+    private let router: Router?
+
     @Published var tappedUrl: URL?
 
     let isModerator: Bool
@@ -19,9 +21,10 @@ class LinkDetectionTextViewModel: ObservableObject {
 
     private let linkDetector = TextLinkDetector()
 
-    init(isSentByCurrentUser: Bool, isModerator: Bool, text: String) {
-        self.isSentByCurrentUser = isSentByCurrentUser
+    init(router: Router? = nil, isSentByCurrentUser: Bool, isModerator: Bool, text: String) {
+        self.router = router
         self.isModerator = isModerator
+        self.isSentByCurrentUser = isSentByCurrentUser
         self.text = text
     }
 
@@ -108,10 +111,11 @@ class LinkDetectionTextViewModel: ObservableObject {
         return linkRanges
     }
 
+    @MainActor
     func handleLinkTap(_ url: URL) {
         let webViewURL = CurrentEnvironment.url
         if let webViewURL, url.host == webViewURL.host {
-            RouteController.routeAction?(RouteInfo(route: .path(url.relativePath), dismiss: true))
+            router?.push(.client(.path(url.relativePath)))
         } else {
             tappedUrl = url
         }

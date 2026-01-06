@@ -23,7 +23,7 @@ struct MessageActionButton {
         }
     }
 
-    var route: ChannelRoute {
+    var route: ClientRoute {
         .path(path)
     }
 

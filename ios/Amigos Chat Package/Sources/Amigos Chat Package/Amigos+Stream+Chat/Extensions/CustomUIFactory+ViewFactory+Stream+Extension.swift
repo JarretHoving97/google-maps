@@ -34,18 +34,6 @@ extension CustomUIFactory: ViewFactory {
         AmiChatTrialNoticeView()
     }
 
-    public typealias ChannelDestination = CustomChatChannelView<CustomUIFactory>
-
-    public func makeChannelDestination() -> (ChannelSelectionInfo) -> ChannelDestination {
-        { [unowned self] selectionInfo in
-            return CustomChatChannelView(
-                viewFactory: self,
-                messageId: selectionInfo.message?.id,
-                channelController: chatClient.channelController(for: selectionInfo.channel.cid)
-            )
-        }
-    }
-
     public typealias ChannelListItemType = ChatChannelCell
 
     public func makeChannelListItem(
@@ -116,26 +104,6 @@ extension CustomUIFactory: ViewFactory {
             imageLoader: imageLoader,
             onSearchResultTap: onSearchResultTap,
             onItemAppear: onItemAppear
-        )
-    }
-
-    public typealias ChannelListSearchResultItem = CustomSearchResultItem<ChannelDestination>
-
-    public func makeChannelListSearchResultItem(
-        searchResult: ChannelSelectionInfo,
-        onlineIndicatorShown: Bool,
-        channelName: String,
-        avatar: UIImage,
-        onSearchResultTap: @escaping (ChannelSelectionInfo) -> Void,
-        channelDestination: @escaping (ChannelSelectionInfo) -> ChannelDestination
-    ) -> CustomSearchResultItem<ChannelDestination> {
-        CustomSearchResultItem(
-            searchResult: searchResult,
-            onlineIndicatorShown: onlineIndicatorShown,
-            channelName: channelName,
-            avatar: avatar,
-            onSearchResultTap: onSearchResultTap,
-            channelDestination: channelDestination
         )
     }
 

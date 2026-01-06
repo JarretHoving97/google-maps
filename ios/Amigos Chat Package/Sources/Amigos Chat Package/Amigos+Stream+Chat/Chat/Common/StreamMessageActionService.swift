@@ -10,16 +10,6 @@ import StreamChat
 import StreamChatSwiftUI
 import UIKit.UIPasteboard
 
-extension NSNotification.Name {
-    static let selectedMessageThread = NSNotification.Name(MessageRepliesConstants.selectedMessageThread)
-    static let selectedMessage = NSNotification.Name(MessageRepliesConstants.selectedMessage)
-}
-
-enum MessageRepliesConstants {
-    static let selectedMessageThread = "selectedMessageThread"
-    static let selectedMessage = "selectedMessage"
-}
-
 struct StreamMessageActionService {
 
     public enum MessageActionId {
@@ -48,20 +38,24 @@ struct StreamMessageActionService {
 
     private let isInThread: Bool
 
-    private let navigateToChannelAction: () -> Void
+    private let router: Router?
+
+    private let channelCreationService: ChannelCreationService
 
     init(
         chatClient: ChatClient,
+        router: Router? = InjectedValues[\.chatRouter],
+        channelCreationService: ChannelCreationService = RemoteFindOrCreateChannelService(),
         channelController: ChatChannelController,
         isInThread: Bool,
-        navigateToChannelAction: @escaping () -> Void = {},
         message: ChatMessage
     ) {
         self.chatClient = chatClient
         self.channelController = channelController
         self.isInThread = isInThread
-        self.navigateToChannelAction = navigateToChannelAction
         self.message = message
+        self.router = router
+        self.channelCreationService = channelCreationService
     }
 }
 
@@ -79,7 +73,7 @@ extension StreamMessageActionService: MessageActionService {
                 actions.append(copyAction(on: actionCallback))
             }
             if !isInThread {
-                actions.append(threadReplyAction())
+                actions.append(threadReplyAction(on: actionCallback))
             }
             return actions
         }
@@ -128,7 +122,7 @@ extension StreamMessageActionService: MessageActionService {
         }
 
         if channel.config.repliesEnabled && !isInThread {
-            actions.append(threadReplyAction())
+            actions.append(threadReplyAction(on: actionCallback))
         }
 
         if !message.text.isEmpty {
@@ -270,17 +264,22 @@ extension StreamMessageActionService {
         )
     }
 
-    func threadReplyAction() -> CustomMessageAction {
+    func threadReplyAction(on actionCallback: @escaping MessageActionCompletion) -> CustomMessageAction {
         return CustomMessageAction(
             id: MessageActionId.threadReply,
             title: tr("message.actions.thread-reply"),
             iconName: "icn_thread_reply",
             action: {
-                NotificationCenter.default.post(
-                    name: .selectedMessageThread,
-                    object: nil,
-                    userInfo: [MessageRepliesConstants.selectedMessage: message]
-                )
+
+                // dismiss first
+                actionCallback(.success(CustomMessageActionInfo(message: message, identifier: MessageActionId.threadReply)))
+
+                // perform navigation
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+                    Task { @MainActor in
+                        router?.push(.thread(MessageThreadChannelViewData(channelId: message.channelId, messageId: message.id)))
+                    }
+                }
             },
             confirmationPopup: nil,
             isDestructive: false
@@ -303,7 +302,10 @@ extension StreamMessageActionService {
 
                 // perform navigation
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
-                    navigateToChannelAction()
+                    Task { @MainActor in
+                        let channel = try await channelCreationService.load(for: message.user.userId)
+                        router?.push(.conversation(.channelInfo(ChannelInfo(messageId: message.id, channelId: channel))))
+                    }
                 }
             },
             confirmationPopup: nil,

@@ -10,6 +10,7 @@ import Foundation
 public protocol ChannelCreationService {
     typealias FindOrCreateChannelResult = (Result<String, Error>) -> Void
     func load(for user: String, completion: @escaping FindOrCreateChannelResult)
+    func load(for user: String) async throws -> String
 }
 
 public class RemoteFindOrCreateChannelService: ChannelCreationService {
@@ -18,6 +19,19 @@ public class RemoteFindOrCreateChannelService: ChannelCreationService {
 
     public func load(for user: String, completion: @escaping FindOrCreateChannelResult) {
         findOrCreateChat(receiverId: user, completion: completion)
+    }
+    
+    public func load(for user: String) async throws -> String {
+        try await withCheckedThrowingContinuation { continuation in
+            self.findOrCreateChat(receiverId: user) { result in
+                switch result {
+                case .success(let channelId):
+                    continuation.resume(returning: channelId)
+                case .failure(let error):
+                    continuation.resume(throwing: error)
+                }
+            }
+        }
     }
 
     private func findOrCreateChat(
@@ -71,3 +85,4 @@ public class RemoteFindOrCreateChannelService: ChannelCreationService {
         """
     }
 }
+

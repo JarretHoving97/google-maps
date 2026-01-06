@@ -14,33 +14,39 @@ import StreamChat
 /// view model and forwards them to `ChannelActionsView`.
 struct ChannelActionsViewStreamContainer: View {
 
+    let router: Router?
+
     let viewModel: CustomChannelActionViewModel
 
     let callbackActions: ChannelActionsView.CallBackActions
 
     init(
+        router: Router? = nil,
         viewModel: CustomChannelActionViewModel,
         callbackActions: ChannelActionsView.CallBackActions = ChannelActionsView.CallBackActions()
     ) {
+        self.router = router
         self.viewModel = viewModel
         self.callbackActions = callbackActions
     }
 
     init(
+        router: Router? = nil,
         channel: ChatChannel,
         chatClient: ChatClient,
         onDismiss: @escaping () -> Void,
         onError: @escaping (Error) -> Void,
-        onClose: @escaping () -> Void
+        onClose: @escaping () -> Void,
+
     ) {
+        self.router = router
         let callbacks = ChannelActionsView.CallBackActions(
             onDissmiss: onDismiss,
             onError: onError,
             onClose: onClose
         )
         let actionCallbacks = ChannelActionCallbacks(from: callbacks)
-        let channelActions = ChannelAction.customActions(for: channel, chatClient: chatClient, callbacks: actionCallbacks)
-
+        let channelActions = ChannelAction.customActions(for: channel, chatClient: chatClient, callbacks: actionCallbacks, router: router)
         self.viewModel = CustomChannelActionViewModel(from: channelActions)
         self.callbackActions = callbacks
     }

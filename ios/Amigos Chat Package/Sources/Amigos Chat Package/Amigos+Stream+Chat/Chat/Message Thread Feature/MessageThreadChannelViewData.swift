@@ -7,8 +7,7 @@
 
 import Foundation
 
-public struct MessageThreadChannelViewData {
-    let navigationTitle: String
+public struct MessageThreadChannelViewData: Equatable, Hashable {
     let channelId: String
     let messageId: String
 }

@@ -29,6 +29,7 @@ public struct CustomMessageListContainerView<Factory: ViewFactory>: View, Keyboa
     @Injected(\.utils) private var utils
     @Injected(\.chatClient) private var chatClient
     @Injected(\.colors) private var colors
+    @Injected(\.chatRouter) private var router
 
     private let firstMessageKey = "firstMessage"
     private let scrollAreaId = "scrollArea"
@@ -193,6 +194,7 @@ public struct CustomMessageListContainerView<Factory: ViewFactory>: View, Keyboa
                                 scrollDirection: $scrollDirection,
                                 isDirectMessageChat: channel.isDirectMessageChannel,
                                 firstUnreadMessageId: firstUnreadMessageId,
+                                router: router,
                                 isReadHandler: RemoteHasSeenHandler(channel: channel, userId: chatClient.currentUserId),
                                 isReadByAllHandler: isReadByAllHandler,
                                 onMessageAppear: extendedOnMessageAppear,
@@ -200,16 +202,6 @@ public struct CustomMessageListContainerView<Factory: ViewFactory>: View, Keyboa
                                 onMessageReplyHandler: { handleMessageReply(messageId: $0)},
                                 onLongPressHandler: handleLongPressLocally(),
                                 onReactionsTap: { messageReactionPresentationInfo = $0 },
-                                onMessageThreadReplyTap: { id in
-
-                                    guard let message = messages.first(where: {$0.id == id}) else { return }
-
-                                    NotificationCenter.default.post(
-                                        name: .selectedMessageThread,
-                                        object: nil,
-                                        userInfo: [MessageRepliesConstants.selectedMessage: message]
-                                    )
-                                },
                                 width: width ?? .messageWidth
                             )
                             .sheet(isPresented: $messageReactionPresentationInfo.toBoolBinding) {

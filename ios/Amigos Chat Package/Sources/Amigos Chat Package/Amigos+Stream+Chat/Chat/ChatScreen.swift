@@ -40,6 +40,8 @@ public enum PopoverType: Equatable {
 /// Screen component for the chat channel view.
 public struct ChatChannelScreen: View {
 
+    @Injected(\.chatRouter) var router
+
     @StateObject var viewModel: ChatChannelScreenViewModel
 
     @Environment(\.presentationMode) var presentationMode
@@ -51,8 +53,6 @@ public struct ChatChannelScreen: View {
     public var chatChannelController: ChatChannelController
 
     var onDidLoadChannel: ((ChatChannel) -> Void)?
-
-    var headerButtonTapHandler: HeaderButtonActionHandler?
 
     private let viewFactory: CustomUIFactory
 
@@ -87,19 +87,27 @@ public struct ChatChannelScreen: View {
     }
 
     public var body: some View {
-
         CustomChatChannelView(
             viewFactory: viewFactory,
             messageId: messageId,
             channelController: chatChannelController,
             onDidLoadChannel: onDidLoadChannel,
-            headerButtonTapHandler: headerButtonTapHandler,
             messageThreadNavigationAction: messageThreadNavigationAction,
             messageActionsViewBuilder: messageActionsViewBuilder
         )
         .onAppear { chatChannelController.markRead() }
         .environment(\.attachmentController, AttachmentEnvironmentController())
         .environment(\.showConsentMediaInGroupChannel, viewModel.isDirectMessageChannel)
+        .toolbar {
+            if let channel {
+                ChatToolbarButtons(
+                    router: router,
+                    channel: channel,
+                    onMoreTapped: { viewModel.toggle(popOver: .moreActions(channel))
+                    }
+                )
+            }
+        }
         .overlayPresenter(
             isPresented: Binding(
                 get: { shouldPresentOverlay },
@@ -112,6 +120,7 @@ public struct ChatChannelScreen: View {
             content: {
                 if let channel {
                     ChannelActionsViewStreamContainer(
+                        router: router,
                         channel: channel,
                         chatClient: chatClient,
                         onDismiss: {
@@ -134,6 +143,7 @@ public struct ChatChannelScreen: View {
     }
 }
 public struct ChatScreen: View {
+
     @Injected(\.chatClient) private var chatClient
 
     @ObservedObject private var chatViewModel: ChatViewModel
@@ -142,20 +152,14 @@ public struct ChatScreen: View {
 
     private var channelListController: ChatChannelListController
 
-    public var onItemTapped: ((ChatChannel) -> Void)?
-
-    private let onBackButtonTapped: (() -> Void)?
-
     private let viewFactory: CustomUIFactory
 
     init(
         with viewFactory: CustomUIFactory,
         channelListController: ChatChannelListController,
         chatViewModel: ChatViewModel,
-        onBackButtonTapped: (() -> Void)?
     ) {
         self.chatViewModel = chatViewModel
-        self.onBackButtonTapped = onBackButtonTapped
         self.viewFactory = viewFactory
         self.channelListController = channelListController
         _viewModel = StateObject(wrappedValue: ChatChannelListViewModel(channelListController: channelListController))
@@ -166,20 +170,10 @@ public struct ChatScreen: View {
             viewFactory: viewFactory,
             viewModel: viewModel,
             title: chatViewModel.title,
-            onItemTap: onItemTapped,
             embedInNavigationView: false
         )
+        .navigationTitle(tr("custom.channelList.title"))
         .environment(\.font, Font.custom(size: 15, weight: .regular))
-        .toolbar {
-            ToolbarItem(placement: .topBarLeading) {
-                Button {
-                    onBackButtonTapped?()
-                } label: {
-                    Image(.amiBackButton)
-                        .foregroundStyle(Color(.purple))
-                }
-            }
-        }
         // reset appIcon badge count when channels are loaded.
         .onChange(of: viewModel.channels) { channels in
             if !channels.isEmpty {

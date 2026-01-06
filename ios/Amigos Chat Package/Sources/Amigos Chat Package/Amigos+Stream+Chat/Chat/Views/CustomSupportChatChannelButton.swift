@@ -1,9 +1,12 @@
 import SwiftUI
+import StreamChatSwiftUI
 
 struct CustomSupportChatChannelButton: View {
 
+    @Injected(\.chatRouter) var router
+
     func navigateToFaqWebView() {
-        RouteController.routeAction?(RouteInfo(route: .faq, dismiss: true))
+        router?.push(.client(.faq))
     }
 
     var body: some View {

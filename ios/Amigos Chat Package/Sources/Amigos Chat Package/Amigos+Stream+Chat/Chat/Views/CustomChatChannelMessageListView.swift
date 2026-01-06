@@ -2,6 +2,10 @@ import SwiftUI
 import StreamChat
 import StreamChatSwiftUI
 
+public typealias OnCreateMessageActionsFactory = (MessageActionViewInfo) -> MessageActionService?
+
+public typealias MessageThreadNavigationAction = (MessageThreadChannelViewData) -> Void
+
 extension ChatChannelViewModel {
 
     var canSendMessage: Bool {
@@ -10,6 +14,8 @@ extension ChatChannelViewModel {
 }
 
 struct CustomChatChannelMessageListView<Factory: ViewFactory>: View {
+
+    @Injected(\.chatRouter) var router
 
     @Injected(\.colors) private var colors
     @Injected(\.utils) private var utils
@@ -166,29 +172,11 @@ struct CustomChatChannelMessageListView<Factory: ViewFactory>: View {
             }
             .accentColor(colors.tintColor)
         }
-        .onChange(of: viewModel.threadMessage) { newValue in
-            if let message = newValue {
-                // Ensure overlay is dismissed before navigating
-                dismissOverlayIfNeeded(animated: true)
-
-                messageThreadNavigationAction(
-                    MessageThreadChannelViewData(
-                        navigationTitle: channel.name ?? "",
-                        channelId: channel.cid.rawValue,
-                        messageId: message.id
-                    )
-                )
-
-                // reset for onChange retrigger.
-                messageDisplayInfo = nil
-                viewModel.threadMessage = nil
-            }
-        }
+        .chatChannelHeader(channel: channel)
         .overlayPresenter(
             isPresented: Binding(
                 get: { shouldPresentOverlay },
                 set: { newValue in
-
                     if !newValue {
                         messageDisplayInfo = nil
                         viewModel.reactionsShown = false

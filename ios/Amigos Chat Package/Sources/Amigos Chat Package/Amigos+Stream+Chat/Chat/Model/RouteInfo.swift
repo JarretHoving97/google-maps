@@ -7,12 +7,12 @@
 
 import Foundation
 
-public struct RouteInfo {
+public struct RouteInfo: Equatable, Hashable {
 
-    public let route: ChannelRoute?
+    public let route: ClientRoute?
     public let dismiss: Bool
 
-    public init(route: ChannelRoute, dismiss: Bool = false) {
+    public init(route: ClientRoute, dismiss: Bool = false) {
         self.route = route
         self.dismiss = dismiss
     }

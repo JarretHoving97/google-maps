@@ -9,11 +9,13 @@ import SwiftUI
 
 public struct SystemMessageView: View {
 
+    private let router: Router?
     let viewModel: MessageViewModel
     let message: Message
 
-    public init(message: Message) {
-        self.viewModel = MessageViewModel(message: message)
+    init(router: Router?, viewModel: MessageViewModel, message: Message) {
+        self.router = router
+        self.viewModel = viewModel
         self.message = message
     }
 
@@ -21,7 +23,7 @@ public struct SystemMessageView: View {
         if let type = viewModel.layoutMessageType, case .anonymous = type {
             AnonymousSystemMessageView(message: message)
         } else {
-            DefaultSystemMessageView(message: message)
+            DefaultSystemMessageView(router: router, message: message)
         }
     }
 }

@@ -9,9 +9,12 @@ import SwiftUI
 
 struct MessageActionButtonView: View {
 
+    let router: AnyRouter<ChatRoute>?
+
     let viewModel: MessageActionButton
 
-    init(viewModel: MessageActionButton) {
+    init(viewModel: MessageActionButton, router: AnyRouter<ChatRoute>? = nil) {
+        self.router = router
         self.viewModel = viewModel
     }
 
@@ -26,6 +29,6 @@ struct MessageActionButtonView: View {
     }
 
     private func navigate() {
-        RouteController.routeAction?(RouteInfo(route: viewModel.route, dismiss: true))
+        router?.push(.client(viewModel.route))
     }
 }

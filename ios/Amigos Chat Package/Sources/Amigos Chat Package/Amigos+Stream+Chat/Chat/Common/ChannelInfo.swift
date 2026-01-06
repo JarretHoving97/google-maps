@@ -6,7 +6,7 @@
 //
 import StreamChat
 
-public struct ChannelInfo {
+public struct ChannelInfo: Equatable, Hashable {
     public let messageId: String?
     public let channelId: String
 

@@ -4,14 +4,19 @@ import Capacitor
 import Foundation
 import SwiftUI
 import StreamChatSwiftUI
+import StreamChat
 import Amigos_Chat_Package
 
 @objc(ExtendedStreamPlugin)
-public class ExtendedStreamPlugin: CAPPlugin, CAPBridgedPlugin {
+public class ExtendedStreamPlugin: CAPPlugin, CAPBridgedPlugin, ClientNavigationNotifier {
+
+    var chatRouter: ChatNavigationViewModel?
 
     static private(set) var chatClient: AmigosChatClient!
 
-    private(set) var chatNavigationController: UINavigationController?
+    private var client: ChatClient {
+        return Self.chatClient.chatClient
+    }
 
     public let identifier = "ExtendedStream"
 
@@ -35,8 +40,6 @@ public class ExtendedStreamPlugin: CAPPlugin, CAPBridgedPlugin {
 
     public override func load() {
         ExtendedStreamPlugin.shared = self
-        setupNavigationAppearance()
-
         configureChat()
     }
 
@@ -54,9 +57,41 @@ public class ExtendedStreamPlugin: CAPPlugin, CAPBridgedPlugin {
 
             guard let self else { return }
 
-            let navigation = self.composeNavigation(model: model)
-            self.chatNavigationController = navigation
-            self.bridge?.viewController?.present(self.chatNavigationController!, animated: true, completion: nil)
+            let client = ExtendedStreamPlugin.chatClient.chatClient
+
+            let viewModel = ChatNavigationViewModel(
+                client: client,
+                clientNavigationReceiver: self
+            )
+
+            self.chatRouter = viewModel
+
+            let root: ChatNavigationView.Root = {
+                guard let model else { return .channels }
+
+                if model.showChatOnly {
+                    return .conversation(.channelInfo(model.channel))
+                } else {
+                    viewModel.setStack([.conversation(.channelInfo(model.channel))])
+                    return .channels
+                }
+            }()
+
+            let view = ChatNavigationView(
+                viewModel: viewModel,
+                uiFactory: CustomUIFactory(),
+                appInfo: getAppInfo(),
+                root: root,
+                destinationResolver: ChatDestinationResolver(
+                    client: client,
+                    chatRouteInfoBuilder: ChatRouteInfoBuilder(client: client)
+                )
+            )
+
+            let hosting = UIHostingController(rootView: view)
+            hosting.modalPresentationStyle = .fullScreen
+
+            self.bridge?.viewController?.present(hosting, animated: true, completion: nil)
         }
     }
 
@@ -71,7 +106,11 @@ public class ExtendedStreamPlugin: CAPPlugin, CAPBridgedPlugin {
         Task {
             do {
                 try await ExtendedStreamPlugin.chatClient?.login(
-                    with: AmigosChatClient.LoginInfo(id: userId, name: name ?? "", imageUrl: URL(string: avatarUrl))
+                    with: AmigosChatClient.LoginInfo(
+                        id: userId,
+                        name: name ?? "",
+                        imageUrl: URL(string: avatarUrl)
+                    )
                 )
             } catch {
                 print(error.localizedDescription)
@@ -137,11 +176,11 @@ public class ExtendedStreamPlugin: CAPPlugin, CAPBridgedPlugin {
 
     @objc func dismiss() {
         self.bridge?.viewController?.dismiss(animated: true)
-        self.chatNavigationController = nil
+        // TODO: Can be replaced by checking the ChatNavigationViewModel
         ChatFeatureState.shared.set(screen: .none)
     }
 
-    @objc func notifyNavigateBackToListeners(dismiss: Bool = false) {
+    @objc public func notifyNavigateBackToListeners(dismiss: Bool = false) {
         notifyListeners("navigateBack", data: [:])
 
         if dismiss {
@@ -149,7 +188,7 @@ public class ExtendedStreamPlugin: CAPPlugin, CAPBridgedPlugin {
         }
     }
 
-    @objc func notifyNavigateToListeners(route: String?, dismiss: Bool = false) {
+    @objc public func notifyNavigateToListeners(route: String?, dismiss: Bool = false) {
         if let route {
             let data = JSObject(dictionaryLiteral: ("route", route), ("replace", false))
             notifyListeners("navigateTo", data: data)
@@ -259,6 +298,8 @@ extension ExtendedStreamPlugin {
             fatalError("Implementation error: No URL found in bridge config.")
         }
 
+        setupNavigationAppearance()
+
         /// Setup Share location
         CustomUIFactory.shareCurrentLocationView = ShareLocationMapView(
             locationService: CoreLocationManager()
@@ -277,10 +318,6 @@ extension ExtendedStreamPlugin {
             )
         }
 
-        /// Set back button action for when we need only the chat to appear
-        RouteController.setHeaderBackButton { [weak self] routeInfo in
-            self?.notifyNavigateBackToListeners(dismiss: routeInfo.dismiss)
-        }
 
         let client = AmigosChatClient(
             config: .init(
@@ -310,5 +347,52 @@ extension ExtendedStreamPlugin {
 
         /// create client
         ExtendedStreamPlugin.chatClient = client
+
+    }
+
+    func setupNavigationAppearance() {
+        let navigationBarAppearance = UINavigationBarAppearance()
+        navigationBarAppearance.backgroundColor = .clear
+        navigationBarAppearance.shadowColor = .clear
+        navigationBarAppearance.shadowImage = UIImage()
+        navigationBarAppearance.backgroundEffect = .none
+
+        let standardAppearance = UINavigationBarAppearance()
+
+        if #available(iOS 26.0, *) {
+            // On iOS 26 and later, keep default background (no explicit white)
+        } else {
+            standardAppearance.backgroundColor = .white
+        }
+
+        let foregroundColor = UIColor(named: "Grey Dark")!
+
+        let largeTitleTextAttributes: [NSAttributedString.Key: Any] = [
+            .foregroundColor: foregroundColor,
+            .font: UIFont(name: "Poppins-Bold", size: 30)!,
+            .baselineOffset: 12
+        ]
+
+        let titleTextAttributes: [NSAttributedString.Key: Any] = [
+            .foregroundColor: foregroundColor,
+            .font: UIFont(name: "Poppins-Bold", size: 15)!
+        ]
+
+        standardAppearance.largeTitleTextAttributes = largeTitleTextAttributes
+        standardAppearance.titleTextAttributes = titleTextAttributes
+
+        navigationBarAppearance.largeTitleTextAttributes = largeTitleTextAttributes
+        navigationBarAppearance.titleTextAttributes = titleTextAttributes
+
+        let navBar = UINavigationBar.appearance()
+
+        // Remove back button text
+        navigationBarAppearance.backButtonAppearance.normal.titleTextAttributes = [.foregroundColor: UIColor.clear]
+        navigationBarAppearance.backButtonAppearance.normal.titlePositionAdjustment = UIOffset(horizontal: -50, vertical: 0)
+
+        navBar.standardAppearance = standardAppearance
+        navBar.scrollEdgeAppearance = navigationBarAppearance
+        navBar.compactAppearance = navigationBarAppearance
     }
 }
+

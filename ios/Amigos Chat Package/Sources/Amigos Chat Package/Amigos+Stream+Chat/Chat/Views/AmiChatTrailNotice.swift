@@ -120,6 +120,7 @@ struct CustomChatTrialNoticeView: View {
     @Injected(\.colors) private var colors
     @Injected(\.images) private var images
     @Injected(\.chatClient) private var chatClient
+    @Injected(\.chatRouter) private var router
 
     @Binding var isPresented: Bool
 
@@ -131,7 +132,7 @@ struct CustomChatTrialNoticeView: View {
     }
 
     func navigateToSuperAmigoWebView() {
-        RouteController.routeAction?(RouteInfo(route: .superAmigoRoute, dismiss: true))
+        router?.push(.client(.superAmigoRoute))
     }
 
     var body: some View {

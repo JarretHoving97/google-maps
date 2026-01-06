@@ -25,6 +25,8 @@ public struct Message {
 
     public let id: String
 
+    public let channelId: String
+
     public let text: String
 
     public let isDeleted: Bool
@@ -65,6 +67,7 @@ public struct Message {
 
     public init(
         id: String = UUID().uuidString,
+        channeId: String = UUID().uuidString,
         user: LocalUser = LocalUser(id: .uniqueID, name: "", imageUrl: nil),
         isSentByCurrentUser: Bool = false,
         message: String = "",
@@ -85,6 +88,7 @@ public struct Message {
 
     ) {
         self.id = id
+        self.channelId = channeId
         self.isSentByCurrentUser = isSentByCurrentUser
         self.text = message
         self.isDeleted = isDeleted

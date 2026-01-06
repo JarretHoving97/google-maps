@@ -124,7 +124,8 @@ struct MessageThreadChannelView: View, KeyboardReadable {
             }
         }
         .modifier(HideKeyboardOnTapGesture(shouldAdd: keyboardShown))
-        .navigationTitle(viewModel.navigationTitle)
+        .chatChannelHeader(channel: viewModel.channel, disabled: true)
+        .navigationBarTitleDisplayMode(.inline)
         .tint(Color(.purple))
     }
 

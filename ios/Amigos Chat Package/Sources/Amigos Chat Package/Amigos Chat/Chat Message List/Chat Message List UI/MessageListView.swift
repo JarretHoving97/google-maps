@@ -13,6 +13,8 @@ struct MessageListView: View {
 
     typealias ScrollDirection = LocalScrollDirection
 
+    private var router: Router?
+
     @ObservedObject var viewModel: MessageListViewModel
 
     @Binding var scrollDirection: ScrollDirection
@@ -23,7 +25,6 @@ struct MessageListView: View {
 
     private let messageGestureCallBacks: MessageGestureCallbacks
     private let onMessageAppear: OnMessageAppearHandler
-
     private let pollOptionAllVotesViewBuilder: PollOptionAllVotesViewBuilder?
 
     init(
@@ -31,6 +32,7 @@ struct MessageListView: View {
         callbacks: MessageGestureCallbacks = .noGestures,
         width: CGFloat = .messageWidth,
         scrollDirection: Binding<ScrollDirection>,
+        router: Router? = nil,
         onMessageAppear: @escaping OnMessageAppearHandler,
         pollOptionAllVotesViewBuilder: PollOptionAllVotesViewBuilder?
     ) {
@@ -40,6 +42,7 @@ struct MessageListView: View {
         self.messageGestureCallBacks = callbacks
         self.onMessageAppear = onMessageAppear
         self.pollOptionAllVotesViewBuilder = pollOptionAllVotesViewBuilder
+        self.router = router
     }
 
     var body: some View {
@@ -73,6 +76,7 @@ struct MessageListView: View {
             viewModel: viewData,
             gestureCallbacks: messageGestureCallBacks,
             width: width,
+            router: router,
             pollOptionAllVotesViewBuilder: pollOptionAllVotesViewBuilder
         )
         .onAppear {

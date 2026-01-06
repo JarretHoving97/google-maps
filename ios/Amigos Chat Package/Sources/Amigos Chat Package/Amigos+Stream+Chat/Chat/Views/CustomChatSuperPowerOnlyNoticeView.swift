@@ -3,6 +3,7 @@ import StreamChat
 import StreamChatSwiftUI
 
 struct CustomChatSuperPowerOnlyNoticeView: View {
+    @Injected(\.chatRouter) var router
     @Injected(\.fonts) var fonts
 
     public var channel: ChatChannel
@@ -30,7 +31,7 @@ struct CustomChatSuperPowerOnlyNoticeView: View {
     }
 
     func navigateToSuperAmigoWebView() {
-        RouteController.routeAction?(RouteInfo(route: .superAmigoRoute, dismiss: true))
+        router?.push(.client(.superAmigoRoute))
     }
 
     var body: some View {

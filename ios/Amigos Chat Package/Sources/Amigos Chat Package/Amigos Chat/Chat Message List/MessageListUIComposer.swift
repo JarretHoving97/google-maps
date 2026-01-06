@@ -27,6 +27,7 @@ class MessageListUIComposer {
         scrollDirection: Binding<MessageListView.ScrollDirection>,
         isDirectMessageChat: Bool,
         firstUnreadMessageId: String?,
+        router: Router?,
         isReadHandler: HasSeenHandler,
         isReadByAllHandler: @escaping IsReadByAllHandler,
         onMessageAppear: @escaping (Int, MessageListView.ScrollDirection) -> Void,
@@ -34,7 +35,6 @@ class MessageListUIComposer {
         onMessageReplyHandler: @escaping MessageReplyHandler,
         onLongPressHandler: @escaping LongPressHandler,
         onReactionsTap: @escaping ReactionsTapHandler,
-        onMessageThreadReplyTap: @escaping ThreadRepliesTapHandler,
         width: CGFloat
     ) -> some View {
 
@@ -57,8 +57,7 @@ class MessageListUIComposer {
             onQuotedMessageTap: onQuotedMessageTapHandler,
             onMessageReply: onMessageReplyHandler,
             onLongPress: onLongPressHandler,
-            onReactionsTap: onReactionsTap,
-            onThreadRepliesTap: onMessageThreadReplyTap
+            onReactionsTap: onReactionsTap
         )
 
         return MessageListView(
@@ -66,6 +65,7 @@ class MessageListUIComposer {
             callbacks: messageGestureCallbacks,
             width: width,
             scrollDirection: scrollDirection,
+            router: router,
             onMessageAppear: onMessageAppear,
             pollOptionAllVotesViewBuilder: pollAllVotesViewBuilder(with: client)
         )

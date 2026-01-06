@@ -9,6 +9,8 @@ import SwiftUI
 
 struct MessageContainerView: View {
 
+    private var router: Router?
+
     @ObservedObject var viewModel: MessageContainerViewModel
     @State private var frame: CGRect = .zero
     @State private var computeFrame: Bool = false
@@ -22,12 +24,14 @@ struct MessageContainerView: View {
         viewModel: MessageContainerViewModel,
         gestureCallbacks: MessageGestureCallbacks = .noGestures,
         width: CGFloat = .messageWidth,
+        router: Router? = nil,
         pollOptionAllVotesViewBuilder: PollOptionAllVotesViewBuilder?
     ) {
         self.viewModel = viewModel
         self.gestureCallbacks = gestureCallbacks
         self.width = width
         self.pollOptionAllVotesViewBuilder = pollOptionAllVotesViewBuilder
+        self.router = router
     }
 
     var body: some View {
@@ -94,19 +98,19 @@ struct MessageContainerView: View {
 
     func navigateToOnboardingWebView() {
         if viewModel.layoutKey == "onboarding" {
-            RouteController.routeAction?(RouteInfo(route: .superAmigoRoute, dismiss: true) )
+            router?.push(.client(.superAmigoRoute))
 
         } else if viewModel.layoutKey == "how_to_host" {
-            RouteController.routeAction?(RouteInfo(route: .howToHost, dismiss: true))
+            router?.push(.client(.howToHost))
 
         } else if viewModel.layoutKey == "how_to_join" {
-            RouteController.routeAction?(RouteInfo(route: .howToJoin, dismiss: true))
+            router?.push(.client(.howToJoin))
         }
     }
 
     private func navigateToProfileWebView() {
         let userId = viewModel.message.user.id
-        RouteController.routeAction?(RouteInfo(route: .profileRoute(id: userId), dismiss: true))
+        router?.push(.client(.profileRoute(id: userId)))
     }
 
     private func showReactions() {
@@ -287,7 +291,16 @@ extension MessageContainerView {
             )
             .padding(.horizontal, 8)
             .padding(.bottom, !viewModel.showFooterView ? 8 : 0)
-            .onTapGesture(perform: { gestureCallbacks.onThreadRepliesTap(viewModel.message.id)})
+            .onTapGesture {
+                router?.push(
+                    .thread(
+                        MessageThreadChannelViewData(
+                            channelId: viewModel.message.channelId,
+                            messageId: viewModel.message.id
+                        )
+                    )
+                )
+            }
             .frame(maxWidth: .infinity)
         }
     }

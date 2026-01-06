@@ -19,6 +19,7 @@ public class MessageMapper {
     public func map(_ remoteMessage: ChatMessageProtocol) -> Message {
         Message(
             id: remoteMessage.id,
+            channeId: remoteMessage.channelId,
             user: remoteMessage.user.toLocal(),
             isSentByCurrentUser: remoteMessage.isSentByCurrentUser,
             message: remoteMessage.text,

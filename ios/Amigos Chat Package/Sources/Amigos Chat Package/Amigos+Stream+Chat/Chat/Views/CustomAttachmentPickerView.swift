@@ -8,6 +8,7 @@ public struct CustomAttachmentPickerView<Factory: ViewFactory>: View {
 
     @Injected(\.colors) private var colors
     @Injected(\.fonts) private var fonts
+    @Injected(\.chatRouter) private var router
 
     var viewFactory: Factory
     @Binding var selectedPickerState: AttachmentPickerState
@@ -68,7 +69,7 @@ public struct CustomAttachmentPickerView<Factory: ViewFactory>: View {
     }
 
     func navigateToSuperAmigoWebView() {
-        RouteController.routeAction?(RouteInfo(route: .superAmigoRoute, dismiss: true))
+        router?.push(.client(.superAmigoRoute))
     }
 
     public var body: some View {

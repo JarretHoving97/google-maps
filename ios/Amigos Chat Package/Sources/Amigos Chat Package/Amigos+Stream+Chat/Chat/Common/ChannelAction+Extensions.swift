@@ -22,15 +22,16 @@ public struct ChannelActionCallbacks {
 extension ChannelAction {
 
     /// Returns the channel actions.
-    public static func customActions(
+    @MainActor public static func customActions(
         for channel: ChatChannel,
         chatClient: ChatClient,
-        callbacks: ChannelActionCallbacks
+        callbacks: ChannelActionCallbacks,
+        router: Router?
 
     ) -> [ChannelAction] {
         var actions = [ChannelAction]()
 
-        if let navigateActions = navigateActions(for: channel, chatClient: chatClient) {
+        if let navigateActions = navigateActions(for: channel, chatClient: chatClient, router: router) {
             actions += navigateActions
         }
 
@@ -248,9 +249,11 @@ extension ChannelAction {
         )
     }
 
+    @MainActor
     static func navigateActions(
         for channel: ChatChannel,
-        chatClient: ChatClient
+        chatClient: ChatClient,
+        router: Router?
     ) -> [ChannelAction]? {
         let otherUser = channel.lastActiveMembers
             .first(where: { $0.id != chatClient.currentUserId })
@@ -259,7 +262,7 @@ extension ChannelAction {
             let profileAction = ChannelAction(
                 title: tr("custom.channel.action.profile.title"),
                 iconName: "chevronRight",
-                action: { RouteController.routeAction?(RouteInfo(route: .profileRoute(id: userId), dismiss: true))},
+                action: { router?.push(.client(.profileRoute(id: userId))) },
                 confirmationPopup: nil,
                 isDestructive: false
             )
@@ -267,7 +270,7 @@ extension ChannelAction {
             let inviteAction = ChannelAction(
                 title: tr("custom.channel.action.invite.title"),
                 iconName: "chevronRight",
-                action: {RouteController.routeAction?(RouteInfo(route: .profileInviteRoute(id: userId), dismiss: true))},
+                action: { router?.push(.client(.profileInviteRoute(id: userId))) },
                 confirmationPopup: nil,
                 isDestructive: false
             )
@@ -279,7 +282,7 @@ extension ChannelAction {
             let viewAction = ChannelAction(
                 title: tr("custom.channel.action.activity.title"),
                 iconName: "chevronRight",
-                action: { RouteController.routeAction?(RouteInfo(route: .activityRoute(id: activityId), dismiss: true))},
+                action: { router?.push(.client(.activityRoute(id: activityId))) },
                 confirmationPopup: nil,
                 isDestructive: false
             )
@@ -292,7 +295,7 @@ extension ChannelAction {
                     let inviteAction = ChannelAction(
                         title: tr("custom.channel.action.inviteAmigos.title"),
                         iconName: "chevronRight",
-                        action: { RouteController.routeAction?(RouteInfo(route: .inviteToActivityRoute(id: activityId), dismiss: true))},
+                        action: { router?.push(.client(.inviteToActivityRoute(id: activityId))) },
                         confirmationPopup: nil,
                         isDestructive: false
                     )
@@ -302,7 +305,7 @@ extension ChannelAction {
                     let manageAction = ChannelAction(
                         title: tr("custom.channel.action.manageParticipants.title"),
                         iconName: "chevronRight",
-                        action: { RouteController.routeAction?(RouteInfo(route: .manageActivityParticipantsRoute(id: activityId), dismiss: true))},
+                        action: { router?.push(.client(.manageActivityParticipantsRoute(id: activityId))) },
                         confirmationPopup: nil,
                         isDestructive: false
                     )
@@ -321,7 +324,7 @@ extension ChannelAction {
             let viewAction = ChannelAction(
                 title: Localized.ChatChannel.viewCommunityActionLabel,
                 iconName: "chevronRight",
-                action: { RouteController.routeAction?(RouteInfo(route: .communityRoute(id: id), dismiss: true))},
+                action: { router?.push(.client(.communityRoute(id: id))) },
                 confirmationPopup: nil,
                 isDestructive: false
             )
@@ -337,25 +340,17 @@ extension ChannelAction {
 //                let inviteViewAction = ChannelAction(
 //                    title: tr("custom.channel.action.inviteAmigos.title"),
 //                    iconName:  "chevronRight",
-//                    action: {
-//                        RouteController.routeAction?(
-//                            RouteInfo(route: .communityActivityInviteRoute(id: id), dismiss: true)
-//                        )
-//                    },
+//                    action: { router?.push(.client(.communityActivityInviteRoute(id: id))) },
 //                    confirmationPopup: nil,
 //                    isDestructive: false
 //                )
 //
 //                communityActions.append(inviteViewAction)
-
+//
                 let communityParticipantsAction = ChannelAction(
                     title: tr("custom.channel.action.manageParticipants.title"),
                     iconName: "chevronRight",
-                    action: {
-                        RouteController.routeAction?(
-                            RouteInfo(route: .manageCommunityParticipantsRoute(id: id), dismiss: true)
-                        )
-                    },
+                    action: { router?.push(.client(.manageCommunityParticipantsRoute(id: id))) },
                     confirmationPopup: nil,
                     isDestructive: false
                 )

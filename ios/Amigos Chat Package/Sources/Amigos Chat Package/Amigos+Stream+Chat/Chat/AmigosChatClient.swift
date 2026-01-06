@@ -24,7 +24,7 @@ public class AmigosChatClient: AmigosChatClientProtocol {
 
     public var config: Config
 
-    public private(set) var chatClient: ChatClient?
+    public private(set) var chatClient: ChatClient
 
     private var streamChat: StreamChat?
 
@@ -78,7 +78,7 @@ public class AmigosChatClient: AmigosChatClientProtocol {
             apiUrl: URL(string: config.environment.amigosApiUrl)!,
             url: (URL(string: config.environment.env)!)
         )
-        
+
         KeychainController.setJwtLoader(keychainLoader)
         ChatControllers.configureClient(client: chatClient)
 
@@ -97,7 +97,7 @@ public class AmigosChatClient: AmigosChatClientProtocol {
     }
 
     public func ensureAuthentication() async throws {
-        guard chatClient?.currentUserId == nil else {
+        guard chatClient.currentUserId == nil else {
             // We are logged in, all good.
             return
         }
@@ -118,9 +118,6 @@ public class AmigosChatClient: AmigosChatClientProtocol {
 
     /// login and start receiving events and loaders
     public func login(with info: LoginInfo) async throws {
-        guard let chatClient else {
-            throw AmigosClientError.implementationFailed
-        }
 
         try await chatClient.connectUser(
             userInfo: UserInfo(
@@ -168,7 +165,7 @@ public class AmigosChatClient: AmigosChatClientProtocol {
 
     public func logout() async {
         pushConfig.removeDeviceToken()
-        await chatClient?.logout()
+        await chatClient.logout()
         userStore.clear()
     }
 

@@ -235,6 +235,7 @@ public struct CustomLinkDetectionTextView: View {
     @Injected(\.colors) var colors
     @Injected(\.fonts) var fonts
     @Injected(\.utils) var utils
+    @Injected(\.chatRouter) var router
 
     var message: ChatMessage
 
@@ -267,7 +268,7 @@ public struct CustomLinkDetectionTextView: View {
     private func handleLinkTap(_ url: URL) {
         let webViewURL = CurrentEnvironment.url
         if let webViewURL, url.host == webViewURL.host {
-            RouteController.routeAction?(RouteInfo(route: .path(url.relativePath), dismiss: true))
+            router?.push(.client(.path(url.relativePath)))
         } else {
             confirmUrl = url
             showUrlConfirmation = true

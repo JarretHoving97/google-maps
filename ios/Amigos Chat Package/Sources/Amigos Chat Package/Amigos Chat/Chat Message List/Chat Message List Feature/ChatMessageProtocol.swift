@@ -31,6 +31,7 @@ extension LocalChatUser {
 
 public protocol ChatMessageProtocol {
     var id: String { get }
+    var channelId: String { get }
     var user: Author { get }
     var isSentByCurrentUser: Bool { get }
     var text: String { get }

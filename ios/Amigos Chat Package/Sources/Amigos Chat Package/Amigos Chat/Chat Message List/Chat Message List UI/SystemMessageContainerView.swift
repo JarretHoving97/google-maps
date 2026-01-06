@@ -9,15 +9,17 @@ import SwiftUI
 
 public struct DefaultSystemMessageView: View {
 
+    private var router: Router?
     let message: Message
 
-    public init(message: Message) {
+    init(router: Router? = nil, message: Message) {
+        self.router = router
         self.message = message
     }
 
     func navigateToProfileWebView() {
         let userId = message.user.id
-        RouteController.routeAction?(RouteInfo(route: .profileRoute(id: userId), dismiss: true))
+        router?.push(.client(.profileRoute(id: userId)))
     }
 
     public var body: some View {

@@ -20,7 +20,6 @@ public struct CustomChatChannelListView<Factory: ViewFactory>: View {
 
     private let viewFactory: Factory
     private let title: String
-    private var onItemTap: (ChatChannel) -> Void
     private var embedInNavigationView: Bool
     private var handleTabBarVisibility: Bool
 
@@ -32,7 +31,6 @@ public struct CustomChatChannelListView<Factory: ViewFactory>: View {
         viewFactory: Factory = DefaultViewFactory.shared,
         viewModel: ChatChannelListViewModel,
         title: String = "",
-        onItemTap: ((ChatChannel) -> Void)? = nil,
         selectedChannelId: String? = nil,
         handleTabBarVisibility: Bool = true,
         embedInNavigationView: Bool = true
@@ -42,13 +40,7 @@ public struct CustomChatChannelListView<Factory: ViewFactory>: View {
         self.title = title
         self.handleTabBarVisibility = handleTabBarVisibility
         self.embedInNavigationView = embedInNavigationView
-        if let onItemTap = onItemTap {
-            self.onItemTap = onItemTap
-        } else {
-            self.onItemTap = { channel in
-                viewModel.selectedChannel = channel.channelSelectionInfo
-            }
-        }
+
     }
 
     public var body: some View {
@@ -67,8 +59,7 @@ public struct CustomChatChannelListView<Factory: ViewFactory>: View {
             } else {
                 ChatChannelListContentView(
                     viewFactory: viewFactory,
-                    viewModel: viewModel,
-                    onItemTap: onItemTap
+                    viewModel: viewModel
                 )
             }
         }
@@ -109,27 +100,19 @@ public struct CustomChatChannelListView<Factory: ViewFactory>: View {
 
 public struct ChatChannelListContentView<Factory: ViewFactory>: View {
 
+    @Injected(\.chatRouter) var router
     @Environment(\.horizontalSizeClass) var horizontalSizeClass
 
     private var viewFactory: Factory
     @ObservedObject private var viewModel: ChatChannelListViewModel
     private var channelHeaderLoader: ChannelHeaderLoader { InjectedValues[\.utils].channelHeaderLoader }
-    private var onItemTap: (ChatChannel) -> Void
 
     public init(
         viewFactory: Factory,
-        viewModel: ChatChannelListViewModel,
-        onItemTap: ((ChatChannel) -> Void)? = nil
+        viewModel: ChatChannelListViewModel
     ) {
         self.viewFactory = viewFactory
         self.viewModel = viewModel
-        if let onItemTap = onItemTap {
-            self.onItemTap = onItemTap
-        } else {
-            self.onItemTap = { channel in
-                viewModel.selectedChannel = channel.channelSelectionInfo
-            }
-        }
     }
 
     public var body: some View {
@@ -159,7 +142,7 @@ public struct ChatChannelListContentView<Factory: ViewFactory>: View {
                     swipedChannelId: $viewModel.swipedChannelId,
                     onlineIndicatorShown: viewModel.onlineIndicatorShown(for:),
                     imageLoader: channelHeaderLoader.image(for:),
-                    onItemTap: onItemTap,
+                    onItemTap: { router?.push(.conversation(.channel($0)))},
                     onItemAppear: { index in
                         viewModel.checkForChannels(index: index)
                     },

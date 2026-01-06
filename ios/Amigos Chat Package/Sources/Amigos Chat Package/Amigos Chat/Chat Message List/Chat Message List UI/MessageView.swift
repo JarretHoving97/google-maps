@@ -18,6 +18,8 @@ struct MessageView: View {
 
     @ObservedObject private var viewModel: MessageViewModel
 
+    private let router: Router?
+
     let onQuotedMessageTap: ((String) -> Void)?
 
     private let defaultTextPadding = EdgeInsets(
@@ -42,11 +44,13 @@ struct MessageView: View {
         viewModel: MessageViewModel,
         maxWidth: CGFloat = .messageWidth,
         onQuotedMessageTap: ((String) -> Void)? = nil,
+        router: Router? = nil,
         pollOptionViewBuilder: PollOptionAllVotesViewBuilder? = nil
     ) {
         self.viewModel = viewModel
         self.onQuotedMessageTap = onQuotedMessageTap
         self.maxWidth = maxWidth
+        self.router = router
         self.pollOptionViewBuilder = pollOptionViewBuilder
         viewModel.resolveMessageType()
     }
@@ -66,8 +70,10 @@ struct MessageView: View {
             )
         } else if viewModel.messageType == .system {
 
-            SystemMessageView(message: viewModel.message)
-
+            DefaultSystemMessageView(
+                router: router,
+                message: viewModel.message
+            )
         } else if viewModel.asSuperEmoji {
 
             VStack(spacing: 0) {
@@ -104,6 +110,7 @@ extension MessageView {
             if !viewModel.messageText.isEmpty {
                 LinkDetectionTextView(
                     viewModel: LinkDetectionTextViewModel(
+                        router: router,
                         isSentByCurrentUser: viewModel.isSentByCurrentUser,
                         isModerator: viewModel.author.isModerator,
                         text: viewModel.messageText

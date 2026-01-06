@@ -18,6 +18,7 @@ public struct CustomChatChannelView<Factory: ViewFactory>: View, KeyboardReadabl
     @Injected(\.colors) private var colors
     @Injected(\.utils) private var utils
     @Injected(\.chatClient) private var chatClient
+    @Injected(\.chatRouter) private var router
 
     @StateObject private var viewModel: ChatChannelViewModel
 
@@ -36,8 +37,6 @@ public struct CustomChatChannelView<Factory: ViewFactory>: View, KeyboardReadabl
 
     var onDidLoadChannel: ((ChatChannel) -> Void)?
 
-    var headerButtonTapHandler: HeaderButtonActionHandler?
-
     private let messageThreadNavigationAction: MessageThreadNavigationAction
 
     private let messageActionsViewBuilder: OnCreateMessageActionsFactory?
@@ -50,7 +49,6 @@ public struct CustomChatChannelView<Factory: ViewFactory>: View, KeyboardReadabl
         messageController: ChatMessageController? = nil,
         scrollToMessage: ChatMessage? = nil,
         onDidLoadChannel: ((ChatChannel) -> Void)? = nil,
-        headerButtonTapHandler: HeaderButtonActionHandler? = nil,
         messageThreadNavigationAction: @escaping MessageThreadNavigationAction = {_ in },
         messageActionsViewBuilder: OnCreateMessageActionsFactory? = nil
     ) {
@@ -63,7 +61,6 @@ public struct CustomChatChannelView<Factory: ViewFactory>: View, KeyboardReadabl
         )
         factory = viewFactory
         self.onDidLoadChannel = onDidLoadChannel
-        self.headerButtonTapHandler = headerButtonTapHandler
         self.scrollToMessage = scrollToMessage
         self.messageId = messageId
         self.messageThreadNavigationAction = messageThreadNavigationAction
@@ -74,7 +71,6 @@ public struct CustomChatChannelView<Factory: ViewFactory>: View, KeyboardReadabl
         ZStack {
             if let channel = viewModel.channel {
                 VStack(spacing: 0) {
-
                     headerActionView()
 
                     CustomChatChannelMessageListView(
@@ -91,6 +87,7 @@ public struct CustomChatChannelView<Factory: ViewFactory>: View, KeyboardReadabl
                     ChatFeatureState.shared.set(screen: .channel(channelId: channel.id))
                     onDidLoadChannel?(channel)
                 }
+
             } else {
                 factory.makeChannelLoadingView()
             }
@@ -118,6 +115,7 @@ public struct CustomChatChannelView<Factory: ViewFactory>: View, KeyboardReadabl
                 .allowsHitTesting(false)
                 : nil
         )
+
         .padding(.bottom, keyboardShown || !tabBarAvailable || generatingSnapshot ? 0 : bottomPadding)
         .ignoresSafeArea(.container, edges: tabBarAvailable ? .bottom : [])
         .accessibilityElement(children: .contain)
@@ -171,7 +169,6 @@ public struct CustomChatChannelView<Factory: ViewFactory>: View, KeyboardReadabl
             switch viewModel.channel?.relatedConceptType {
 
             case .activity:
-
                 if !channel.isCurrentUserOrganizer {
                     chatWithHostHeaderView
                 }
@@ -192,7 +189,7 @@ public struct CustomChatChannelView<Factory: ViewFactory>: View, KeyboardReadabl
                 title: customViewModel.createActivityLabel,
                 onButtonPress: {
                     guard let communityId = viewModel.channel?.extraData["communityId"]?.stringValue else { return }
-                    headerButtonTapHandler?(.startCommunityActivity(communityId: communityId))
+                    router?.push(.client(.upsertCommunityActivity(id: communityId)))
                 }
             )
             Divider()
@@ -205,7 +202,10 @@ public struct CustomChatChannelView<Factory: ViewFactory>: View, KeyboardReadabl
                 title: tr("channel.start.message.with.host"),
                 onButtonPress: {
                     guard let userId = viewModel.channel?.createdBy?.id else { return }
-                    headerButtonTapHandler?(.messageHost(userId: userId))
+                    Task { @MainActor in
+                        guard let channel = try? await RemoteFindOrCreateChannelService().load(for: userId) else { return }
+                        router?.push(.conversation(.channelInfo(.init(channelId: channel))))
+                    }
                 }
             )
             Divider()
