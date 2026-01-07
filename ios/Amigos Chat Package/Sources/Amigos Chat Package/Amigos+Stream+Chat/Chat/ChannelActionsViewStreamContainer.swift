@@ -36,12 +36,10 @@ struct ChannelActionsViewStreamContainer: View {
         chatClient: ChatClient,
         onDismiss: @escaping () -> Void,
         onError: @escaping (Error) -> Void,
-        onClose: @escaping () -> Void,
-
-    ) {
+        onClose: @escaping (ChannelActionCallbacks.Info?) -> Void) {
         self.router = router
         let callbacks = ChannelActionsView.CallBackActions(
-            onDissmiss: onDismiss,
+            onDismiss: onDismiss,
             onError: onError,
             onClose: onClose
         )

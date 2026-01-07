@@ -69,7 +69,7 @@ struct ChannelActionsView: View {
         }
         .ignoresSafeArea(.all)
         .background(.black.opacity(0.3))
-        .onTapGesture { performAction(for: callbackActions.onClose) }
+        .onTapGesture { performAction(for: { callbackActions.onClose(nil) }) }
         .alert(
             isPresented: Binding(
                 get: { confirmationAction != nil },
@@ -126,20 +126,20 @@ struct ChannelActionsView: View {
 extension ChannelActionsView {
 
     struct CallBackActions {
-        let onDissmiss: () -> Void
+        let onDismiss: () -> Void
         let onError: (Error) -> Void
-        let onClose: () -> Void
+        let onClose: (ChannelActionCallbacks.Info?) -> Void
 
-        init(onDissmiss: @escaping () -> Void, onError: @escaping (Error) -> Void, onClose: @escaping () -> Void) {
-            self.onDissmiss = onDissmiss
+        init(onDismiss: @escaping () -> Void, onError: @escaping (Error) -> Void, onClose: @escaping (ChannelActionCallbacks.Info?) -> Void) {
+            self.onDismiss = onDismiss
             self.onError = onError
             self.onClose = onClose
         }
 
         init() {
-            onDissmiss = {}
+            onDismiss = {}
             onError = {_ in }
-            onClose = {}
+            onClose = {_ in }
         }
     }
 }

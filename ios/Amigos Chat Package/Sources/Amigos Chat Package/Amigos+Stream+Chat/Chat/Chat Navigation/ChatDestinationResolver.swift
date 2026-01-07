@@ -92,10 +92,11 @@ public struct ChatDestinationResolver {
 
         return ChatChannelScreen(
             with: info.viewFactory,
-            channel: info.controller.channel,
             chatClient: info.client,
             chatChannelController: info.controller,
-            viewModel: ChatChannelScreenViewModel(isDirectMessageChannel: info.controller.channel?.isDirectMessageChannel ?? false
+            viewModel: ChatChannelScreenViewModel(
+                isDirectMessageChannel: info.controller.channel?.isDirectMessageChannel ?? false,
+                channel: info.controller.channel
             ),
             messageId: info.messageId,
             messageActionsViewBuilder: info.messageActionsViewBuilder

@@ -2,11 +2,16 @@ import StreamChat
 import StreamChatSwiftUI
 
 public struct ChannelActionCallbacks {
+
+    struct Info {
+        let channel: ChatChannel
+    }
+
     let onDismiss: () -> Void
     let onError: (Error) -> Void
-    let onClose: () -> Void
+    let onClose: (Info?) -> Void
 
-    init(onDismiss: @escaping () -> Void, onError: @escaping (Error) -> Void, onClose: @escaping () -> Void) {
+    init(onDismiss: @escaping () -> Void, onError: @escaping (Error) -> Void, onClose: @escaping (Info?) -> Void) {
         self.onDismiss = onDismiss
         self.onError = onError
         self.onClose = onClose
@@ -15,7 +20,7 @@ public struct ChannelActionCallbacks {
     init(from actions: ChannelActionsView.CallBackActions) {
         self.onError = actions.onError
         self.onClose = actions.onClose
-        self.onDismiss = actions.onDissmiss
+        self.onDismiss = actions.onDismiss
     }
 }
 
@@ -104,7 +109,7 @@ extension ChannelAction {
                 if let error = error {
                     callbacks.onError(error)
                 } else {
-                    callbacks.onClose()
+                    callbacks.onClose(nil)
                 }
             }
         }
@@ -172,7 +177,6 @@ extension ChannelAction {
                 if let error = error {
                     onError(error)
                 } else {
-
                     onDismiss()
                 }
             }
@@ -204,10 +208,7 @@ extension ChannelAction {
                 if let error = error {
                     callbacks.onError(error)
                 } else {
-                    // onDismiss() instead of onClose() for now
-                    // How Stream's API works, for toggling notifications we probably need a new instance of `ChatChannel`
-                    // which we have if we just leave the channel
-                    callbacks.onDismiss()
+                    Self.notifyClose(using: chatClient, channelId: channel.cid, closeAction: callbacks.onClose)
                 }
             }
         }
@@ -232,10 +233,7 @@ extension ChannelAction {
                 if let error = error {
                     callbacks.onError(error)
                 } else {
-                    // onDismiss() instead of onClose() for now
-                    // How Stream's API works, for toggling notifications we probably need a new instance of `ChatChannel`
-                    // which we have if we just leave the channel
-                    callbacks.onDismiss()
+                    Self.notifyClose(using: chatClient, channelId: channel.cid, closeAction: callbacks.onClose)
                 }
             }
         }
@@ -362,5 +360,16 @@ extension ChannelAction {
         }
 
         return nil
+    }
+
+    private static func notifyClose(
+        using: ChatClient,
+        channelId: ChannelId,
+        closeAction: @escaping (ChannelActionCallbacks.Info?) -> Void
+    ) {
+        if let channel = using.channelController(for: channelId).channel {
+            closeAction(ChannelActionCallbacks.Info(channel: channel))
+        }
+        closeAction(nil)
     }
 }

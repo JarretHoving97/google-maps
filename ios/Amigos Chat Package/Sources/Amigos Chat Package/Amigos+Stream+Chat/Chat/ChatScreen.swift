@@ -8,8 +8,11 @@ public class ChatChannelScreenViewModel: ObservableObject {
 
     let isDirectMessageChannel: Bool
 
-    public init(isDirectMessageChannel: Bool) {
+    var channel: ChatChannel?
+
+    init(isDirectMessageChannel: Bool, channel: ChatChannel?) {
         self.isDirectMessageChannel = isDirectMessageChannel
+        self.channel = channel
     }
 
     @MainActor
@@ -46,8 +49,6 @@ public struct ChatChannelScreen: View {
 
     @Environment(\.presentationMode) var presentationMode
 
-    private let channel: ChatChannel?
-
     private let chatClient: ChatClient
 
     public var chatChannelController: ChatChannelController
@@ -68,7 +69,6 @@ public struct ChatChannelScreen: View {
 
     public init(
         with viewFactory: CustomUIFactory,
-        channel: ChatChannel?,
         chatClient: ChatClient,
         chatChannelController: ChatChannelController,
         viewModel: ChatChannelScreenViewModel,
@@ -76,7 +76,6 @@ public struct ChatChannelScreen: View {
         messageThreadNavigationAction: @escaping MessageThreadNavigationAction = {_ in },
         messageActionsViewBuilder: OnCreateMessageActionsFactory? = nil,
     ) {
-        self.channel = channel
         self.chatClient = chatClient
         self.chatChannelController = chatChannelController
         self.messageId = messageId
@@ -99,7 +98,7 @@ public struct ChatChannelScreen: View {
         .environment(\.attachmentController, AttachmentEnvironmentController())
         .environment(\.showConsentMediaInGroupChannel, viewModel.isDirectMessageChannel)
         .toolbar {
-            if let channel {
+            if let channel = viewModel.channel {
                 ChatToolbarButtons(
                     router: router,
                     channel: channel,
@@ -118,7 +117,7 @@ public struct ChatChannelScreen: View {
                 }
             ),
             content: {
-                if let channel {
+                if let channel = viewModel.channel {
                     ChannelActionsViewStreamContainer(
                         router: router,
                         channel: channel,
@@ -130,16 +129,22 @@ public struct ChatChannelScreen: View {
                         onError: { error in
                             viewModel.toggle(popOver: .error(error))
                         },
-                        onClose: {
-                            withAnimation {
-                                viewModel.toggle(popOver: nil)
-
-                            }
-                        }
+                        onClose: closePopOver
                     )
                 }
             }
         )
+    }
+
+    private func closePopOver(_ info: ChannelActionCallbacks.Info?) {
+
+        if let info {
+            self.viewModel.channel = info.channel
+        }
+
+        withAnimation {
+            viewModel.toggle(popOver: nil)
+        }
     }
 }
 public struct ChatScreen: View {
