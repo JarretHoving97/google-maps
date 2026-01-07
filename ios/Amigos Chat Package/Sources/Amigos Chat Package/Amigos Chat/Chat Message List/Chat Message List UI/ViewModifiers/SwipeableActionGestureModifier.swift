@@ -18,7 +18,7 @@ struct SwipeableActionGestureModifier: ViewModifier {
     @GestureState private var offset: CGSize = .zero
 
     private let treshold: CGFloat = 100
-    private let minimumSwipeGestureDisabledDistance: CGFloat = 0
+    private let minimumSwipeGestureDisabledDistance: CGFloat = 30
     private let minimumSwipeDistance: CGFloat = 40
 
     init(onSwipeCompleted: @escaping (() -> Void)) {
