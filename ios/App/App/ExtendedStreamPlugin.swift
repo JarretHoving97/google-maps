@@ -387,8 +387,14 @@ extension ExtendedStreamPlugin {
         let navBar = UINavigationBar.appearance()
 
         // Remove back button text
-        navigationBarAppearance.backButtonAppearance.normal.titleTextAttributes = [.foregroundColor: UIColor.clear]
-        navigationBarAppearance.backButtonAppearance.normal.titlePositionAdjustment = UIOffset(horizontal: -50, vertical: 0)
+        let normalTitleTextAttributes: [NSAttributedString.Key: Any] = [.foregroundColor: UIColor.clear]
+        let normalTitlePositionAdjustment = UIOffset(horizontal: -50, vertical: 0)
+
+        navigationBarAppearance.backButtonAppearance.normal.titleTextAttributes = normalTitleTextAttributes
+        navigationBarAppearance.backButtonAppearance.normal.titlePositionAdjustment = normalTitlePositionAdjustment
+
+        standardAppearance.backButtonAppearance.normal.titleTextAttributes = normalTitleTextAttributes
+        standardAppearance.backButtonAppearance.normal.titlePositionAdjustment = normalTitlePositionAdjustment
 
         navBar.standardAppearance = standardAppearance
         navBar.scrollEdgeAppearance = navigationBarAppearance
