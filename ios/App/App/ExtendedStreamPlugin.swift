@@ -46,6 +46,10 @@ public class ExtendedStreamPlugin: CAPPlugin, CAPBridgedPlugin, ClientNavigation
     public var chatTrialUntil: Date?
 
     func initializeViewController(model: ChatPresentationModel? = nil) {
+        guard chatRouter == nil else {
+            debugPrint("Initialize called while already initialized")
+            return
+        }
         createChat(model: model)
     }
 
@@ -176,6 +180,7 @@ public class ExtendedStreamPlugin: CAPPlugin, CAPBridgedPlugin, ClientNavigation
 
     @objc func dismiss() {
         self.bridge?.viewController?.dismiss(animated: true)
+        self.chatRouter = nil
         // TODO: Can be replaced by checking the ChatNavigationViewModel
         ChatFeatureState.shared.set(screen: .none)
     }
