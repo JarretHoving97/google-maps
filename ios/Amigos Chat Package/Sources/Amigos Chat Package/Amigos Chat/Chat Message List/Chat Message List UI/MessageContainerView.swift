@@ -145,6 +145,7 @@ extension MessageContainerView {
                         ),
                         maxWidth: contentWidth,
                         onQuotedMessageTap: gestureCallbacks.onQuotedMessageTap,
+                        router: router,
                         pollOptionViewBuilder: pollOptionAllVotesViewBuilder
                 )
                 .messageGestures(
