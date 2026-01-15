@@ -1,7 +1,7 @@
 opt_out_usage
 
 ENV["BUNDLE_ID_MAIN_QA"] = "com.whoisup.app.qa"
-ENV["BUNDLE_ID_EXT_QA"]  = "com.whoisup.app.qa.NotificationService"
+ENV["BUNDLE_ID_NS_QA"]  = "com.whoisup.app.qa.NotificationService"
 
 platform :ios do 
   desc "Build QA and upload to TestFlight for beta testing"
@@ -24,7 +24,7 @@ platform :ios do
     # get latest app store build number for this version
     last_app_store_build_number = app_store_build_number(
       live: false,
-      app_identifier: "com.whoisup.app",
+      app_identifier: ENV["BUNDLE_ID_MAIN_QA"],
       version: current_version,
       initial_build_number: 0
     )
@@ -64,7 +64,7 @@ platform :ios do
       targets: ["NotificationService"],
       team_id: "G3578K4W58",
       code_sign_identity: "Apple Distribution",
-      bundle_identifier: ENV["BUNDLE_ID_EXT_QA"],
+      bundle_identifier: ENV["BUNDLE_ID_NS_QA"],
       profile_name: "GitHub Actions Distribution QA - NS"
     )
 
@@ -77,7 +77,7 @@ platform :ios do
       export_options: {
       provisioningProfiles: {
         ENV["BUNDLE_ID_MAIN_QA"] => "GitHub Actions Distribution",
- 	      ENV["BUNDLE_ID_EXT_QA"] => "GitHub Actions Distribution - Notification Service",
+ 	      ENV["BUNDLE_ID_NS_QA"] => "GitHub Actions Distribution - Notification Service",
         }
       } 
     )
