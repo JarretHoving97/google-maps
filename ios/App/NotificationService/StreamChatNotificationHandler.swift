@@ -164,21 +164,22 @@ extension StreamChatNotificationHandler {
         senderImage: INImage?,
         completion: @escaping (UNMutableNotificationContent) -> Void
     ) {
-        var senderDisplayName = PersonNameComponents()
 
-        senderDisplayName.nickname = info.isAnonymous ? nil : info.author.name
+        let personHandleValue = info.isAnonymous ? Bundle.appDisplayName : info.author.id
 
         let senderPerson = INPerson(
-            personHandle: INPersonHandle(
-                value: info.author.id,
-                type: .unknown
-            ),
-            nameComponents: senderDisplayName,
+            personHandle: INPersonHandle(value: personHandleValue, type: .unknown),
+            nameComponents: {
+                var comps = PersonNameComponents()
+                comps.nickname = info.isAnonymous ? Bundle.appDisplayName : info.author.name
+                return comps
+            }(),
             displayName: info.isAnonymous ? Bundle.appDisplayName : info.author.name,
-            image: senderImage,
+            image: info.isAnonymous ? nil : senderImage,
             contactIdentifier: nil,
             customIdentifier: nil
         )
+
         /// Mapping all channel members to INPerson
         /// `https://developer.apple.com/documentation/usernotifications/implementing-communication-notifications`
         ///  could be important for grouping notifications
@@ -205,7 +206,7 @@ extension StreamChatNotificationHandler {
             outgoingMessageType: .unknown,
             content: info.body,
             speakableGroupName: INSpeakableString(spokenPhrase: info.title),
-            conversationIdentifier: info.title,
+            conversationIdentifier: info.channelId,
             serviceName: nil,
             sender: senderPerson,
             attachments: nil
@@ -218,7 +219,7 @@ extension StreamChatNotificationHandler {
         let interaction = INInteraction(intent: incomingMessagingIntent, response: nil)
 
         interaction.direction = .incoming
-        content.threadIdentifier = info.title
+        content.threadIdentifier = info.channelId
         content.body = info.body
 
         do {
