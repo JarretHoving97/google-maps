@@ -9,11 +9,11 @@ import SwiftUI
 
 struct MessageActionButtonView: View {
 
-    let router: AnyRouter<ChatRoute>?
+    let router: Router?
 
     let viewModel: MessageActionButton
 
-    init(viewModel: MessageActionButton, router: AnyRouter<ChatRoute>? = nil) {
+    init(router: Router? = nil, viewModel: MessageActionButton, ) {
         self.router = router
         self.viewModel = viewModel
     }

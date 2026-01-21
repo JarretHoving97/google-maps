@@ -11,8 +11,11 @@ struct AnonymousSystemMessageView: View {
 
     let message: Message
 
-    public init(message: Message) {
+    let router: Router?
+
+    public init(router: Router? = nil, message: Message) {
         self.message = message
+        self.router = router
     }
 
     var body: some View {
@@ -36,7 +39,7 @@ struct AnonymousSystemMessageView: View {
     private var messageButtonView: some View {
         Group {
             if let viewData = MessageActionResolver.resolve(from: message) {
-                MessageActionButtonView(viewModel: viewData)
+                MessageActionButtonView(router: router, viewModel: viewData)
             }
         }
     }

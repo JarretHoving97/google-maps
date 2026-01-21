@@ -70,10 +70,8 @@ struct MessageView: View {
             )
         } else if viewModel.messageType == .system {
 
-            DefaultSystemMessageView(
-                router: router,
-                message: viewModel.message
-            )
+            SystemMessageView(router: router, message: viewModel.message)
+
         } else if viewModel.asSuperEmoji {
 
             VStack(spacing: 0) {
@@ -264,7 +262,7 @@ extension MessageView {
     private var messageButtonView: some View {
         Group {
             if let viewData = viewModel.messageAction {
-                MessageActionButtonView(viewModel: viewData)
+                MessageActionButtonView(router: router, viewModel: viewData)
             }
         }
     }

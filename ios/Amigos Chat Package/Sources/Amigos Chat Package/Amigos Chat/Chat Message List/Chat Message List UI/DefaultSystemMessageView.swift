@@ -1,5 +1,5 @@
 //
-//  SystemMessageContainerView.swift
+//  DefaultSystemMessageView.swift
 //  Amigos Chat Package
 //
 //  Created by Jarret on 18/08/2025.
@@ -10,6 +10,7 @@ import SwiftUI
 public struct DefaultSystemMessageView: View {
 
     private var router: Router?
+
     let message: Message
 
     init(router: Router? = nil, message: Message) {
@@ -58,7 +59,7 @@ public struct DefaultSystemMessageView: View {
     private var messageButtonView: some View {
         Group {
             if let viewData = MessageActionResolver.resolve(from: message) {
-                MessageActionButtonView(viewModel: viewData)
+                MessageActionButtonView(router: router, viewModel: viewData)
             }
         }
     }
