@@ -3,9 +3,11 @@ package com.whoisup.app
 import android.content.Context
 import com.whoisup.app.helpers.setUserId
 import com.whoisup.app.helpers.unsetUserId
+import com.whoisup.app.stream.extensions.isAnonymousSystem
 import io.getstream.android.push.firebase.FirebasePushDeviceGenerator
 import io.getstream.chat.android.client.ChatClient
 import io.getstream.chat.android.client.logger.ChatLogLevel
+import io.getstream.chat.android.client.notifications.handler.ChatNotification
 import io.getstream.chat.android.client.notifications.handler.NotificationConfig
 import io.getstream.chat.android.client.notifications.handler.NotificationHandlerFactory
 import io.getstream.chat.android.client.token.TokenProvider
@@ -68,6 +70,25 @@ class Stream {
                         // intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK) // @TODO(1)
                         intent
                     }
+                },
+                notificationBuilderTransformer = { builder, notification ->
+                    if (notification is ChatNotification.MessageNew) {
+                        if (notification.message.isAnonymousSystem()) {
+                            builder.setStyle(null)
+                            builder.setContentTitle(notification.channel.name)
+                            builder.setContentText(notification.message.text)
+                        }
+                    }
+                    builder
+                },
+                notificationIdFactory = { notification ->
+                    var notificationId: Int? = null
+                    if (notification is ChatNotification.MessageNew) {
+                        if (notification.message.isAnonymousSystem()) {
+                            notificationId = "${notification.channel.type}:${notification.channel.id}:${notification.message.id}".hashCode()
+                        }
+                    }
+                    notificationId
                 }
             )
 

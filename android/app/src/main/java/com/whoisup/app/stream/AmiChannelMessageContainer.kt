@@ -9,9 +9,9 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import com.whoisup.app.stream.extensions.isAnonymousSystem
 import com.whoisup.app.stream.extensions.isThreadStartOptimistic
 import com.whoisup.app.ui.theme.CustomTheme
-import io.getstream.chat.android.client.utils.message.isThreadStart
 import io.getstream.chat.android.compose.viewmodel.messages.MessageComposerViewModel
 import io.getstream.chat.android.compose.viewmodel.messages.MessageListViewModel
 import io.getstream.chat.android.ui.common.state.messages.list.DateSeparatorItemState
@@ -41,8 +41,7 @@ fun AmiChannelMessageContainer(
             // Instead we do this inside the `is MessageItemState`
         }
         is SystemMessageItemState -> {
-            val layoutKey = messageListItemState.message.extraData["layoutKey"] as? String
-            if (layoutKey == MessageLayoutKeyEnum.Anonymous.value) {
+            if (messageListItemState.message.isAnonymousSystem()) {
                 AmiChannelAnonymousSystemMessage(
                     systemMessageState = messageListItemState,
                 )
