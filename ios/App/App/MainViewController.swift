@@ -8,11 +8,17 @@
 import CapacitorCommunityGoogleMaps
 
 class MainViewController: CustomMapViewController {
+
+    lazy var calendarPlugin: ExtendedCalendarPlugin = {
+        ExtendedCalendarPlugin(delegate: self)
+    }()
+
     override open func capacitorDidLoad() {
         bridge?.registerPluginInstance(BranchDeepLinks())
         bridge?.registerPluginInstance(ExtendedBranchPlugin())
         bridge?.registerPluginInstance(ExtendedFacebookPlugin())
         bridge?.registerPluginInstance(ExtendedStreamPlugin())
         bridge?.registerPluginInstance(ExtendedDeviceSettingsPlugin())
+        bridge?.registerPluginInstance(calendarPlugin)
     }
 }
