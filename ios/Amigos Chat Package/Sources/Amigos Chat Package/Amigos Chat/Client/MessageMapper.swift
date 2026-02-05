@@ -61,7 +61,7 @@ struct QuotedMessageMapper {
                 Message(
                     id: quotedMessage.id,
                     user: quotedMessage.user.toLocal(),
-                    message: quotedMessage.textContent ?? "",
+                    message: quotedMessage.text,
                     reactions: Dictionary(uniqueKeysWithValues: quotedMessage.reactions.map { (ReactionType(rawValue: $0.key), $0.value)}),
                     isDeleted: quotedMessage.isDeleted,
                     attachments: attachmentsMapper.mapAttachmentsFactory(quotedMessage.attachments),

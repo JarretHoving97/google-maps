@@ -68,7 +68,6 @@ struct RemoteToLocalMessageMapperTests {
 
         let result = sut.map(mockMessage)
 
-        #expect(result != nil)
         #expect(result.quotedMessage != nil)
         #expect(result.quotedMessage?.text == quotedMessage.text)
     }
@@ -84,7 +83,6 @@ struct RemoteToLocalMessageMapperTests {
 
         let result = sut.map(mockMessage)
 
-        #expect(result != nil)
         #expect(result.attachments.isEmpty == true)
     }
 
@@ -101,7 +99,6 @@ struct RemoteToLocalMessageMapperTests {
 
         let result = sut.map(mockMessage)
 
-        #expect(result != nil)
         #expect(result.attachments == [.notsupported])
     }
 
@@ -114,8 +111,8 @@ struct RemoteToLocalMessageMapperTests {
     private func makeThirdPartyChatMessage(
         id: UUID,
         user: LocalUser = LocalUser(
+            userId: UUID().uuidString,
             role: Role(rawValue: ""),
-            userId: UUID(),
             name: "any user"
         ),
         isSentByCurrentUser: Bool = false,
@@ -146,6 +143,16 @@ struct RemoteToLocalMessageMapperTests {
     /// And we can extend `ChatMessage` to this protocol so we know the mocking behaviour will also
     /// work on Stream's `ChatMessage` object
     struct ThirdPartyMessageMock: ChatMessageProtocol {
+        var channelId: String
+        var actionUrl: String?
+        var reactions: [String : Int]
+        var textContent: String?
+        var messageType: String
+        var translationKey: Amigos_Chat_Package.TranslationKey?
+        var localPoll: Amigos_Chat_Package.LocalPoll?
+        var replyCount: Int
+        var localThreadParticipants: [Amigos_Chat_Package.LocalChatUser]
+        var textUpdatedAt: Date?
         var layoutKey: String?
         var user: any Author
         var id: String
@@ -155,7 +162,51 @@ struct RemoteToLocalMessageMapperTests {
         var isDeleted: Bool
         var attachments: [ChatMessageAttachmentProtocol]
         var sendingState: String?
-        var createdAt: Date = Date.now
+        var createdAt: Date
+
+        init(
+            channelId: String = UUID().uuidString,
+            actionUrl: String? = nil,
+            reactions: [String : Int] = [:],
+            textContent: String? = nil,
+            messageType: String = "",
+            translationKey: Amigos_Chat_Package.TranslationKey? = nil,
+            localPoll: Amigos_Chat_Package.LocalPoll? = nil,
+            replyCount: Int = 0,
+            localThreadParticipants: [Amigos_Chat_Package.LocalChatUser] = [],
+            textUpdatedAt: Date? = nil,
+            layoutKey: String? = nil,
+            user: any Author,
+            id: String,
+            isSentByCurrentUser: Bool,
+            text: String,
+            localQuotedMessage: (any ChatMessageProtocol)? = nil,
+            isDeleted: Bool,
+            attachments: [ChatMessageAttachmentProtocol] = [],
+            sendingState: String? = nil,
+            createdAt: Date = Date.now
+        ) {
+            self.channelId = channelId
+            self.actionUrl = actionUrl
+            self.reactions = reactions
+            self.textContent = textContent
+            self.messageType = messageType
+            self.translationKey = translationKey
+            self.localPoll = localPoll
+            self.replyCount = replyCount
+            self.localThreadParticipants = localThreadParticipants
+            self.textUpdatedAt = textUpdatedAt
+            self.layoutKey = layoutKey
+            self.user = user
+            self.id = id
+            self.isSentByCurrentUser = isSentByCurrentUser
+            self.text = text
+            self.localQuotedMessage = localQuotedMessage
+            self.isDeleted = isDeleted
+            self.attachments = attachments
+            self.sendingState = sendingState
+            self.createdAt = createdAt
+        }
     }
 
     /// same goes for the `AnyChatMessageAttachment` from Stream.
@@ -172,9 +223,9 @@ struct RemoteToLocalMessageMapperTests {
     }
 
     private struct LocalUser: Author {
+        var userId: String
         var imageURL: URL?
         var role: any AnyRole
-        var userId: UUID
         var name: String?
     }
 

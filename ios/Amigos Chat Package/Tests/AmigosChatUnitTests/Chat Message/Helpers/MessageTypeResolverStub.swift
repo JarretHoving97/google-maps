@@ -17,6 +17,7 @@ class MessageTypeResolverStub: AmigosMessageTypeResolving {
     let _hasFileAttachment: Bool
     let _hasLinkAttachment: Bool
     let _hasCustomAttachment: Bool
+    let _hasUnsupportedAttachment: Bool
 
     init(
         isDeleted: Bool = false,
@@ -24,7 +25,8 @@ class MessageTypeResolverStub: AmigosMessageTypeResolving {
         hasFileAttachment: Bool = false,
         hasVideoAttachment: Bool = false,
         hasLinkAttachment: Bool = false,
-        hasCustomAttachment: Bool = false
+        hasCustomAttachment: Bool = false,
+        hasUnsupportedAttachment: Bool = false
     ) {
         self._isDeleted = isDeleted
         self._hasImageAttachment = hasImageAttachment
@@ -32,6 +34,7 @@ class MessageTypeResolverStub: AmigosMessageTypeResolving {
         self._hasVideoAttachment = hasVideoAttachment
         self._hasLinkAttachment = hasLinkAttachment
         self._hasCustomAttachment = hasCustomAttachment
+        self._hasUnsupportedAttachment = hasUnsupportedAttachment
     }
 
     func isDeleted() -> Bool {
@@ -56,5 +59,9 @@ class MessageTypeResolverStub: AmigosMessageTypeResolving {
 
     func hasCustomAttachment() -> Bool {
         _hasCustomAttachment
+    }
+
+    func hasUnsupportedAttachment() -> Bool {
+        _hasUnsupportedAttachment
     }
 }

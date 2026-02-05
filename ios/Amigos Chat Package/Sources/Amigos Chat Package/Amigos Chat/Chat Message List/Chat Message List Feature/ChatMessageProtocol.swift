@@ -44,7 +44,6 @@ public protocol ChatMessageProtocol {
     var createdAt: Date { get }
     var reactions: [String: Int] { get }
     var textContent: String? { get }
-    var pinDetails: MessagePinDetails? { get }
     var messageType: String { get }
     var translationKey: TranslationKey? { get }
     var localPoll: LocalPoll? { get }
