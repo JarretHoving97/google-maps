@@ -45,7 +45,7 @@ jobs:
 
       - name: Install dependencies
         run: |
-          npm install --legacy-peer-deps
+          npm ci --ignore-scripts
 
       - name: Install Bundler 2.7.2
         run: |
@@ -59,10 +59,10 @@ jobs:
         run: |
           if [ -n "${{ inputs.node_env }}" ]; then
             echo "Using NODE_ENV=${{ inputs.node_env }}"
-            NODE_ENV=${{ inputs.node_env }} npx cap sync ios
+            NODE_ENV=${{ inputs.node_env }} npx cap sync ios --deployment
           else
             echo "No NODE_ENV provided, running plain cap sync"
-            npx cap sync ios
+            npx cap sync ios --deployment
           fi
 
       - name: Generate random keychain password
