@@ -186,6 +186,7 @@
 "message.actions.user-unblock" = "Freischalten";
 "message.actions.user-unblock.confirmation-message" = "Willst du diesen Benutzer wirklich entblockieren?";
 "message.actions.user-unmute" = "Stummschaltung aufheben";
+"message.actions.info" = "Info";
 "message.bounce.title" = "Nachricht wurde zurückgesendet";
 "message.cell.edited" = "Bearbeitet";
 "message.cell.pinnedBy" = "Angeheftet von";

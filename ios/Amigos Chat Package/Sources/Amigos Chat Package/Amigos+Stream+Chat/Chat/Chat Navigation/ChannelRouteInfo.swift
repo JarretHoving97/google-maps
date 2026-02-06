@@ -46,38 +46,3 @@ public struct ChannelRouteInfo: Hashable, Equatable {
         return true
     }
 }
-
-
-// MARK: Decorators
-
-/// Decorator to dispatch completion on main thread.
-public final class MainTheadDispatchDecorator<T> {
-    private let decoratee: T
-
-    public init(decoratee: T) {
-        self.decoratee = decoratee
-    }
-
-    func dispatch(completion: @escaping () -> Void) {
-        guard Thread.isMainThread else {
-            return DispatchQueue.main.async { completion() }
-        }
-
-        completion()
-    }
-}
-
-/// Decorate ChannelCreationService to dispatch on main thread.
-extension MainTheadDispatchDecorator: ChannelCreationService where T == ChannelCreationService {
-
-    @MainActor
-    public func load(for user: String) async throws -> String {
-        return try await decoratee.load(for: user)
-    }
-
-    public func load(for user: String, completion: @escaping FindOrCreateChannelResult) {
-        return decoratee.load(for: user, completion: { [weak self] result in
-            self?.dispatch { completion(result) }
-        })
-    }
-}

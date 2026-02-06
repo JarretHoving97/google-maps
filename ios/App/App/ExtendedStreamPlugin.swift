@@ -88,7 +88,8 @@ public class ExtendedStreamPlugin: CAPPlugin, CAPBridgedPlugin, ClientNavigation
                 root: root,
                 destinationResolver: ChatDestinationResolver(
                     client: client,
-                    chatRouteInfoBuilder: ChatRouteInfoBuilder(client: client)
+                    chatRouteInfoBuilder: ChatRouteInfoBuilder(client: client),
+                    router: AnyRouter(viewModel)
                 )
             )
 
@@ -204,16 +205,16 @@ public class ExtendedStreamPlugin: CAPPlugin, CAPBridgedPlugin, ClientNavigation
     }
 
     @objc func setEntitlementDetails(_ call: CAPPluginCall) {
-        let superStatus = call.getString("superStatus")
 
-        if superStatus == "Unavailable" {
-            SuperStatusController.shared.superEntitlementStatus = .unavailable
-        } else if superStatus == "Active" {
-            SuperStatusController.shared.superEntitlementStatus = .active
-        } else if superStatus == "Available" {
-            SuperStatusController.shared.superEntitlementStatus = .available
+        if let superStatusValue = call.getString("superStatus") {
+
+            if let status = SuperEntitlementStatus(rawValue: superStatusValue) {
+                InjectedValues[\.superStatus].superEntitlementStatus = status
+            } else {
+                print("[ExtendedStream] Invalid super entitlement status:", superStatusValue)
+            }
         } else {
-            print("[ExtendedStream] Invalid super entitlement status:", superStatus ?? [:])
+            print("[ExtendedStream] did not receive any superStatus value")
         }
 
         call.resolve()
@@ -226,7 +227,7 @@ public class ExtendedStreamPlugin: CAPPlugin, CAPBridgedPlugin, ClientNavigation
         formatter.formatOptions = [.withInternetDateTime]
 
         if let chatTrialUntilString, let date = formatter.date(from: chatTrialUntilString) {
-            SuperStatusController.shared.chatTrialUntil = date
+            InjectedValues[\.superStatus].chatTrialUntil = date
         } else {
             print("[ExtendedStream] Invalid chat trial date:", chatTrialUntilString ?? [:])
         }

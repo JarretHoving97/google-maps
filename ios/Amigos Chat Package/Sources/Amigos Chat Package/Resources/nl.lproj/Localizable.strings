@@ -38,6 +38,7 @@
 "message.actions.flag.confirmation-message" = "Wil je een kopie van dit bericht naar een moderator sturen voor verder onderzoek?";
 "message.actions.user-block.confirmation-message" = "Weet je zeker dat je deze gebruiker wilt blokkeren?";
 "message.actions.user-unblock.confirmation-message" = "Weet je zeker dat je deze gebruiker wilt deblokkeren?";
+"message.actions.info" = "Info";
 
 "messageList.typingIndicator.typing-unknown" = "Iemand typt";
 

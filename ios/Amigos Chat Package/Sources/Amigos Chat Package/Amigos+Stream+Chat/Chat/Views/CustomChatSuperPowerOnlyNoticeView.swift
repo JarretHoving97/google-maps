@@ -5,6 +5,7 @@ import StreamChatSwiftUI
 struct CustomChatSuperPowerOnlyNoticeView: View {
     @Injected(\.chatRouter) var router
     @Injected(\.fonts) var fonts
+    @Injected(\.superStatus) var superStatus
 
     public var channel: ChatChannel
 
@@ -13,7 +14,7 @@ struct CustomChatSuperPowerOnlyNoticeView: View {
             return false
         }
 
-        if SuperStatusController.shared.superEntitlementStatus != .available {
+        if superStatus.superEntitlementStatus != .available {
             return false
         }
         // The date we restricted private chats to be only accessible to hosts and Super amigos.

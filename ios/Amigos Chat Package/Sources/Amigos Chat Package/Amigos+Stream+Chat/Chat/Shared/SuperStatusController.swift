@@ -7,18 +7,13 @@
 
 import Foundation
 
+public enum SuperEntitlementStatus: String {
+    case unavailable = "Unavailable"
+    case available = "Available"
+    case active = "Active"
+}
+
 public class SuperStatusController {
-
-    public enum SuperEntitlementStatus {
-        case unavailable
-        case available
-        case active
-    }
-
     public var chatTrialUntil: Date?
     public var superEntitlementStatus: SuperEntitlementStatus?
-
-    public static let shared = SuperStatusController()
-
-    private init() {}
 }

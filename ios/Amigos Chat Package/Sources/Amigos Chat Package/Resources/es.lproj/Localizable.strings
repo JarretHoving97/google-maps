@@ -188,6 +188,7 @@
 "message.actions.user-unblock" = "Desbloquear";
 "message.actions.user-unblock.confirmation-message" = "¿Estás seguro de que quieres desbloquear a este usuario?";
 "message.actions.user-unmute" = "Desactivar silencio";
+"message.actions.info" = "Información";
 "message.bounce.title" = "El mensaje ha sido devuelto";
 "message.cell.edited" = "Editado";
 "message.cell.pinnedBy" = "Fijado por";

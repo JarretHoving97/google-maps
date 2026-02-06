@@ -188,6 +188,7 @@
 "message.actions.user-unblock" = "차단 해제";
 "message.actions.user-unblock.confirmation-message" = "이 사용자의 차단을 해제하시겠습니까?";
 "message.actions.user-unmute" = "음소거 해제";
+"message.actions.info" = "정보";
 "message.bounce.title" = "메시지가 반송되었습니다";
 "message.cell.edited" = "편집됨";
 "message.cell.pinnedBy" = "고정한 사람:";

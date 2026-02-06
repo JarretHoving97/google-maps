@@ -188,6 +188,7 @@
 "message.actions.user-unblock" = "Odblokuj";
 "message.actions.user-unblock.confirmation-message" = "Czy na pewno chcesz odblokować tego użytkownika?";
 "message.actions.user-unmute" = "Wyłącz wyciszenie";
+"message.actions.info" = "Informacje";
 "message.bounce.title" = "Wiadomość została odesłana";
 "message.cell.edited" = "Edytowano";
 "message.cell.pinnedBy" = "Przypięte przez";

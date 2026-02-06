@@ -32,3 +32,8 @@
 "chat_message_attachment_unsupported_open_app_store" = "App Store’u aç";
 
 "chat_message_action_reply_privately" = "Özel olarak cevapla";
+
+// read receipts
+"read_receipts_navigationbar_title" = "Mesaj bilgisi";
+"read_receipts_read_by" = "Okuyan";
+"read_receipts_no_receipts" = "Henüz kimse mesajınızı okumadı.";

@@ -3,6 +3,7 @@ import StreamChatSwiftUI
 
 public struct AmiChatTrialNoticeView: View {
     @Injected(\.fonts) var fonts
+    @Injected(\.superStatus) var superStatus
 
     @State private var isChatTrialNoticeSheetPresented = false
 
@@ -11,12 +12,12 @@ public struct AmiChatTrialNoticeView: View {
     let daysInPeriod = 30
 
     var chatTrialUntil: Date? {
-        SuperStatusController.shared.chatTrialUntil
+       superStatus.chatTrialUntil
     }
 
     var remainingTrialDays: Int? {
-        let chatTrialUntil = SuperStatusController.shared.chatTrialUntil
-        let isSuperAvailable = SuperStatusController.shared.superEntitlementStatus == .available
+        let chatTrialUntil = superStatus.chatTrialUntil
+        let isSuperAvailable = superStatus.superEntitlementStatus == .available
 
         guard let chatTrialUntil, isSuperAvailable else {
             return nil

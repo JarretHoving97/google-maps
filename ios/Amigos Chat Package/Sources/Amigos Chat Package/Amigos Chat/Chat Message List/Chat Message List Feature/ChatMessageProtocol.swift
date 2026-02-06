@@ -8,7 +8,7 @@
 import Foundation
 import StreamChat
 
-public struct LocalChatUser: Identifiable {
+public struct LocalChatUser: Identifiable, Hashable {
     public let id: String
     let name: String?
     let imageUrl: URL?

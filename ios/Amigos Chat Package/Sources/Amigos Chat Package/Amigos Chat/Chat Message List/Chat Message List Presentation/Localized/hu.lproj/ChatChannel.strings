@@ -32,3 +32,8 @@
 "chat_message_attachment_unsupported_open_app_store" = "App Store megnyitása";
 
 "chat_message_action_reply_privately" = "Válasz privát üzenetben";
+
+// read receipts
+"read_receipts_navigationbar_title" = "Üzenet adatai";
+"read_receipts_read_by" = "Elolvasta";
+"read_receipts_no_receipts" = "Még senki sem olvasta el az üzenetedet.";

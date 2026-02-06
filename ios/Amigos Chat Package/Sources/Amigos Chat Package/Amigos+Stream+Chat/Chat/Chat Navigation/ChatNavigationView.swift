@@ -48,8 +48,7 @@ public struct ChatNavigationView: View {
         .onChange(of: viewModel.path) { oldValue, newValue in
             viewModel.handlePathChange(from: oldValue, to: newValue)
         }
-        // for <iOS 26 back button
-        .tint(Color(.purple))
+        .modifier(ConditionalTint())
     }
 
     @ViewBuilder
@@ -83,6 +82,17 @@ public struct ChatNavigationView: View {
         } label: {
             Image(.xMark)
                 .foregroundStyle(Color(.greyDark))
+        }
+    }
+}
+
+// only add tint for the toolbar in <iOS26
+struct ConditionalTint: ViewModifier {
+    func body(content: Content) -> some View {
+        if #available(iOS 26, *) {
+            content
+        } else {
+            content.tint(Color(.purple))
         }
     }
 }

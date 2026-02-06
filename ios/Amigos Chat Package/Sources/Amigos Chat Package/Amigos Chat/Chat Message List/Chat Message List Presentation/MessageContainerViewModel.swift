@@ -18,7 +18,7 @@ struct ActiveThreadIndicatorViewData {
     }
 }
 
-// MARK: Thranslations
+// MARK: Translations
 extension ActiveThreadIndicatorViewData {
 
     var replyLabel: String {

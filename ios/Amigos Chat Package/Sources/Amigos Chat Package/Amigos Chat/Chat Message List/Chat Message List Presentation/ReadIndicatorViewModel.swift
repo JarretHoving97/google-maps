@@ -6,22 +6,29 @@
 //
 
 import SwiftUI
+import StreamChatSwiftUI
 
 class ReadIndicatorViewModel: ObservableObject {
+
+    @Injected(\.superStatus) var superStatus
 
     private var isRead: Bool
     private var isReadByAll: Bool
     private var localState: Message.LocalState?
-    private var memberCount: Int
 
     var tintColor: Color? {
         return Color(.purple)
     }
 
+    var hideReadStatus: Bool {
+        // Do not hide while the message is pending send
+        if localState == .pendingSend { return false }
+        return superStatus.superEntitlementStatus != .active
+    }
+
     var icon: UIImage? {
         if localState == .pendingSend {
             return UIImage(named: "message_receipt_sending", in: .module, with: nil)
-
         } else if isReadByAll {
             return UIImage(named: "message_receipt_read", in: .module, with: nil)?
                 .withRenderingMode(.alwaysTemplate)
@@ -35,12 +42,10 @@ class ReadIndicatorViewModel: ObservableObject {
     init(
         isRead: Bool,
         isReadByAll: Bool,
-        localState: Message.LocalState? = nil,
-        memberCount: Int = 0
+        localState: Message.LocalState? = nil
     ) {
         self.isRead = isRead
         self.isReadByAll = isReadByAll
         self.localState = localState
-        self.memberCount = memberCount
     }
 }

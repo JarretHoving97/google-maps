@@ -12,13 +12,16 @@ public struct ChatDestinationResolver {
 
     private let client: ChatClient
     private let chatRouteInfoBuilder: ChatRouteInfoBuilder
+    private let router: Router?
 
     public init(
         client: ChatClient,
-        chatRouteInfoBuilder: ChatRouteInfoBuilder
+        chatRouteInfoBuilder: ChatRouteInfoBuilder,
+        router: Router? = nil
     ) {
         self.client = client
         self.chatRouteInfoBuilder = chatRouteInfoBuilder
+        self.router = router
     }
 
     @ViewBuilder
@@ -83,6 +86,34 @@ public struct ChatDestinationResolver {
                 EmptyView()
             }
 
+        case let .readReceipts(data):
+
+            if let channelId = try? ChannelId(cid: data.channelId) {
+
+                let controller = client.channelController(for: channelId)
+
+                let reads = controller.channel?.reads ?? []
+
+                let initialReceipts = ReadReceiptCellViewModelMapper.readViewData(
+                    from: reads,
+                    from: data.message.createdAt,
+                    currentUser: client.currentUserId
+                )
+
+                ReadReceiptsView(
+                    viewModel: ReadReceiptsViewModel(
+                        receiptsLoader: MainTheadDispatchDecorator(
+                            decoratee: StreamReadReceiptsLoader(
+                                controller: controller,
+                                messageDate: data.message.createdAt
+                            )
+                        ), receipts: initialReceipts
+                    ),
+                    router: router
+                )
+            } else {
+                EmptyView()
+            }
         default:
             EmptyView()
         }

@@ -149,7 +149,6 @@ extension Localized {
             )
         }
 
-
         // Message actions
 
         static var replyPrivatelyMessageAction: String {
@@ -160,6 +159,41 @@ extension Localized {
                     bundle: bundle,
                     comment: "a message action to reply a message privately"
                 )
+            )
+        }
+
+        // Message read receipts
+
+        static var readReceiptsNavigationTitle: String {
+            String(
+                format: NSLocalizedString(
+                    "read_receipts_navigationbar_title",
+                    tableName: table,
+                    bundle: bundle,
+                    comment: "",
+                ),
+            )
+        }
+
+        static var readReceiptsReadByHeaderLabel: String {
+            String(
+                format: NSLocalizedString(
+                    "read_receipts_read_by",
+                    tableName: table,
+                    bundle: bundle,
+                    comment: "",
+                ),
+            )
+        }
+
+        static var noReadReceiptsLabel: String {
+            String(
+                format: NSLocalizedString(
+                    "read_receipts_no_receipts",
+                    tableName: table,
+                    bundle: bundle,
+                    comment: "",
+                ),
             )
         }
     }

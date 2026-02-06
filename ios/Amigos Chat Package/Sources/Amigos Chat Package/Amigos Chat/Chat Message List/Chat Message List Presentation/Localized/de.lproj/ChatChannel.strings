@@ -32,3 +32,8 @@
 "chat_message_attachment_unsupported_open_app_store" = "App Store öffnen";
 
 "chat_message_action_reply_privately" = "Privat antworten";
+
+// read receipts
+"read_receipts_navigationbar_title" = "Nachrichteninfo";
+"read_receipts_read_by" = "Gelesen von";
+"read_receipts_no_receipts" = "Noch hat niemand deine Nachricht gelesen.";

@@ -14,6 +14,7 @@ public enum ChatRoute: Hashable, Equatable {
     case conversation(Conversation)
     case thread(MessageThreadChannelViewData)
     case client(ClientRoute)
+    case readReceipts(ReadReceiptsViewData)
 
     // if the client does not needs to track the route to a view return nil.
     var path: String? {

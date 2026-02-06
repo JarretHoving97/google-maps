@@ -12,6 +12,8 @@ import UIKit.UIPasteboard
 
 struct StreamMessageActionService {
 
+    @Injected(\.superStatus) var superStatus
+
     public enum MessageActionId {
         public static let copy = "copy_message_action"
         public static let reply = "reply_message_action"
@@ -28,6 +30,7 @@ struct StreamMessageActionService {
         public static let block = "block_user_action"
         public static let unblock = "unblock_user_action"
         public static let replyPrivately = "reply_privately"
+        public static let messageInfo = "message_info"
     }
 
     private let chatClient: ChatClient
@@ -127,6 +130,10 @@ extension StreamMessageActionService: MessageActionService {
 
         if !message.text.isEmpty {
             actions.append(copyAction(on: actionCallback))
+        }
+
+        if message.isSentByCurrentUser && superStatus.superEntitlementStatus == .active {
+            actions.append(infoMessageAction(on: actionCallback))
         }
 
         let isOwnMessageMutable = abs(message.createdAt.timeIntervalSinceNow) <= TimeInterval(60 * 15)
@@ -275,7 +282,7 @@ extension StreamMessageActionService {
                 actionCallback(.success(CustomMessageActionInfo(message: message, identifier: MessageActionId.threadReply)))
 
                 // perform navigation
-                DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+                runOnMain {
                     Task { @MainActor in
                         router?.push(.thread(MessageThreadChannelViewData(channelId: message.channelId, messageId: message.id)))
                     }
@@ -301,7 +308,7 @@ extension StreamMessageActionService {
                 )
 
                 // perform navigation
-                DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+                runOnMain {
                     Task { @MainActor in
                         let channel = try await channelCreationService.load(for: message.user.userId)
                         router?.push(.conversation(.channelInfo(ChannelInfo(messageId: message.id, channelId: channel))))
@@ -311,5 +318,39 @@ extension StreamMessageActionService {
             confirmationPopup: nil,
             isDestructive: false
         )
+    }
+
+    func infoMessageAction(on actionCallback: @escaping MessageActionCompletion) -> CustomMessageAction {
+        CustomMessageAction(
+            id: MessageActionId.messageInfo,
+            title: tr("message.actions.info"),
+            iconName: "",
+            action: {
+                // dismiss first
+                actionCallback(
+                    .success(
+                        CustomMessageActionInfo(message: message, identifier: MessageActionId.replyPrivately)
+                    )
+                )
+
+                // perform navigation
+                runOnMain {
+                    Task { @MainActor in
+                        router?.push(.readReceipts(ReadReceiptsViewData(message: MessageMapper().map(message), channelId: message.channelId)))
+                    }
+                }
+            },
+            confirmationPopup: nil,
+            isDestructive: false
+        )
+    }
+}
+
+// MARK: Helpers
+
+extension StreamMessageActionService {
+
+    private func runOnMain(after seconds: TimeInterval = 0.1, _ block: @escaping () -> Void) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + seconds, execute: block)
     }
 }

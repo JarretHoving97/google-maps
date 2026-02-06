@@ -66,8 +66,7 @@ class ChatChannelCellViewModel: ObservableObject {
         return ReadIndicatorViewModel(
             isRead: isRead,
             isReadByAll: isReadByAll,
-            localState: channel.localLatestMessages.last?.localState,
-            memberCount: channel.memberCount
+            localState: channel.localLatestMessages.last?.localState
         )
     }
 

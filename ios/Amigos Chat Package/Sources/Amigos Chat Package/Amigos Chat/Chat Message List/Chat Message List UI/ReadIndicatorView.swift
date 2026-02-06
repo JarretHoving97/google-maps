@@ -20,5 +20,6 @@ struct ReadIndicatorView: View {
             Image(uiImage: viewModel.icon ?? UIImage())
                 .foregroundStyle(viewModel.tintColor ?? .clear)
         }
+        .hidden(viewModel.hideReadStatus)
     }
 }
