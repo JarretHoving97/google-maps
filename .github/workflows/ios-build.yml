@@ -12,12 +12,6 @@ on:
       environment:
         required: true
         type: string
-      lane:
-        required: true
-        type: string
-      node_env:
-        required: false
-        type: string
 
 jobs:
   build:
@@ -57,12 +51,10 @@ jobs:
 
       - name: Prepare iOS project
         run: |
-          if [ -n "${{ inputs.node_env }}" ]; then
-            echo "Using NODE_ENV=${{ inputs.node_env }}"
-            NODE_ENV=${{ inputs.node_env }} npx cap sync ios --deployment
+          if [ "${{ inputs.environment }}" = "production" ]; then
+            NODE_ENV=production
           else
-            echo "No NODE_ENV provided, running plain cap sync"
-            npx cap sync ios --deployment
+            NODE_ENV=staging
           fi
 
       - name: Generate random keychain password
@@ -73,8 +65,8 @@ jobs:
         env:
           IOS_CERTIFICATE_BASE64: ${{ secrets.IOS_CERTIFICATE_BASE64 }}
           IOS_CERTIFICATE_PASSWORD: ${{ secrets.IOS_CERTIFICATE_PASSWORD }}
-          IOS_PROVISIONING_PROFILE_BASE64: ${{ secrets.IOS_PROVISIONING_PROFILE_BASE64 }}
-          IOS_NOTIFICATION_PROVISIONING_PROFILE_BASE64: ${{ secrets.IOS_NOTIFICATION_PROVISIONING_PROFILE_BASE64 }}
+          IOS_PROVISIONING_PROFILE_MAIN_BASE64: ${{ secrets.IOS_PROVISIONING_PROFILE_MAIN_BASE64 }}
+          IOS_PROVISIONING_PROFILE_NS_BASE64: ${{ secrets.IOS_PROVISIONING_PROFILE_NS_BASE64 }}
         run: |
           # create variables
           CERTIFICATE_PATH=$RUNNER_TEMP/build_certificate.p12
@@ -87,8 +79,8 @@ jobs:
 
           # import certificate and provisioning profiles from secrets
           echo -n "$IOS_CERTIFICATE_BASE64" | base64 --decode -o $CERTIFICATE_PATH
-          echo -n "$IOS_PROVISIONING_PROFILE_BASE64" | base64 --decode -o $PP_PATH
-          echo -n "$IOS_NOTIFICATION_PROVISIONING_PROFILE_BASE64" | base64 --decode -o $NOTIF_PP_PATH
+          echo -n "IOS_PROVISIONING_PROFILE_MAIN_BASE64" | base64 --decode -o $PP_PATH
+          echo -n "IOS_PROVISIONING_PROFILE_NS_BASE64" | base64 --decode -o $NOTIF_PP_PATH
 
           # create temporary keychain
           security create-keychain -p "$KEYCHAIN_PASSWORD" $KEYCHAIN_PATH
@@ -115,7 +107,11 @@ jobs:
           KEY_ID: ${{ secrets.IOS_APP_STORE_CONNECT_KEY_ID }}
           KEY_CONTENT_BASE64: ${{ secrets.IOS_APP_STORE_CONNECT_API_KEY_BASE64 }}
         run: |
-          bundle exec fastlane ios ${{ inputs.lane }}
+          if [ "${{ inputs.environment }}" = "production" ]; then
+            bundle exec fastlane ios production
+          else
+            bundle exec fastlane ios staging
+          fi
 
       - name: Upload Xcode build logs
         if: failure()

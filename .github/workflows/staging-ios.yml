@@ -1,4 +1,4 @@
-name: iOS QA Build
+name: iOS Staging Build
 
 on:
   workflow_dispatch:
@@ -10,6 +10,4 @@ jobs:
     with:
       app_frontend_url: https://qa.app.amigosapp.nl
       package_name: com.whoisup.app.qa
-      environment: QA
-      lane: qa
-      node_env: qa
+      environment: staging

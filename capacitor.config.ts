@@ -20,11 +20,11 @@ const baseConfig: CapacitorConfig = {
 };
 
 switch (process.env.NODE_ENV) {
-  case 'qa':
+  case 'staging':
     config = {
       ...baseConfig,
       ios: {
-        scheme: 'App QA',
+        scheme: 'App Staging',
         contentInset: 'never',
         handleApplicationNotifications: false,
       },

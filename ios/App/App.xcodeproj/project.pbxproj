@@ -56,8 +56,8 @@
 		317942F72DEDC83B00D687D1 /* CI_iOS.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CI_iOS.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		48822AA27B06A141DA02D04F /* Pods_Amigos.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Amigos.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		504EC3041FED79650016851F /* Amigos.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Amigos.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		5E50A7C0A99A221A591A7834 /* Pods-Amigos.qa.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Amigos.qa.xcconfig"; path = "Target Support Files/Pods-Amigos/Pods-Amigos.qa.xcconfig"; sourceTree = "<group>"; };
 		D37AEC20C1B4531B05D5DC81 /* Pods-Amigos.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Amigos.debug.xcconfig"; path = "Target Support Files/Pods-Amigos/Pods-Amigos.debug.xcconfig"; sourceTree = "<group>"; };
+		F089CB5CCA844C7504336EED /* Pods-Amigos.staging.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Amigos.staging.xcconfig"; path = "Target Support Files/Pods-Amigos/Pods-Amigos.staging.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
@@ -141,7 +141,7 @@
 			children = (
 				D37AEC20C1B4531B05D5DC81 /* Pods-Amigos.debug.xcconfig */,
 				288CFD35D914FE59CC0CD026 /* Pods-Amigos.release.xcconfig */,
-				5E50A7C0A99A221A591A7834 /* Pods-Amigos.qa.xcconfig */,
+				F089CB5CCA844C7504336EED /* Pods-Amigos.staging.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -590,7 +590,7 @@
 			};
 			name = Release;
 		};
-		31BAE7652ED492D800530382 /* QA */ = {
+		31BAE7652ED492D800530382 /* Staging */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -647,11 +647,11 @@
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
-			name = QA;
+			name = Staging;
 		};
-		31BAE7662ED492D800530382 /* QA */ = {
+		31BAE7662ED492D800530382 /* Staging */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 5E50A7C0A99A221A591A7834 /* Pods-Amigos.qa.xcconfig */;
+			baseConfigurationReference = F089CB5CCA844C7504336EED /* Pods-Amigos.staging.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
@@ -669,7 +669,7 @@
 				MARKETING_VERSION = 1.9.29;
 				OTHER_SWIFT_FLAGS = "$(inherited) \"-D\" \"COCOAPODS\" \"-DDEBUG\"";
 				PRODUCT_BUNDLE_IDENTIFIER = com.whoisup.app.qa;
-				PRODUCT_NAME = "$(TARGET_NAME) QA";
+				PRODUCT_NAME = "$(TARGET_NAME) Staging";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 				SWIFT_OBJC_BRIDGING_HEADER = "App/App-Bridging-Header.h";
@@ -677,9 +677,9 @@
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
-			name = QA;
+			name = Staging;
 		};
-		31BAE7672ED492D800530382 /* QA */ = {
+		31BAE7672ED492D800530382 /* Staging */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
@@ -717,9 +717,9 @@
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
-			name = QA;
+			name = Staging;
 		};
-		31BAE7682ED492D800530382 /* QA */ = {
+		31BAE7682ED492D800530382 /* Staging */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
@@ -748,7 +748,7 @@
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Amigos.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Amigos";
 			};
-			name = QA;
+			name = Staging;
 		};
 		504EC3141FED79650016851F /* Debug */ = {
 			isa = XCBuildConfiguration;
@@ -927,7 +927,7 @@
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				3168294B2DBA38DA00E9FD9D /* Debug */,
-				31BAE7672ED492D800530382 /* QA */,
+				31BAE7672ED492D800530382 /* Staging */,
 				3168294C2DBA38DA00E9FD9D /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
@@ -937,7 +937,7 @@
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				317942FD2DEDC83B00D687D1 /* Debug */,
-				31BAE7682ED492D800530382 /* QA */,
+				31BAE7682ED492D800530382 /* Staging */,
 				317942FE2DEDC83B00D687D1 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
@@ -947,7 +947,7 @@
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				504EC3141FED79650016851F /* Debug */,
-				31BAE7652ED492D800530382 /* QA */,
+				31BAE7652ED492D800530382 /* Staging */,
 				504EC3151FED79650016851F /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
@@ -957,7 +957,7 @@
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				504EC3171FED79650016851F /* Debug */,
-				31BAE7662ED492D800530382 /* QA */,
+				31BAE7662ED492D800530382 /* Staging */,
 				504EC3181FED79650016851F /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
