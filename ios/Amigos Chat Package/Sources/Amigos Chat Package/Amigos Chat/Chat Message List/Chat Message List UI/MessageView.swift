@@ -22,12 +22,7 @@ struct MessageView: View {
 
     let onQuotedMessageTap: ((String) -> Void)?
 
-    private let defaultTextPadding = EdgeInsets(
-        top: 8,
-        leading: 12,
-        bottom: 8,
-        trailing: 12,
-    )
+    private let defaultTextPadding: EdgeInsets = .defaultMessageEdgeInsets
 
     private(set) var pollOptionViewBuilder: PollOptionAllVotesViewBuilder?
 

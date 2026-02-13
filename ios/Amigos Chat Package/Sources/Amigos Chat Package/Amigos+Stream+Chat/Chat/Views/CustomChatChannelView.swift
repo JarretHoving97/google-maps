@@ -21,6 +21,7 @@ public struct CustomChatChannelView<Factory: ViewFactory>: View, KeyboardReadabl
     @Injected(\.chatRouter) private var router
 
     @StateObject private var viewModel: ChatChannelViewModel
+    @ObservedObject private var messageComposerViewModel: MessageComposerViewModel
 
     private let customViewModel = CustomChatChannelViewModel()
 
@@ -44,6 +45,7 @@ public struct CustomChatChannelView<Factory: ViewFactory>: View, KeyboardReadabl
     public init(
         viewFactory: Factory = DefaultViewFactory.shared,
         viewModel: ChatChannelViewModel? = nil,
+        messageComposerViewModel: MessageComposerViewModel,
         messageId: String?,
         channelController: ChatChannelController,
         messageController: ChatMessageController? = nil,
@@ -65,6 +67,7 @@ public struct CustomChatChannelView<Factory: ViewFactory>: View, KeyboardReadabl
         self.messageId = messageId
         self.messageThreadNavigationAction = messageThreadNavigationAction
         self.messageActionsViewBuilder = messageActionsViewBuilder
+        self.messageComposerViewModel = messageComposerViewModel
     }
 
     public var body: some View {
@@ -78,6 +81,7 @@ public struct CustomChatChannelView<Factory: ViewFactory>: View, KeyboardReadabl
                         channel: channel,
                         onReloadChannelHeader: onDidLoadChannel,
                         viewModel: viewModel,
+                        messageComposerViewModel: messageComposerViewModel,
                         channelController: chatClient.channelController(for: channel.cid),
                         messageThreadNavigationAction: messageThreadNavigationAction,
                         messageActionsViewBuilder: messageActionsViewBuilder

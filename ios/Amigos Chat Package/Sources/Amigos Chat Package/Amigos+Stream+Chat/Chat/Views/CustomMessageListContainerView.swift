@@ -68,6 +68,8 @@ public struct CustomMessageListContainerView<Factory: ViewFactory>: View, Keyboa
     // Dynamic header height for insetting the scroll content.
     @State private var headerHeight: CGFloat = 0
 
+    @ObservedObject var chatSuggestionsViewModel: ChatSuggestionsViewModel
+
     private var messageRenderingUtil = MessageRenderingUtil.shared
     private var skipRenderingMessageIds = [String]()
 
@@ -87,6 +89,21 @@ public struct CustomMessageListContainerView<Factory: ViewFactory>: View, Keyboa
         messageListConfig.messageDisplayOptions.newMessagesSeparatorSize
     }
 
+    private var isInputViewHidden: Bool {
+        !channel.canSendMessage && channel.relatedConceptType.isCommunity
+    }
+
+    private var isActivityChannel: Bool {
+        if case .activity = channel.relatedConceptType { return true }
+        return false
+    }
+
+    private var isAllowedToSelectHostReminderSuggestions: Bool {
+        channel.canSendMessage &&
+        isActivityChannel &&
+        (channel.membership?.memberRole == .organizer || channel.membership?.memberRole == .coOrganizer)
+    }
+
     public init(
         factory: Factory,
         channel: ChatChannel,
@@ -102,6 +119,7 @@ public struct CustomMessageListContainerView<Factory: ViewFactory>: View, Keyboa
         scrollPosition: Binding<String?> = .constant(nil),
         loadingNextMessages: Bool = false,
         firstUnreadMessageId: Binding<MessageId?> = .constant(nil),
+        chatSuggestionsViewModel: ChatSuggestionsViewModel,
         onMessageAppear: @escaping (Int, ScrollDirection) -> Void,
         onScrollToBottom: @escaping () -> Void,
         onLongPress: @escaping (LocalMessageDisplayInfo) -> Void,
@@ -120,6 +138,7 @@ public struct CustomMessageListContainerView<Factory: ViewFactory>: View, Keyboa
         self.onJumpToMessage = onJumpToMessage
         self.shouldShowTypingIndicator = shouldShowTypingIndicator
         self.loadingNextMessages = loadingNextMessages
+        self.chatSuggestionsViewModel = chatSuggestionsViewModel
         _scrolledId = scrolledId
         _showScrollToLatestButton = showScrollToLatestButton
         _quotedMessage = quotedMessage
@@ -170,9 +189,6 @@ public struct CustomMessageListContainerView<Factory: ViewFactory>: View, Keyboa
     }
 
     public var body: some View {
-
-        let isInputViewHidden = !channel.canSendMessage && channel.relatedConceptType.isCommunity
-
         ZStack {
             ScrollViewReader { scrollView in
                 ScrollView {
@@ -184,6 +200,12 @@ public struct CustomMessageListContainerView<Factory: ViewFactory>: View, Keyboa
                         Color.clear.preference(key: WidthPreferenceKey.self, value: width)
                     }
                     LazyVStack(spacing: 0, pinnedViews: .sectionFooters) {
+
+                        if isAllowedToSelectHostReminderSuggestions {
+                            MessageSuggestionCaroucelView(viewModel: chatSuggestionsViewModel)
+                                .flippedUpsideDown()
+                        }
+
                         Section {
                             MessageListUIComposer.makeMessageListView(
                                 client: chatClient,
@@ -212,6 +234,9 @@ public struct CustomMessageListContainerView<Factory: ViewFactory>: View, Keyboa
                     .modifier(factory.makeMessageListModifier())
                     .modifier(ScrollTargetLayoutModifier(enabled: loadingNextMessages))
                     .padding(.bottom, headerHeight)
+                }
+                .onAppear {
+                    chatSuggestionsViewModel.load()
                 }
                 .modifier(ScrollPositionModifier(scrollPosition: loadingNextMessages ? $scrollPosition : .constant(nil)))
                 .dismissKeyboardAndAttachmentViewOnTap()

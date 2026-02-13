@@ -1,0 +1,28 @@
+/*
+  Localizable.strings (nl)
+  Amigos Chat Package
+
+  Created by Jarret on 12/02/2026.
+ 
+*/
+
+// 48h window
+"message_suggestion.plan.cta" = "Tijd voor een plan!";
+"message_suggestion.when.full" = "Zullen we afspreken om…?";
+"message_suggestion.where.full" = "Waar spreken we af?";
+"message_suggestion.when.short" = "Afspreken om…?";
+"message_suggestion.time.full" = "Hoe laat zien we elkaar?";
+
+// 9h window
+"message_suggestion.fun_group.already" = "Leuke groep hebben we al!";
+"message_suggestion.who_first.time" = "Wie komt er voor het eerst?";
+"message_suggestion.excited.to_meet" = "Zin jullie te ontmoeten!";
+"message_suggestion.cant_wait.short" = "Can’t wait. Zin in.";
+"message_suggestion.first_time.hosting" = "Dit is m’n eerste keer hosten!";
+
+// 3h window
+"message_suggestion.arrival.ten_before" = "Ik ben er om 10 voor start!";
+"message_suggestion.when.arrival" = "Hoelaat zijn jullie er?";
+"message_suggestion.waiting.outside" = "Ik wacht straks buiten op jullie!";
+"message_suggestion.where.meet" = "Waar zien we elkaar?";
+"message_suggestion.delayed.running_late" = "Ik ben vertraagd en iets later!";

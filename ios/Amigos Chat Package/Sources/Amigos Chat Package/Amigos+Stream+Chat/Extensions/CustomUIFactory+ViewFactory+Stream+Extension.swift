@@ -329,25 +329,6 @@ extension CustomUIFactory: ViewFactory {
         CustomEmptyMessagesView(channel: channel)
     }
 
-    public typealias MessageComposerViewType = MessageComposerViewContainer<CustomUIFactory>
-
-    public func makeMessageComposerViewType(
-        with channelController: ChatChannelController,
-        messageController: ChatMessageController?,
-        quotedMessage: Binding<ChatMessage?>,
-        editedMessage: Binding<ChatMessage?>,
-        onMessageSent: @escaping () -> Void
-    ) -> MessageComposerViewType {
-        MessageComposerViewContainer(
-            factory: self,
-            with: channelController,
-            messageController: messageController,
-            quotedMessage: quotedMessage,
-            editedMessage: editedMessage,
-            onMessageSent: onMessageSent
-        )
-    }
-
     public func makeEditedMessageHeaderView(
         editedMessage: Binding<ChatMessage?>
     ) -> some View {

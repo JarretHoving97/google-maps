@@ -1,0 +1,28 @@
+/* 
+  Localizable.strings (hu)
+  Amigos Chat Package
+
+  Created by Jarret on 12/02/2026.
+  
+*/
+
+// 48h window
+"message_suggestion.plan.cta" = "Itt az ideje egy tervnek!";
+"message_suggestion.when.full" = "Találkozzunk …-kor?";
+"message_suggestion.where.full" = "Hol találkozzunk?";
+"message_suggestion.when.short" = "Találkozzunk …-kor?";
+"message_suggestion.time.full" = "Hány órakor találkozunk?";
+
+// 9h window
+"message_suggestion.fun_group.already" = "Már most szuper csapat vagyunk!";
+"message_suggestion.who_first.time" = "Ki jön először?";
+"message_suggestion.excited.to_meet" = "Alig várom, hogy találkozzunk!";
+"message_suggestion.cant_wait.short" = "Alig várom. Nagyon izgalmas!";
+"message_suggestion.first_time.hosting" = "Most vagyok először házigazda!";
+
+// 3h window
+"message_suggestion.arrival.ten_before" = "10 perccel a kezdés előtt ott leszek!";
+"message_suggestion.when.arrival" = "Hány órára érkeztek?";
+"message_suggestion.waiting.outside" = "Kint foglak titeket várni!";
+"message_suggestion.where.meet" = "Hol találkozunk?";
+"message_suggestion.delayed.running_late" = "Kések egy kicsit, később érek oda!";

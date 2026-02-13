@@ -1,0 +1,28 @@
+/* 
+  Localizable.strings (en)
+  Amigos Chat Package
+
+  Created by Jarret on 12/02/2026.
+  
+*/
+
+// 48h window
+"message_suggestion.plan.cta" = "Bir plan yapmanın zamanı geldi!";
+"message_suggestion.when.full" = "… saatinde buluşalım mı?";
+"message_suggestion.where.full" = "Nerede buluşalım?";
+"message_suggestion.when.short" = "…’da buluşalım mı?";
+"message_suggestion.time.full" = "Saat kaçta buluşuyoruz?";
+
+// 9h window
+"message_suggestion.fun_group.already" = "Şimdiden harika bir grubuz!";
+"message_suggestion.who_first.time" = "İlk kez kim geliyor?";
+"message_suggestion.excited.to_meet" = "Hepinizle tanışmak için sabırsızlanıyorum!";
+"message_suggestion.cant_wait.short" = "Sabırsızlanıyorum. Harika olacak!";
+"message_suggestion.first_time.hosting" = "İlk kez ev sahipliği yapıyorum!";
+
+// 3h window
+"message_suggestion.arrival.ten_before" = "Başlamadan 10 dakika önce orada olacağım!";
+"message_suggestion.when.arrival" = "Siz kaçta orada olacaksınız?";
+"message_suggestion.waiting.outside" = "Dışarıda sizi bekleyeceğim!";
+"message_suggestion.where.meet" = "Nerede buluşuyoruz?";
+"message_suggestion.delayed.running_late" = "Geciktim, biraz geç kalacağım!";

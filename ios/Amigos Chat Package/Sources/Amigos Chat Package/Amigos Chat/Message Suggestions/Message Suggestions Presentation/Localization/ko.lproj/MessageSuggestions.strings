@@ -1,0 +1,28 @@
+/* 
+  Localizable.strings (ko)
+  Amigos Chat Package
+
+  Created by Jarret on 12/02/2026.
+  
+*/
+
+// 48h window
+"message_suggestion.plan.cta" = "계획을 세워볼까요!";
+"message_suggestion.when.full" = "…시에 만날까요?";
+"message_suggestion.where.full" = "어디에서 만날까요?";
+"message_suggestion.when.short" = "…시에 만나?";
+"message_suggestion.time.full" = "몇 시에 만날까?";
+
+// 9h window
+"message_suggestion.fun_group.already" = "벌써 멋진 모임이네요!";
+"message_suggestion.who_first.time" = "처음 오는 사람 누구예요?";
+"message_suggestion.excited.to_meet" = "만나 뵙게 되어 기대돼요!";
+"message_suggestion.cant_wait.short" = "기다릴 수 없어요. 너무 기대돼요!";
+"message_suggestion.first_time.hosting" = "호스트는 이번이 처음이에요!";
+
+// 3h window
+"message_suggestion.arrival.ten_before" = "시작 10분 전에 도착할게요!";
+"message_suggestion.when.arrival" = "몇 시에 올 예정이에요?";
+"message_suggestion.waiting.outside" = "밖에서 기다릴게요!";
+"message_suggestion.where.meet" = "어디에서 볼까요?";
+"message_suggestion.delayed.running_late" = "지연돼서 조금 늦을 것 같아요!";

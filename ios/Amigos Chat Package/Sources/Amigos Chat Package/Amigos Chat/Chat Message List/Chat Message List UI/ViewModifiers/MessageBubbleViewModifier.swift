@@ -7,6 +7,24 @@
 
 import SwiftUI
 
+extension View {
+
+    func chatBubble(
+        isSentByCurrentUser: Bool,
+        messagePosition: MessagePosition,
+        forceLeftToRight: Bool,
+        contentInsets: EdgeInsets
+    ) -> some View {
+        modifier(
+            MessageBubbleViewModifier(
+                contentInsets: contentInsets,
+                isSentByCurrentUser: isSentByCurrentUser,
+                shape: messagePosition.getShape(isSentByCurrentUser: isSentByCurrentUser)
+            )
+        )
+    }
+}
+
 struct MessageBubbleViewModifier: ViewModifier {
     let shape: BubbleShape
     let isSentByCurrentUser: Bool
@@ -29,24 +47,6 @@ struct MessageBubbleViewModifier: ViewModifier {
             .padding(contentInsets)
             .background(background.opacity(hidden ? 0 : 1))
             .clipShape(shape)
-    }
-}
-
-extension MessageBubbleViewModifier {
-    /// Shape that allows rounding of arbitrary corners.
-    public struct BubbleBackgroundShape: Shape {
-        var cornerRadius: CGFloat
-        var corners: UIRectCorner
-
-        public func path(in rect: CGRect) -> Path {
-            let path = UIBezierPath(
-                roundedRect: rect,
-                byRoundingCorners: corners,
-                cornerRadii: CGSize(width: cornerRadius, height: cornerRadius)
-            )
-
-            return Path(path.cgPath)
-        }
     }
 }
 

@@ -1,0 +1,28 @@
+/* 
+  Localizable.strings (pt-PT)
+  Amigos Chat Package
+
+  Created by Jarret on 12/02/2026.
+  
+*/
+
+// 48h window
+"message_suggestion.plan.cta" = "Hora de fazer um plano!";
+"message_suggestion.when.full" = "Vamos nos encontrar às …?";
+"message_suggestion.where.full" = "Onde a gente se encontra?";
+"message_suggestion.when.short" = "Às …?";
+"message_suggestion.time.full" = "Que horas a gente se vê?";
+
+// 9h window
+"message_suggestion.fun_group.already" = "Já somos um grupo incrível!";
+"message_suggestion.who_first.time" = "Quem tá vindo pela primeira vez?";
+"message_suggestion.excited.to_meet" = "Animado para conhecer vocês!";
+"message_suggestion.cant_wait.short" = "Mal posso esperar. Vai ser ótimo!";
+"message_suggestion.first_time.hosting" = "É a minha primeira vez como anfitrião/ã!";
+
+// 3h window
+"message_suggestion.arrival.ten_before" = "Vou chegar 10 minutos antes de começar!";
+"message_suggestion.when.arrival" = "Que horas vocês chegam?";
+"message_suggestion.waiting.outside" = "Vou esperar vocês lá fora!";
+"message_suggestion.where.meet" = "Onde a gente se encontra?";
+"message_suggestion.delayed.running_late" = "Estou atrasado e vou chegar um pouco mais tarde!";

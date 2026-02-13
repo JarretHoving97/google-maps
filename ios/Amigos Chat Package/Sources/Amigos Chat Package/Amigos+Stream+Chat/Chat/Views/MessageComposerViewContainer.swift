@@ -12,6 +12,8 @@ import StreamChatSwiftUI
 // most easy way to add a border to the composer view
 public struct MessageComposerViewContainer<Factory: ViewFactory>: View {
 
+    @ObservedObject private var viewModel: MessageComposerViewModel
+
     private let factory: Factory
     private let channelController: ChatChannelController
     private let messageController: ChatMessageController?
@@ -21,12 +23,14 @@ public struct MessageComposerViewContainer<Factory: ViewFactory>: View {
 
     public init(
         factory: Factory,
+        viewModel: MessageComposerViewModel,
         with channelController: ChatChannelController,
         messageController: ChatMessageController?,
         quotedMessage: Binding<ChatMessage?>,
         editedMessage: Binding<ChatMessage?>,
         onMessageSent: @escaping () -> Void
     ) {
+        self.viewModel = viewModel
         self.channelController = channelController
         self.messageController = messageController
         self.quotedMessage = quotedMessage
@@ -38,6 +42,7 @@ public struct MessageComposerViewContainer<Factory: ViewFactory>: View {
     public var body: some View {
         MessageComposerView(
             viewFactory: factory,
+            viewModel: viewModel,
             channelController: channelController,
             messageController: messageController,
             quotedMessage: quotedMessage,

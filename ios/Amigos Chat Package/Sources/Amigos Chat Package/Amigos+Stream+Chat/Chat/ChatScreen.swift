@@ -47,6 +47,8 @@ public struct ChatChannelScreen: View {
 
     @StateObject var viewModel: ChatChannelScreenViewModel
 
+    @StateObject var messageComposerViewModel: MessageComposerViewModel
+
     @Environment(\.presentationMode) var presentationMode
 
     private let chatClient: ChatClient
@@ -83,11 +85,20 @@ public struct ChatChannelScreen: View {
         self._viewModel = StateObject(wrappedValue: viewModel)
         self.messageThreadNavigationAction = messageThreadNavigationAction
         self.messageActionsViewBuilder = messageActionsViewBuilder
+
+        _messageComposerViewModel = StateObject(
+            wrappedValue: ViewModelsFactory.makeMessageComposerViewModel(
+                with: chatChannelController,
+                messageController: nil,
+                quotedMessage: nil
+            )
+        )
     }
 
     public var body: some View {
         CustomChatChannelView(
             viewFactory: viewFactory,
+            messageComposerViewModel: messageComposerViewModel,
             messageId: messageId,
             channelController: chatChannelController,
             onDidLoadChannel: onDidLoadChannel,

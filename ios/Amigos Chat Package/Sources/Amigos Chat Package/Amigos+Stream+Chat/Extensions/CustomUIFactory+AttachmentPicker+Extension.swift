@@ -67,7 +67,7 @@ public struct CustomAttachmentTypeContainer<Content: View>: View {
                     .multilineTextAlignment(.leading)
                     .frame(maxWidth: .infinity, alignment: .leading)
             }
-            .padding(EdgeInsets(top: 8, leading: 12, bottom: 8, trailing: 12))
+            .padding(.defaultMessageEdgeInsets)
         }
         .background(Color.white)
         .frame(maxWidth: .infinity, minHeight: 46)

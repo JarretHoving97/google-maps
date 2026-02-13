@@ -1,0 +1,28 @@
+/* 
+  Localizable.strings (it)
+  Amigos Chat Package
+
+  Created by Jarret on 12/02/2026.
+  
+*/
+
+// 48h window
+"message_suggestion.plan.cta" = "È il momento di fare un piano!";
+"message_suggestion.when.full" = "Ci vediamo alle …?";
+"message_suggestion.where.full" = "Dove ci vediamo?";
+"message_suggestion.when.short" = "Alle …?";
+"message_suggestion.time.full" = "A che ora ci vediamo?";
+
+// 9h window
+"message_suggestion.fun_group.already" = "Siamo già un bel gruppo!";
+"message_suggestion.who_first.time" = "Chi partecipa per la prima volta?";
+"message_suggestion.excited.to_meet" = "Non vedo l’ora di incontrarvi!";
+"message_suggestion.cant_wait.short" = "Non vedo l’ora. Sarà fantastico!";
+"message_suggestion.first_time.hosting" = "È la mia prima volta come host!";
+
+// 3h window
+"message_suggestion.arrival.ten_before" = "Sarò lì 10 minuti prima dell’inizio!";
+"message_suggestion.when.arrival" = "A che ora arrivate?";
+"message_suggestion.waiting.outside" = "Vi aspetto fuori!";
+"message_suggestion.where.meet" = "Dove ci incontriamo?";
+"message_suggestion.delayed.running_late" = "Sono in ritardo, arrivo un po’ più tardi!";

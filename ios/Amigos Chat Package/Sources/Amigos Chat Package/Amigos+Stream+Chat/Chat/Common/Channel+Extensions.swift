@@ -63,6 +63,17 @@ extension ChatChannel {
         return false
     }
 
+    var activityStartsAt: Date? {
+
+        if let date = extraData["activityStartsAt"]?.stringValue {
+            let formatter = ISO8601DateFormatter()
+            formatter.formatOptions = [.withInternetDateTime, .withFractionalSeconds]
+            return formatter.date(from: date)
+        }
+
+        return nil
+    }
+
     var isSupportChatChannel: Bool {
         otherUser?.userRole == UserRole.moderator
     }
