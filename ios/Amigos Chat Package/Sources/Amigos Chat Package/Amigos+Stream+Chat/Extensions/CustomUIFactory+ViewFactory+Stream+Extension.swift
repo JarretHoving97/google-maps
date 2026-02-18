@@ -214,23 +214,6 @@ extension CustomUIFactory: ViewFactory {
         CustomMessageAuthorAndDateView(message: message)
     }
 
-    public typealias MessageReadIndicatorViewType = CustomMessageReadIndicatorView
-
-    public func makeMessageReadIndicatorView(
-        channel: ChatChannel,
-        message: ChatMessage
-    ) -> CustomMessageReadIndicatorView {
-
-        let isRead = channel.unreadCount == .noUnread
-        let isReadByAll = message.readByCount >= channel.memberCount - 1
-
-        return CustomMessageReadIndicatorView(
-            isRead: isRead,
-            isReadByAll: isReadByAll,
-            localState: message.localState
-        )
-    }
-
     public typealias QuotedMessageHeaderViewType = EmptyView
 
     public func makeQuotedMessageHeaderView(
