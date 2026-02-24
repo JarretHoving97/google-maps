@@ -173,4 +173,26 @@
     <string name="AmiPoll_leavePoll_body">Deine Änderungen werden nicht gespeichert</string>
     <string name="AmiPoll_leavePoll_keepEditing">Weiter bearbeiten</string>
     <string name="AmiPoll_leavePoll_leave">Verlassen</string>
+
+    <!-- Message Suggestions -->
+    <!-- 48h window -->
+    <string name="message_suggestion_planCTA">Zeit für einen Plan!</string>
+    <string name="message_suggestion_whenFull">Wollen wir uns um … treffen?</string>
+    <string name="message_suggestion_whereFull">Wo treffen wir uns?</string>
+    <string name="message_suggestion_whenShort">Treffen um …?</string>
+    <string name="message_suggestion_timeFull">Um wie viel Uhr sehen wir uns?</string>
+
+    <!-- 9h window -->
+    <string name="message_suggestion_funGroupAlready">Wir sind schon eine tolle Gruppe!</string>
+    <string name="message_suggestion_whoFirstTime">Wer ist zum ersten Mal dabei?</string>
+    <string name="message_suggestion_excitedToMeet">Freue mich, euch zu treffen!</string>
+    <string name="message_suggestion_cantWaitShort">Kann’s kaum erwarten. Lust drauf!</string>
+    <string name="message_suggestion_firstTimeHosting">Das ist mein erstes Mal als Host!</string>
+
+    <!-- 3h window -->
+    <string name="message_suggestion_arrivalTenBefore">Ich bin 10 Minuten vor Beginn da!</string>
+    <string name="message_suggestion_whenArrival">Wann seid ihr da?</string>
+    <string name="message_suggestion_waitingOutside">Ich warte gleich draußen auf euch!</string>
+    <string name="message_suggestion_whereMeet">Wo sehen wir uns?</string>
+    <string name="message_suggestion_delayedRunningLate">Ich bin verspätet und etwas später da!</string>
 </resources>

@@ -170,4 +170,26 @@
     <string name="AmiPoll_leavePoll_body">A módosításokat nem menti a rendszer</string>
     <string name="AmiPoll_leavePoll_keepEditing">Szerkesztés folytatása</string>
     <string name="AmiPoll_leavePoll_leave">Kilépés</string>
+
+    <!-- Message Suggestions -->
+    <!-- 48h window -->
+    <string name="message_suggestion_planCTA">Itt az ideje egy tervnek!</string>
+    <string name="message_suggestion_whenFull">Találkozzunk …-kor?</string>
+    <string name="message_suggestion_whereFull">Hol találkozzunk?</string>
+    <string name="message_suggestion_whenShort">Találkozzunk …-kor?</string>
+    <string name="message_suggestion_timeFull">Hány órakor találkozunk?</string>
+
+    <!-- 9h window -->
+    <string name="message_suggestion_funGroupAlready">Már most szuper csapat vagyunk!</string>
+    <string name="message_suggestion_whoFirstTime">Ki jön először?</string>
+    <string name="message_suggestion_excitedToMeet">Alig várom, hogy találkozzunk!</string>
+    <string name="message_suggestion_cantWaitShort">Alig várom. Nagyon izgalmas!</string>
+    <string name="message_suggestion_firstTimeHosting">Most vagyok először házigazda!</string>
+
+    <!-- 3h window -->
+    <string name="message_suggestion_arrivalTenBefore">10 perccel a kezdés előtt ott leszek!</string>
+    <string name="message_suggestion_whenArrival">Hány órára érkeztek?</string>
+    <string name="message_suggestion_waitingOutside">Kint foglak titeket várni!</string>
+    <string name="message_suggestion_whereMeet">Hol találkozunk?</string>
+    <string name="message_suggestion_delayedRunningLate">Kések egy kicsit, később érek oda!</string>
 </resources>

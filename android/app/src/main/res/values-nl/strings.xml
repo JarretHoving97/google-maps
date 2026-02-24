@@ -173,4 +173,26 @@
     <string name="AmiPoll_leavePoll_body">Je wijzigingen worden niet opgeslagen</string>
     <string name="AmiPoll_leavePoll_keepEditing">Doorgaan met bewerken</string>
     <string name="AmiPoll_leavePoll_leave">Afsluiten</string>
+
+    <!-- Message Suggestions -->
+    <!-- 48h window -->
+    <string name="message_suggestion_planCTA">Tijd voor een plan!</string>
+    <string name="message_suggestion_whenFull">Zullen we afspreken om…?</string>
+    <string name="message_suggestion_whereFull">Waar spreken we af?</string>
+    <string name="message_suggestion_whenShort">Afspreken om…?</string>
+    <string name="message_suggestion_timeFull">Hoe laat zien we elkaar?</string>
+
+    <!-- 9h window -->
+    <string name="message_suggestion_funGroupAlready">Leuke groep hebben we al!</string>
+    <string name="message_suggestion_whoFirstTime">Wie komt er voor het eerst?</string>
+    <string name="message_suggestion_excitedToMeet">Zin jullie te ontmoeten!</string>
+    <string name="message_suggestion_cantWaitShort">Can’t wait. Zin in.</string>
+    <string name="message_suggestion_firstTimeHosting">Dit is m’n eerste keer hosten!</string>
+
+    <!-- 3h window -->
+    <string name="message_suggestion_arrivalTenBefore">Ik ben er om 10 voor start!</string>
+    <string name="message_suggestion_whenArrival">Hoelaat zijn jullie er?</string>
+    <string name="message_suggestion_waitingOutside">Ik wacht straks buiten op jullie!</string>
+    <string name="message_suggestion_whereMeet">Waar zien we elkaar?</string>
+    <string name="message_suggestion_delayedRunningLate">Ik ben vertraagd en iets later!</string>
 </resources>

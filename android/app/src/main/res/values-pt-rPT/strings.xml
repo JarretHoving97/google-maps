@@ -171,4 +171,26 @@
     <string name="AmiPoll_leavePoll_body">As suas alterações não vão ser guardadas</string>
     <string name="AmiPoll_leavePoll_keepEditing">Continuar a editar</string>
     <string name="AmiPoll_leavePoll_leave">Sair</string>
+
+    <!-- Message Suggestions -->
+    <!-- 48h window -->
+    <string name="message_suggestion_planCTA">Hora de fazer um plano!</string>
+    <string name="message_suggestion_whenFull">Encontramo-nos às …?</string>
+    <string name="message_suggestion_whereFull">Onde nos encontramos?</string>
+    <string name="message_suggestion_whenShort">Às …?</string>
+    <string name="message_suggestion_timeFull">A que horas nos vemos?</string>
+
+    <!-- 9h window -->
+    <string name="message_suggestion_funGroupAlready">Já somos um excelente grupo!</string>
+    <string name="message_suggestion_whoFirstTime">Quem vem pela primeira vez?</string>
+    <string name="message_suggestion_excitedToMeet">Ansioso para vos conhecer!</string>
+    <string name="message_suggestion_cantWaitShort">Mal posso esperar. Vai ser óptimo!</string>
+    <string name="message_suggestion_firstTimeHosting">É a minha primeira vez como anfitrião!</string>
+
+    <!-- 3h window -->
+    <string name="message_suggestion_arrivalTenBefore">Chego 10 minutos antes do início!</string>
+    <string name="message_suggestion_whenArrival">A que horas chegam?</string>
+    <string name="message_suggestion_waitingOutside">Espero-vos lá fora!</string>
+    <string name="message_suggestion_whereMeet">Onde nos vemos?</string>
+    <string name="message_suggestion_delayedRunningLate">Estou atrasado e chego um pouco mais tarde!</string>
 </resources>

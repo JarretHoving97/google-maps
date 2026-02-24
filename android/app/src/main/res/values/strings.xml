@@ -190,4 +190,26 @@
     <string name="AmiPoll_leavePoll_body">Your edits won\'t be saved</string>
     <string name="AmiPoll_leavePoll_keepEditing">Keep editing</string>
     <string name="AmiPoll_leavePoll_leave">Leave</string>
+
+    <!-- Message Suggestions -->
+    <!-- 48h window -->
+    <string name="message_suggestion_planCTA">Time for a plan!</string>
+    <string name="message_suggestion_whenFull">Shall we meet at …?</string>
+    <string name="message_suggestion_whereFull">Where shall we meet?</string>
+    <string name="message_suggestion_whenShort">Meet at …?</string>
+    <string name="message_suggestion_timeFull">What time shall we meet?</string>
+
+    <!-- 9h window -->
+    <string name="message_suggestion_funGroupAlready">We already have a great group!</string>
+    <string name="message_suggestion_whoFirstTime">Who’s joining for the first time?</string>
+    <string name="message_suggestion_excitedToMeet">Excited to meet you all!</string>
+    <string name="message_suggestion_cantWaitShort">Can’t wait. Looking forward to it!</string>
+    <string name="message_suggestion_firstTimeHosting">This is my first time hosting!</string>
+
+    <!-- 3h window -->
+    <string name="message_suggestion_arrivalTenBefore">I’ll be there 10 minutes before we start!</string>
+    <string name="message_suggestion_whenArrival">What time will you be there?</string>
+    <string name="message_suggestion_waitingOutside">I’ll wait outside for you!</string>
+    <string name="message_suggestion_whereMeet">Where shall we meet?</string>
+    <string name="message_suggestion_delayedRunningLate">I’m delayed and running a bit late!</string>
 </resources>

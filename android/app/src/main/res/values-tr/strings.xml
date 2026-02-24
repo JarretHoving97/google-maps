@@ -172,4 +172,26 @@
     <string name="AmiPoll_leavePoll_body">Yaptığınız düzenlemeler kaydedilmeyecek</string>
     <string name="AmiPoll_leavePoll_keepEditing">Düzenlemeye devam et</string>
     <string name="AmiPoll_leavePoll_leave">Çık</string>
+
+    <!-- Message Suggestions -->
+    <!-- 48h window -->
+    <string name="message_suggestion_planCTA">Bir plan yapmanın zamanı geldi!</string>
+    <string name="message_suggestion_whenFull">… saatinde buluşalım mı?</string>
+    <string name="message_suggestion_whereFull">Nerede buluşalım?</string>
+    <string name="message_suggestion_whenShort">…’da buluşalım mı?</string>
+    <string name="message_suggestion_timeFull">Saat kaçta buluşuyoruz?</string>
+
+    <!-- 9h window -->
+    <string name="message_suggestion_funGroupAlready">Şimdiden harika bir grubuz!</string>
+    <string name="message_suggestion_whoFirstTime">İlk kez kim geliyor?</string>
+    <string name="message_suggestion_excitedToMeet">Hepinizle tanışmak için sabırsızlanıyorum!</string>
+    <string name="message_suggestion_cantWaitShort">Sabırsızlanıyorum. Harika olacak!</string>
+    <string name="message_suggestion_firstTimeHosting">İlk kez ev sahipliği yapıyorum!</string>
+
+    <!-- 3h window -->
+    <string name="message_suggestion_arrivalTenBefore">Başlamadan 10 dakika önce orada olacağım!</string>
+    <string name="message_suggestion_whenArrival">Siz kaçta orada olacaksınız?</string>
+    <string name="message_suggestion_waitingOutside">Dışarıda sizi bekleyeceğim!</string>
+    <string name="message_suggestion_whereMeet">Nerede buluşuyoruz?</string>
+    <string name="message_suggestion_delayedRunningLate">Geciktim, biraz geç kalacağım!</string>
 </resources>

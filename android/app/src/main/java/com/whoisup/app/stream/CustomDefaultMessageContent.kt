@@ -126,7 +126,7 @@ internal fun CustomDefaultMessageContent(
             AmiClickableText(
                 text = messageItem.message.text,
                 textStyle = textStyle,
-                modifier =  Modifier
+                modifier = Modifier
                     .padding(
                         horizontal = 12.dp,
                         vertical = 8.dp,

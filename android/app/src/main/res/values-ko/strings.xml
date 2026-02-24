@@ -173,4 +173,26 @@
     <string name="AmiPoll_leavePoll_body">편집 사항이 저장되지 않습니다</string>
     <string name="AmiPoll_leavePoll_keepEditing">계속 편집</string>
     <string name="AmiPoll_leavePoll_leave">나가기</string>
+
+    <!-- Message Suggestions -->
+    <!-- 48h window -->
+    <string name="message_suggestion_planCTA">계획을 세워볼까요!</string>
+    <string name="message_suggestion_whenFull">…시에 만날까요?</string>
+    <string name="message_suggestion_whereFull">어디에서 만날까요?</string>
+    <string name="message_suggestion_whenShort">…시에 만나?</string>
+    <string name="message_suggestion_timeFull">몇 시에 만날까?</string>
+
+    <!-- 9h window -->
+    <string name="message_suggestion_funGroupAlready">벌써 멋진 모임이네요!</string>
+    <string name="message_suggestion_whoFirstTime">처음 오는 사람 누구예요?</string>
+    <string name="message_suggestion_excitedToMeet">만나 뵙게 되어 기대돼요!</string>
+    <string name="message_suggestion_cantWaitShort">기다릴 수 없어요. 너무 기대돼요!</string>
+    <string name="message_suggestion_firstTimeHosting">호스트는 이번이 처음이에요!</string>
+
+    <!-- 3h window -->
+    <string name="message_suggestion_arrivalTenBefore">시작 10분 전에 도착할게요!</string>
+    <string name="message_suggestion_whenArrival">몇 시에 올 예정이에요?</string>
+    <string name="message_suggestion_waitingOutside">밖에서 기다릴게요!</string>
+    <string name="message_suggestion_whereMeet">어디에서 볼까요?</string>
+    <string name="message_suggestion_delayedRunningLate">지연돼서 조금 늦을 것 같아요!</string>
 </resources>

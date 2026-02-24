@@ -37,6 +37,8 @@ import com.whoisup.app.stream.extensions.amiParticipantRole
 import com.whoisup.app.stream.extensions.isDirectMessageChannel
 import com.whoisup.app.stream.extensions.isSupportTeamMember
 import com.whoisup.app.stream.extensions.relatedConceptType
+import com.whoisup.app.stream.viewModels.MessageSuggestionsViewModel
+import com.whoisup.app.stream.viewModels.MessageSuggestionsViewModelFactory
 import com.whoisup.app.ui.theme.CustomTheme
 import io.getstream.chat.android.compose.viewmodel.messages.AttachmentsPickerViewModel
 import io.getstream.chat.android.compose.viewmodel.messages.MessageComposerViewModel
@@ -106,6 +108,11 @@ fun AmiChannelScreen(
     val pinnedMessageViewModel = viewModel(PinnedMessageViewModel::class.java)
     val safetyCheckViewModel = viewModel(SafetyCheckViewModel::class.java)
     val singleChannelViewModel = viewModel(SingleChannelViewModel::class.java)
+    val messageSuggestionsViewModel = viewModel(MessageSuggestionsViewModel::class.java, factory = MessageSuggestionsViewModelFactory(
+            listViewModel,
+            composerViewModel
+        )
+    )
 
     val isImeVisible = WindowInsets.ime.getBottom(LocalDensity.current) > 0
     val backAction = remember(listViewModel, composerViewModel, attachmentsPickerViewModel) {
@@ -302,6 +309,13 @@ fun AmiChannelScreen(
                         )
                     }
                 }
+            }
+
+            if (messageSuggestionsViewModel.hostReminderSuggestions.isNotEmpty()) {
+                AmiMessageSuggestionCarousel(
+                    composerViewModel = composerViewModel,
+                    messageSuggestionsViewModel = messageSuggestionsViewModel
+                )
             }
 
             AmiChannelComposerContainer(
