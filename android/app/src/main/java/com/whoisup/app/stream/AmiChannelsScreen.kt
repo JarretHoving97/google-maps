@@ -2,18 +2,11 @@ package com.whoisup.app.stream
 
 import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.safeDrawingPadding
-import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.text.BasicText
 import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
@@ -27,8 +20,8 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.whoisup.app.R
-import com.whoisup.app.components.AmiBackButton
 import com.whoisup.app.components.AmiEmptyContent
+import com.whoisup.app.components.AmiHeader
 import com.whoisup.app.ui.theme.CustomTheme
 import io.getstream.chat.android.client.ChatClient
 import io.getstream.chat.android.compose.viewmodel.channels.ChannelListViewModel
@@ -82,31 +75,10 @@ fun AmiChannelsScreen(
                 .fillMaxSize()
                 .background(CustomTheme.colorScheme.background)
         ) {
-            Column {
-                Row(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(8.dp),
-                    horizontalArrangement = Arrangement.SpaceBetween,
-                    verticalAlignment = Alignment.CenterVertically,
-                ) {
-                    AmiBackButton(onBackClick = onBackClick)
-
-                    BasicText(
-                        text = stringResource(id = R.string.AmiChannelsScreen_title),
-                        style = CustomTheme.typography.heading.copy(color = CustomTheme.colorScheme.onBackground)
-                    )
-
-                    Spacer(modifier = Modifier.width(40.dp))
-                }
-
-                Box(
-                    modifier = Modifier
-                        .height(2.dp)
-                        .fillMaxWidth()
-                        .background(CustomTheme.colorScheme.surfaceHard)
-                )
-            }
+            AmiHeader(
+                title = stringResource(id = R.string.AmiChannelsScreen_title),
+                onBackClick = onBackClick
+            )
 
 //            val searchMode = SearchMode.Messages
 //
