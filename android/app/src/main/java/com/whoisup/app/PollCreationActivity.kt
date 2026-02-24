@@ -1,7 +1,5 @@
 package com.whoisup.app
 
-import android.content.Context
-import android.content.Intent
 import android.os.Bundle
 import androidx.activity.compose.BackHandler
 import androidx.activity.compose.setContent
@@ -55,7 +53,7 @@ import com.whoisup.app.components.AmiSimpleDialogDrawer
 import com.whoisup.app.components.AmiSwitch
 import com.whoisup.app.components.AmiTextField
 import com.whoisup.app.components.DcIcon
-import com.whoisup.app.stream.PollCreationResult
+import com.whoisup.app.stream.PollCreationContract
 import com.whoisup.app.ui.theme.CustomTheme
 import com.whoisup.app.utils.enableEdgeToEdgeCustom
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -74,6 +72,8 @@ class PollCreationActivity : BaseComponentActivity() {
         super.onCreate(savedInstanceState)
 
         enableEdgeToEdgeCustom()
+
+        val activity = this
 
         setContent {
             CustomTheme {
@@ -138,7 +138,7 @@ class PollCreationActivity : BaseComponentActivity() {
                                             text = stringResource(R.string.AmiPoll_leavePoll_leave),
                                             onClick = {
                                                 isShowingDiscardDialog = false
-                                                handleResult(null)
+                                                PollCreationContract.createResult(activity, null)
                                             },
                                             modifier = Modifier.weight(1f),
                                             theme = AmiButtonTheme(
@@ -223,8 +223,9 @@ class PollCreationActivity : BaseComponentActivity() {
                         AmiButton(
                             text = stringResource(R.string.stream_compose_send),
                             onClick = {
-                                handleResult(
-                                    result = PollCreationResult(
+                                PollCreationContract.createResult(
+                                    activity = activity,
+                                    result = PollCreationContract.Result(
                                         question = viewModel.state.value.question.trim(),
                                         options = viewModel.state.value.options.map { it.trim() },
                                         multipleVotesAllowed = viewModel.state.value.multipleVotesAllowed,
@@ -239,28 +240,6 @@ class PollCreationActivity : BaseComponentActivity() {
                     }
                 }
             }
-        }
-    }
-
-    private fun handleResult(result: PollCreationResult?) {
-        if (result != null) {
-            val data = Intent().apply {
-                putExtra(KeyResult, result)
-            }
-            setResult(RESULT_OK, data)
-        } else {
-            setResult(RESULT_CANCELED)
-        }
-        finish()
-    }
-
-    companion object {
-        const val KeyResult: String = "pollCreationResult"
-
-        fun getIntent(
-            context: Context,
-        ): Intent {
-            return Intent(context, PollCreationActivity::class.java)
         }
     }
 }
@@ -295,13 +274,13 @@ data class PollCreationState(
 ) : PollCreationData
 
 @Immutable
-data class PollOptionItem(
+private data class PollOptionItem(
     val title: String,
     val key: String = UUID.randomUUID().toString(),
 )
 
 @Composable
-fun PollOptionList(viewModel: PollCreationViewModel) {
+private fun PollOptionList(viewModel: PollCreationViewModel) {
     val lazyListState: LazyListState = rememberLazyListState()
 
     var optionItemList by rememberSaveable(
