@@ -195,4 +195,16 @@
     <string name="message_suggestion_waitingOutside">Ik wacht straks buiten op jullie!</string>
     <string name="message_suggestion_whereMeet">Waar zien we elkaar?</string>
     <string name="message_suggestion_delayedRunningLate">Ik ben vertraagd en iets later!</string>
+
+    <!-- Icebreaker suggestions -->
+    <string name="AmiIcebreakers_title">Kies een ijsbreker</string>
+    <string name="AmiIcebreakers_body">Goeie sfeer in de groepschat? Meer kans dat amigos naar de activiteit komen. Dus help jezelf en de host en deel een ijsbreker!</string>
+    <string name="AmiIcebreakers_submit">Gebruik deze</string>
+
+    <!-- 120h window -->
+    <string name="message_suggestion_favoriteIntroDrink">Wat is je favoriete kennismaakdrankje?</string>
+    <string name="message_suggestion_dilemmaAskerOrAnswerer">Amigo, ben je vaker een vragensteller of een -beantwoorder?</string>
+    <string name="message_suggestion_dilemmaNeverAloneOrAlwaysAlone">Dilemma: liever nooit meer alleen zijn, of altijd alleen zijn?</string>
+    <string name="message_suggestion_dilemmaPlannedOrSpontaneous">Amigo, plan jij leuke dingen, of doe je ze liever spontaan?</string>
+    <string name="message_suggestion_twoTruthsOneLie">Two truths, one lie: deel 2 feitjes en 1 leugen over jezelf. Wij gaan raden!</string>
 </resources>

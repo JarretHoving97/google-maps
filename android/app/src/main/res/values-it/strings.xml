@@ -199,4 +199,16 @@
     <string name="message_suggestion_waitingOutside">Vi aspetto fuori!</string>
     <string name="message_suggestion_whereMeet">Dove ci incontriamo?</string>
     <string name="message_suggestion_delayedRunningLate">Sono in ritardo, arrivo un po’ più tardi!</string>
+
+    <!-- Icebreaker suggestions -->
+    <string name="AmiIcebreakers_title">Scegli un rompighiaccio</string>
+    <string name="AmiIcebreakers_body">Buone vibrazioni nella chat di gruppo? Così è più probabile che gli amigos vengano all\'attività. Aiuta te stesso e l\'host e condividi un rompighiaccio!</string>
+    <string name="AmiIcebreakers_submit">Usa questo</string>
+
+    <!-- 120h window -->
+    <string name="message_suggestion_favoriteIntroDrink">Qual è la tua bevanda preferita per rompere il ghiaccio?</string>
+    <string name="message_suggestion_dilemmaAskerOrAnswerer">Amigo: sei più spesso colui che fa domande o chi risponde?</string>
+    <string name="message_suggestion_dilemmaNeverAloneOrAlwaysAlone">Dilemma: preferiresti non essere mai più solo, oppure essere sempre solo?</string>
+    <string name="message_suggestion_dilemmaPlannedOrSpontaneous">Amigo, pianifichi le cose divertenti o preferisci farle spontaneamente?</string>
+    <string name="message_suggestion_twoTruthsOneLie">Due verità, una bugia: condividi 2 fatti e 1 bugia su di te. Indovineremo!</string>
 </resources>

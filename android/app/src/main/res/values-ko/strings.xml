@@ -195,4 +195,16 @@
     <string name="message_suggestion_waitingOutside">밖에서 기다릴게요!</string>
     <string name="message_suggestion_whereMeet">어디에서 볼까요?</string>
     <string name="message_suggestion_delayedRunningLate">지연돼서 조금 늦을 것 같아요!</string>
+
+    <!-- Icebreaker suggestions -->
+    <string name="AmiIcebreakers_title">아이스브레이커를 선택하세요</string >
+    <string name="AmiIcebreakers_body">그룹 채팅 분위기가 좋으면 amigos가 활동에 올 가능성이 더 높아져요. 나와 호스트를 위해 아이스브레이커를 공유해 보세요!</string >
+    <string name="AmiIcebreakers_submit">이거 사용하기</string>
+
+    <!-- 120h window -->
+    <string name="message_suggestion_favoriteIntroDrink">아이스브레이커용으로 가장 좋아하는 음료는 무엇인가요?</string >
+    <string name="message_suggestion_dilemmaAskerOrAnswerer">아미고: 당신은 주로 질문을 하는 사람인가요, 아니면 답변을 하는 사람인가요?</string >
+    <string name="message_suggestion_dilemmaNeverAloneOrAlwaysAlone">딜레마: 다시는 혼자 있지 않기를 원하시나요, 아니면 언제나 혼자 있기를 원하시나요?</string >
+    <string name="message_suggestion_dilemmaPlannedOrSpontaneous">아미고, 재미있는 일을 계획해서 하시나요, 아니면 즉흥적으로 하시나요?</string >
+    <string name="message_suggestion_twoTruthsOneLie">두 진실과 한 거짓: 자신에 관한 사실 두 개와 거짓 하나를 공유해주세요. 우리가 맞춰볼게요!</string>
 </resources>

@@ -195,4 +195,16 @@
     <string name="message_suggestion_waitingOutside">Ich warte gleich draußen auf euch!</string>
     <string name="message_suggestion_whereMeet">Wo sehen wir uns?</string>
     <string name="message_suggestion_delayedRunningLate">Ich bin verspätet und etwas später da!</string>
+
+    <!-- Icebreaker suggestions -->
+    <string name="AmiIcebreakers_title">Wähle einen Eisbrecher</string>
+    <string name="AmiIcebreakers_body">Gute Stimmung im Gruppenchat? Dann ist es wahrscheinlicher, dass Amigos zur Aktivität kommen. Hilf dir selbst und dem Host und teile einen Eisbrecher!</string>
+    <string name="AmiIcebreakers_submit">Diesen verwenden</string>
+
+    <!-- 120h window -->
+    <string name="message_suggestion_favoriteIntroDrink">Was ist dein Lieblingsgetränk zum Kennenlernen?</string>
+    <string name="message_suggestion_dilemmaAskerOrAnswerer">Amigo: Bist du häufiger Fragesteller oder Antwortgeber?</string>
+    <string name="message_suggestion_dilemmaNeverAloneOrAlwaysAlone">Dilemma: Wärst du lieber nie wieder allein oder immer allein?</string>
+    <string name="message_suggestion_dilemmaPlannedOrSpontaneous">Amigo, planst du lustige Dinge oder erledigst du sie lieber spontan?</string>
+    <string name="message_suggestion_twoTruthsOneLie">Zwei Wahrheiten, eine Lüge: Teile 2 Fakten und 1 Lüge über dich selbst. Wir werden raten!</string>
 </resources>

@@ -7,6 +7,7 @@ import androidx.compose.foundation.gestures.animateScrollBy
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.RowScope
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyRow
@@ -25,13 +26,14 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.whoisup.app.R
 import com.whoisup.app.components.DcIcon
+import com.whoisup.app.modifiers.layoutPadding
 import com.whoisup.app.stream.viewModels.MessageSuggestionsViewModel
 import com.whoisup.app.ui.theme.CustomTheme
 import io.getstream.chat.android.compose.viewmodel.messages.MessageComposerViewModel
 import kotlinx.coroutines.launch
 
 @Composable
-fun AmiMessageSuggestionCarousel(
+fun RowScope.AmiMessageSuggestionCarousel(
     composerViewModel: MessageComposerViewModel,
     messageSuggestionsViewModel: MessageSuggestionsViewModel
 ) {
@@ -45,8 +47,13 @@ fun AmiMessageSuggestionCarousel(
 
     LazyRow(
         state = listState,
-        contentPadding = PaddingValues(12.dp),
-        modifier = Modifier.fillMaxWidth(),
+        contentPadding = PaddingValues(start = 28.dp, end = 28.dp),
+        modifier = Modifier
+            .fillMaxWidth()
+            .weight(1f)
+            // Add a bit of negative padding to visually slide this composable behind the "icebreaker"-button
+            // We then also add some more contentPadding to offset for this negative padding
+            .layoutPadding(horizontal = (-16).dp),
         horizontalArrangement = Arrangement.spacedBy(6.dp),
         userScrollEnabled = !isProgrammaticallyScrolling.value
     ) {

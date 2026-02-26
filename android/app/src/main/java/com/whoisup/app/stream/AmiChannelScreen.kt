@@ -1,17 +1,21 @@
 package com.whoisup.app.stream
 
 import androidx.activity.compose.BackHandler
+import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.ime
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.safeDrawingPadding
+import androidx.compose.foundation.layout.width
 import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
@@ -21,6 +25,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
@@ -30,6 +35,7 @@ import com.whoisup.app.ExtendedStreamPlugin
 import com.whoisup.app.R
 import com.whoisup.app.SuperEntitlementStatus
 import com.whoisup.app.components.AmiEmptyContent
+import com.whoisup.app.components.AmiIconButton
 import com.whoisup.app.components.AmiPinnedMessage
 import com.whoisup.app.stream.extensions.AmiParticipantRole
 import com.whoisup.app.stream.extensions.ChatChannelRelatedConceptType
@@ -311,11 +317,42 @@ fun AmiChannelScreen(
                 }
             }
 
-            if (messageSuggestionsViewModel.hostReminderSuggestions.isNotEmpty()) {
-                AmiMessageSuggestionCarousel(
-                    composerViewModel = composerViewModel,
-                    messageSuggestionsViewModel = messageSuggestionsViewModel
-                )
+            if (messageSuggestionsViewModel.hostReminderSuggestions.isNotEmpty() || messageSuggestionsViewModel.icebreakerSuggestions.isNotEmpty()) {
+                Row(
+                    modifier = Modifier.fillMaxWidth().padding(bottom = 12.dp),
+                    horizontalArrangement = Arrangement.End,
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    AmiMessageSuggestionCarousel(
+                        composerViewModel = composerViewModel,
+                        messageSuggestionsViewModel = messageSuggestionsViewModel
+                    )
+
+                    val launcher = rememberLauncherForActivityResult(
+                        contract = IcebreakerSuggestionsContract(),
+                        onResult = {
+                            if (it?.selectedIcebreakerSuggestionText !== null) {
+                                composerViewModel.setMessageInput(it.selectedIcebreakerSuggestionText)
+                            }
+                        },
+                    )
+
+                    val context = LocalContext.current
+
+                    if (messageSuggestionsViewModel.icebreakerSuggestions.isNotEmpty()) {
+                        AmiIconButton(
+                            size = 40.dp,
+                            color = CustomTheme.colorScheme.primary,
+                            iconColor = CustomTheme.colorScheme.onPrimary,
+                            iconId = R.drawable.hammer,
+                            onClick = {
+                                launcher.launch(IcebreakerSuggestionsContract.Input(messageSuggestionsViewModel.icebreakerSuggestions.map { context.resources.getString(it) }))
+                            }
+                        )
+
+                        Spacer(modifier = Modifier.width(12.dp))
+                    }
+                }
             }
 
             AmiChannelComposerContainer(

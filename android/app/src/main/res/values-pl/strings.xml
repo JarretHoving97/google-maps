@@ -205,4 +205,16 @@
     <string name="message_suggestion_waitingOutside">Poczekam na was na zewnątrz!</string>
     <string name="message_suggestion_whereMeet">Gdzie się widzimy?</string>
     <string name="message_suggestion_delayedRunningLate">Spóźniam się i będę trochę później!</string>
+
+    <!-- Icebreaker suggestions -->
+    <string name="AmiIcebreakers_title">Wybierz przełamywacz lodów</string>
+    <string name="AmiIcebreakers_body">Dobra atmosfera na czacie grupowym? To zwiększa szansę, że amigos przyjdą na aktywność. Pomóż sobie i gospodarzowi i udostępnij przełamywacz lodów!</string>
+    <string name="AmiIcebreakers_submit">Użyj tego</string>
+
+    <!-- 120h window -->
+    <string name="message_suggestion_favoriteIntroDrink">Jaki jest Twój ulubiony napój na przełamanie lodów?</string>
+    <string name="message_suggestion_dilemmaAskerOrAnswerer">Amigo, częściej zadajesz pytania czy odpowiadasz?</string>
+    <string name="message_suggestion_dilemmaNeverAloneOrAlwaysAlone">Dylemat: wolisz już nigdy nie być samemu, czy być samemu zawsze?</string>
+    <string name="message_suggestion_dilemmaPlannedOrSpontaneous">Amigo, planujesz fajne rzeczy, czy wolisz robić je spontanicznie?</string>
+    <string name="message_suggestion_twoTruthsOneLie">Dwie prawdy, jedno kłamstwo: podziel się 2 faktami i 1 kłamstwem o sobie. Zgadujemy!</string>
 </resources>

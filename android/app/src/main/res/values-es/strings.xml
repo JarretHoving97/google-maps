@@ -200,4 +200,16 @@
     <string name="message_suggestion_waitingOutside">¡Os espero fuera!</string>
     <string name="message_suggestion_whereMeet">¿Dónde nos vemos?</string>
     <string name="message_suggestion_delayedRunningLate">Voy con retraso y llegaré un poco más tarde.</string>
+
+    <!-- Icebreaker suggestions -->
+    <string name="AmiIcebreakers_title">Elige un rompehielos</string>
+    <string name="AmiIcebreakers_body">¿Buenas vibras en el chat del grupo? Así es más probable que los amigos vengan a la actividad. ¡Ayúdate a ti y al anfitrión y comparte un rompehielos!</string>
+    <string name="AmiIcebreakers_submit">Usar este</string>
+
+    <!-- 120h window -->
+    <string name="message_suggestion_favoriteIntroDrink">¿Cuál es tu bebida favorita para romper el hielo?</string>
+    <string name="message_suggestion_dilemmaAskerOrAnswerer">Amigo, ¿eres más de preguntar o de responder?</string>
+    <string name="message_suggestion_dilemmaNeverAloneOrAlwaysAlone">Dilema: ¿preferirías no volver a estar nunca solo o estar siempre solo?</string>
+    <string name="message_suggestion_dilemmaPlannedOrSpontaneous">Amigo, ¿planificas cosas divertidas o prefieres hacerlo de forma espontánea?</string>
+    <string name="message_suggestion_twoTruthsOneLie">Dos verdades y una mentira: comparte 2 datos y 1 mentira sobre ti. ¡Intentaremos adivinar!</string>
 </resources>

@@ -38,6 +38,14 @@ private val hostReminderSuggestions3Hours = listOf(
     R.string.message_suggestion_delayedRunningLate,
 )
 
+private val icebreakerSuggestions120Hours = listOf(
+    R.string.message_suggestion_favoriteIntroDrink,
+    R.string.message_suggestion_dilemmaAskerOrAnswerer,
+    R.string.message_suggestion_dilemmaNeverAloneOrAlwaysAlone,
+    R.string.message_suggestion_dilemmaPlannedOrSpontaneous,
+    R.string.message_suggestion_twoTruthsOneLie,
+)
+
 class MessageSuggestionsViewModel(
     listViewModel: MessageListViewModel,
     composerViewModel: MessageComposerViewModel,
@@ -46,13 +54,13 @@ class MessageSuggestionsViewModel(
 
     private val relatedConceptTypeIsActivity = listViewModel.channel.relatedConceptType is ChatChannelRelatedConceptType.Activity
 
-    private val isAllowedToSelectHostReminderSuggestions =
+    private val isAllowedToSelectSuggestions =
         // User must be able to send messages
         composerViewModel.messageComposerState.value.canSendMessage() &&
-                // "Host reminders"-suggestions are only shown for activity related chats
-                relatedConceptTypeIsActivity &&
-                // Only organizers can view and send "Host reminders"-suggestions
-                myMember?.amiParticipantRole == AmiParticipantRole.Organizer || myMember?.amiParticipantRole == AmiParticipantRole.PseudoOrganizer
+                // suggestions are only shown for activity related chats
+                relatedConceptTypeIsActivity
+
+    private val isOrganizer = myMember?.amiParticipantRole == AmiParticipantRole.Organizer || myMember?.amiParticipantRole == AmiParticipantRole.PseudoOrganizer
 
     private val activityStartsAt = listViewModel.channel.extraData["activityStartsAt"] as? String
 
@@ -76,6 +84,10 @@ class MessageSuggestionsViewModel(
     }
 
     val hostReminderSuggestions = run {
+        val isAllowedToSelectHostReminderSuggestions = isAllowedToSelectSuggestions &&
+                // Only organizers can view and send "Host reminders"-suggestions
+                isOrganizer
+
         if (isAllowedToSelectHostReminderSuggestions && diffInHours != null) {
             // 2 days window [2d, 9h]
             if (diffInHours >= 9 && diffInHours < 48) {
@@ -90,6 +102,22 @@ class MessageSuggestionsViewModel(
             // 3h window: [3h, 0h]
             if (diffInHours >= 0 && diffInHours < 3) {
                 return@run hostReminderSuggestions3Hours
+            }
+        }
+
+        listOf()
+    }
+
+    val icebreakerSuggestions = run {
+        if (isAllowedToSelectSuggestions && diffInHours != null) {
+            if (diffInHours < 120 && isOrganizer) {
+                // organizers are allowed to select icebreaker suggestions 5 days before
+                return@run icebreakerSuggestions120Hours
+            }
+
+            if (diffInHours < 144 && !isOrganizer) {
+                // non-organizers are allowed to select icebreaker suggestions 6 days before
+                return@run icebreakerSuggestions120Hours
             }
         }
 

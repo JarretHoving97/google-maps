@@ -196,4 +196,16 @@
     <string name="message_suggestion_waitingOutside">Je vous attends dehors !</string>
     <string name="message_suggestion_whereMeet">Où on se retrouve ?</string>
     <string name="message_suggestion_delayedRunningLate">Je suis en retard, j’arriverai un peu plus tard !</string>
+
+    <!-- Icebreaker suggestions -->
+    <string name="AmiIcebreakers_title">Choisis un brise-glace</string>
+    <string name="AmiIcebreakers_body">De bonnes vibes dans le chat de groupe ? Ça augmente les chances que les amigos viennent à l\'activité. Aide-toi toi‑même et l\'hôte en partageant un brise‑glace !</string>
+    <string name="AmiIcebreakers_submit">Utiliser celui‑ci</string>
+
+    <!-- 120h window -->
+    <string name="message_suggestion_favoriteIntroDrink">Quelle est ta boisson préférée pour briser la glace ?</string>
+    <string name="message_suggestion_dilemmaAskerOrAnswerer">Amigo, es‑tu plutôt celui qui pose les questions ou celui qui y répond ?</string>
+    <string name="message_suggestion_dilemmaNeverAloneOrAlwaysAlone">Dilemme : préférerais‑tu ne plus jamais être seul ou être toujours seul ?</string>
+    <string name="message_suggestion_dilemmaPlannedOrSpontaneous">Amigo, planifies‑tu les moments amusants ou les fais‑tu spontanément ?</string>
+    <string name="message_suggestion_twoTruthsOneLie">Deux vérités et un mensonge : partage deux faits et une fausse affirmation à ton sujet. Nous allons deviner !</string>
 </resources>

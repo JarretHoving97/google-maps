@@ -71,6 +71,11 @@
             android:windowSoftInputMode="adjustResize" />
 
         <activity
+            android:name=".IcebreakerSuggestionsActivity"
+            android:exported="false"
+            android:windowSoftInputMode="adjustResize" />
+
+        <activity
             android:name=".SplashActivity"
             android:launchMode="standard"
             android:exported="true" >

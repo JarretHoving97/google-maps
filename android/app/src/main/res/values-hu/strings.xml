@@ -192,4 +192,16 @@
     <string name="message_suggestion_waitingOutside">Kint foglak titeket várni!</string>
     <string name="message_suggestion_whereMeet">Hol találkozunk?</string>
     <string name="message_suggestion_delayedRunningLate">Kések egy kicsit, később érek oda!</string>
+
+    <!-- Icebreaker suggestions -->
+    <string name="AmiIcebreakers_title">Válassz egy jégtörőt</string>
+    <string name="AmiIcebreakers_body">Jó a hangulat a csoportos csevegésben? Így nagyobb az esélye, hogy az amigosok eljönnek a programra. Segíts magadnak és a házigazdának, és ossz meg egy jégtörőt!</string>
+    <string name="AmiIcebreakers_submit">Ezt használom</string>
+
+    <!-- 120h window -->
+    <string name="message_suggestion_favoriteIntroDrink">Mi a kedvenc jégtörő italod?</string>
+    <string name="message_suggestion_dilemmaAskerOrAnswerer">Amigo: Gyakrabban vagy kérdező vagy inkább válaszadó?</string>
+    <string name="message_suggestion_dilemmaNeverAloneOrAlwaysAlone">Dilemma: Inkább soha többé ne legyél egyedül, vagy mindig egyedül legyél?</string>
+    <string name="message_suggestion_dilemmaPlannedOrSpontaneous">Amigo: A mókás dolgokat inkább előre megtervezed, vagy spontán csinálod?</string>
+    <string name="message_suggestion_twoTruthsOneLie">Két igazság, egy hazugság: ossz meg 2 tényt és 1 hazugságot magadról. Kitaláljuk!</string>
 </resources>

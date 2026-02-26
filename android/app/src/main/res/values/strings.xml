@@ -212,4 +212,16 @@
     <string name="message_suggestion_waitingOutside">I’ll wait outside for you!</string>
     <string name="message_suggestion_whereMeet">Where shall we meet?</string>
     <string name="message_suggestion_delayedRunningLate">I’m delayed and running a bit late!</string>
+
+    <!-- Icebreaker suggestions -->
+    <string name="AmiIcebreakers_title">Choose an icebreaker</string>
+    <string name="AmiIcebreakers_body">Good vibes in the group chat? That makes it more likely amigos will come to the activity. So help yourself and the host and share an icebreaker!</string>
+    <string name="AmiIcebreakers_submit">Use this one</string>
+
+    <!-- 120h window -->
+    <string name="message_suggestion_favoriteIntroDrink">What\'s your favorite icebreaker drink?</string>
+    <string name="message_suggestion_dilemmaAskerOrAnswerer">Amigo: Are you more often a question-asker or an answerer?</string>
+    <string name="message_suggestion_dilemmaNeverAloneOrAlwaysAlone">Dilemma: Would you rather never be alone again, or always be alone?</string>
+    <string name="message_suggestion_dilemmaPlannedOrSpontaneous">Amigo, do you plan fun things, or do you prefer to do them spontaneously?</string>
+    <string name="message_suggestion_twoTruthsOneLie">Two truths, one lie: share 2 facts and 1 lie about yourself. We\'ll guess!</string>
 </resources>
