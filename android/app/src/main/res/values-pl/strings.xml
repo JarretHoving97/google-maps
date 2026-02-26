@@ -183,6 +183,7 @@
     <string name="AmiPoll_leavePoll_body">Wprowadzone zmiany nie zostaną zapisane</string>
     <string name="AmiPoll_leavePoll_keepEditing">Kontynuuj edycję</string>
     <string name="AmiPoll_leavePoll_leave">Opuść</string>
+    <string name="AmiPoll_viewAllVotes">Zobacz wszystko</string>
 
     <!-- Message Suggestions -->
     <!-- 48h window -->

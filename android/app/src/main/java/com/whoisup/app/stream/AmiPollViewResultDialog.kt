@@ -9,6 +9,8 @@ import androidx.compose.animation.fadeOut
 import androidx.compose.animation.slideInVertically
 import androidx.compose.animation.slideOutVertically
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -24,11 +26,15 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.BasicText
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.pluralStringResource
+import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Popup
 import com.whoisup.app.R
@@ -52,6 +58,16 @@ fun AmiPollViewResultDialog(
     selectedPoll: SelectedPoll,
     onDismissRequest: () -> Unit,
 ) {
+    val selectedOptionId = rememberSaveable { mutableStateOf<String?>(null) }
+
+    selectedOptionId.value?.let {
+        AmiPollViewAllResultDialog(
+            selectedPoll = selectedPoll,
+            selectedOptionId = it,
+            onDismissRequest = { selectedOptionId.value = null }
+        )
+    }
+
     val state = remember {
         MutableTransitionState(false).apply {
             // Start the animation immediately.
@@ -93,8 +109,6 @@ fun AmiPollViewResultDialog(
                         )
                     }
 
-                    val maxVoteCount = poll.voteCountsByOption.maxByOrNull { it.value }?.value ?: 0
-
                     val options = poll.options.sortedByDescending { option ->
                         poll.voteCountsByOption[option.id] ?: 0
                     }
@@ -106,7 +120,7 @@ fun AmiPollViewResultDialog(
                         PollViewResultItem(
                             poll = poll,
                             option = option,
-                            maxVoteCount = maxVoteCount,
+                            onClickLoadMore = { selectedOptionId.value = option.id }
                         )
                     }
                 }
@@ -119,12 +133,12 @@ fun AmiPollViewResultDialog(
 private fun PollViewResultItem(
     poll: Poll,
     option: Option,
-    maxVoteCount: Int
+    onClickLoadMore: () -> Unit
 ) {
     val votes = poll.votes
         .takeIf { poll.votingVisibility != VotingVisibility.ANONYMOUS }
         ?.filter { it.optionId == option.id } ?: emptyList()
-    val votesCount = poll.voteCountsByOption[option.id] ?: votes.size
+    val votesCount = poll.voteCountsByOption[option.id] ?: 0
 
     Column(
         modifier = Modifier
@@ -132,37 +146,7 @@ private fun PollViewResultItem(
             .clip(RoundedCornerShape(8.dp))
             .background(CustomTheme.colorScheme.surface)
     ) {
-        Row(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(16.dp),
-            horizontalArrangement = Arrangement.spacedBy(8.dp),
-            verticalAlignment = Alignment.CenterVertically,
-        ) {
-            BasicText(
-                text = option.text,
-                modifier = Modifier.weight(1f),
-                style = CustomTheme.typography.subhead.copy(color = CustomTheme.colorScheme.onSurface)
-            )
-
-            BasicText(
-                text = pluralStringResource(
-                    id = R.plurals.AmiPoll_votesCount,
-                    count = votesCount,
-                    votesCount
-                ),
-                style = CustomTheme.typography.captionSmall.copy(color = CustomTheme.colorScheme.onSurface)
-            )
-
-            if (maxVoteCount > 0 && maxVoteCount == votesCount) {
-                DcIcon(
-                    id = io.getstream.chat.android.compose.R.drawable.stream_compose_ic_award,
-                    contentDescription = "favorite option icon",
-                    size = 16.dp,
-                    color = CustomTheme.colorScheme.onSurface
-                )
-            }
-        }
+        PollOptionHeader(poll, option)
 
         if (votes.isNotEmpty()) {
             Box(
@@ -179,12 +163,73 @@ private fun PollViewResultItem(
             }
 
             Spacer(modifier = Modifier.height(8.dp))
+
+            if (votes.size < votesCount) {
+                BasicText(
+                    text = stringResource(R.string.AmiPoll_viewAllVotes),
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .clickable(
+                            interactionSource = remember { MutableInteractionSource() },
+                            indication = null,
+                            onClick = onClickLoadMore
+                        ),
+                    style = CustomTheme.typography.subhead.copy(
+                        color = CustomTheme.colorScheme.primary,
+                        textAlign = TextAlign.Center
+                    ),
+                )
+
+                Spacer(modifier = Modifier.height(8.dp))
+            }
         }
     }
 }
 
 @Composable
-private fun PollVoteItem(vote: Vote) {
+internal fun PollOptionHeader(
+    poll: Poll,
+    option: Option,
+) {
+    val votesCount = poll.voteCountsByOption[option.id] ?: 0
+    val maxVoteCount = poll.voteCountsByOption.maxByOrNull { it.value }?.value ?: 0
+
+    Row(
+        modifier = Modifier
+            .fillMaxWidth()
+            .background(CustomTheme.colorScheme.surface)
+            .padding(16.dp),
+        horizontalArrangement = Arrangement.spacedBy(8.dp),
+        verticalAlignment = Alignment.CenterVertically,
+    ) {
+        BasicText(
+            text = option.text,
+            modifier = Modifier.weight(1f),
+            style = CustomTheme.typography.subhead.copy(color = CustomTheme.colorScheme.onSurface)
+        )
+
+        BasicText(
+            text = pluralStringResource(
+                id = R.plurals.AmiPoll_votesCount,
+                count = votesCount,
+                votesCount
+            ),
+            style = CustomTheme.typography.captionSmall.copy(color = CustomTheme.colorScheme.onSurface)
+        )
+
+        if (maxVoteCount > 0 && maxVoteCount == votesCount) {
+            DcIcon(
+                id = io.getstream.chat.android.compose.R.drawable.stream_compose_ic_award,
+                contentDescription = "favorite option icon",
+                size = 16.dp,
+                color = CustomTheme.colorScheme.onSurface
+            )
+        }
+    }
+}
+
+@Composable
+internal fun PollVoteItem(vote: Vote) {
     Row(
         modifier = Modifier
             .fillMaxSize()

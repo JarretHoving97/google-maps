@@ -172,6 +172,7 @@
     <string name="AmiPoll_leavePoll_body">Yaptığınız düzenlemeler kaydedilmeyecek</string>
     <string name="AmiPoll_leavePoll_keepEditing">Düzenlemeye devam et</string>
     <string name="AmiPoll_leavePoll_leave">Çık</string>
+    <string name="AmiPoll_viewAllVotes">Tümünü görüntüle</string>
 
     <!-- Message Suggestions -->
     <!-- 48h window -->

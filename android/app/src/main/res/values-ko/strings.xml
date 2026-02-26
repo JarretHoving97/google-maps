@@ -173,6 +173,7 @@
     <string name="AmiPoll_leavePoll_body">편집 사항이 저장되지 않습니다</string>
     <string name="AmiPoll_leavePoll_keepEditing">계속 편집</string>
     <string name="AmiPoll_leavePoll_leave">나가기</string>
+    <string name="AmiPoll_viewAllVotes">모두 보기</string>
 
     <!-- Message Suggestions -->
     <!-- 48h window -->

@@ -173,6 +173,7 @@
     <string name="AmiPoll_leavePoll_body">Deine Änderungen werden nicht gespeichert</string>
     <string name="AmiPoll_leavePoll_keepEditing">Weiter bearbeiten</string>
     <string name="AmiPoll_leavePoll_leave">Verlassen</string>
+    <string name="AmiPoll_viewAllVotes">Alle anzeigen</string>
 
     <!-- Message Suggestions -->
     <!-- 48h window -->

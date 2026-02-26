@@ -170,6 +170,7 @@
     <string name="AmiPoll_leavePoll_body">A módosításokat nem menti a rendszer</string>
     <string name="AmiPoll_leavePoll_keepEditing">Szerkesztés folytatása</string>
     <string name="AmiPoll_leavePoll_leave">Kilépés</string>
+    <string name="AmiPoll_viewAllVotes">Összes megtekintése</string>
 
     <!-- Message Suggestions -->
     <!-- 48h window -->

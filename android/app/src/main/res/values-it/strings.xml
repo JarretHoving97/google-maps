@@ -177,6 +177,7 @@
     <string name="AmiPoll_leavePoll_body">Le modifiche non verranno salvate</string>
     <string name="AmiPoll_leavePoll_keepEditing">Continua a modificare</string>
     <string name="AmiPoll_leavePoll_leave">Esci</string>
+    <string name="AmiPoll_viewAllVotes">Visualizza tutto</string>
 
     <!-- Message Suggestions -->
     <!-- 48h window -->

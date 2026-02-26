@@ -173,6 +173,7 @@
     <string name="AmiPoll_leavePoll_body">Je wijzigingen worden niet opgeslagen</string>
     <string name="AmiPoll_leavePoll_keepEditing">Doorgaan met bewerken</string>
     <string name="AmiPoll_leavePoll_leave">Afsluiten</string>
+    <string name="AmiPoll_viewAllVotes">Alles bekijken</string>
 
     <!-- Message Suggestions -->
     <!-- 48h window -->

@@ -190,6 +190,7 @@
     <string name="AmiPoll_leavePoll_body">Your edits won\'t be saved</string>
     <string name="AmiPoll_leavePoll_keepEditing">Keep editing</string>
     <string name="AmiPoll_leavePoll_leave">Leave</string>
+    <string name="AmiPoll_viewAllVotes">View all</string>
 
     <!-- Message Suggestions -->
     <!-- 48h window -->
