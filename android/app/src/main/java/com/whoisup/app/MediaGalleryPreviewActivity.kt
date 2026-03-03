@@ -46,6 +46,7 @@ import com.whoisup.app.stream.toMediaGalleryPreviewActivityState
 import com.whoisup.app.ui.theme.CustomTheme
 import com.whoisup.app.utils.enableEdgeToEdgeCustom
 import io.getstream.chat.android.client.ChatClient
+import io.getstream.chat.android.client.internal.file.StreamFileManager
 import io.getstream.chat.android.client.utils.attachment.isImage
 import io.getstream.chat.android.client.utils.attachment.isVideo
 import io.getstream.chat.android.client.utils.message.isDeleted
@@ -57,7 +58,6 @@ import io.getstream.chat.android.compose.viewmodel.mediapreview.MediaGalleryPrev
 import io.getstream.chat.android.core.internal.InternalStreamChatApi
 import io.getstream.chat.android.models.Attachment
 import io.getstream.chat.android.models.Message
-import io.getstream.chat.android.ui.common.utils.StreamFileUtil
 import io.getstream.chat.android.ui.common.utils.extensions.imagePreviewUrl
 import kotlinx.coroutines.launch
 import net.engawapg.lib.zoomable.rememberZoomState
@@ -417,7 +417,7 @@ class MediaGalleryPreviewActivity : AppCompatActivity() {
     @OptIn(InternalStreamChatApi::class)
     override fun onDestroy() {
         super.onDestroy()
-        StreamFileUtil.clearStreamCache(context = applicationContext)
+        StreamFileManager().clearCache(applicationContext)
     }
 
     companion object {
