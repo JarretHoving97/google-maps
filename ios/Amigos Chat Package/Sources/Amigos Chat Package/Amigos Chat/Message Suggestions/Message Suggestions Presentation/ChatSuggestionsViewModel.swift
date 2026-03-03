@@ -18,14 +18,15 @@ public class ChatSuggestionsViewModel: ObservableObject {
 
     var actityDate: Date?
 
-    private let messageSuggestionResolver: MessageSuggestionResolver
+    private let messageSuggestionResolver: HostMessageSuggestionResolver
 
-    public init(activityDate: Date?, resolver: MessageSuggestionResolver ) {
+    public init(activityDate: Date?, resolver: HostMessageSuggestionResolver ) {
         self.actityDate = activityDate
         self.messageSuggestionResolver = resolver
+        load()
     }
 
-    func load() {
+    private func load() {
         guard let actityDate else { return }
 
         messageSuggestionResolver.templates = [

@@ -306,6 +306,8 @@ extension ExtendedStreamPlugin {
 
         setupNavigationAppearance()
 
+        setupPageControlAppearance()
+
         /// Setup Share location
         CustomUIFactory.shareCurrentLocationView = ShareLocationMapView(
             locationService: CoreLocationManager()
@@ -405,6 +407,11 @@ extension ExtendedStreamPlugin {
         navBar.standardAppearance = standardAppearance
         navBar.scrollEdgeAppearance = navigationBarAppearance
         navBar.compactAppearance = navigationBarAppearance
+    }
+
+    private func setupPageControlAppearance() {
+        UIPageControl.appearance().currentPageIndicatorTintColor = UIColor(Color(.purple))
+        UIPageControl.appearance().pageIndicatorTintColor = UIColor(Color(Color(.purple)).opacity(0.3))
     }
 }
 

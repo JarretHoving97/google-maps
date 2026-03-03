@@ -21,6 +21,7 @@ public struct CustomChatChannelView<Factory: ViewFactory>: View, KeyboardReadabl
     @Injected(\.chatRouter) private var router
 
     @StateObject private var viewModel: ChatChannelViewModel
+
     @ObservedObject private var messageComposerViewModel: MessageComposerViewModel
 
     private let customViewModel = CustomChatChannelViewModel()

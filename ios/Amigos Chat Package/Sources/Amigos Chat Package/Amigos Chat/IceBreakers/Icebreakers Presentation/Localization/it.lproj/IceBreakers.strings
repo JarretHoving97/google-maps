@@ -1,0 +1,17 @@
+/* 
+ IceBreakers.strings (it)
+  Amigos Chat Package
+
+  Created by Jarret on 12/02/2026.
+  
+*/
+
+"icebreakers_navigation_title" = "Scegli un rompighiaccio";
+"icebreakers_view_description" = "Buone vibrazioni nella chat di gruppo? Così è più probabile che gli amigos vengano all'attività. Aiuta te stesso e l'host e condividi un rompighiaccio!";
+"icebreakers_buttont_title_select" = "Usa questo";
+
+"icebreakers_suggestion_favorite_intro_drink" = "Qual è la tua bevanda preferita per rompere il ghiaccio?";
+"icebreakers_suggestion_dilemma_asker_or_answerer" = "Amigo: sei più spesso colui che fa domande o chi risponde?";
+"icebreakers_suggestion_dilemma_never_alone_or_always_alone" = "Dilemma: preferiresti non essere mai più solo, oppure essere sempre solo?";
+"icebreakers_suggestion_dilemma_planned_or_spontaneous" = "Amigo, pianifichi le cose divertenti o preferisci farle spontaneamente?";
+"icebreakers_suggestion_two_truths_one_lie" = "Due verità, una bugia: condividi 2 fatti e 1 bugia su di te. Indovineremo!";

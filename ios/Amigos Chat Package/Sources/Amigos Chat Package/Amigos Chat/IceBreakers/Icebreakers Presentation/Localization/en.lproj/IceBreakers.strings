@@ -1,0 +1,17 @@
+/* 
+ IceBreakers.strings (en)
+  Amigos Chat Package
+
+  Created by Jarret on 12/02/2026.
+  
+*/
+
+"icebreakers_navigation_title" = "Choose an icebreaker";
+"icebreakers_view_description" = "Good vibes in the group chat? That makes it more likely amigos will come to the activity. So help yourself and the host and share an icebreaker!";
+"icebreakers_buttont_title_select" = "Use this one";
+
+"icebreakers_suggestion_favorite_intro_drink" = "What's your favorite icebreaker drink?";
+"icebreakers_suggestion_dilemma_asker_or_answerer" = "Amigo: Are you more often a question-asker or an answerer?";
+"icebreakers_suggestion_dilemma_never_alone_or_always_alone" = "Dilemma: Would you rather never be alone again, or always be alone?";
+"icebreakers_suggestion_dilemma_planned_or_spontaneous" = "Amigo, do you plan fun things, or do you prefer to do them spontaneously?";
+"icebreakers_suggestion_two_truths_one_lie" = "Two truths, one lie: share 2 facts and 1 lie about yourself. We'll guess!";

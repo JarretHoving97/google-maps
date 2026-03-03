@@ -23,8 +23,6 @@ struct CustomChatChannelMessageListView<Factory: ViewFactory>: View {
 
     @StateObject private var viewModel: ChatChannelViewModel
 
-    @StateObject private var chatSuggestionsViewModel: ChatSuggestionsViewModel
-
     @ObservedObject private var messageComposerViewModel: MessageComposerViewModel
 
     @Environment(\.presentationMode) var presentationMode
@@ -61,13 +59,6 @@ struct CustomChatChannelMessageListView<Factory: ViewFactory>: View {
                 with: channelController,
                 messageController: messageController,
                 scrollToMessage: nil
-            )
-        )
-        
-        _chatSuggestionsViewModel = StateObject(
-            wrappedValue: ChatSuggestionsViewModel(
-                activityDate: channel.activityStartsAt,
-                resolver: MessageSuggestionResolver()
             )
         )
         self.messageComposerViewModel = messageComposerViewModel
@@ -108,6 +99,7 @@ struct CustomChatChannelMessageListView<Factory: ViewFactory>: View {
                         channel: channel,
                         messages: viewModel.messages,
                         messagesGroupingInfo: viewModel.messagesGroupingInfo,
+                        messageComposerViewModel: messageComposerViewModel,
                         scrolledId: $viewModel.scrolledId,
                         showScrollToLatestButton: $viewModel.showScrollToLatestButton,
                         quotedMessage: $viewModel.quotedMessage,
@@ -118,7 +110,6 @@ struct CustomChatChannelMessageListView<Factory: ViewFactory>: View {
                         scrollPosition: $viewModel.scrollPosition,
                         loadingNextMessages: viewModel.loadingNextMessages,
                         firstUnreadMessageId: $viewModel.firstUnreadMessageId,
-                        chatSuggestionsViewModel: chatSuggestionsViewModel,
                         onMessageAppear:
                             viewModel.handleMessageAppear(index:scrollDirection:),
                         onScrollToBottom: viewModel.scrollToLastMessage,
@@ -185,13 +176,6 @@ struct CustomChatChannelMessageListView<Factory: ViewFactory>: View {
                         )
                         .disabled(isInputDisabled)
                         .opacity(isInputDisabled ? 0.4 : 1)
-                    }
-                    .onChange(of: chatSuggestionsViewModel.selectedSuggestion) { _, newValue in
-                        if let newValue {
-                            messageComposerViewModel.text = newValue
-                        }
-
-                        chatSuggestionsViewModel.selectedSuggestion = nil
                     }
                 }
             }

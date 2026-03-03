@@ -1,0 +1,17 @@
+/* 
+ IceBreakers.strings (pl)
+  Amigos Chat Package
+
+  Created by Jarret on 12/02/2026.
+  
+*/
+
+"icebreakers_navigation_title" = "Wybierz przełamywacz lodów";
+"icebreakers_view_description" = "Dobra atmosfera na czacie grupowym? To zwiększa szansę, że amigos przyjdą na aktywność. Pomóż sobie i gospodarzowi i udostępnij przełamywacz lodów!";
+"icebreakers_buttont_title_select" = "Użyj tego";
+
+"icebreakers_suggestion_favorite_intro_drink" = "Jaki jest Twój ulubiony napój na przełamanie lodów?";
+"icebreakers_suggestion_dilemma_asker_or_answerer" = "Amigo, częściej zadajesz pytania czy odpowiadasz?";
+"icebreakers_suggestion_dilemma_never_alone_or_always_alone" = "Dylemat: wolisz już nigdy nie być samemu, czy być samemu zawsze?";
+"icebreakers_suggestion_dilemma_planned_or_spontaneous" = "Amigo, planujesz fajne rzeczy, czy wolisz robić je spontanicznie?";
+"icebreakers_suggestion_two_truths_one_lie" = "Dwie prawdy, jedno kłamstwo: podziel się 2 faktami i 1 kłamstwem o sobie. Zgadujemy!";

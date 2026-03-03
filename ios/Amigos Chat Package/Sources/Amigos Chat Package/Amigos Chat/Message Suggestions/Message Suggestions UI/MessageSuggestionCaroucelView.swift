@@ -10,7 +10,6 @@ import SwiftUI
 struct MessageSuggestionCaroucelView: View {
 
     @ObservedObject var viewModel: ChatSuggestionsViewModel
-
     private let animationDuration: TimeInterval = 0.3
 
     init(viewModel: ChatSuggestionsViewModel) {
@@ -20,7 +19,7 @@ struct MessageSuggestionCaroucelView: View {
     var body: some View {
         ScrollViewReader { value in
             ScrollView(.horizontal, showsIndicators: false) {
-                HStack(spacing: 6) {
+                HStack(spacing: 10) {
                     ForEach(viewModel.suggestions, id: \.self) { text in
                         Button {
                             handleTap(text, value)
@@ -41,9 +40,8 @@ struct MessageSuggestionCaroucelView: View {
                     }
                 }
                 .frame(maxWidth: .infinity, alignment: .trailing)
-                .frame(maxWidth: .infinity)
                 .frame(height: 38)
-                .padding(.horizontal, 11)
+                .padding(.horizontal, 28)
             }
             .flipHorizontally()
             .scrollTargetBehavior(.viewAligned)
@@ -54,9 +52,6 @@ struct MessageSuggestionCaroucelView: View {
             }
         }
         .disabled(viewModel.isScrolling)
-        .onAppear {
-            viewModel.load()
-        }
     }
 
     func handleTap(_ text: String, _ value: ScrollViewProxy) {
@@ -86,28 +81,10 @@ private extension View {
 }
 
 #Preview {
-    let templates: [ReminderCategory: [String]] = [
-        .fourtyEightHours: [
-            "It's almost time — build anticipation",
-            "Share what to expect tomorrow"
-        ],
-        .nineHours: [
-            "Quick reminder for later today",
-            "Give the group a friendly nudge",
-            "Share a brief update before you meet"
-        ],
-        .threeHours: [
-            "Final checklist before you meet",
-            "Share a short summary and details"
-        ]
-    ]
-
-    let date = Date.now
-    let fiveDaysFromNow = Calendar.current.date(byAdding: .day, value: 2, to: date)!
-
-    MessageSuggestionCaroucelView(viewModel: ChatSuggestionsViewModel(
-        activityDate: fiveDaysFromNow,
-        resolver: MessageSuggestionResolver(templates: templates)
-    ))
-
+    MessageSuggestionCaroucelView(
+        viewModel: ChatSuggestionsViewModel(
+            activityDate: Calendar.current.date(byAdding: .day, value: 2, to: Date.now),
+            resolver: HostMessageSuggestionResolver()
+        )
+    )
 }

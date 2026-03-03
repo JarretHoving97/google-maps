@@ -7,7 +7,7 @@
 
 import Foundation
 
-public class MessageSuggestionResolver {
+public class HostMessageSuggestionResolver: MessageSuggestionsResolver {
 
     private let calendar: Calendar
 

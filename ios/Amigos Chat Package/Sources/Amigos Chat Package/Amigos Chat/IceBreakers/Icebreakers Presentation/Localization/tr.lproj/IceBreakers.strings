@@ -1,0 +1,17 @@
+/* 
+ IceBreakers.strings (tr)
+  Amigos Chat Package
+
+  Created by Jarret on 12/02/2026.
+  
+*/
+
+"icebreakers_navigation_title" = "Bir buz kırıcı seç";
+"icebreakers_view_description" = "Grup sohbetinde iyi bir hava mı var? Bu, amigos'un etkinliğe gelme olasılığını artırır. Kendine ve ev sahibine destek ol, bir buz kırıcı paylaş!";
+"icebreakers_buttont_title_select" = "Bunu kullan";
+
+"icebreakers_suggestion_favorite_intro_drink" = "En sevdiğin buz kırıcı içecek nedir?";
+"icebreakers_suggestion_dilemma_asker_or_answerer" = "Amigo: Daha sık soru soran mısın, yoksa cevap veren mi?";
+"icebreakers_suggestion_dilemma_never_alone_or_always_alone" = "Dilemma: Bir daha asla yalnız kalmamayı mı, yoksa her zaman yalnız olmayı mı tercih edersin?";
+"icebreakers_suggestion_dilemma_planned_or_spontaneous" = "Amigo, eğlenceli şeyleri planlamayı mı yoksa spontane olarak yapmayı mı tercih edersin?";
+"icebreakers_suggestion_two_truths_one_lie" = "İki doğru, bir yalan: Kendin hakkında 2 gerçek ve 1 yalan paylaş. Tahmin edeceğiz!";

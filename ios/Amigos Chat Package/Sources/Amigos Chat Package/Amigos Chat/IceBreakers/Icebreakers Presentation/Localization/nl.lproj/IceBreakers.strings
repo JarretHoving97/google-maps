@@ -1,0 +1,17 @@
+/* 
+  IceBreakers.strings (nl)
+  Amigos Chat Package
+
+  Created by Jarret on 12/02/2026.
+  
+*/
+
+"icebreakers_navigation_title" = "Kies een ijsbreker";
+"icebreakers_view_description" = "Goeie sfeer in de groepschat? Meer kans dat amigos naar de activiteit komen. Dus help jezelf en de host en deel een ijsbreker!";
+"icebreakers_buttont_title_select" = "Gebruik deze";
+
+"icebreakers_suggestion_favorite_intro_drink" = "Wat is je favoriete kennismaakdrankje?";
+"icebreakers_suggestion_dilemma_asker_or_answerer" = "Amigo, ben je vaker een vragensteller of een -beantwoorder?";
+"icebreakers_suggestion_dilemma_never_alone_or_always_alone" = "Dilemma: liever nooit meer alleen zijn, of altijd alleen zijn?";
+"icebreakers_suggestion_dilemma_planned_or_spontaneous" = "Amigo, plan jij leuke dingen, of doe je ze liever spontaan?";
+"icebreakers_suggestion_two_truths_one_lie" = "Two truths, one lie: deel 2 feitjes en 1 leugen over jezelf. Wij gaan raden!";

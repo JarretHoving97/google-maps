@@ -1,0 +1,17 @@
+/* 
+ IceBreakers.strings (hu)
+  Amigos Chat Package
+
+  Created by Jarret on 12/02/2026.
+  
+*/
+
+"icebreakers_navigation_title" = "Válassz egy jégtörőt";
+"icebreakers_view_description" = "Jó a hangulat a csoportos csevegésben? Így nagyobb az esélye, hogy az amigosok eljönnek a programra. Segíts magadnak és a házigazdának, és ossz meg egy jégtörőt!";
+"icebreakers_buttont_title_select" = "Ezt használom";
+
+"icebreakers_suggestion_favorite_intro_drink" = "Mi a kedvenc jégtörő italod?";
+"icebreakers_suggestion_dilemma_asker_or_answerer" = "Amigo: Gyakrabban vagy kérdező vagy inkább válaszadó?";
+"icebreakers_suggestion_dilemma_never_alone_or_always_alone" = "Dilemma: Inkább soha többé ne legyél egyedül, vagy mindig egyedül legyél?";
+"icebreakers_suggestion_dilemma_planned_or_spontaneous" = "Amigo: A mókás dolgokat inkább előre megtervezed, vagy spontán csinálod?";
+"icebreakers_suggestion_two_truths_one_lie" = "Két igazság, egy hazugság: ossz meg 2 tényt és 1 hazugságot magadról. Kitaláljuk!";

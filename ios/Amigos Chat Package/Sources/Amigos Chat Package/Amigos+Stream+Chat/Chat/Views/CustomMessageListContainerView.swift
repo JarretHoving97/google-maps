@@ -44,6 +44,7 @@ public struct CustomMessageListContainerView<Factory: ViewFactory>: View, Keyboa
     @Binding var quotedMessage: ChatMessage?
     @Binding var scrollPosition: String?
     @Binding var firstUnreadMessageId: MessageId?
+
     var loadingNextMessages: Bool
     var currentDateString: String?
     var listId: String
@@ -68,7 +69,13 @@ public struct CustomMessageListContainerView<Factory: ViewFactory>: View, Keyboa
     // Dynamic header height for insetting the scroll content.
     @State private var headerHeight: CGFloat = 0
 
-    @ObservedObject var chatSuggestionsViewModel: ChatSuggestionsViewModel
+    @StateObject private var messageSuggestionViewModel: ChatSuggestionsViewModel
+
+    @StateObject private var iceBreakerViewModel: IceBreakerViewModel
+
+    @ObservedObject private var messageComposerViewModel: MessageComposerViewModel
+
+    @State private var showIceBreakersSheet: Bool = false
 
     private var messageRenderingUtil = MessageRenderingUtil.shared
     private var skipRenderingMessageIds = [String]()
@@ -101,7 +108,14 @@ public struct CustomMessageListContainerView<Factory: ViewFactory>: View, Keyboa
     private var isAllowedToSelectHostReminderSuggestions: Bool {
         channel.canSendMessage &&
         isActivityChannel &&
+        !messageSuggestionViewModel.suggestions.isEmpty &&
         (channel.membership?.memberRole == .organizer || channel.membership?.memberRole == .coOrganizer)
+    }
+
+    private var showIceBreakerButton: Bool {
+        channel.canSendMessage &&
+        isActivityChannel &&
+        !iceBreakerViewModel.messageSuggestions.isEmpty
     }
 
     public init(
@@ -109,6 +123,7 @@ public struct CustomMessageListContainerView<Factory: ViewFactory>: View, Keyboa
         channel: ChatChannel,
         messages: LazyCachedMapCollection<ChatMessage>,
         messagesGroupingInfo: [String: [String]],
+        messageComposerViewModel: MessageComposerViewModel,
         scrolledId: Binding<String?>,
         showScrollToLatestButton: Binding<Bool>,
         quotedMessage: Binding<ChatMessage?>,
@@ -119,7 +134,6 @@ public struct CustomMessageListContainerView<Factory: ViewFactory>: View, Keyboa
         scrollPosition: Binding<String?> = .constant(nil),
         loadingNextMessages: Bool = false,
         firstUnreadMessageId: Binding<MessageId?> = .constant(nil),
-        chatSuggestionsViewModel: ChatSuggestionsViewModel,
         onMessageAppear: @escaping (Int, ScrollDirection) -> Void,
         onScrollToBottom: @escaping () -> Void,
         onLongPress: @escaping (LocalMessageDisplayInfo) -> Void,
@@ -138,7 +152,31 @@ public struct CustomMessageListContainerView<Factory: ViewFactory>: View, Keyboa
         self.onJumpToMessage = onJumpToMessage
         self.shouldShowTypingIndicator = shouldShowTypingIndicator
         self.loadingNextMessages = loadingNextMessages
-        self.chatSuggestionsViewModel = chatSuggestionsViewModel
+        self.messageComposerViewModel = messageComposerViewModel
+
+        _iceBreakerViewModel = StateObject(
+            wrappedValue:
+                IceBreakerViewModel(
+                    activityDate: channel.activityStartsAt,
+                    messageSuggestionsResolver: IceBreakerMessageSuggestionResolver(
+                        isHost: channel.isCurrentUserOrganizer,
+                        participantResolver: IceBreakerParticipantSuggestionResolver(
+                            templates: [.sixDays: IceBreakerViewModel.templates]
+                        ),
+                        hostResolver: IceBreakerHostSuggestionResolver(
+                            templates: [.fiveDays: IceBreakerViewModel.templates]
+                        )
+                    )
+                )
+        )
+
+        _messageSuggestionViewModel = StateObject(
+            wrappedValue: ChatSuggestionsViewModel(
+                activityDate: channel.activityStartsAt,
+                resolver: HostMessageSuggestionResolver()
+            )
+        )
+
         _scrolledId = scrolledId
         _showScrollToLatestButton = showScrollToLatestButton
         _quotedMessage = quotedMessage
@@ -199,12 +237,17 @@ public struct CustomMessageListContainerView<Factory: ViewFactory>: View, Keyboa
                         Color.clear.preference(key: ScrollViewOffsetPreferenceKey.self, value: offset)
                         Color.clear.preference(key: WidthPreferenceKey.self, value: width)
                     }
+
                     LazyVStack(spacing: 0, pinnedViews: .sectionFooters) {
 
-                        if isAllowedToSelectHostReminderSuggestions {
-                            MessageSuggestionCaroucelView(viewModel: chatSuggestionsViewModel)
-                                .flippedUpsideDown()
-                        }
+                        MessageSuggestionFooterView(
+                            showIcebreakersSheet: $showIceBreakersSheet,
+                            viewModel: MessageSuggestionFooterViewModel(
+                                hostMessageSuggestionsViewModel: messageSuggestionViewModel,
+                                showMessageSuggestions: isAllowedToSelectHostReminderSuggestions,
+                                showsIceBreakerButton: showIceBreakerButton
+                            )
+                        )
 
                         Section {
                             MessageListUIComposer.makeMessageListView(
@@ -234,9 +277,6 @@ public struct CustomMessageListContainerView<Factory: ViewFactory>: View, Keyboa
                     .modifier(factory.makeMessageListModifier())
                     .modifier(ScrollTargetLayoutModifier(enabled: loadingNextMessages))
                     .padding(.bottom, headerHeight)
-                }
-                .onAppear {
-                    chatSuggestionsViewModel.load()
                 }
                 .modifier(ScrollPositionModifier(scrollPosition: loadingNextMessages ? $scrollPosition : .constant(nil)))
                 .dismissKeyboardAndAttachmentViewOnTap()
@@ -352,15 +392,15 @@ public struct CustomMessageListContainerView<Factory: ViewFactory>: View, Keyboa
         }
         .overlay(
             (channel.unreadCount.messages > 0 && !unreadMessagesBannerShown && !isMessageThread) ?
-                factory.makeJumpToUnreadButton(
-                    channel: channel,
-                    onJumpToMessage: {
-                        _ = onJumpToMessage?(firstUnreadMessageId ?? unknownMessageId)
-                    },
-                    onClose: {
-                        firstUnreadMessageId = nil
-                    }
-                ) : nil
+            factory.makeJumpToUnreadButton(
+                channel: channel,
+                onJumpToMessage: {
+                    _ = onJumpToMessage?(firstUnreadMessageId ?? unknownMessageId)
+                },
+                onClose: {
+                    firstUnreadMessageId = nil
+                }
+            ) : nil
         )
         .modifier(factory.makeMessageListContainerModifier())
         .modifier(HideKeyboardOnTapGesture(shouldAdd: keyboardShown))
@@ -369,6 +409,20 @@ public struct CustomMessageListContainerView<Factory: ViewFactory>: View, Keyboa
         }
         .accessibilityElement(children: .contain)
         .accessibilityIdentifier("MessageListView")
+
+        .sheet(isPresented: $showIceBreakersSheet) {
+            IceBreakerView(
+                viewModel: iceBreakerViewModel
+            )
+        }
+        .onChange(of: messageSuggestionViewModel.selectedSuggestion) { _, newValue in
+            applySelectedSuggestion(newValue) { messageSuggestionViewModel.selectedSuggestion = nil }
+        }
+
+        .onChange(of: iceBreakerViewModel.selectedSuggestion) { _, newValue in
+            applySelectedSuggestion(newValue) { iceBreakerViewModel.selectedSuggestion = nil }
+        }
+
     }
 
     private func handleQuotedMessageTap(messageId: String) {
@@ -406,6 +460,14 @@ public struct CustomMessageListContainerView<Factory: ViewFactory>: View, Keyboa
             let isReadByAll = memberIds.allSatisfy { memberId in readUsers.contains(where: { $0.id == memberId })}
             return isReadByAll
         }
+    }
+
+    private func applySelectedSuggestion(_ suggestion: String?, reset: () -> Void) {
+        if let suggestion {
+            messageComposerViewModel.text = suggestion
+        }
+
+        reset()
     }
 }
 
@@ -470,7 +532,7 @@ public struct CustomNewMessagesIndicatorView: View {
             Divider()
                 .background(Color("Purple"))
         }
-     }
+    }
 
     public var body: some View {
         HStack(spacing: 20) {

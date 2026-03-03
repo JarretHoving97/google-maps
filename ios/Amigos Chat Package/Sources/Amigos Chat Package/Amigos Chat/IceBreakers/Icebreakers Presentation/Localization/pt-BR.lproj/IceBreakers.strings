@@ -1,0 +1,17 @@
+/* 
+ IceBreakers.strings (pt-BR)
+  Amigos Chat Package
+
+  Created by Jarret on 12/02/2026.
+  
+*/
+
+"icebreakers_navigation_title" = "Escolha um quebra-gelo";
+"icebreakers_view_description" = "Boas vibrações no chat do grupo? Isso aumenta a chance de os amigos irem para a atividade. Ajude você e o anfitrião e compartilhe um quebra-gelo!";
+"icebreakers_buttont_title_select" = "Usar este";
+
+"icebreakers_suggestion_favorite_intro_drink" = "Qual é sua bebida favorita para quebrar o gelo?";
+"icebreakers_suggestion_dilemma_asker_or_answerer" = "Amigo: você costuma mais perguntar ou responder?";
+"icebreakers_suggestion_dilemma_never_alone_or_always_alone" = "Dilema: você prefere nunca mais ficar sozinho ou ficar sempre sozinho?";
+"icebreakers_suggestion_dilemma_planned_or_spontaneous" = "Amigo, você faz coisas divertidas mais vezes planejadas ou espontâneas?";
+"icebreakers_suggestion_two_truths_one_lie" = "Duas verdades e uma mentira: compartilhe 2 fatos e 1 mentira sobre você. Vamos adivinhar!";
