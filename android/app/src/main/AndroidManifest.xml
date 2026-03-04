@@ -30,6 +30,15 @@
     <uses-permission android:name="android.permission.READ_MEDIA_AUDIO" />
     <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS"/>
 
+    <queries>
+        <intent>
+            <!-- This is needed to indicate we want to start an intent for inserting calendar events -->
+            <!-- If we were to omit this, `intent.resolveActivity` would always return `null` on some devices -->
+            <action android:name="android.intent.action.INSERT" />
+            <data android:mimeType="vnd.android.cursor.dir/event" />
+        </intent>
+    </queries>
+
     <application
         android:name="CustomApplicationClass"
         android:allowBackup="true"
