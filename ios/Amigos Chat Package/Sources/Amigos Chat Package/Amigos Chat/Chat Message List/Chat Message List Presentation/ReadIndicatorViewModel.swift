@@ -6,46 +6,71 @@
 //
 
 import SwiftUI
+import UIKit.UIImage
+
+/// exception: needed for `@Injected` which is taken by stream
 import StreamChatSwiftUI
 
+@MainActor
 class ReadIndicatorViewModel: ObservableObject {
 
     @Injected(\.superStatus) var superStatus
 
-    private var isRead: Bool
-    private var isReadByAll: Bool
-    private var localState: Message.LocalState?
+    private let readsForMessageHandler: ReadsForMessageHandler
+
+    private let message: Message?
+
+    init(readsForMessageHandler: ReadsForMessageHandler, message: Message?) {
+        self.readsForMessageHandler = readsForMessageHandler
+        self.message = message
+    }
+
+    var hideReadStatus: Bool {
+        // Do not hide while the message is pending
+        if message?.localState == .pendingSend { return false }
+        return superStatus.superEntitlementStatus != .active
+    }
+
+    var readUsers: [LocalUser] {
+        return readsForMessageHandler.readUsers(message: message)
+    }
 
     var tintColor: Color? {
         return Color(.purple)
     }
 
-    var hideReadStatus: Bool {
-        // Do not hide while the message is pending send
-        if localState == .pendingSend { return false }
-        return superStatus.superEntitlementStatus != .active
+    var image: UIImage {
+        shouldShowReads ? .messageReceiptRead : (isMessageSending ? .messageReceiptSending : .messageReceiptSent)!
     }
 
-    var icon: UIImage? {
-        if localState == .pendingSend {
-            return UIImage(named: "message_receipt_sending", in: .module, with: nil)
-        } else if isReadByAll {
-            return UIImage(named: "message_receipt_read", in: .module, with: nil)?
-                .withRenderingMode(.alwaysTemplate)
-        } else if isRead {
-                return UIImage(named: "message_receipt_sent", in: .module, with: nil)
-        } else {
-            return UIImage(named: "message_receipt_sent", in: .module, with: nil)
-        }
+    private var shouldShowReads: Bool {
+        !readUsers.isEmpty && !isMessageSending
     }
 
-    init(
-        isRead: Bool,
-        isReadByAll: Bool,
-        localState: Message.LocalState? = nil
-    ) {
-        self.isRead = isRead
-        self.isReadByAll = isReadByAll
-        self.localState = localState
+    private var isMessageSending: Bool {
+        message?.localState == .sending || message?.localState == .pendingSend || message?.localState == .syncing
     }
+}
+
+private extension UIImage {
+
+    static var messageReceiptRead: UIImage {
+        UIImage(named: "message_receipt_read", in: .module, with: nil)!
+    }
+
+    static var messageReceiptSending: UIImage {
+        UIImage(named: "message_receipt_sending", in: .module, with: nil)!
+    }
+
+    static var messageReceiptSent: UIImage {
+        UIImage(named: "message_receipt_sent", in: .module, with: nil)!
+    }
+}
+
+extension ReadIndicatorViewModel {
+    @MainActor
+    static var empty = ReadIndicatorViewModel(
+        readsForMessageHandler: PlaceholderMessageReadHelper(),
+        message: nil
+    )
 }

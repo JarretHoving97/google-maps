@@ -36,6 +36,7 @@ extension CustomUIFactory: ViewFactory {
 
     public typealias ChannelListItemType = ChatChannelCell
 
+    @MainActor
     public func makeChannelListItem(
         channel: ChatChannel,
         channelName: String,
@@ -55,9 +56,12 @@ extension CustomUIFactory: ViewFactory {
 
         let viewModel = ChatChannelCellViewModel(
             channel: localChannel,
-            currentUserId: self.chatClient.currentUserId,
             name: channelName,
-            image: avatar
+            image: avatar,
+            readsForMessageHandler: RemoteReadsForMessageHandler(
+                channel: channel,
+                currentUserId: chatClient.currentUserId
+            )
         )
 
         let view = ChatChannelCell(viewModel: viewModel, onTap: { onItemTap(channel) })

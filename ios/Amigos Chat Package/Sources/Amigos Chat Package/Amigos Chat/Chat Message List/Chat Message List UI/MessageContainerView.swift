@@ -212,11 +212,7 @@ extension MessageContainerView {
                 Spacer()
 
                 ReadIndicatorView(
-                    viewModel: ReadIndicatorViewModel(
-                        isRead: viewModel.isRead,
-                        isReadByAll: viewModel.isReadByAll,
-                        localState: viewModel.sendingState
-                    )
+                    viewModel: viewModel.readIndicatorViewData
                 )
                 timeView
                     .padding(.trailing, 8)
@@ -238,11 +234,7 @@ extension MessageContainerView {
         HStack(spacing: 4) {
             if isCurrentUser {
                 ReadIndicatorView(
-                    viewModel: ReadIndicatorViewModel(
-                        isRead: viewModel.isRead,
-                        isReadByAll: viewModel.isReadByAll,
-                        localState: viewModel.sendingState
-                    )
+                    viewModel: viewModel.readIndicatorViewData
                 )
             }
             timeView

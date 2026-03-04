@@ -7,11 +7,12 @@
 
 import SwiftUI
 
+@MainActor
 class ChatChannelCellViewModel: ObservableObject {
 
-    let localeSettings: LocaleSettings
+    private let readsForMessageHandler: ReadsForMessageHandler
 
-    let currentUserId: String?
+    let localeSettings: LocaleSettings
 
     let name: String
 
@@ -48,7 +49,7 @@ class ChatChannelCellViewModel: ObservableObject {
         return channel.localUnreadCount.messages
     }
 
-    var isRead: Bool {
+    var hideUnreadLabel: Bool {
         return channel.localUnreadCount.messages == 0 && channel.localUnreadCount.mentions == 0
     }
 
@@ -57,37 +58,30 @@ class ChatChannelCellViewModel: ObservableObject {
     }
 
     var showReadIndicator: Bool {
-        guard let currentUserId else { return false }
+        guard let currentUserId = readsForMessageHandler.currentUserId else { return false }
         return channel.localLatestMessages.first?.user.id == currentUserId
     }
 
     var readIndicatorViewData: ReadIndicatorViewModel {
-
         return ReadIndicatorViewModel(
-            isRead: isRead,
-            isReadByAll: isReadByAll,
-            localState: channel.localLatestMessages.last?.localState
+            readsForMessageHandler: readsForMessageHandler,
+            message: channel.localLatestMessages.first
         )
-    }
-
-    private var isReadByAll: Bool {
-        let readUsers = channel.readUsers(currentUser: currentUserId, message: channel.localLatestMessages.first)
-        return channel.memberCount <= readUsers.count
     }
 
     private var channel: LocalChannel
 
     init(
         channel: LocalChannel,
-        currentUserId: String? = nil,
         localeSettings: LocaleSettings = .shared,
         name: String,
-        image: UIImage
+        image: UIImage,
+        readsForMessageHandler: ReadsForMessageHandler = PlaceholderMessageReadHelper()
     ) {
         self.channel = channel
-        self.currentUserId = currentUserId
         self.localeSettings = localeSettings
         self.name = name
         self.receivedChannelImage = image
+        self.readsForMessageHandler = readsForMessageHandler
     }
 }

@@ -14,6 +14,8 @@ class MessageListViewModel: ObservableObject {
 
     @Published private(set) var messageList = [Message]()
 
+    private let messageReadHelper: ReadsForMessageHandler
+
     let unreadMessagesCount: Int
 
     let messageListConfig: MessageListDisplayConfiguration
@@ -29,13 +31,12 @@ class MessageListViewModel: ObservableObject {
 
     let isReadHandler: HasSeenHandler
 
-    let isReadByAllHandler: IsReadByAllHandler
-
     var pollControllerBuilder: PollControllerBuilder?
 
     let isInThread: Bool
 
     init(
+        messageReadHelper: ReadsForMessageHandler = PlaceholderMessageReadHelper(),
         reactionsForMessage: Message? = nil,
         messageList: [Message],
         unreadMessagesCount: Int = 0,
@@ -43,11 +44,11 @@ class MessageListViewModel: ObservableObject {
         isDirectMessageChat: Bool,
         firstUnreadMessageId: String?,
         isReadHandler: HasSeenHandler,
-        isReadByAllHandler: @escaping IsReadByAllHandler = {_ in false},
         config: MessageListDisplayConfiguration,
         isInThread: Bool = false,
         pollControllerBuilder: PollControllerBuilder? = nil
     ) {
+        self.messageReadHelper = messageReadHelper
         self.reactionsForMessage = reactionsForMessage
         self.messageList = messageList
         self.messagesGroupingInfo = messagesGroupingInfo
@@ -56,7 +57,6 @@ class MessageListViewModel: ObservableObject {
         self.firstUnreadMessageId = firstUnreadMessageId
         self.unreadMessagesCount = unreadMessagesCount
         self.isReadHandler = isReadHandler
-        self.isReadByAllHandler = isReadByAllHandler
         self.isInThread = isInThread
         self.pollControllerBuilder = pollControllerBuilder
     }
@@ -65,14 +65,19 @@ class MessageListViewModel: ObservableObject {
         for message: Message
     ) -> MessageContainerViewModel {
 
-       let viewModel = MessageContainerViewModel(
+        let readIndicatorViewData = ReadIndicatorViewModel(
+            readsForMessageHandler: messageReadHelper,
+            message: message
+        )
+
+        let viewModel = MessageContainerViewModel(
             message: message,
             showsAllInfo: showsAllData(for: message),
             messagePosition: messagePosition,
             isDirectMessageChat: isDirectMessageChat,
             isRead: isReadHandler.hasSeen(for: message),
             isInThread: isInThread,
-            isReadByAllHandler: isReadByAllHandler
+            readIndicatorViewData: readIndicatorViewData,
         )
 
         // build pollcontroller if message contains a poll

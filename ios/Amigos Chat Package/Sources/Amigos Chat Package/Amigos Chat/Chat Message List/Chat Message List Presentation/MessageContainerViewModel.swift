@@ -7,8 +7,6 @@
 
 import SwiftUI
 
-typealias IsReadByAllHandler = (Message) -> Bool
-
 struct ActiveThreadIndicatorViewData {
     let replyCount: Int
     let participants: [LocalChatUser]
@@ -47,6 +45,8 @@ class MessageContainerViewModel: ObservableObject {
     var imageLoader: ImageLoader
     var imageCDN: ImageCDNhandler
     var videoPreviewLoader: PreviewVideoLoader
+
+    let readIndicatorViewData: ReadIndicatorViewModel
 
     var author: LocalUser {
         return message.user
@@ -137,10 +137,9 @@ class MessageContainerViewModel: ObservableObject {
 
     private let isInThread: Bool
 
-    private let isReadByAllHandler: IsReadByAllHandler
-
     private let messagePosition: (Message) -> MessagePosition
 
+    @MainActor
     init(
         message: Message,
         showsAllInfo: Bool,
@@ -149,7 +148,7 @@ class MessageContainerViewModel: ObservableObject {
         isRead: Bool = false,
         pollController: PollControllerProtocol? = nil,
         isInThread: Bool = false,
-        isReadByAllHandler: @escaping IsReadByAllHandler = { _ in false },
+        readIndicatorViewData: ReadIndicatorViewModel? = nil,
         imageLoader: ImageLoader = DefaultImageLoader(),
         imageCDN: ImageCDNhandler = MockImageCDN(),
         videoPreviewLoader: PreviewVideoLoader = DefaultPreviewVideoLoader()
@@ -159,16 +158,12 @@ class MessageContainerViewModel: ObservableObject {
         self.messagePosition = messagePosition
         self.imageLoader = imageLoader
         self.isRead = isRead
-        self.isReadByAllHandler = isReadByAllHandler
         self.imageCDN = imageCDN
         self.videoPreviewLoader = videoPreviewLoader
         self.isDirectMessageChat = isDirectMessageChat
         self.pollController = pollController
         self.isInThread = isInThread
-    }
-
-    var isReadByAll: Bool {
-        return isReadByAllHandler(message)
+        self.readIndicatorViewData = readIndicatorViewData ?? .empty
     }
 
     var showNameForMessageGroup: Bool {

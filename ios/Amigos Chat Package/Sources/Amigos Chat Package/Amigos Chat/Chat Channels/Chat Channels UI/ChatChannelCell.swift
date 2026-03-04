@@ -103,7 +103,7 @@ extension ChatChannelCell {
     private var lastMessageDateLabel: some View {
         VStack(alignment: .trailing, spacing: 4) {
             unreadCountBadge
-                .hidden(viewModel.isRead)
+                .hidden(viewModel.hideUnreadLabel)
 
             HStack {
                 if viewModel.showReadIndicator {

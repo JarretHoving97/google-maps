@@ -252,6 +252,7 @@ public struct CustomMessageListContainerView<Factory: ViewFactory>: View, Keyboa
                         Section {
                             MessageListUIComposer.makeMessageListView(
                                 client: chatClient,
+                                channel: channel,
                                 messages: Array(messages),
                                 messageDisplayConfig: Utils.amigosUtils.messageListConfig.local,
                                 messageGroupingInfo: messagesGroupingInfo,
@@ -261,7 +262,6 @@ public struct CustomMessageListContainerView<Factory: ViewFactory>: View, Keyboa
                                 firstUnreadMessageId: firstUnreadMessageId,
                                 router: router,
                                 isReadHandler: RemoteHasSeenHandler(channel: channel, userId: chatClient.currentUserId),
-                                isReadByAllHandler: isReadByAllHandler,
                                 onMessageAppear: extendedOnMessageAppear,
                                 onQuotedMessageTapHandler: { handleQuotedMessageTap(messageId: $0) },
                                 onMessageReplyHandler: { handleMessageReply(messageId: $0)},
@@ -448,17 +448,6 @@ public struct CustomMessageListContainerView<Factory: ViewFactory>: View, Keyboa
                     message: message
                 )
             )
-        }
-    }
-
-    var isReadByAllHandler: IsReadByAllHandler {
-        return { message in
-            let currentUser = chatClient.currentUserId
-            // Filter out current user from last active members
-            let readUsers = channel.readUsers(currentUser: currentUser, message: message)
-            let memberIds = channel.lastActiveMembers.map(\.id).filter { $0 != currentUser }
-            let isReadByAll = memberIds.allSatisfy { memberId in readUsers.contains(where: { $0.id == memberId })}
-            return isReadByAll
         }
     }
 

@@ -101,18 +101,6 @@ struct LocalChannel: ChatChannelProtocol {
         self.localLatestMessages = abstraction.localLatestMessages
         self.memberCount = abstraction.memberCount
     }
-
-    func readUsers(currentUser: String?, message: Message?) -> [LocalUser] {
-        guard let message = message, let currentUser else {
-            return []
-        }
-        let readUsers = localReads.filter {
-            $0.lastReadAt > message.createdAt &&
-            $0.localUser.id != currentUser
-        }.map(\.localUser)
-
-        return readUsers
-    }
 }
 
 extension LocalChannel {

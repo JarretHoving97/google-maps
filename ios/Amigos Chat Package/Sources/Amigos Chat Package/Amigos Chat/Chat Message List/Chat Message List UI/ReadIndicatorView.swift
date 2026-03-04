@@ -17,7 +17,7 @@ struct ReadIndicatorView: View {
 
     var body: some View {
         HStack(spacing: 2) {
-            Image(uiImage: viewModel.icon ?? UIImage())
+            Image(uiImage: viewModel.image)
                 .foregroundStyle(viewModel.tintColor ?? .clear)
         }
         .hidden(viewModel.hideReadStatus)

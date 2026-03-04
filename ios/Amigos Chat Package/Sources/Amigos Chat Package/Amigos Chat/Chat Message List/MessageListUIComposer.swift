@@ -20,6 +20,7 @@ class MessageListUIComposer {
     @MainActor
     static func makeMessageListView(
         client: ChatClient,
+        channel: ChatChannel,
         messages: [ChatMessageProtocol],
         messageDisplayConfig: MessageListDisplayConfiguration,
         messageGroupingInfo: [String: [String]],
@@ -29,7 +30,6 @@ class MessageListUIComposer {
         firstUnreadMessageId: String?,
         router: Router?,
         isReadHandler: HasSeenHandler,
-        isReadByAllHandler: @escaping IsReadByAllHandler,
         onMessageAppear: @escaping (Int, MessageListView.ScrollDirection) -> Void,
         onQuotedMessageTapHandler: @escaping QuotedMessageTapHandler,
         onMessageReplyHandler: @escaping MessageReplyHandler,
@@ -40,14 +40,19 @@ class MessageListUIComposer {
 
         let messageList = messages.map { messageMapper.map($0) }
 
+        let readsForMessageHandler = RemoteReadsForMessageHandler(
+            channel: channel,
+            currentUserId: client.currentUserId
+        )
+
         let viewModel = MessageListViewModel(
+            messageReadHelper: readsForMessageHandler,
             messageList: messageList,
             unreadMessagesCount: unreadMessagesCount,
             messagesGroupingInfo: messageGroupingInfo,
             isDirectMessageChat: isDirectMessageChat,
             firstUnreadMessageId: firstUnreadMessageId,
             isReadHandler: isReadHandler,
-            isReadByAllHandler: isReadByAllHandler,
             config: messageDisplayConfig
         )
 
