@@ -164,21 +164,18 @@ public struct ChatScreen: View {
 
     @ObservedObject private var chatViewModel: ChatViewModel
 
-    @StateObject private var viewModel: ChatChannelListViewModel
-
-    private var channelListController: ChatChannelListController
+    @ObservedObject private var viewModel: ChatChannelListViewModel
 
     private let viewFactory: CustomUIFactory
 
     init(
         with viewFactory: CustomUIFactory,
-        channelListController: ChatChannelListController,
         chatViewModel: ChatViewModel,
+        viewModel: ChatChannelListViewModel
     ) {
-        self.chatViewModel = chatViewModel
         self.viewFactory = viewFactory
-        self.channelListController = channelListController
-        _viewModel = StateObject(wrappedValue: ChatChannelListViewModel(channelListController: channelListController))
+        self.chatViewModel = chatViewModel
+        self.viewModel = viewModel
     }
 
     public var body: some View {

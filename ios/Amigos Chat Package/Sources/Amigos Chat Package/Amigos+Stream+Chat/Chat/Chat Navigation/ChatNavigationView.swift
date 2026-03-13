@@ -17,9 +17,11 @@ public struct ChatNavigationView: View {
     }
 
     @ObservedObject private var viewModel: ChatNavigationViewModel
+
+    @StateObject private var channelListViewModel: ChatChannelListViewModel
+
     private let destinationResolver: ChatDestinationResolver
     private let uiFactory: CustomUIFactory
-    private let channelListController = ChatControllers.channelListController!
     private let root: Root
 
     public init(
@@ -33,6 +35,9 @@ public struct ChatNavigationView: View {
         self.uiFactory = uiFactory
         self.destinationResolver = destinationResolver
         self.root = root
+
+        _channelListViewModel = StateObject(wrappedValue: ChatChannelListViewModel(channelListController: ChatControllers.channelListController!))
+
         InjectedValues[\.chatRouter] = AnyRouter(viewModel)
         InjectedValues[\.appInfo] = appInfo
     }
@@ -57,8 +62,8 @@ public struct ChatNavigationView: View {
         case .channels:
             ChatScreen(
                 with: uiFactory,
-                channelListController: channelListController,
                 chatViewModel: ChatViewModel(),
+                viewModel: channelListViewModel
             )
             .toolbar {
                 ToolbarItem(placement: .topBarTrailing) {
