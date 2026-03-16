@@ -64,6 +64,8 @@
 		312CCAA72DF31773005F6772 /* Exceptions for "App" folder in "Amigos" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
+				"Firebase/Production/GoogleService-Info.plist",
+				"Firebase/Staging/GoogleService-Info.plist",
 				Info.plist,
 			);
 			target = 504EC3031FED79650016851F /* Amigos */;
@@ -238,6 +240,7 @@
 				59321AE5034EAB7C2C0BC59A /* [CP] Embed Pods Frameworks */,
 				965E003822A444BA436952E8 /* [CP] Copy Pods Resources */,
 				316829132DB90D4F00E9FD9D /* Embed Foundation Extensions */,
+				3143BD102F64160C005A4756 /* Select GoogleService File */,
 			);
 			buildRules = (
 			);
@@ -351,6 +354,28 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "if [[ \"$(uname -m)\" == arm64 ]]\nthen\n    export PATH=\"/opt/homebrew/bin:$PATH\"\nfi\n\nif command -v swiftlint >/dev/null 2>&1\nthen\n    swiftlint\nelse\n    echo \"warning: `swiftlint` command not found - See https://github.com/realm/SwiftLint#installation for installation instructions.\"\nfi\n";
+		};
+		3143BD102F64160C005A4756 /* Select GoogleService File */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"",
+			);
+			inputPaths = (
+				"$(PROJECT_DIR)/App/Firebase/Staging/GoogleService-Info.plist",
+				"$(PROJECT_DIR)/App/Firebase/Production/GoogleService-Info.plist",
+			);
+			name = "Select GoogleService File";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(BUILT_PRODUCTS_DIR)/$(PRODUCT_NAME).app/GoogleService-Info.plist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\nif [ \"${CONFIGURATION}\" == \"Staging\" ]; then\n    cp \"${PROJECT_DIR}/App/Firebase/Staging/GoogleService-Info.plist\" \\\n       \"${BUILT_PRODUCTS_DIR}/${PRODUCT_NAME}.app/GoogleService-Info.plist\"\nelse\n    cp \"${PROJECT_DIR}/App/Firebase/Production/GoogleService-Info.plist\" \\\n       \"${BUILT_PRODUCTS_DIR}/${PRODUCT_NAME}.app/GoogleService-Info.plist\"\nfi\n";
 		};
 		53FEF7389CEE57A1634F9F66 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
