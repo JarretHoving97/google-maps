@@ -14,6 +14,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.safeDrawingPadding
 import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -105,6 +106,10 @@ fun AmiChannelScreen(
     val composerViewModel = viewModel(MessageComposerViewModel::class.java, factory = viewModelFactory)
     val attachmentsPickerViewModel = viewModel(AttachmentsPickerViewModel::class.java, factory = viewModelFactory)
 
+    val activityStartsAt = remember(listViewModel.channel.extraData["activityStartsAt"]) {
+        mutableStateOf(listViewModel.channel.extraData["activityStartsAt"] as? String)
+    }
+
     val pinnedMessageViewModel = viewModel(PinnedMessageViewModel::class.java)
     val safetyCheckViewModel = viewModel(SafetyCheckViewModel::class.java)
     val singleChannelViewModel = viewModel(SingleChannelViewModel::class.java)
@@ -113,6 +118,13 @@ fun AmiChannelScreen(
             composerViewModel
         )
     )
+
+    LaunchedEffect(activityStartsAt) {
+        // Explicitly recalculate values in viewmodel to ensure reactiveness.
+        // There would probably be a better (more common) way to do this.
+        // But this is fine for now
+        messageSuggestionsViewModel.calculate()
+    }
 
     val isImeVisible = WindowInsets.ime.getBottom(LocalDensity.current) > 0
     val backAction = remember(listViewModel, composerViewModel, attachmentsPickerViewModel) {

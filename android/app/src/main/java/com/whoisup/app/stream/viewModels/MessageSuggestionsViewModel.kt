@@ -47,81 +47,89 @@ private val icebreakerSuggestions120Hours = listOf(
 )
 
 class MessageSuggestionsViewModel(
-    listViewModel: MessageListViewModel,
-    composerViewModel: MessageComposerViewModel,
+    val listViewModel: MessageListViewModel,
+    val composerViewModel: MessageComposerViewModel,
 ) : ViewModel() {
-    private val myMember = listViewModel.channel.membership
+    var hostReminderSuggestions = listOf<Int>()
+        private set
 
-    private val relatedConceptTypeIsActivity = listViewModel.channel.relatedConceptType is ChatChannelRelatedConceptType.Activity
+    var icebreakerSuggestions = listOf<Int>()
+        private set
 
-    private val isAllowedToSelectSuggestions =
-        // User must be able to send messages
-        composerViewModel.messageComposerState.value.canSendMessage() &&
-                // suggestions are only shown for activity related chats
-                relatedConceptTypeIsActivity
+    fun calculate() {
+        val myMember = listViewModel.channel.membership
 
-    private val isOrganizer = myMember?.amiParticipantRole == AmiParticipantRole.Organizer || myMember?.amiParticipantRole == AmiParticipantRole.PseudoOrganizer
+        val relatedConceptTypeIsActivity = listViewModel.channel.relatedConceptType is ChatChannelRelatedConceptType.Activity
 
-    private val activityStartsAt = listViewModel.channel.extraData["activityStartsAt"] as? String
+        val isAllowedToSelectSuggestions =
+            // User must be able to send messages
+            composerViewModel.messageComposerState.value.canSendMessage() &&
+                    // suggestions are only shown for activity related chats
+                    relatedConceptTypeIsActivity
 
-    private val diffInHours = run {
-        if (activityStartsAt != null) {
-            val zonedActivityStartsAt = try {
-                ZonedDateTime.parse(activityStartsAt)
-            } catch (e: Exception) {
-                // Invalid date
-                null
+        val isOrganizer = myMember?.amiParticipantRole == AmiParticipantRole.Organizer || myMember?.amiParticipantRole == AmiParticipantRole.PseudoOrganizer
+
+        val activityStartsAt = listViewModel.channel.extraData["activityStartsAt"] as? String
+
+        val diffInHours = run {
+            if (activityStartsAt != null) {
+                val zonedActivityStartsAt = try {
+                    ZonedDateTime.parse(activityStartsAt)
+                } catch (e: Exception) {
+                    // Invalid date
+                    null
+                }
+
+                if (zonedActivityStartsAt != null) {
+                    val zonedNow = ZonedDateTime.now(ZoneId.systemDefault())
+
+                    return@run Duration.between(zonedNow, zonedActivityStartsAt).toHours()
+                }
             }
 
-            if (zonedActivityStartsAt != null) {
-                val zonedNow = ZonedDateTime.now(ZoneId.systemDefault())
-
-                return@run Duration.between(zonedNow, zonedActivityStartsAt).toHours()
-            }
+            null
         }
 
-        null
-    }
+        hostReminderSuggestions = run {
+            val isAllowedToSelectHostReminderSuggestions = isAllowedToSelectSuggestions &&
+                    // Only organizers can view and send "Host reminders"-suggestions
+                    isOrganizer
 
-    val hostReminderSuggestions = run {
-        val isAllowedToSelectHostReminderSuggestions = isAllowedToSelectSuggestions &&
-                // Only organizers can view and send "Host reminders"-suggestions
-                isOrganizer
+            if (isAllowedToSelectHostReminderSuggestions && diffInHours != null) {
+                // 2 days window [2d, 9h]
+                if (diffInHours >= 9 && diffInHours < 48) {
+                    return@run hostReminderSuggestions48Hours
+                }
 
-        if (isAllowedToSelectHostReminderSuggestions && diffInHours != null) {
-            // 2 days window [2d, 9h]
-            if (diffInHours >= 9 && diffInHours < 48) {
-                return@run hostReminderSuggestions48Hours
+                // 9h window: [9h, 3h]
+                if (diffInHours >= 3 && diffInHours < 9) {
+                    return@run hostReminderSuggestions9Hours
+                }
+
+                // 3h window: [3h, 0h]
+                if (diffInHours >= 0 && diffInHours < 3) {
+                    return@run hostReminderSuggestions3Hours
+                }
             }
 
-            // 9h window: [9h, 3h]
-            if (diffInHours >= 3 && diffInHours < 9) {
-                return@run hostReminderSuggestions9Hours
-            }
-
-            // 3h window: [3h, 0h]
-            if (diffInHours >= 0 && diffInHours < 3) {
-                return@run hostReminderSuggestions3Hours
-            }
+            listOf()
         }
 
-        listOf()
-    }
+        icebreakerSuggestions = run {
+            if (isAllowedToSelectSuggestions && diffInHours != null) {
+                if (diffInHours < 120 && isOrganizer) {
+                    // organizers are allowed to select icebreaker suggestions 5 days before
+                    return@run icebreakerSuggestions120Hours
+                }
 
-    val icebreakerSuggestions = run {
-        if (isAllowedToSelectSuggestions && diffInHours != null) {
-            if (diffInHours < 120 && isOrganizer) {
-                // organizers are allowed to select icebreaker suggestions 5 days before
-                return@run icebreakerSuggestions120Hours
+                if (diffInHours < 144 && !isOrganizer) {
+                    // non-organizers are allowed to select icebreaker suggestions 6 days before
+                    return@run icebreakerSuggestions120Hours
+                }
             }
 
-            if (diffInHours < 144 && !isOrganizer) {
-                // non-organizers are allowed to select icebreaker suggestions 6 days before
-                return@run icebreakerSuggestions120Hours
-            }
+            listOf()
         }
-
-        listOf()
     }
 }
 
