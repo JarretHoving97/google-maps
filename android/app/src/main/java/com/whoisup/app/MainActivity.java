@@ -25,6 +25,7 @@ public class MainActivity extends BridgeActivity {
     registerPlugin(ExtendedStreamPlugin.class);
     registerPlugin(ExtendedDeviceSettingsPlugin.class);
     registerPlugin(ExtendedCalendarPlugin.class);
+    registerPlugin(ExtendedFirebasePlugin.class);
     super.onCreate(savedInstanceState);
 
     EdgeToEdge.enable(this);

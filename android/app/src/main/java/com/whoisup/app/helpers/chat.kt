@@ -16,7 +16,7 @@ private fun getRequestBodyForFindOrCreateChat(receiverId: String): String {
     """
 }
 
-fun findOrCreateChat(
+suspend fun findOrCreateChat(
     context: Context,
     receiverId: String
 ): String? {

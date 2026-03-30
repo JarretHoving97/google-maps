@@ -9,6 +9,7 @@ android {
     compileSdk rootProject.ext.compileSdkVersion
     buildFeatures {
         compose true
+        buildConfig true
     }
     compileOptions {
         coreLibraryDesugaringEnabled true
@@ -63,6 +64,9 @@ dependencies {
     implementation project(':capacitor-cordova-android-plugins')
     implementation "com.google.firebase:firebase-messaging:$firebaseMessagingVersion"
     implementation 'com.google.firebase:firebase-analytics:21.3.0'
+    implementation("com.google.firebase:firebase-appcheck:19.0.2")
+    implementation("com.google.firebase:firebase-appcheck-playintegrity:19.0.2")
+    implementation 'com.google.firebase:firebase-appcheck-debug:19.0.2'
     // Facebook Core library is needed for Facebook Events to work.
     // It's actually also included in all other libraries (like facebook-login for example).
     // But we've added it redundantly to make sure it gets included whenever we get rid of facebook-login for example.

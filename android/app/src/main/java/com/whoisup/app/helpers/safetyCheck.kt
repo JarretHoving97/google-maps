@@ -33,7 +33,7 @@ private fun getRequestBodyForNegative(userId: String, reason: UserNegativeReview
     """
 }
 
-fun addPositiveSafetyCheck(
+suspend fun addPositiveSafetyCheck(
     context: Context,
     userId: String
 ): Boolean {
@@ -42,7 +42,7 @@ fun addPositiveSafetyCheck(
     return executeGraphqlCall(context, body) != null
 }
 
-fun addNegativeSafetyCheck(
+suspend fun addNegativeSafetyCheck(
     context: Context,
     userId: String,
     reason: UserNegativeReviewReasonEnum

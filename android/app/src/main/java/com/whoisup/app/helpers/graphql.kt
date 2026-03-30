@@ -2,17 +2,20 @@ package com.whoisup.app.helpers
 
 import android.content.Context
 import com.whoisup.app.BuildConfiguration
+import com.whoisup.app.FirebaseAppCheck
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.OkHttpClient
 import okhttp3.Request
 import okhttp3.RequestBody.Companion.toRequestBody
 import org.json.JSONObject
 
-fun executeGraphqlCall(
+suspend fun executeGraphqlCall(
     context: Context,
     body: String,
 ): JSONObject? {
     val jwt = getJwt(context) ?: return null
+
+    val firebaseAppCheckToken = FirebaseAppCheck.getToken(false) ?: ""
 
     val url = "${BuildConfiguration.amigosApiUrl}/graphql"
 
@@ -25,6 +28,7 @@ fun executeGraphqlCall(
         .post(requestBody)
         .addHeader("Authorization", "Bearer $jwt")
         .addHeader("Content-Type", "application/json")
+        .addHeader("X-Firebase-AppCheck", firebaseAppCheckToken)
         .build()
 
     client.newCall(request).execute().use { response ->
