@@ -7,6 +7,7 @@
 
 import SwiftUI
 import StreamChat
+import StreamChatSwiftUI
 
 public struct ChatDestinationResolver {
 

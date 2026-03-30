@@ -20,6 +20,7 @@ struct CustomSafetyCheckNotice: View {
 
     @Injected(\.chatClient) var chatClient
     @Injected(\.fonts) private var fonts
+    @Injected(\.tokenProvider) var tokenProvider
 
     let channel: ChatChannel
 
@@ -65,7 +66,12 @@ struct CustomSafetyCheckNotice: View {
         }
 
         executeGraphQLRequest(
-            body: getRequestBody(userId: otherUserId, state: safetyCheckState, reason: safetyCheckReason)
+            body: getRequestBody(
+                userId: otherUserId,
+                state: safetyCheckState,
+                reason: safetyCheckReason
+            ),
+            tokenProvider: tokenProvider
         ) { result  in
             switch result {
             case .success:

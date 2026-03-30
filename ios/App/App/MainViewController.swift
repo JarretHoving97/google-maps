@@ -19,6 +19,7 @@ class MainViewController: CustomMapViewController {
         bridge?.registerPluginInstance(ExtendedFacebookPlugin())
         bridge?.registerPluginInstance(ExtendedStreamPlugin())
         bridge?.registerPluginInstance(ExtendedDeviceSettingsPlugin())
+        bridge?.registerPluginInstance(ExtendedFirebasePlugin())
         bridge?.registerPluginInstance(calendarPlugin)
     }
 }

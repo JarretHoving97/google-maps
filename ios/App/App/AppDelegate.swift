@@ -5,6 +5,7 @@ import Capacitor
 import FacebookCore
 import FirebaseCore
 import FirebaseMessaging
+import FirebaseAppCheck
 import SDWebImageSVGCoder
 import SDWebImageSwiftUI
 import StreamChat
@@ -22,10 +23,15 @@ class AppDelegate: NSObject, UIApplicationDelegate {
         _ application: UIApplication,
         didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?
     ) -> Bool {
+        
         ApplicationDelegate.shared.application(
             application,
             didFinishLaunchingWithOptions: launchOptions
         )
+
+        // Configure Firebase AppCheck
+        let providerFactory = FirebaseAppAttestProvider()
+        AppCheck.setAppCheckProviderFactory(providerFactory)
 
         // Configure Firebase
         FirebaseApp.configure()

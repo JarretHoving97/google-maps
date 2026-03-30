@@ -93,6 +93,8 @@ public class ExtendedStreamPlugin: CAPPlugin, CAPBridgedPlugin, ClientNavigation
                 )
             )
 
+            InjectedValues[\.tokenProvider] = FirebaseAppCheck.shared
+
             let hosting = UIHostingController(rootView: view)
             hosting.modalPresentationStyle = .fullScreen
 

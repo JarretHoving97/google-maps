@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import StreamChatSwiftUI
 
 public protocol ChannelCreationService {
     typealias FindOrCreateChannelResult = (Result<String, Error>) -> Void
@@ -15,12 +16,14 @@ public protocol ChannelCreationService {
 
 public class RemoteFindOrCreateChannelService: ChannelCreationService {
 
+    @Injected(\.tokenProvider) private var tokenProvider
+
     public init() {}
 
     public func load(for user: String, completion: @escaping FindOrCreateChannelResult) {
         findOrCreateChat(receiverId: user, completion: completion)
     }
-    
+
     public func load(for user: String) async throws -> String {
         try await withCheckedThrowingContinuation { continuation in
             self.findOrCreateChat(receiverId: user) { result in
@@ -40,7 +43,7 @@ public class RemoteFindOrCreateChannelService: ChannelCreationService {
     ) {
         let body = getRequestBodyForFindOrCreateChat(receiverId: receiverId)
 
-        executeGraphQLRequest(body: body) { result in
+        executeGraphQLRequest(body: body, tokenProvider: tokenProvider) { result in
             switch result {
             case .success(let data):
                 guard let json = try? JSONSerialization.jsonObject(with: data, options: []) as? [String: Any] else {
@@ -85,4 +88,3 @@ public class RemoteFindOrCreateChannelService: ChannelCreationService {
         """
     }
 }
-

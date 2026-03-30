@@ -44,6 +44,7 @@ target 'Amigos' do
   # (for example, FirebaseCore instead of Firebase/Core and FirebaseFirestore instead of Firebase/Firestore).
   pod 'FirebaseMessaging'
   pod 'FirebaseAnalytics'
+  pod 'FirebaseAppCheck'
 end
 
 
