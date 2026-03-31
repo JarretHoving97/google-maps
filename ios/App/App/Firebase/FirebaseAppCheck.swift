@@ -34,6 +34,8 @@ public class FirebaseAppCheck {
 
         if let cachedToken, !forceRefresh {
             completion(.success(cachedToken))
+            return
+
         }
 
         AppCheck.appCheck().token(forcingRefresh: forceRefresh, completion: { [weak self] result, error in
