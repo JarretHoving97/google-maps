@@ -6,7 +6,6 @@ import FacebookCore
 import FirebaseCore
 import FirebaseMessaging
 import FirebaseAppCheck
-import SDWebImageSVGCoder
 import SDWebImageSwiftUI
 import StreamChat
 import StreamChatSwiftUI

@@ -10,7 +10,7 @@
     "build-all": "npx cap sync",
     "open-ios": "npx cap sync ios && npx cap open ios",
     "open-android": "npx cap sync android && npx cap open android",
-    "copy-map-controller": "cp ./CustomMapViewController.swift node_modules/@capacitor-community/google-maps/ios/Plugin/CustomMapViewController.swift",
+    "copy-map-controller": "cp ./CustomMapViewController.swift ../cap-plugins/google-maps/ios/Sources/CapacitorGoogleMaps/CustomMapViewController.swift",
     "postinstall": "npm run copy-map-controller"
   },
   "keywords": [
@@ -22,7 +22,7 @@
   "dependencies": {
     "@capacitor-community/contacts": "7.0.0",
     "@capacitor-community/generic-oauth2": "7.0.0",
-    "@capacitor-community/google-maps": "2.0.0-beta.13",
+    "@capacitor-community/google-maps": "github:JarretHoving97/google-maps",
     "@capacitor-community/in-app-review": "7.1.0",
     "@capacitor-community/privacy-screen": "6.0.0",
     "@capacitor-community/safe-area": "7.0.0-beta.6",
