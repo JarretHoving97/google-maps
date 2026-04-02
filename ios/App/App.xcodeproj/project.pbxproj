@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		310708E42F7EB404002323CC /* SDWebImageSVGCoder in Frameworks */ = {isa = PBXBuildFile; productRef = 310708E32F7EB404002323CC /* SDWebImageSVGCoder */; };
 		31088E322F7E617400D321DE /* BranchSDK in Frameworks */ = {isa = PBXBuildFile; productRef = 31088E312F7E617400D321DE /* BranchSDK */; };
 		316829482DBA38DA00E9FD9D /* NotificationService.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 316829412DBA38DA00E9FD9D /* NotificationService.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		316829512DBA394B00E9FD9D /* AmigosChat in Frameworks */ = {isa = PBXBuildFile; productRef = 316829502DBA394B00E9FD9D /* AmigosChat */; };
@@ -134,6 +135,7 @@
 				31088E322F7E617400D321DE /* BranchSDK in Frameworks */,
 				31FEE5052F7D0E5A00883A76 /* FirebaseMessaging in Frameworks */,
 				31E8CE052ED890D2008AA17E /* FacebookLogin in Frameworks */,
+				310708E42F7EB404002323CC /* SDWebImageSVGCoder in Frameworks */,
 				D793A0B82D478809008AAD5A /* AmigosChat in Frameworks */,
 				31FEE5012F7D0E5A00883A76 /* FirebaseAnalytics in Frameworks */,
 				319153712F7CFB7A003F6283 /* CapApp-SPM in Frameworks */,
@@ -257,6 +259,7 @@
 				31FEE5022F7D0E5A00883A76 /* FirebaseAppCheck */,
 				31FEE5042F7D0E5A00883A76 /* FirebaseMessaging */,
 				31088E312F7E617400D321DE /* BranchSDK */,
+				310708E32F7EB404002323CC /* SDWebImageSVGCoder */,
 			);
 			productName = App;
 			productReference = 504EC3041FED79650016851F /* Amigos.app */;
@@ -303,6 +306,7 @@
 				3191536F2F7CFB7A003F6283 /* XCLocalSwiftPackageReference "CapApp-SPM" */,
 				31FEE4FF2F7D0E5A00883A76 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
 				31088E302F7E617400D321DE /* XCRemoteSwiftPackageReference "ios-branch-sdk-spm" */,
+				310708E22F7EB404002323CC /* XCRemoteSwiftPackageReference "SDWebImageSVGCoder" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 504EC3051FED79650016851F /* Products */;
@@ -945,6 +949,14 @@
 /* End XCLocalSwiftPackageReference section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		310708E22F7EB404002323CC /* XCRemoteSwiftPackageReference "SDWebImageSVGCoder" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SDWebImage/SDWebImageSVGCoder?tab=readme-ov-file";
+			requirement = {
+				kind = exactVersion;
+				version = 1.8.0;
+			};
+		};
 		31088E302F7E617400D321DE /* XCRemoteSwiftPackageReference "ios-branch-sdk-spm" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/BranchMetrics/ios-branch-sdk-spm";
@@ -972,6 +984,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		310708E32F7EB404002323CC /* SDWebImageSVGCoder */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 310708E22F7EB404002323CC /* XCRemoteSwiftPackageReference "SDWebImageSVGCoder" */;
+			productName = SDWebImageSVGCoder;
+		};
 		31088E312F7E617400D321DE /* BranchSDK */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 31088E302F7E617400D321DE /* XCRemoteSwiftPackageReference "ios-branch-sdk-spm" */;

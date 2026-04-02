@@ -7,6 +7,7 @@ import FirebaseCore
 import FirebaseMessaging
 import FirebaseAppCheck
 import SDWebImageSwiftUI
+import SDWebImageSVGCoder
 import StreamChat
 import StreamChatSwiftUI
 import SwiftUI
