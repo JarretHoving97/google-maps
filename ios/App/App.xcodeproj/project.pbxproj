@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		31088E322F7E617400D321DE /* BranchSDK in Frameworks */ = {isa = PBXBuildFile; productRef = 31088E312F7E617400D321DE /* BranchSDK */; };
 		316829482DBA38DA00E9FD9D /* NotificationService.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 316829412DBA38DA00E9FD9D /* NotificationService.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		316829512DBA394B00E9FD9D /* AmigosChat in Frameworks */ = {isa = PBXBuildFile; productRef = 316829502DBA394B00E9FD9D /* AmigosChat */; };
 		319153712F7CFB7A003F6283 /* CapApp-SPM in Frameworks */ = {isa = PBXBuildFile; productRef = 319153702F7CFB7A003F6283 /* CapApp-SPM */; };
@@ -130,6 +131,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				31088E322F7E617400D321DE /* BranchSDK in Frameworks */,
 				31FEE5052F7D0E5A00883A76 /* FirebaseMessaging in Frameworks */,
 				31E8CE052ED890D2008AA17E /* FacebookLogin in Frameworks */,
 				D793A0B82D478809008AAD5A /* AmigosChat in Frameworks */,
@@ -254,6 +256,7 @@
 				31FEE5002F7D0E5A00883A76 /* FirebaseAnalytics */,
 				31FEE5022F7D0E5A00883A76 /* FirebaseAppCheck */,
 				31FEE5042F7D0E5A00883A76 /* FirebaseMessaging */,
+				31088E312F7E617400D321DE /* BranchSDK */,
 			);
 			productName = App;
 			productReference = 504EC3041FED79650016851F /* Amigos.app */;
@@ -299,6 +302,7 @@
 				31E8CE012ED890D2008AA17E /* XCRemoteSwiftPackageReference "facebook-ios-sdk" */,
 				3191536F2F7CFB7A003F6283 /* XCLocalSwiftPackageReference "CapApp-SPM" */,
 				31FEE4FF2F7D0E5A00883A76 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
+				31088E302F7E617400D321DE /* XCRemoteSwiftPackageReference "ios-branch-sdk-spm" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 504EC3051FED79650016851F /* Products */;
@@ -941,6 +945,14 @@
 /* End XCLocalSwiftPackageReference section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		31088E302F7E617400D321DE /* XCRemoteSwiftPackageReference "ios-branch-sdk-spm" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/BranchMetrics/ios-branch-sdk-spm";
+			requirement = {
+				kind = exactVersion;
+				version = 3.14.0;
+			};
+		};
 		31E8CE012ED890D2008AA17E /* XCRemoteSwiftPackageReference "facebook-ios-sdk" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/facebook/facebook-ios-sdk";
@@ -960,6 +972,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		31088E312F7E617400D321DE /* BranchSDK */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 31088E302F7E617400D321DE /* XCRemoteSwiftPackageReference "ios-branch-sdk-spm" */;
+			productName = BranchSDK;
+		};
 		316829502DBA394B00E9FD9D /* AmigosChat */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = AmigosChat;
