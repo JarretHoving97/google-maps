@@ -21,7 +21,7 @@
   "license": "ISC",
   "dependencies": {
     "@capacitor-community/contacts": "7.0.0",
-    "@capacitor-community/generic-oauth2": "7.0.0",
+    "@capacitor-community/generic-oauth2": "github:JarretHoving97/generic-oauth2",
     "@capacitor-community/google-maps": "github:JarretHoving97/google-maps",
     "@capacitor-community/in-app-review": "7.1.0",
     "@capacitor-community/privacy-screen": "6.0.0",

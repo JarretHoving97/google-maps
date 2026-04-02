@@ -12,6 +12,7 @@ let package = Package(
     ],
     dependencies: [
         .package(url: "https://github.com/ionic-team/capacitor-swift-pm.git", exact: "7.4.4"),
+        .package(name: "CapacitorCommunityGenericOauth2", path: "../../../node_modules/@capacitor-community/generic-oauth2"),
         .package(name: "CapacitorCommunityGoogleMaps", path: "../../../node_modules/@capacitor-community/google-maps"),
         .package(name: "CapacitorCommunityInAppReview", path: "../../../node_modules/@capacitor-community/in-app-review"),
         .package(name: "CapacitorCommunitySafeArea", path: "../../../node_modules/@capacitor-community/safe-area"),
@@ -33,6 +34,7 @@ let package = Package(
             dependencies: [
                 .product(name: "Capacitor", package: "capacitor-swift-pm"),
                 .product(name: "Cordova", package: "capacitor-swift-pm"),
+                .product(name: "CapacitorCommunityGenericOauth2", package: "CapacitorCommunityGenericOauth2"),
                 .product(name: "CapacitorCommunityGoogleMaps", package: "CapacitorCommunityGoogleMaps"),
                 .product(name: "CapacitorCommunityInAppReview", package: "CapacitorCommunityInAppReview"),
                 .product(name: "CapacitorCommunitySafeArea", package: "CapacitorCommunitySafeArea"),
