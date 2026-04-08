@@ -24,7 +24,7 @@
     "@capacitor-community/generic-oauth2": "github:JarretHoving97/generic-oauth2",
     "@capacitor-community/google-maps": "github:JarretHoving97/google-maps",
     "@capacitor-community/in-app-review": "7.1.0",
-    "@capacitor-community/privacy-screen": "6.0.0",
+    "@capacitor-community/privacy-screen": "6.1.0",
     "@capacitor-community/safe-area": "7.0.0-beta.6",
     "@capacitor/android": "7.4.4",
     "@capacitor/app": "7.1.0",
